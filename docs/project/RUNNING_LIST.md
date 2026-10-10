@@ -19,7 +19,6 @@ Legend: 🔎 needs research · 🛠 implementation · 📝 documentation · ❓ 
 | LU-05 | 🤝 Confirm the FIRMS Fire Map hash grammar is stable / acceptable to link to | Deep links depend on it | FIRMS team | Open. Grammar derived from the map's own parser and verified in a browser |
 | LU-06 | 🤝 FIRMS policy on third-party services using users' MAP_KEYs, and on an operator-wide key | Auth design, terms compliance | Earthdata Support (earthdata-support@nasa.gov, subject "FIRMS") | Open |
 | LU-07 | 🔎 Are geostationary (GOES / Meteosat / Himawari) detections available through the area API? | Source catalog completeness | — | Open. Not listed among area-API sources on 2026-10-09; present as map layers |
-| LU-08 | 🔎 US/Canada map (`/usfs/map/`) hash compatibility and its extra layers | Link builder for US/Canada | — | Open. Global map config marks the US/Canada mode as `copyHash: true` |
 | LU-09 | 🔎 Which MCP hosts support MCP Apps, CIMD, and mid-session step-up (401 after anonymous use) | Client compatibility matrix | — | Open |
 | LU-10 | 🔎 Standard-processing (SP) lag per sensor | Explaining availability to users | — | Open. Map date service (2026-10-09): MODIS SP to 2026-07-31; VIIRS S-NPP SP and NOAA-20 SP to 2026-06-30 |
 | LU-11 | 🔎 Review FIRMS API code examples at `/academy/` | Usage patterns, undocumented parameters | — | Open. Note: the area page's own script also generates `/api/area/html/…` URLs (an HTML output type besides `csv`) |
@@ -35,7 +34,7 @@ Legend: 🔎 needs research · 🛠 implementation · 📝 documentation · ❓ 
 | WK-02 | 📝 Decision-making characterization and evaluation plan | WP2 | Open |
 | WK-03 | 🛠 Knowledge base: verbatim FAQ ingestion, supplements, loader, search, refresh script, completeness test | WP3 | Done on `feature/knowledge-base` (see Done) |
 | WK-04 | 🛠 FIRMS API client, source catalog, CSV normalizer, caching, rate-limit guard | WP4 | Done on `feature/firms-api-client` (see Done) |
-| WK-05 | 🛠 Map link builder and layer catalog snapshot with refresh/verification script | WP5 | Open |
+| WK-05 | 🛠 Map link builder and layer catalog snapshot with refresh/verification script | WP5 | Done (snapshot queued for signing) |
 | WK-06 | 📝 Viability case | WP6 | Open |
 | WK-07 | 🛠 MCP server: tools, resources, prompts, instructions, health, `server.json`, `ard.json` | WP7 | Open |
 | WK-08 | 🛠 Auth: env var, OAuth 2.1 MAP_KEY connect flow (CIMD + DCR), encrypted tokens, step-up | WP8 | Open |
@@ -55,6 +54,19 @@ Legend: 🔎 needs research · 🛠 implementation · 📝 documentation · ❓ 
 | OD-04 | ❓ Allow an operator-wide MAP_KEY for anonymous users on a public deployment | Disabled by default | Open |
 | OD-05 | 🔑 Provide a FIRMS MAP_KEY locally (in `.env`, never in chat) to run live validation | Live tests skip without it | Open |
 
+## Pending signed commits
+
+Commits are signed through the owner's 1Password SSH key. While the owner is away, each
+finished feature is snapshotted as a git tree (`git write-tree`, pinned at
+`refs/snapshots/<NN>-<wp>`) with its commit and merge messages, and replayed as signed
+commits and `--no-ff` merges when the owner is back to approve (owner decision,
+2026-10-10).
+
+| Order | Branch | Snapshot ref | Status |
+|---|---|---|---|
+| 01 | `feature/firms-api-client` (WP4) | `refs/snapshots/01-wp4` | Awaiting signing |
+| 02 | `feature/map-links` (WP5) | `refs/snapshots/02-wp5` | Awaiting signing |
+
 ## Done
 
 | ID | Item | Closed by |
@@ -67,4 +79,6 @@ Legend: 🔎 needs research · 🛠 implementation · 📝 documentation · ❓ 
 | LU-12 | Full text of the LANCE disclaimer | Imported verbatim as `supplement.disclaimers.lance-disclaimer` (and acknowledgments) |
 | LU-16 | MAP_KEY format | FIRMS pages validate a MAP_KEY as 32 alphanumeric characters (`/api/map_key/` checks `^[0-9a-z]+$`, the area page checks case-insensitively) and check status at `/mapserver/mapkey_status/?MAP_KEY=…` |
 | WK-03 | Knowledge base (WP3) | 150 entries (142 FAQ + 8 supplements); completeness 0 missing lines; 52 tests — merge of `feature/knowledge-base` |
+| LU-08 | US/Canada map hash compatibility | Verified 2026-10-10: `/usfs/map/` honours the same grammar and layer IDs (270 layers; minimum zoom 4) |
+| WK-05 | Fire Map link builder (WP5) | `firms_mcp.maplinks` + catalog snapshot + `scripts/check_map_catalog.py`; generated links verified in the real map; 149 tests |
 | WK-04 | FIRMS API client (WP4) | `firms_mcp.firms`: catalog, client, parser, summaries, cache, budget, KML links, redaction; 125 tests — merge of `feature/firms-api-client` |

@@ -1,0 +1,2140 @@
+{
+ "retrieved": "2026-10-09",
+ "source": "FIRMS Fire Map runtime configuration (map config version 2.0.0, bundle firms_map.927094f8.js); modes and modules from the bundle, layers from the running map",
+ "maps": {
+  "global": {
+   "path": "/map/",
+   "min_zoom": 1,
+   "max_zoom": 16
+  },
+  "us-canada": {
+   "path": "/usfs/map/",
+   "min_zoom": 4,
+   "max_zoom": 16
+  }
+ },
+ "default_view": {
+  "dates": "24hrs",
+  "layers": [
+   "earth",
+   "fires_all",
+   "country-outline"
+  ]
+ },
+ "modes": [
+  {
+   "id": "basic",
+   "label": "Basic Mode",
+   "description": "Provides essential layers to quickly identify and visualize current/recent fire activity and factors affecting satellite fire detection.",
+   "modules": [
+    "multidayselector",
+    "basic-fires",
+    "usca-info",
+    "overlays-basic",
+    "dynamic-basic",
+    "basemaps-basic",
+    "identify",
+    "fire-info"
+   ]
+  },
+  {
+   "id": "advanced",
+   "label": "Advanced Mode",
+   "description": "Provides all satellite imagery, other satellite data products and ancillary geospatial data to visualize, explore and analyze for current and past fire activity.",
+   "modules": [
+    "multiday-timeselector",
+    "advanced-fires",
+    "usca-info",
+    "swaths",
+    "burned-area2",
+    "burned-area-viirs",
+    "fire-grids",
+    "smoke-basic",
+    "persistent_fires",
+    "overlays",
+    "harmonized-advanced",
+    "dynamic-advanced",
+    "basemaps-advanced",
+    "identify",
+    "fire-info"
+   ]
+  },
+  {
+   "id": "burned_area",
+   "label": "Burned Area",
+   "description": "Provides satellite imagery and other derived satellite data products to detect, visualize, explore and analyze burned areas.",
+   "modules": [
+    "multidayselectorsimple",
+    "ba-fires",
+    "usca-info",
+    "harmonized-advanced",
+    "burned-area2",
+    "burned-area-viirs",
+    "overlays",
+    "dynamic-ba",
+    "basemaps-advanced",
+    "identify",
+    "fire-info"
+   ]
+  },
+  {
+   "id": "usfs_uscan",
+   "label": "US/CANADA",
+   "description": "Provides satellite imagery, other satellite data products to visualize, explore and analyze for current and past fire activity. Additional geospatial data provided to inform and support strategic wildland fire management users.",
+   "urlRedirect": "/usfs/map/",
+   "modules": []
+  },
+  {
+   "id": "smoke",
+   "label": "Smoke / Aerosols",
+   "description": "Provides satellite products useful for highlighting the extent and tracking the transport of smoke.",
+   "modules": [
+    "multidayselectorsimple",
+    "smoke-fires",
+    "smoke",
+    "orbits-smoke",
+    "overlays",
+    "dynamic-smoke",
+    "basemaps-advanced",
+    "identify"
+   ]
+  },
+  {
+   "id": "experimental",
+   "label": "Experimental",
+   "description": "Provides new and/or prototype satellite data products for access and evaluation by the user community.",
+   "modules": [
+    "multidayselectorsimple",
+    "experimental-fires",
+    "feds_exp",
+    "persistent_fires",
+    "swaths",
+    "overlays",
+    "harmonized-advanced",
+    "dynamic-advanced",
+    "basemaps-advanced",
+    "identify"
+   ]
+  },
+  {
+   "id": "fire_alerts",
+   "label": "Fire Alerts",
+   "description": "Users can sign up and receive email alerts about fires through FIRMS.",
+   "urlRedirect": "/alerts/",
+   "modules": []
+  },
+  {
+   "id": "downloads",
+   "label": "Downloads",
+   "description": "Users have access to archived data for review using the downloads feature in FIRMS.",
+   "urlRedirect": "/download/",
+   "modules": []
+  },
+  {
+   "id": "learn",
+   "label": "Learn Mode",
+   "description": "",
+   "modules": [
+    "learn-mode"
+   ]
+  }
+ ],
+ "modules": [
+  {
+   "id": "multidayselector",
+   "label": "Select today, 24hrs, 7 days, ..."
+  },
+  {
+   "id": "multiday-timeselector",
+   "label": "Select 1hr, 4hrs, today, 24hrs, 7 days, ..."
+  },
+  {
+   "id": "multidayselectorsimple",
+   "label": "Select basic days"
+  },
+  {
+   "id": "filterlayers",
+   "label": "Filter Layers"
+  },
+  {
+   "id": "basic-fires",
+   "label": "Fires / Hotspots",
+   "tag": "quick_fires",
+   "defaultLayers": [
+    "fires_all"
+   ],
+   "layer_refs": [
+    "fires_all"
+   ]
+  },
+  {
+   "id": "advanced-fires",
+   "label": "Fires / Hotspots",
+   "tag": "fires",
+   "defaultLayers": [
+    "fires_modis_terra",
+    "fires_modis_aqua",
+    "fires_viirs_snpp",
+    "fires_viirs_noaa20",
+    "fires_viirs_noaa21",
+    "fires_landsat_landsat"
+   ],
+   "layer_refs": [
+    "fires_landsat_landsat",
+    "fires_viirs_noaa20",
+    "fires_viirs_noaa21",
+    "fires_viirs_snpp",
+    "fires_modis_aqua",
+    "fires_modis_terra",
+    "fires_goes_g18",
+    "fires_goes_g18frp",
+    "fires_goes_g19",
+    "fires_goes_g19frp",
+    "fires_goes_Him9",
+    "fires_goes_Met9",
+    "fires_goes_Met10",
+    "fires_viirs_noaa20_nrt",
+    "fires_viirs_snpp_nrt",
+    "fires_modis_aqua_nrt",
+    "fires_modis_terra_nrt",
+    "fires_viirs_noaa20_sp",
+    "fires_viirs_snpp_sp",
+    "fires_modis_aqua_sp",
+    "fires_modis_terra_sp"
+   ]
+  },
+  {
+   "id": "experimental-fires",
+   "label": "Fires / Hotspots",
+   "tag": "fires",
+   "defaultLayers": [
+    "fires_modis_terra",
+    "fires_modis_aqua",
+    "fires_viirs_snpp",
+    "fires_viirs_noaa20",
+    "fires_viirs_noaa21",
+    "fires_landsat_landsat",
+    "fires_goes_Met12"
+   ],
+   "layer_refs": [
+    "fires_landsat_landsat",
+    "fires_viirs_noaa20",
+    "fires_viirs_noaa21",
+    "fires_viirs_snpp",
+    "fires_modis_aqua",
+    "fires_modis_terra",
+    "fires_goes_g18",
+    "fires_goes_g18frp",
+    "fires_goes_g19",
+    "fires_goes_g19frp",
+    "fires_goes_Him9",
+    "fires_goes_Met9",
+    "fires_goes_Met10",
+    "fires_goes_Met12"
+   ]
+  },
+  {
+   "id": "advanced-fires-usfs",
+   "label": "Fires / Hotspots",
+   "tag": "fires",
+   "defaultLayers": [
+    "fires_modis_terra",
+    "fires_modis_aqua",
+    "fires_viirs_snpp",
+    "fires_viirs_noaa20",
+    "fires_viirs_noaa21",
+    "fires_landsat_landsat"
+   ],
+   "layer_refs": [
+    "fires_landsat_landsat",
+    "fires_viirs_noaa20",
+    "fires_viirs_noaa21",
+    "fires_viirs_snpp",
+    "fires_modis_aqua",
+    "fires_modis_terra",
+    "fires_goes_g18",
+    "fires_goes_g18frp",
+    "fires_goes_g19",
+    "fires_goes_g19frp",
+    "fires_viirs_noaa20_nrt",
+    "fires_viirs_snpp_nrt",
+    "fires_modis_aqua_nrt",
+    "fires_modis_terra_nrt",
+    "fires_viirs_noaa20_sp",
+    "fires_viirs_snpp_sp",
+    "fires_modis_aqua_sp",
+    "fires_modis_terra_sp"
+   ]
+  },
+  {
+   "id": "ba-fires",
+   "label": "Fires / Hotspots",
+   "tag": "fires",
+   "layer_refs": [
+    "fires_landsat_landsat",
+    "fires_viirs_noaa20",
+    "fires_viirs_noaa21",
+    "fires_viirs_snpp",
+    "fires_modis_aqua",
+    "fires_modis_terra"
+   ]
+  },
+  {
+   "id": "smoke-fires",
+   "label": "Fires / Hotspots",
+   "tag": "fires",
+   "defaultLayers": [
+    "fires_landsat_landsat",
+    "fires_viirs_noaa20",
+    "fires_viirs_noaa21",
+    "fires_viirs_snpp",
+    "fires_modis_aqua",
+    "fires_modis_terra"
+   ],
+   "layer_refs": [
+    "fires_landsat_landsat",
+    "fires_viirs_noaa20",
+    "fires_viirs_noaa21",
+    "fires_viirs_snpp",
+    "fires_modis_aqua",
+    "fires_modis_terra"
+   ]
+  },
+  {
+   "id": "burned-area2",
+   "label": "MODIS Burned Area",
+   "tag": "burned_area"
+  },
+  {
+   "id": "burned-area-viirs",
+   "label": "VIIRS Burned Area",
+   "tag": "burned_area_viirs"
+  },
+  {
+   "id": "basemaps-basic",
+   "label": "Static Backgrounds",
+   "tag": "basemap",
+   "defaultLayers": [
+    "earth"
+   ],
+   "layer_refs": [
+    "earth",
+    "firefly",
+    "street",
+    "topo"
+   ]
+  },
+  {
+   "id": "basemaps-advanced",
+   "label": "Static Backgrounds",
+   "tag": "basemap",
+   "defaultLayers": [
+    "earth"
+   ]
+  },
+  {
+   "id": "fire-grids",
+   "label": "Gridded Fire Hotspots (Daily)",
+   "tag": "fire-grids"
+  },
+  {
+   "id": "overlays-basic",
+   "label": "Overlays",
+   "tag": "overlay",
+   "defaultLayers": [
+    "country-outline"
+   ],
+   "layer_refs": [
+    "countries",
+    "country-outline",
+    "volcanoes",
+    "protected_areas_regional",
+    "protected_areas"
+   ]
+  },
+  {
+   "id": "overlays",
+   "label": "Overlays",
+   "tag": "overlay",
+   "defaultLayers": [
+    "country-outline"
+   ]
+  },
+  {
+   "id": "overlays-basic-usfs",
+   "label": "Overlays",
+   "tag": "overlay",
+   "defaultLayers": [
+    "countries"
+   ],
+   "layer_refs": [
+    "countries",
+    "country-outline",
+    "protected_areas"
+   ]
+  },
+  {
+   "id": "overlays-usfs",
+   "label": "Overlays",
+   "tag": "overlay",
+   "defaultLayers": [
+    "countries"
+   ]
+  },
+  {
+   "id": "active-alerts-basic",
+   "label": "Active Alerts",
+   "tag": "alerts",
+   "defaultLayers": [
+    "active-usa",
+    "active-ca",
+    "fire-perimeter"
+   ],
+   "layer_refs": [
+    "active-fire-label",
+    "active-usa",
+    "active-ca",
+    "fire-perimeter",
+    "noaa-fire-watch",
+    "noaa-red-flag"
+   ]
+  },
+  {
+   "id": "active-alerts-advanced",
+   "label": "Active Alerts",
+   "tag": "alerts",
+   "defaultLayers": [
+    "active-usa",
+    "active-ca",
+    "fire-perimeter"
+   ]
+  },
+  {
+   "id": "smoke",
+   "label": "Smoke and Aerosols",
+   "tag": "smoke",
+   "defaultLayers": [
+    "snpp_omps_aerosol"
+   ]
+  },
+  {
+   "id": "smoke-basic",
+   "label": "Smoke and Aerosols",
+   "tag": "smoke"
+  },
+  {
+   "id": "harmonized-advanced",
+   "label": "Harmonized Landsat Sentinel-2 Imagery",
+   "tag": "hls"
+  },
+  {
+   "id": "feds_exp",
+   "label": "Fire Perimeter",
+   "tag": "eis",
+   "defaultLayers": [
+    "eis_fire_lf_perimeter_nrt"
+   ],
+   "layer_refs": [
+    "eis_fire_lf_perimeter_nrt"
+   ]
+  },
+  {
+   "id": "persistent_fires",
+   "label": "Static Thermal Anomalies",
+   "tag": "pf"
+  },
+  {
+   "id": "identify",
+   "label": "Identify",
+   "layer_refs": [
+    "identify"
+   ]
+  },
+  {
+   "id": "dynamic-basic",
+   "label": "Dynamic Imagery",
+   "tag": "imagery",
+   "layer_refs": [
+    "noaa20_crtc",
+    "noaa21_crtc",
+    "viirs_crtc",
+    "aqua_crc",
+    "terra_crc"
+   ]
+  },
+  {
+   "id": "dynamic-advanced",
+   "label": "Dynamic Imagery",
+   "tag": "imagery"
+  },
+  {
+   "id": "dynamic-smoke",
+   "label": "Dynamic Imagery",
+   "tag": "imagery",
+   "layer_refs": [
+    "goes_w_color",
+    "goes_e_color",
+    "noaa20_crtc",
+    "noaa21_crtc",
+    "viirs_crtc",
+    "aqua_crc",
+    "terra_crc"
+   ]
+  },
+  {
+   "id": "dynamic-ba",
+   "label": "Dynamic Imagery",
+   "tag": "imagery",
+   "layer_refs": [
+    "terra_srb721",
+    "aqua_srb721",
+    "viirs_m11",
+    "noaa20_m11",
+    "noaa21_m11"
+   ]
+  },
+  {
+   "id": "swaths",
+   "label": "Satellite Swath Outlines",
+   "tag": "swaths"
+  },
+  {
+   "id": "swaths",
+   "label": "Satellite Swath Outlines & Orbit Tracks",
+   "tag": "swaths"
+  },
+  {
+   "id": "orbits-smoke",
+   "label": "Orbit Tracks and Overpass Times",
+   "tag": "orbits",
+   "layer_refs": [
+    "Suomi_NPP_Orbit_Asc",
+    "Suomi_NPP_Orbit_Dsc",
+    "NOAA-20_Orbit_Asc",
+    "NOAA-20_Orbit_Dsc",
+    "NOAA-21_Orbit_Asc",
+    "NOAA-21_Orbit_Dsc",
+    "Terra_Orbit_Asc",
+    "Terra_Orbit_Dsc",
+    "Aqua_Orbit_Asc",
+    "Aqua_Orbit_Dsc"
+   ]
+  },
+  {
+   "id": "fire-info",
+   "label": "Information about fires"
+  },
+  {
+   "id": "usca-info",
+   "label": "US - Canada Layers"
+  },
+  {
+   "id": "learn-mode",
+   "label": "Information about modes"
+  }
+ ],
+ "layers": [
+  {
+   "id": "earth",
+   "title": "Blue Marble",
+   "category": "basemap",
+   "tag": "basemap"
+  },
+  {
+   "id": "firefly",
+   "title": "Firefly",
+   "category": "basemap",
+   "tag": "basemap"
+  },
+  {
+   "id": "street",
+   "title": "Streets",
+   "category": "basemap",
+   "tag": "basemap"
+  },
+  {
+   "id": "light_gray",
+   "title": "Light Gray",
+   "category": "basemap",
+   "tag": "basemap"
+  },
+  {
+   "id": "dark_gray",
+   "title": "Dark Gray",
+   "category": "basemap",
+   "tag": "basemap"
+  },
+  {
+   "id": "topo_shade",
+   "title": "Topographic",
+   "category": "basemap",
+   "tag": "basemap"
+  },
+  {
+   "id": "topo",
+   "title": "Topographic",
+   "category": "basemap",
+   "tag": "basemap"
+  },
+  {
+   "id": "snpp_bm_by",
+   "title": "VIIRS S-NPP Black Marble Nighttime Blue/Yellow Composite",
+   "category": "layer",
+   "tag": "imagery"
+  },
+  {
+   "id": "snpp_bm",
+   "title": "VIIRS S-NPP Black Marble Nighttime At Sensor Radiance",
+   "category": "layer",
+   "tag": "imagery"
+  },
+  {
+   "id": "noaa20_bm_by",
+   "title": "VIIRS NOAA-20 Black Marble Nighttime Blue/Yellow Composite",
+   "category": "layer",
+   "tag": "imagery"
+  },
+  {
+   "id": "noaa20_bm",
+   "title": "VIIRS NOAA-20 Black Marble Nighttime At Sensor Radiance",
+   "category": "layer",
+   "tag": "imagery"
+  },
+  {
+   "id": "terra_srb721",
+   "title": "MODIS/Terra Corrected Reflectance 721",
+   "category": "layer",
+   "tag": "imagery"
+  },
+  {
+   "id": "aqua_srb721",
+   "title": "MODIS/Aqua Corrected Reflectance 721",
+   "category": "layer",
+   "tag": "imagery"
+  },
+  {
+   "id": "viirs_m11",
+   "title": "VIIRS S-NPP Corrected Reflectance (bands M11-I2-I1)",
+   "category": "layer",
+   "tag": "imagery"
+  },
+  {
+   "id": "noaa21_m11",
+   "title": "VIIRS NOAA-21 Corrected Reflectance (bands M11-I2-I1)",
+   "category": "layer",
+   "tag": "imagery"
+  },
+  {
+   "id": "noaa20_m11",
+   "title": "VIIRS NOAA-20 Corrected Reflectance (bands M11-I2-I1)",
+   "category": "layer",
+   "tag": "imagery"
+  },
+  {
+   "id": "goes_e_color",
+   "title": "GOES East GeoColor (True Color (Day), Multispectral IR (Night))",
+   "category": "layer",
+   "tag": "imagery"
+  },
+  {
+   "id": "goes_w_color",
+   "title": "GOES West GeoColor (True Color (Day), Multispectral IR (Night))",
+   "category": "layer",
+   "tag": "imagery"
+  },
+  {
+   "id": "eumetsat_combined",
+   "title": "Geostationary Ring Natural Color RGB - Multimission",
+   "category": "layer",
+   "tag": "imagery"
+  },
+  {
+   "id": "hlsl30-true-color_7",
+   "title": "7",
+   "category": "layer",
+   "tag": "imagery"
+  },
+  {
+   "id": "hlsl30-true-color_6",
+   "title": "6",
+   "category": "layer",
+   "tag": "imagery"
+  },
+  {
+   "id": "hlsl30-true-color_5",
+   "title": "5",
+   "category": "layer",
+   "tag": "imagery"
+  },
+  {
+   "id": "hlsl30-true-color_4",
+   "title": "4",
+   "category": "layer",
+   "tag": "imagery"
+  },
+  {
+   "id": "hlsl30-true-color_3",
+   "title": "3",
+   "category": "layer",
+   "tag": "imagery"
+  },
+  {
+   "id": "hlsl30-true-color_2",
+   "title": "2",
+   "category": "layer",
+   "tag": "imagery"
+  },
+  {
+   "id": "hlsl30-true-color_1",
+   "title": "1",
+   "category": "layer",
+   "tag": "imagery"
+  },
+  {
+   "id": "hlsl30-true-color_8day",
+   "title": "Landsat 8/9 HLS Last 8-Day Adjusted Reflectance BRDF (true color)",
+   "category": "layer",
+   "tag": "imagery"
+  },
+  {
+   "id": "hlss30-true-color_4",
+   "title": "4",
+   "category": "layer",
+   "tag": "imagery"
+  },
+  {
+   "id": "hlss30-true-color_3",
+   "title": "3",
+   "category": "layer",
+   "tag": "imagery"
+  },
+  {
+   "id": "hlss30-true-color_2",
+   "title": "2",
+   "category": "layer",
+   "tag": "imagery"
+  },
+  {
+   "id": "hlss30-true-color_1",
+   "title": "1",
+   "category": "layer",
+   "tag": "imagery"
+  },
+  {
+   "id": "hlss30-true-color_5day",
+   "title": "Sentinel-2 HLS Last 5-Day Adjusted Reflectance BRDF (true color)",
+   "category": "layer",
+   "tag": "imagery"
+  },
+  {
+   "id": "terra_crc",
+   "title": "MODIS/Terra Corrected Reflectance (true color)",
+   "category": "layer",
+   "tag": "imagery"
+  },
+  {
+   "id": "aqua_crc",
+   "title": "MODIS/Aqua Corrected Reflectance (true color)",
+   "category": "layer",
+   "tag": "imagery"
+  },
+  {
+   "id": "viirs_crtc",
+   "title": "VIIRS S-NPP Corrected Reflectance (true color)",
+   "category": "layer",
+   "tag": "imagery"
+  },
+  {
+   "id": "noaa21_crtc",
+   "title": "VIIRS NOAA-21 Corrected Reflectance (true color)",
+   "category": "layer",
+   "tag": "imagery"
+  },
+  {
+   "id": "noaa20_crtc",
+   "title": "VIIRS NOAA-20 Corrected Reflectance (true color)",
+   "category": "layer",
+   "tag": "imagery"
+  },
+  {
+   "id": "aqua_aerosol",
+   "title": "MODIS/Aqua Aerosol Optical Depth",
+   "category": "layer",
+   "tag": "smoke_other"
+  },
+  {
+   "id": "terra_aerosol",
+   "title": "MODIS/Terra Aerosol Optical Depth",
+   "category": "layer",
+   "tag": "smoke_other"
+  },
+  {
+   "id": "snpp_aot_db",
+   "title": "VIIRS/SNPP Deep Blue Aerosol Optical Thickness",
+   "category": "layer",
+   "tag": "smoke_other"
+  },
+  {
+   "id": "snpp_aot_dt",
+   "title": "VIIRS/SNPP Dark Target Aerosol Optical Thickness",
+   "category": "layer",
+   "tag": "smoke_other"
+  },
+  {
+   "id": "data_outline_s30",
+   "title": "Ouline S30",
+   "category": "layer",
+   "tag": "hls"
+  },
+  {
+   "id": "data_outline_l30",
+   "title": "Ouline L30",
+   "category": "layer",
+   "tag": "hls"
+  },
+  {
+   "id": "hlsl30-custom",
+   "title": "LANDSAT - Custom Bands",
+   "category": "layer",
+   "tag": "hls"
+  },
+  {
+   "id": "hlss30-custom",
+   "title": "SENTINEL - Custom Bands",
+   "category": "layer",
+   "tag": "hls"
+  },
+  {
+   "id": "hlsl30-ndmi",
+   "title": "NDMI - Normalized Difference Moisture Index",
+   "category": "layer",
+   "tag": "hls"
+  },
+  {
+   "id": "hlsl30-ndvi",
+   "title": "NDVI - Normalized Difference Vegetation Index",
+   "category": "layer",
+   "tag": "hls"
+  },
+  {
+   "id": "hlsl30-nbr2",
+   "title": "NBR2 - Normalized Burn Ratio 2",
+   "category": "layer",
+   "tag": "hls"
+  },
+  {
+   "id": "hlsl30-nbr",
+   "title": "NBR - Normalized Burn Ratio",
+   "category": "layer",
+   "tag": "hls"
+  },
+  {
+   "id": "hlsl30-false-color",
+   "title": "Adjusted Reflectance BRDF (false color - vegetation)",
+   "category": "layer",
+   "tag": "hls"
+  },
+  {
+   "id": "hlsl30-true-color",
+   "title": "Adjusted Reflectance BRDF (true color)",
+   "category": "layer",
+   "tag": "hls"
+  },
+  {
+   "id": "hlss30-ndmi",
+   "title": "NDMI - Normalized Difference Moisture Index",
+   "category": "layer",
+   "tag": "hls"
+  },
+  {
+   "id": "hlss30-ndvi",
+   "title": "NDVI - Normalized Difference Vegetation Index",
+   "category": "layer",
+   "tag": "hls"
+  },
+  {
+   "id": "hlss30-nbr2",
+   "title": "NBR2 - Normalized Burn Ratio 2",
+   "category": "layer",
+   "tag": "hls"
+  },
+  {
+   "id": "hlss30-nbr",
+   "title": "NBR - Normalized Burn Ratio",
+   "category": "layer",
+   "tag": "hls"
+  },
+  {
+   "id": "hlss30-false-color",
+   "title": "Adjusted Reflectance BRDF (false color - vegetation)",
+   "category": "layer",
+   "tag": "hls"
+  },
+  {
+   "id": "hlss30-true-color",
+   "title": "Adjusted Reflectance BRDF (true color)",
+   "category": "layer",
+   "tag": "hls"
+  },
+  {
+   "id": "protected_areas_regional",
+   "title": "European Regional PAs",
+   "category": "overlay",
+   "tag": "overlay"
+  },
+  {
+   "id": "protected_areas",
+   "title": "Protected Areas",
+   "category": "overlay",
+   "tag": "overlay"
+  },
+  {
+   "id": "landsat_human",
+   "title": "Human Built-up And Settlement Extent",
+   "category": "layer",
+   "tag": "overlay"
+  },
+  {
+   "id": "sta_mask",
+   "title": "Static Thermal Anomalies – Mask",
+   "category": "layer",
+   "tag": "pf"
+  },
+  {
+   "id": "firms_grids",
+   "title": "Gridded Aggregates",
+   "category": "layer",
+   "tag": "fire-grids"
+  },
+  {
+   "id": "firms_grids_label",
+   "title": "firms_grids_label",
+   "category": "layer",
+   "tag": "fire-grids"
+  },
+  {
+   "id": "drawClassic",
+   "title": "drawClassic",
+   "category": "layer",
+   "tag": ""
+  },
+  {
+   "id": "drawPolygon",
+   "title": "drawPolygon",
+   "category": "layer",
+   "tag": ""
+  },
+  {
+   "id": "viirs_yba_3",
+   "title": "VIIRS Yearly Burned Area",
+   "category": "layer",
+   "tag": "burned_area_viirs"
+  },
+  {
+   "id": "viirs_yba_2",
+   "title": "VIIRS Yearly Burned Area",
+   "category": "layer",
+   "tag": "burned_area_viirs"
+  },
+  {
+   "id": "viirs_yba",
+   "title": "VIIRS Yearly Burned Area",
+   "category": "layer",
+   "tag": "burned_area_viirs"
+  },
+  {
+   "id": "viirs_ba_1",
+   "title": "VIIRS Burned Area",
+   "category": "layer",
+   "tag": "burned_area_viirs"
+  },
+  {
+   "id": "viirs_ba_2",
+   "title": "VIIRS Burned Area",
+   "category": "layer",
+   "tag": "burned_area_viirs"
+  },
+  {
+   "id": "viirs_ba_3",
+   "title": "VIIRS Burned Area",
+   "category": "layer",
+   "tag": "burned_area_viirs"
+  },
+  {
+   "id": "viirs_ba_4",
+   "title": "VIIRS Burned Area",
+   "category": "layer",
+   "tag": "burned_area_viirs"
+  },
+  {
+   "id": "viirs_ba_5",
+   "title": "VIIRS Burned Area",
+   "category": "layer",
+   "tag": "burned_area_viirs"
+  },
+  {
+   "id": "viirs_ba_6",
+   "title": "VIIRS Burned Area",
+   "category": "layer",
+   "tag": "burned_area_viirs"
+  },
+  {
+   "id": "viirs_ba_7",
+   "title": "VIIRS Burned Area",
+   "category": "layer",
+   "tag": "burned_area_viirs"
+  },
+  {
+   "id": "viirs_ba_8",
+   "title": "VIIRS Burned Area",
+   "category": "layer",
+   "tag": "burned_area_viirs"
+  },
+  {
+   "id": "viirs_ba_9",
+   "title": "VIIRS Burned Area",
+   "category": "layer",
+   "tag": "burned_area_viirs"
+  },
+  {
+   "id": "viirs_ba_10",
+   "title": "VIIRS Burned Area",
+   "category": "layer",
+   "tag": "burned_area_viirs"
+  },
+  {
+   "id": "viirs_ba_11",
+   "title": "VIIRS Burned Area",
+   "category": "layer",
+   "tag": "burned_area_viirs"
+  },
+  {
+   "id": "viirs_ba_12",
+   "title": "VIIRS Burned Area",
+   "category": "layer",
+   "tag": "burned_area_viirs"
+  },
+  {
+   "id": "viirs_ba2_1",
+   "title": "VIIRS Burned Area",
+   "category": "layer",
+   "tag": "burned_area_viirs"
+  },
+  {
+   "id": "viirs_ba2_2",
+   "title": "VIIRS Burned Area",
+   "category": "layer",
+   "tag": "burned_area_viirs"
+  },
+  {
+   "id": "viirs_ba2_3",
+   "title": "VIIRS Burned Area",
+   "category": "layer",
+   "tag": "burned_area_viirs"
+  },
+  {
+   "id": "viirs_ba2_4",
+   "title": "VIIRS Burned Area",
+   "category": "layer",
+   "tag": "burned_area_viirs"
+  },
+  {
+   "id": "viirs_ba2_5",
+   "title": "VIIRS Burned Area",
+   "category": "layer",
+   "tag": "burned_area_viirs"
+  },
+  {
+   "id": "viirs_ba2_6",
+   "title": "VIIRS Burned Area",
+   "category": "layer",
+   "tag": "burned_area_viirs"
+  },
+  {
+   "id": "viirs_ba2_7",
+   "title": "VIIRS Burned Area",
+   "category": "layer",
+   "tag": "burned_area_viirs"
+  },
+  {
+   "id": "viirs_ba2_8",
+   "title": "VIIRS Burned Area",
+   "category": "layer",
+   "tag": "burned_area_viirs"
+  },
+  {
+   "id": "viirs_ba2_9",
+   "title": "VIIRS Burned Area",
+   "category": "layer",
+   "tag": "burned_area_viirs"
+  },
+  {
+   "id": "viirs_ba2_10",
+   "title": "VIIRS Burned Area",
+   "category": "layer",
+   "tag": "burned_area_viirs"
+  },
+  {
+   "id": "viirs_ba2_11",
+   "title": "VIIRS Burned Area",
+   "category": "layer",
+   "tag": "burned_area_viirs"
+  },
+  {
+   "id": "viirs_ba2_12",
+   "title": "VIIRS Burned Area",
+   "category": "layer",
+   "tag": "burned_area_viirs"
+  },
+  {
+   "id": "viirs_ba3_1",
+   "title": "VIIRS Burned Area",
+   "category": "layer",
+   "tag": "burned_area_viirs"
+  },
+  {
+   "id": "viirs_ba3_2",
+   "title": "VIIRS Burned Area",
+   "category": "layer",
+   "tag": "burned_area_viirs"
+  },
+  {
+   "id": "viirs_ba3_3",
+   "title": "VIIRS Burned Area",
+   "category": "layer",
+   "tag": "burned_area_viirs"
+  },
+  {
+   "id": "viirs_ba3_4",
+   "title": "VIIRS Burned Area",
+   "category": "layer",
+   "tag": "burned_area_viirs"
+  },
+  {
+   "id": "viirs_ba3_5",
+   "title": "VIIRS Burned Area",
+   "category": "layer",
+   "tag": "burned_area_viirs"
+  },
+  {
+   "id": "viirs_ba3_6",
+   "title": "VIIRS Burned Area",
+   "category": "layer",
+   "tag": "burned_area_viirs"
+  },
+  {
+   "id": "viirs_ba3_7",
+   "title": "VIIRS Burned Area",
+   "category": "layer",
+   "tag": "burned_area_viirs"
+  },
+  {
+   "id": "viirs_ba3_8",
+   "title": "VIIRS Burned Area",
+   "category": "layer",
+   "tag": "burned_area_viirs"
+  },
+  {
+   "id": "viirs_ba3_9",
+   "title": "VIIRS Burned Area",
+   "category": "layer",
+   "tag": "burned_area_viirs"
+  },
+  {
+   "id": "viirs_ba3_10",
+   "title": "VIIRS Burned Area",
+   "category": "layer",
+   "tag": "burned_area_viirs"
+  },
+  {
+   "id": "viirs_ba3_11",
+   "title": "VIIRS Burned Area",
+   "category": "layer",
+   "tag": "burned_area_viirs"
+  },
+  {
+   "id": "viirs_ba3_12",
+   "title": "VIIRS Burned Area",
+   "category": "layer",
+   "tag": "burned_area_viirs"
+  },
+  {
+   "id": "modis_yba_3",
+   "title": "MODIS Yearly Burned Area",
+   "category": "layer",
+   "tag": "burned_area"
+  },
+  {
+   "id": "modis_yba_2",
+   "title": "MODIS Yearly Burned Area",
+   "category": "layer",
+   "tag": "burned_area"
+  },
+  {
+   "id": "modis_yba",
+   "title": "MODIS Yearly Burned Area",
+   "category": "layer",
+   "tag": "burned_area"
+  },
+  {
+   "id": "modis_ba_1",
+   "title": "MODIS Burned Area",
+   "category": "layer",
+   "tag": "burned_area"
+  },
+  {
+   "id": "modis_ba_2",
+   "title": "MODIS Burned Area",
+   "category": "layer",
+   "tag": "burned_area"
+  },
+  {
+   "id": "modis_ba_3",
+   "title": "MODIS Burned Area",
+   "category": "layer",
+   "tag": "burned_area"
+  },
+  {
+   "id": "modis_ba_4",
+   "title": "MODIS Burned Area",
+   "category": "layer",
+   "tag": "burned_area"
+  },
+  {
+   "id": "modis_ba_5",
+   "title": "MODIS Burned Area",
+   "category": "layer",
+   "tag": "burned_area"
+  },
+  {
+   "id": "modis_ba_6",
+   "title": "MODIS Burned Area",
+   "category": "layer",
+   "tag": "burned_area"
+  },
+  {
+   "id": "modis_ba_7",
+   "title": "MODIS Burned Area",
+   "category": "layer",
+   "tag": "burned_area"
+  },
+  {
+   "id": "modis_ba_8",
+   "title": "MODIS Burned Area",
+   "category": "layer",
+   "tag": "burned_area"
+  },
+  {
+   "id": "modis_ba_9",
+   "title": "MODIS Burned Area",
+   "category": "layer",
+   "tag": "burned_area"
+  },
+  {
+   "id": "modis_ba_10",
+   "title": "MODIS Burned Area",
+   "category": "layer",
+   "tag": "burned_area"
+  },
+  {
+   "id": "modis_ba_11",
+   "title": "MODIS Burned Area",
+   "category": "layer",
+   "tag": "burned_area"
+  },
+  {
+   "id": "modis_ba_12",
+   "title": "MODIS Burned Area",
+   "category": "layer",
+   "tag": "burned_area"
+  },
+  {
+   "id": "modis_ba2_1",
+   "title": "MODIS Burned Area",
+   "category": "layer",
+   "tag": "burned_area"
+  },
+  {
+   "id": "modis_ba2_2",
+   "title": "MODIS Burned Area",
+   "category": "layer",
+   "tag": "burned_area"
+  },
+  {
+   "id": "modis_ba2_3",
+   "title": "MODIS Burned Area",
+   "category": "layer",
+   "tag": "burned_area"
+  },
+  {
+   "id": "modis_ba2_4",
+   "title": "MODIS Burned Area",
+   "category": "layer",
+   "tag": "burned_area"
+  },
+  {
+   "id": "modis_ba2_5",
+   "title": "MODIS Burned Area",
+   "category": "layer",
+   "tag": "burned_area"
+  },
+  {
+   "id": "modis_ba2_6",
+   "title": "MODIS Burned Area",
+   "category": "layer",
+   "tag": "burned_area"
+  },
+  {
+   "id": "modis_ba2_7",
+   "title": "MODIS Burned Area",
+   "category": "layer",
+   "tag": "burned_area"
+  },
+  {
+   "id": "modis_ba2_8",
+   "title": "MODIS Burned Area",
+   "category": "layer",
+   "tag": "burned_area"
+  },
+  {
+   "id": "modis_ba2_9",
+   "title": "MODIS Burned Area",
+   "category": "layer",
+   "tag": "burned_area"
+  },
+  {
+   "id": "modis_ba2_10",
+   "title": "MODIS Burned Area",
+   "category": "layer",
+   "tag": "burned_area"
+  },
+  {
+   "id": "modis_ba2_11",
+   "title": "MODIS Burned Area",
+   "category": "layer",
+   "tag": "burned_area"
+  },
+  {
+   "id": "modis_ba2_12",
+   "title": "MODIS Burned Area",
+   "category": "layer",
+   "tag": "burned_area"
+  },
+  {
+   "id": "modis_ba3_1",
+   "title": "MODIS Burned Area",
+   "category": "layer",
+   "tag": "burned_area"
+  },
+  {
+   "id": "modis_ba3_2",
+   "title": "MODIS Burned Area",
+   "category": "layer",
+   "tag": "burned_area"
+  },
+  {
+   "id": "modis_ba3_3",
+   "title": "MODIS Burned Area",
+   "category": "layer",
+   "tag": "burned_area"
+  },
+  {
+   "id": "modis_ba3_4",
+   "title": "MODIS Burned Area",
+   "category": "layer",
+   "tag": "burned_area"
+  },
+  {
+   "id": "modis_ba3_5",
+   "title": "MODIS Burned Area",
+   "category": "layer",
+   "tag": "burned_area"
+  },
+  {
+   "id": "modis_ba3_6",
+   "title": "MODIS Burned Area",
+   "category": "layer",
+   "tag": "burned_area"
+  },
+  {
+   "id": "modis_ba3_7",
+   "title": "MODIS Burned Area",
+   "category": "layer",
+   "tag": "burned_area"
+  },
+  {
+   "id": "modis_ba3_8",
+   "title": "MODIS Burned Area",
+   "category": "layer",
+   "tag": "burned_area"
+  },
+  {
+   "id": "modis_ba3_9",
+   "title": "MODIS Burned Area",
+   "category": "layer",
+   "tag": "burned_area"
+  },
+  {
+   "id": "modis_ba3_10",
+   "title": "MODIS Burned Area",
+   "category": "layer",
+   "tag": "burned_area"
+  },
+  {
+   "id": "modis_ba3_11",
+   "title": "MODIS Burned Area",
+   "category": "layer",
+   "tag": "burned_area"
+  },
+  {
+   "id": "modis_ba3_12",
+   "title": "MODIS Burned Area",
+   "category": "layer",
+   "tag": "burned_area"
+  },
+  {
+   "id": "noaa20_snow",
+   "title": "Snow Cover (Normalized Difference Snow Index) VIIRS NOAA-20",
+   "category": "layer",
+   "tag": "overlay"
+  },
+  {
+   "id": "snpp_omps_aerosol",
+   "title": "SNPP OMPS Aerosol Index",
+   "category": "layer",
+   "tag": "smoke"
+  },
+  {
+   "id": "snpp_omps_aerosol_pyro",
+   "title": "SNPP OMPS Aerosol Index PyroCumuloNimbus",
+   "category": "layer",
+   "tag": "smoke"
+  },
+  {
+   "id": "noaa20_omps_aerosol",
+   "title": "NOAA-20 OMPS Aerosol Index",
+   "category": "layer",
+   "tag": "smoke"
+  },
+  {
+   "id": "noaa20_omps_aerosol_pyro",
+   "title": "NOAA-20 OMPS Aerosol Index PyroCumuloNimbus",
+   "category": "layer",
+   "tag": "smoke"
+  },
+  {
+   "id": "noaa21_omps_aerosol",
+   "title": "NOAA-21 OMPS Aerosol Index",
+   "category": "layer",
+   "tag": "smoke"
+  },
+  {
+   "id": "noaa21_omps_aerosol_pyro",
+   "title": "NOAA-21 OMPS Aerosol Index PyroCumuloNimbus",
+   "category": "layer",
+   "tag": "smoke"
+  },
+  {
+   "id": "eis_fire_lf_perimeter_nrt",
+   "title": "VIIRS Modeled Fire Perimeter",
+   "category": "layer",
+   "tag": "eis"
+  },
+  {
+   "id": "fire-perimeter",
+   "title": "US Fire Perimeter",
+   "category": "layer",
+   "tag": "alerts"
+  },
+  {
+   "id": "fires_goes_Him9",
+   "title": "Himawari-9 (KCL/IPMA)",
+   "category": "layer",
+   "tag": "fires"
+  },
+  {
+   "id": "fires_goes_Met12",
+   "title": "MTG 0 deg Full Disk",
+   "category": "layer",
+   "tag": "fires"
+  },
+  {
+   "id": "fires_goes_Met10",
+   "title": "MSG 0 deg (KCL/LSA SAF)",
+   "category": "layer",
+   "tag": "fires"
+  },
+  {
+   "id": "fires_goes_Met9",
+   "title": "MSG IODC (KCL/LSA SAF)",
+   "category": "layer",
+   "tag": "fires"
+  },
+  {
+   "id": "fires_goes_g18frp",
+   "title": "GOES West (KCL/IPMA)",
+   "category": "layer",
+   "tag": "fires"
+  },
+  {
+   "id": "fires_goes_g18",
+   "title": "GOES West (NOAA FDC)",
+   "category": "layer",
+   "tag": "fires"
+  },
+  {
+   "id": "fires_goes_g19frp",
+   "title": "GOES East (KCL/IPMA)",
+   "category": "layer",
+   "tag": "fires"
+  },
+  {
+   "id": "fires_goes_g19",
+   "title": "GOES East (NOAA FDC)",
+   "category": "layer",
+   "tag": "fires"
+  },
+  {
+   "id": "fires_modis_terra",
+   "title": "MODIS / Terra [1km]",
+   "category": "layer",
+   "tag": "fires"
+  },
+  {
+   "id": "fires_modis_aqua",
+   "title": "MODIS / Aqua [1km] ",
+   "category": "layer",
+   "tag": "fires"
+  },
+  {
+   "id": "fires_viirs_snpp",
+   "title": "VIIRS / Suomi NPP [375m]",
+   "category": "layer",
+   "tag": "fires"
+  },
+  {
+   "id": "fires_viirs_noaa21",
+   "title": "VIIRS / NOAA-21 [375m]",
+   "category": "layer",
+   "tag": "fires"
+  },
+  {
+   "id": "fires_viirs_noaa20",
+   "title": "VIIRS / NOAA-20 [375m]",
+   "category": "layer",
+   "tag": "fires"
+  },
+  {
+   "id": "fires_landsat_landsat",
+   "title": "OLI / Landsat [30m]",
+   "category": "layer",
+   "tag": "fires"
+  },
+  {
+   "id": "fires_modis_terra_sp",
+   "title": "SP: MODIS / Terra [1km]",
+   "category": "layer",
+   "tag": "fires"
+  },
+  {
+   "id": "fires_modis_aqua_sp",
+   "title": "SP: MODIS / Aqua [1km]",
+   "category": "layer",
+   "tag": "fires"
+  },
+  {
+   "id": "fires_viirs_snpp_sp",
+   "title": "SP: VIIRS / Suomi NPP [375m]",
+   "category": "layer",
+   "tag": "fires"
+  },
+  {
+   "id": "fires_viirs_noaa20_sp",
+   "title": "SP: VIIRS / NOAA-20 [375m]",
+   "category": "layer",
+   "tag": "fires"
+  },
+  {
+   "id": "fires_modis_terra_nrt",
+   "title": "NRT: MODIS / Terra [1km]",
+   "category": "layer",
+   "tag": "fires"
+  },
+  {
+   "id": "fires_modis_aqua_nrt",
+   "title": "NRT: MODIS / Aqua [1km]",
+   "category": "layer",
+   "tag": "fires"
+  },
+  {
+   "id": "fires_viirs_snpp_nrt",
+   "title": "NRT: VIIRS / Suomi NPP [375m]",
+   "category": "layer",
+   "tag": "fires"
+  },
+  {
+   "id": "fires_viirs_noaa20_nrt",
+   "title": "NRT: VIIRS / NOAA-20 [375m]",
+   "category": "layer",
+   "tag": "fires"
+  },
+  {
+   "id": "fires_all",
+   "title": "FIRES",
+   "category": "layer",
+   "tag": "quick_fires"
+  },
+  {
+   "id": "sta_detections",
+   "title": "Static Thermal Anomalies – Detections",
+   "category": "layer",
+   "tag": "pf"
+  },
+  {
+   "id": "countries",
+   "title": "Borders / Roads - DETAILED",
+   "category": "overlay",
+   "tag": "overlay"
+  },
+  {
+   "id": "country-outline",
+   "title": "Coastlines / Borders / Roads - BASIC",
+   "category": "overlay",
+   "tag": "overlay"
+  },
+  {
+   "id": "volcanoes",
+   "title": "Volcanoes",
+   "category": "layer",
+   "tag": "overlay"
+  },
+  {
+   "id": "cement_plants",
+   "title": "Cement Plants",
+   "category": "layer",
+   "tag": "pf"
+  },
+  {
+   "id": "power_biomass",
+   "title": "Biomass",
+   "category": "layer",
+   "tag": "pf"
+  },
+  {
+   "id": "power_coal",
+   "title": "Coal",
+   "category": "layer",
+   "tag": "pf"
+  },
+  {
+   "id": "power_gas",
+   "title": "Gas",
+   "category": "layer",
+   "tag": "pf"
+  },
+  {
+   "id": "power_geothermal",
+   "title": "Geothermal",
+   "category": "layer",
+   "tag": "pf"
+  },
+  {
+   "id": "power_hydro",
+   "title": "Hydro",
+   "category": "layer",
+   "tag": "pf"
+  },
+  {
+   "id": "power_oil",
+   "title": "Oil",
+   "category": "layer",
+   "tag": "pf"
+  },
+  {
+   "id": "power_other",
+   "title": "Other",
+   "category": "layer",
+   "tag": "pf"
+  },
+  {
+   "id": "power_solar",
+   "title": "Solar",
+   "category": "layer",
+   "tag": "pf"
+  },
+  {
+   "id": "power_storage",
+   "title": "Storage",
+   "category": "layer",
+   "tag": "pf"
+  },
+  {
+   "id": "power_wind",
+   "title": "Wind",
+   "category": "layer",
+   "tag": "pf"
+  },
+  {
+   "id": "gas_flares_2012",
+   "title": "Gas Flares",
+   "category": "layer",
+   "tag": "pf"
+  },
+  {
+   "id": "gas_flares_2013",
+   "title": "Gas Flares",
+   "category": "layer",
+   "tag": "pf"
+  },
+  {
+   "id": "gas_flares_2014",
+   "title": "Gas Flares",
+   "category": "layer",
+   "tag": "pf"
+  },
+  {
+   "id": "gas_flares_2015",
+   "title": "Gas Flares",
+   "category": "layer",
+   "tag": "pf"
+  },
+  {
+   "id": "gas_flares_2016",
+   "title": "Gas Flares",
+   "category": "layer",
+   "tag": "pf"
+  },
+  {
+   "id": "gas_flares_2017",
+   "title": "Gas Flares",
+   "category": "layer",
+   "tag": "pf"
+  },
+  {
+   "id": "gas_flares_2018",
+   "title": "Gas Flares",
+   "category": "layer",
+   "tag": "pf"
+  },
+  {
+   "id": "gas_flares_2019",
+   "title": "Gas Flares",
+   "category": "layer",
+   "tag": "pf"
+  },
+  {
+   "id": "gas_flares_2020",
+   "title": "Gas Flares",
+   "category": "layer",
+   "tag": "pf"
+  },
+  {
+   "id": "gas_flares_2021",
+   "title": "Gas Flares",
+   "category": "layer",
+   "tag": "pf"
+  },
+  {
+   "id": "gas_flares_2022",
+   "title": "Gas Flares",
+   "category": "layer",
+   "tag": "pf"
+  },
+  {
+   "id": "gas_flares_2023",
+   "title": "Gas Flares",
+   "category": "layer",
+   "tag": "pf"
+  },
+  {
+   "id": "gas_flares",
+   "title": "Gas Flares",
+   "category": "layer",
+   "tag": "pf"
+  },
+  {
+   "id": "gi_steel_plants",
+   "title": "Iron and Steel Plants",
+   "category": "layer",
+   "tag": "pf"
+  },
+  {
+   "id": "mineral_resources",
+   "title": "Mineral Resources",
+   "category": "layer",
+   "tag": "pf"
+  },
+  {
+   "id": "nonferrous_metal",
+   "title": "Nonferrous Metal Plants",
+   "category": "layer",
+   "tag": "pf"
+  },
+  {
+   "id": "petro_chemical",
+   "title": "Petro Chemical Plants",
+   "category": "layer",
+   "tag": "pf"
+  },
+  {
+   "id": "steel_plants",
+   "title": "Steel Plants",
+   "category": "layer",
+   "tag": "pf"
+  },
+  {
+   "id": "identify",
+   "title": "identify",
+   "category": "layer",
+   "tag": ""
+  },
+  {
+   "id": "Sentinel_2C_Orbit_Dsc",
+   "title": "Sentinel 2C descending / day",
+   "category": "layer",
+   "tag": "orbits"
+  },
+  {
+   "id": "Sentinel_2B_Orbit_Dsc",
+   "title": "Sentinel 2B descending / day",
+   "category": "layer",
+   "tag": "orbits"
+  },
+  {
+   "id": "Sentinel_2A_Orbit_Dsc",
+   "title": "Sentinel 2A descending / day",
+   "category": "layer",
+   "tag": "orbits"
+  },
+  {
+   "id": "Landsat8_Orbit_Dsc",
+   "title": "Landsat 8 descending / day",
+   "category": "layer",
+   "tag": "orbits"
+  },
+  {
+   "id": "Landsat8_Orbit_Asc",
+   "title": "Landsat 8 ascending / night",
+   "category": "layer",
+   "tag": "orbits"
+  },
+  {
+   "id": "Landsat9_Orbit_Dsc",
+   "title": "Landsat 9 descending / day",
+   "category": "layer",
+   "tag": "orbits"
+  },
+  {
+   "id": "Landsat9_Orbit_Asc",
+   "title": "Landsat 9 ascending / night",
+   "category": "layer",
+   "tag": "orbits"
+  },
+  {
+   "id": "Terra_Orbit_Dsc",
+   "title": "Terra descending / day",
+   "category": "layer",
+   "tag": "orbits"
+  },
+  {
+   "id": "Terra_Orbit_Asc",
+   "title": "Terra ascending / night",
+   "category": "layer",
+   "tag": "orbits"
+  },
+  {
+   "id": "Aqua_Orbit_Asc",
+   "title": "Aqua ascending / day",
+   "category": "layer",
+   "tag": "orbits"
+  },
+  {
+   "id": "Aqua_Orbit_Dsc",
+   "title": "Aqua descending / night",
+   "category": "layer",
+   "tag": "orbits"
+  },
+  {
+   "id": "NOAA-20_Orbit_Asc",
+   "title": "NOAA-20 ascending / day",
+   "category": "layer",
+   "tag": "orbits"
+  },
+  {
+   "id": "NOAA-20_Orbit_Dsc",
+   "title": "NOAA-20 descending / night",
+   "category": "layer",
+   "tag": "orbits"
+  },
+  {
+   "id": "NOAA-21_Orbit_Asc",
+   "title": "NOAA-21 ascending / day",
+   "category": "layer",
+   "tag": "orbits"
+  },
+  {
+   "id": "NOAA-21_Orbit_Dsc",
+   "title": "NOAA-21 descending / night",
+   "category": "layer",
+   "tag": "orbits"
+  },
+  {
+   "id": "Suomi_NPP_Orbit_Asc",
+   "title": "Suomi NPP ascending / day",
+   "category": "layer",
+   "tag": "orbits"
+  },
+  {
+   "id": "Suomi_NPP_Orbit_Dsc",
+   "title": "Suomi NPP descending / night",
+   "category": "layer",
+   "tag": "orbits"
+  },
+  {
+   "id": "data_outline_landsat_8_day",
+   "title": "Landsat 8 - Descending / Day",
+   "category": "layer",
+   "tag": "swaths"
+  },
+  {
+   "id": "data_outline_landsat_9_day",
+   "title": "Landsat 9 - Descending / Day",
+   "category": "layer",
+   "tag": "swaths"
+  },
+  {
+   "id": "data_outline_landsat_8_night",
+   "title": "Landsat 8 - Ascending / Night",
+   "category": "layer",
+   "tag": "swaths"
+  },
+  {
+   "id": "data_outline_landsat_9_night",
+   "title": "Landsat 9 - Ascending / Night",
+   "category": "layer",
+   "tag": "swaths"
+  },
+  {
+   "id": "data_outline_sentinel_2a",
+   "title": "Sentinel 2A - Descending / Day",
+   "category": "layer",
+   "tag": "swaths"
+  },
+  {
+   "id": "data_outline_sentinel_2b",
+   "title": "Sentinel 2B - Descending / Day",
+   "category": "layer",
+   "tag": "swaths"
+  },
+  {
+   "id": "data_outline_sentinel_2c",
+   "title": "Sentinel 2C - Descending / Day",
+   "category": "layer",
+   "tag": "swaths"
+  },
+  {
+   "id": "data_outline_modis_terra_day",
+   "title": "MODIS Terra - Descending / Day ",
+   "category": "layer",
+   "tag": "swaths"
+  },
+  {
+   "id": "data_outline_modis_terra_night",
+   "title": "MODIS Terra - Ascending / Night ",
+   "category": "layer",
+   "tag": "swaths"
+  },
+  {
+   "id": "data_outline_modis_aqua_day",
+   "title": "MODIS Aqua - Ascending / Day ",
+   "category": "layer",
+   "tag": "swaths"
+  },
+  {
+   "id": "data_outline_modis_aqua_night",
+   "title": "MODIS Aqua - Descending / Night ",
+   "category": "layer",
+   "tag": "swaths"
+  },
+  {
+   "id": "data_outline_viirs_noaa20_day",
+   "title": "VIIRS NOAA-20 - Ascending / Day ",
+   "category": "layer",
+   "tag": "swaths"
+  },
+  {
+   "id": "data_outline_viirs_noaa20_night",
+   "title": "VIIRS NOAA-20 - Descending / Night ",
+   "category": "layer",
+   "tag": "swaths"
+  },
+  {
+   "id": "data_outline_viirs_noaa21_day",
+   "title": "VIIRS NOAA-21 - Ascending / Day ",
+   "category": "layer",
+   "tag": "swaths"
+  },
+  {
+   "id": "data_outline_viirs_noaa21_night",
+   "title": "VIIRS NOAA-21 - Descending / Night ",
+   "category": "layer",
+   "tag": "swaths"
+  },
+  {
+   "id": "data_outline_viirs_snpp_day",
+   "title": "VIIRS SNPP - Ascending / Day ",
+   "category": "layer",
+   "tag": "swaths"
+  },
+  {
+   "id": "data_outline_viirs_snpp_night",
+   "title": "VIIRS SNPP - Descending / Night ",
+   "category": "layer",
+   "tag": "swaths"
+  },
+  {
+   "id": "graticule",
+   "title": "Latitude-Longitude Lines",
+   "category": "overlay",
+   "tag": "overlay"
+  },
+  {
+   "id": "_vl_5_vl_hlss30-nbr2_vl_hlsl30-nbr2",
+   "title": "NBR2 - Normalized Burn Ratio 2",
+   "category": "layer",
+   "tag": "hls"
+  },
+  {
+   "id": "_vl_4_vl_hlss30-nbr_vl_hlsl30-nbr",
+   "title": "NBR - Normalized Burn Ratio",
+   "category": "layer",
+   "tag": "hls"
+  },
+  {
+   "id": "_vl_3_vl_hlss30-ndmi_vl_hlsl30-ndmi",
+   "title": "NDMI - Normalized Difference Moisture Index",
+   "category": "layer",
+   "tag": "hls"
+  },
+  {
+   "id": "_vl_2_vl_hlss30-ndvi_vl_hlsl30-ndvi",
+   "title": "NDVI - Normalized Difference Vegetation Index",
+   "category": "layer",
+   "tag": "hls"
+  },
+  {
+   "id": "_vl_1_vl_hlss30-false-color_vl_hlsl30-false-color",
+   "title": "Adjusted Reflectance BRDF (false color - vegetation)",
+   "category": "layer",
+   "tag": "hls"
+  },
+  {
+   "id": "_vl_0_vl_hlss30-true-color_vl_hlsl30-true-color",
+   "title": "Adjusted Reflectance BRDF (true color)",
+   "category": "layer",
+   "tag": "hls"
+  },
+  {
+   "id": "_vl_16_vl_Sentinel_2A_Orbit_Dsc_vl_data_outline_sentinel_2a",
+   "title": "Sentinel 2A - Descending / Day",
+   "category": "layer",
+   "tag": "swaths"
+  },
+  {
+   "id": "_vl_15_vl_Sentinel_2B_Orbit_Dsc_vl_data_outline_sentinel_2b",
+   "title": "Sentinel 2B - Descending / Day",
+   "category": "layer",
+   "tag": "swaths"
+  },
+  {
+   "id": "_vl_14_vl_Sentinel_2C_Orbit_Dsc_vl_data_outline_sentinel_2c",
+   "title": "Sentinel 2C - Descending / Day",
+   "category": "layer",
+   "tag": "swaths"
+  },
+  {
+   "id": "_vl_13_vl_Landsat8_Orbit_Dsc_vl_data_outline_landsat_8_day",
+   "title": "Landsat 8 - Descending / Day",
+   "category": "layer",
+   "tag": "swaths"
+  },
+  {
+   "id": "_vl_12_vl_Landsat9_Orbit_Dsc_vl_data_outline_landsat_9_day",
+   "title": "Landsat 9 - Descending / Day",
+   "category": "layer",
+   "tag": "swaths"
+  },
+  {
+   "id": "_vl_11_vl_Landsat8_Orbit_Asc_vl_data_outline_landsat_8_night",
+   "title": "Landsat 8 - Ascending / Night",
+   "category": "layer",
+   "tag": "swaths"
+  },
+  {
+   "id": "_vl_10_vl_Landsat9_Orbit_Asc_vl_data_outline_landsat_9_night",
+   "title": "Landsat 9 - Ascending / Night",
+   "category": "layer",
+   "tag": "swaths"
+  },
+  {
+   "id": "_vl_9_vl_Terra_Orbit_Dsc_vl_data_outline_modis_terra_day",
+   "title": "MODIS Terra - Descending / Day ",
+   "category": "layer",
+   "tag": "swaths"
+  },
+  {
+   "id": "_vl_8_vl_Terra_Orbit_Asc_vl_data_outline_modis_terra_night",
+   "title": "MODIS Terra - Ascending / Night ",
+   "category": "layer",
+   "tag": "swaths"
+  },
+  {
+   "id": "_vl_7_vl_Aqua_Orbit_Asc_vl_data_outline_modis_aqua_day",
+   "title": "MODIS Aqua - Ascending / Day ",
+   "category": "layer",
+   "tag": "swaths"
+  },
+  {
+   "id": "_vl_6_vl_Aqua_Orbit_Dsc_vl_data_outline_modis_aqua_night",
+   "title": "MODIS Aqua - Descending / Night ",
+   "category": "layer",
+   "tag": "swaths"
+  },
+  {
+   "id": "_vl_5_vl_NOAA-20_Orbit_Asc_vl_data_outline_viirs_noaa20_day",
+   "title": "VIIRS NOAA-20 - Ascending / Day ",
+   "category": "layer",
+   "tag": "swaths"
+  },
+  {
+   "id": "_vl_4_vl_NOAA-20_Orbit_Dsc_vl_data_outline_viirs_noaa20_night",
+   "title": "VIIRS NOAA-20 - Descending / Night ",
+   "category": "layer",
+   "tag": "swaths"
+  },
+  {
+   "id": "_vl_3_vl_NOAA-21_Orbit_Asc_vl_data_outline_viirs_noaa21_day",
+   "title": "VIIRS NOAA-21 - Ascending / Day ",
+   "category": "layer",
+   "tag": "swaths"
+  },
+  {
+   "id": "_vl_2_vl_NOAA-21_Orbit_Dsc_vl_data_outline_viirs_noaa21_night",
+   "title": "VIIRS NOAA-21 - Descending / Night ",
+   "category": "layer",
+   "tag": "swaths"
+  },
+  {
+   "id": "_vl_1_vl_Suomi_NPP_Orbit_Asc_vl_data_outline_viirs_snpp_day",
+   "title": "VIIRS SNPP - Ascending / Day ",
+   "category": "layer",
+   "tag": "swaths"
+  },
+  {
+   "id": "_vl_0_vl_Suomi_NPP_Orbit_Dsc_vl_data_outline_viirs_snpp_night",
+   "title": "VIIRS SNPP - Descending / Night ",
+   "category": "layer",
+   "tag": "swaths"
+  }
+ ]
+}
