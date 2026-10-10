@@ -34,7 +34,7 @@ Legend: 🔎 needs research · 🛠 implementation · 📝 documentation · ❓ 
 | WK-02 | 📝 Decision-making characterization and evaluation plan | WP2 | Open |
 | WK-03 | 🛠 Knowledge base: verbatim FAQ ingestion, supplements, loader, search, refresh script, completeness test | WP3 | Done on `feature/knowledge-base` (see Done) |
 | WK-04 | 🛠 FIRMS API client, source catalog, CSV normalizer, caching, rate-limit guard | WP4 | Done on `feature/firms-api-client` (see Done) |
-| WK-05 | 🛠 Map link builder and layer catalog snapshot with refresh/verification script | WP5 | Done (snapshot queued for signing) |
+| WK-05 | 🛠 Map link builder and layer catalog snapshot with refresh/verification script | WP5 | Done on `feature/map-links` (see Done) |
 | WK-06 | 📝 Viability case | WP6 | Open |
 | WK-07 | 🛠 MCP server: tools, resources, prompts, instructions, health, `server.json`, `ard.json` | WP7 | Open |
 | WK-08 | 🛠 Auth: env var, OAuth 2.1 MAP_KEY connect flow (CIMD + DCR), encrypted tokens, step-up | WP8 | Open |
@@ -64,8 +64,10 @@ commits and `--no-ff` merges when the owner is back to approve (owner decision,
 
 | Order | Branch | Snapshot ref | Status |
 |---|---|---|---|
-| 01 | `feature/firms-api-client` (WP4) | `refs/snapshots/01-wp4` | Awaiting signing |
-| 02 | `feature/map-links` (WP5) | `refs/snapshots/02-wp5` | Awaiting signing |
+| 01 | `feature/firms-api-client` (WP4) | `refs/snapshots/01-wp4` | Done 2026-10-10: signed `c227ee3`, merged `951aa26` |
+| 02 | `feature/map-links` (WP5) | `refs/snapshots/02-wp5` | Done 2026-10-10: signed `bf810b1`, merged `b4bf2b6`; `main` tree equals the snapshot tree |
+
+Queue empty as of 2026-10-10.
 
 ## Done
 

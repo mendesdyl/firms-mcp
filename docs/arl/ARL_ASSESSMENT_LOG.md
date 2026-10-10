@@ -18,10 +18,10 @@ Status key: ✅ complete in full (with evidence) · 🟡 in progress · ⬜ not 
 |---|---|---|---|---|
 | ARL1-M1 Ideas for how research results could enhance decision making | ✅ | [Plan §1, §3, §7](../plan/PROJECT_PLAN.md) | 2026-10-09 | `ba18000` |
 | ARL1-M2 Baseline support research identified and documented | ✅ | [Data products](../science/DATA_PRODUCTS.md), [References](../research/REFERENCES.md) | 2026-10-09 | `ba18000` |
-| ARL2-M1 Independent application components formulated and created | 🟡 | Knowledge base done (`src/firms_mcp/knowledge/`, `e9c1bfe`); API client, map links, auth pending | | |
+| ARL2-M1 Independent application components formulated and created | 🟡 | Knowledge base (`src/firms_mcp/knowledge/`, `e9c1bfe`); FIRMS API client (`src/firms_mcp/firms/`, `951aa26`); map-link builder (`src/firms_mcp/maplinks/`, `b4bf2b6`); auth component pending (WP8) | | |
 | ARL2-M2 Decision making activity identified | ✅ | [Decision context §1–§3](../science/DECISION_CONTEXT.md) | 2026-10-09 | `4f832b8` |
 | ARL2-M3 Plans to better characterize the decision making activity | ✅ | [Decision context §5](../science/DECISION_CONTEXT.md), [Evaluation plan](../design/EVALUATION.md) | 2026-10-09 | `4f832b8` |
-| ARL3-M1 Components tested and validated independently | 🟡 | Knowledge base: 52 tests incl. line-by-line FAQ completeness (`e9c1bfe`); other components pending | | |
+| ARL3-M1 Components tested and validated independently | 🟡 | Knowledge base: 52 tests incl. line-by-line FAQ completeness (`e9c1bfe`); API client: 73 tests (`951aa26`); map links: 24 tests mirroring the map's parser, links verified in the real map (`b4bf2b6`); auth component pending | | |
 | ARL3-M2 Detailed characterization of user decision making process | ✅ | [Decision context §3–§4](../science/DECISION_CONTEXT.md) (mechanisms M1–M4, limitations F1–F11; quantitative baseline to be measured by the evaluation) | 2026-10-09 | `4f832b8` |
 | ARL3-M3 Convincing case for viability | ⬜ | | | |
 | ARL4-M1 Components integrated; technical integration issues worked out | ⬜ | | | |
@@ -105,6 +105,28 @@ evidence, and the computed ARL.)*
   evaluation run (condition A of the evaluation plan); the owner may choose to treat that
   measurement as a precondition for this milestone, in which case it reverts to 🟡.
 - **Computed ARL: 1.**
+
+### L-2 — 2026-10-10 — FIRMS API client and map-link builder merged (`951aa26`, `b4bf2b6`)
+
+- Both features were committed while the owner was away, held as tree snapshots, and
+  replayed as signed commits and `--no-ff` merges with the owner present (owner decision
+  2026-10-10). After the replay, `main`'s tree equals the final snapshot tree
+  (`6b52cb0`) exactly; 149 tests pass on `main`.
+- Milestones newly complete: none.
+- Milestones in progress:
+  - **ARL2-M1** — three of the four independent components now exist as separate modules
+    with their own design documents and ADRs: knowledge base (ADR-0005), FIRMS API client
+    with source catalog, parser, cache, and transaction budget (ADR-0007,
+    [design](../design/FIRMS_API_CLIENT.md)), and Fire Map link builder (ADR-0006,
+    [design](../design/MAP_LINKS.md)). The authentication component (ADR-0004, WP8) remains.
+  - **ARL3-M1** — each of those three components is validated independently: 52, 73, and
+    24 tests respectively, all offline (network guard), with the MODIS confidence
+    thresholds checked against the MODIS C6/C6.1 user guide and the generated map links
+    verified by cold loads in the real global and US/Canada maps. The authentication
+    component's tests remain.
+- Neither milestone is claimed until the authentication component exists and is tested,
+  because the plan (§8, ARL 2) lists the auth module among the components.
+- **Computed ARL: 1** (unchanged; ARL 2 awaits ARL2-M1).
 
 ## Fiscal Year ARL
 
