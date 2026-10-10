@@ -104,7 +104,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0007
-    status: planned
+    status: implemented
   - id: FR-DATA-002
     title: Validate inputs (coordinate ranges and order, day range, date format and not in the future, source IDs) with structured errors
     source: ADR-0007
@@ -112,7 +112,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0007
-    status: planned
+    status: implemented
   - id: FR-DATA-003
     title: Parse FIRMS CSV for each source family into typed records with UTC timestamps, tolerating missing optional columns and keeping unknown ones
     source: ADR-0007
@@ -120,7 +120,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0007
-    status: planned
+    status: implemented
   - id: FR-DATA-004
     title: Return per-source summaries (count, time range, day/night split, confidence breakdown, FRP statistics, extent)
     source: ADR-0007
@@ -128,7 +128,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0007
-    status: planned
+    status: implemented
   - id: FR-DATA-005
     title: Page records with limit, query-scoped cursor, field selection, and sort
     source: ADR-0002 (Earthdata MCP pagination)
@@ -152,7 +152,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0007
-    status: planned
+    status: implemented
   - id: FR-DATA-008
     title: Report data availability per source from the documented API with a key, or the public map date service without one
     source: ADR-0007
@@ -160,7 +160,7 @@ requirements:
     priority: should
     verification: test
     design: ADR-0007
-    status: planned
+    status: implemented
   - id: FR-DATA-009
     title: Report MAP_KEY status (transactions used and limit)
     source: ADR-0007
@@ -168,7 +168,7 @@ requirements:
     priority: should
     verification: test
     design: ADR-0007
-    status: planned
+    status: implemented
   - id: FR-DATA-010
     title: Provide a source catalog (sensor, platform, resolution, coverage, processing tier, API ID, map layer)
     source: ADR-0007
@@ -176,7 +176,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0007
-    status: planned
+    status: implemented
   - id: FR-DATA-011
     title: Produce KML footprint links for valid region, period, and sensor combinations
     source: FIRMS API (kml_fire_footprints)
@@ -184,7 +184,7 @@ requirements:
     priority: could
     verification: test
     design: ADR-0007
-    status: planned
+    status: implemented
   - id: FR-DATA-012
     title: Cache identical upstream requests with a TTL by processing tier and coalesce concurrent identical requests
     source: ADR-0007
@@ -192,7 +192,7 @@ requirements:
     priority: should
     verification: test
     design: ADR-0007
-    status: planned
+    status: implemented
   - id: FR-DATA-013
     title: A client-side budget guard keeps per-key usage below the FIRMS transaction limit
     source: ADR-0007; FIRMS limit 5,000 transactions / 10 minutes
@@ -200,7 +200,7 @@ requirements:
     priority: should
     verification: test
     design: ADR-0007
-    status: planned
+    status: implemented
   - id: FR-DATA-014
     title: Confidence filtering is applied only on explicit request and filtered counts are reported
     source: FIRMS FAQ ("no way to establish an optimal cutoff a priori")
@@ -334,7 +334,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0004
-    status: planned
+    status: implemented
   - id: FR-AUTH-002
     title: Tools that do not need a MAP_KEY work without authentication
     source: ADR-0004 (Earthdata MCP anonymous discovery)
@@ -416,7 +416,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0004
-    status: planned
+    status: implemented
   - id: SEC-002
     title: No tool accepts a MAP_KEY as a parameter
     source: ADR-0004

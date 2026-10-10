@@ -78,6 +78,7 @@ draft-ietf-oauth-client-id-metadata-document-00 (CIMD).
 | Missing data | <https://firms.modaps.eosdis.nasa.gov/api/missing_data/> | — | 2026-10-09 | Web table of days with missing data (standard and NRT) |
 | Map date service (undocumented, used by the Fire Map) | <https://firms.modaps.eosdis.nasa.gov/api/map_dates/> | none | 2026-10-09 | JSON of `[min, max]` dates per product, e.g. `modis_nrt`, `modis_v6`, `jpss1_viirs_c2_nrt`, `jpss2_viirs_c2_nrt`, `suomi_viirs_c2_nrt`, `suomi_viirs_c2_sp`, `landsat_nrt`, `goesr_abi_c1_nrt`, `ba_monthly`, `ba_monthly_viirs` |
 | Area API error responses | — | — | 2026-10-09 | Invalid key: `/api/area/` → HTTP 400 "Invalid MAP_KEY."; `/api/data_availability/` → HTTP 401 "Invalid MAP_KEY." |
+| Area API page script (`computeWeight`, `checkTransaction`) | <https://firms.modaps.eosdis.nasa.gov/api/area/> | — | 2026-10-09 | Displayed transaction weight `ceil(ceil(Δlon/60)·ceil(Δlat/60)·(2 VIIRS / 0.5 other)·DAY_RANGE)`; MAP_KEY validated as 32 alphanumerics; status at `/mapserver/mapkey_status/?MAP_KEY=…` |
 
 ## 5. FIRMS Fire Map
 
@@ -106,8 +107,8 @@ Browser verification performed 2026-10-09 (cold page loads):
 |---|---|---|
 | FIRMS FAQ | <https://www.earthdata.nasa.gov/data/tools/firms/faq> | 2026-10-09 (also provided verbatim by the owner) |
 | Attribute fields for NRT MODIS and VIIRS active fire data | <https://www.earthdata.nasa.gov/data/tools/firms/active-fire-data-attributes-modis-viirs> | 2026-10-09 |
-| VIIRS Collection 2 375 m Active Fire User Guide (June 2025) | <https://www.earthdata.nasa.gov/s3fs-public/2025-06/VIIRS_C2_AF-375m_User_Guide_1.2.pdf> | link recorded 2026-10-09 |
-| MODIS Collection 6 and 6.1 Active Fire User Guide v1.0 | <https://www.earthdata.nasa.gov/s3fs-public/2023-09/MODIS_C6_C6.1_Fire_User_Guide_1.0.pdf> | link recorded 2026-10-09 |
+| VIIRS Collection 2 375 m Active Fire Product User's Guide v1.2 (Schroeder, Giglio, Hall; June 2025) | <https://www.earthdata.nasa.gov/s3fs-public/2025-06/VIIRS_C2_AF-375m_User_Guide_1.2.pdf> | 2026-10-09 — consulted for confidence classes (7/8/9 = low/nominal/high) and HHMM UTC acquisition times |
+| MODIS Collection 6 and 6.1 Active Fire Product User's Guide v1.0 (Giglio, Schroeder, Hall, Justice; May 2021) | <https://www.earthdata.nasa.gov/s3fs-public/2023-09/MODIS_C6_C6.1_Fire_User_Guide_1.0.pdf> | 2026-10-09 — consulted for confidence-class thresholds (§8.4.3, Table 11) |
 | LANCE (disclaimer and FIRMS citation) | <https://www.earthdata.nasa.gov/data/projects/lance#ed-firms-citation> | link recorded 2026-10-09 |
 
 ## 7. Scientific literature cited by the FIRMS FAQ

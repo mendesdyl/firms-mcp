@@ -118,10 +118,14 @@ events (up to 12 hours for MODIS/Aqua; under 2 hours for the others). — same q
 
 - MODIS: 0–100 %, mapped to low / nominal / high classes; FIRMS notes the field "should be
   used with caution" and that there is "no way to establish an optimal cutoff a priori". —
-  "What is the detection confidence?"
+  "What is the detection confidence?" The class thresholds are given in the MODIS
+  Collection 6 and 6.1 Active Fire Product User's Guide v1.0 (Giglio, Schroeder, Hall,
+  Justice; May 2021), §8.4.3, Table 11: **low 0 % ≤ C < 30 %, nominal 30 % ≤ C < 80 %,
+  high 80 % ≤ C ≤ 100 %** (verified against the PDF 2026-10-09).
 - VIIRS: low / nominal / high. Low (daytime) is associated with sun glint and weak (<15 K)
   I4 anomalies; nominal is free of sun glint with >15 K anomaly; high is associated with
-  saturated pixels. — same question and attribute page.
+  saturated pixels. — same question and attribute page; the VIIRS Collection 2 375 m Active
+  Fire Product User's Guide v1.2 encodes these as fire-mask classes 7, 8, 9.
 - Landsat: H / M / L. — Landsat attribute table.
 - Geostationary FDC: classes 10–15 / 30–35; FIRMS shows only 10/30 and 11/31. — "Why are
   the geostationary fire data filtered in FIRMS?"

@@ -9,6 +9,11 @@ All notable changes to this project are documented here. The format follows
 
 ### Added
 
+- FIRMS API client (`firms_mcp.firms`): source catalog, validated areas, async client for
+  `area`, `data_availability`, MAP_KEY status, and the public map date service; CSV parsing
+  and per-source summaries; response cache with request coalescing; transaction budget
+  using FIRMS's displayed weight formula; KML footprint links; stable error codes; MAP_KEY
+  redaction in logs and errors.
 - Knowledge base (`knowledge/`, `firms_mcp.knowledge`): the complete FIRMS FAQ as 142
   verbatim entries with provenance, 8 verbatim supplements (Fire Map disclaimer, LANCE
   disclaimer and acknowledgments, attribute definitions, FIRMS API pages), deterministic
@@ -16,7 +21,6 @@ All notable changes to this project are documented here. The format follows
   Verified line by line against the owner-provided FAQ text (0 missing lines).
 - Decision-making characterization, evaluation plan, 61 machine-readable requirements,
   and a requirements-traceability harness.
-
 - Repository initialized with the ARL-structured project plan, NASA ARL metric reference
   and assessment log, Architecture Decision Records 0001–0010, FIRMS data-products
   baseline, research references (including an analysis of NASA's Earthdata MCP), running
