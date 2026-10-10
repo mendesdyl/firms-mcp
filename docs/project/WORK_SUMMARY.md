@@ -22,7 +22,7 @@ requirements it supports. It is updated with every merge to `main`
 | T10 | Tests checking every functionality from the design | [ADR-0008](../decisions/0008-testing-and-verification-strategy.md), [Traceability](TRACEABILITY.md) | Designed |
 | T11 | Documentation for the owner, the agent, and others | [Docs index](../README.md) | Ongoing |
 | T12 | Follow the Earthdata MCP design | [ADR-0002](../decisions/0002-follow-nasa-earthdata-mcp-conventions.md), [References §2](../research/REFERENCES.md#nasa-earthdata-mcp) | Designed |
-| T13 | Include all FIRMS FAQs, not boiled down, with a mechanism to add more | [ADR-0005](../decisions/0005-knowledge-base-verbatim-and-extensible.md), WP3 | Designed |
+| T13 | Include all FIRMS FAQs, not boiled down, with a mechanism to add more | [ADR-0005](../decisions/0005-knowledge-base-verbatim-and-extensible.md), [knowledge/](../../knowledge/README.md), [Adding knowledge](../developers/ADDING_KNOWLEDGE.md) | Done (verified: 0 missing lines) |
 | T14 | Provide information to the answering agent rather than answer science questions | Plan §4 guiding principle; ADR-0007 | Designed |
 | T15 | Link to the FIRMS Fire Map with self-building URLs | [ADR-0006](../decisions/0006-firms-fire-map-deep-links.md), WP5 | Designed (grammar verified) |
 | T16 | Later: map in the client, with animation | [ADR-0009](../decisions/0009-interactive-map-via-mcp-apps.md), WP12 | Proposed |
@@ -52,3 +52,48 @@ requirements it supports. It is updated with every merge to `main`
 `docs/research/REFERENCES.md`, `docs/project/`.
 
 **ARL milestones supported:** ARL1-M1, ARL1-M2.
+
+### 2026-10-09 — WP2: decision-making characterization and traceability (`main`)
+
+**What was done:** characterized the decision-making activity (agent- and person-level),
+six personas, four pre-application mechanisms, and eleven baseline failure modes mapped to
+FIRMS guidance and to features; wrote the evaluation plan; created 61 machine-readable
+requirements, a network guard for tests, and a traceability meta-test and generator.
+
+**Outputs:** [Decision context](../science/DECISION_CONTEXT.md),
+[Evaluation plan](../design/EVALUATION.md), [requirements.yaml](requirements.yaml),
+[TRACEABILITY.md](TRACEABILITY.md), `tests/conftest.py`, `tests/test_traceability.py`.
+
+**ARL milestones supported:** ARL2-M2, ARL2-M3, ARL3-M2.
+
+### 2026-10-09 — WP3: knowledge base (`feature/knowledge-base`)
+
+**What was done**
+
+- Built `firms_mcp.knowledge`: entry and source models with content hashing, front-matter
+  I/O, a strict loader that reports every problem at once, deterministic BM25 search with
+  a small synonym table, and maintenance commands (`validate`, `rehash`, `sync`,
+  `import-page`).
+- Wrote an HTML→Markdown converter that changes form but never wording (links made
+  absolute, tables, lists, figures with captions, footnote markers) and used it to
+  generate **142 FAQ entries** (137 questions in 15 sections, the preamble, 4 section
+  introductions) from the live FAQ page.
+- Saved the owner-provided FAQ text verbatim as the reference snapshot and verified the
+  knowledge base against it line by line: **0 missing lines**. The one discrepancy found
+  along the way was two invisible zero-width spaces in the live HTML; they are now
+  removed during conversion and documented.
+- Imported 8 supplements verbatim with provenance: the Fire Map disclaimer dialog, the
+  LANCE disclaimer and acknowledgments, the MODIS/VIIRS attribute definitions, and the
+  FIRMS API pages for `area`, `data_availability`, `map_key`, and `kml_fire_footprints`.
+- Found in FIRMS's own page scripts: the MAP_KEY format (32 alphanumerics), the status
+  URL, and the transaction-weight formula FIRMS displays (running list LU-02, LU-16).
+- Packaged the knowledge base into the wheel.
+
+**Outputs:** `src/firms_mcp/knowledge/`, `knowledge/`, `tests/unit/knowledge/`,
+`tests/contract/test_faq_completeness.py`, [Knowledge base design](../design/KNOWLEDGE_BASE.md),
+[Adding knowledge](../developers/ADDING_KNOWLEDGE.md).
+
+**Requirements implemented:** FR-KB-001 … FR-KB-009 (FR-KB-010, resources, comes with the
+server). **Tests:** 52 passing.
+
+**ARL milestones supported:** ARL2-M1 and ARL3-M1 (knowledge-base component).
