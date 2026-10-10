@@ -1,0 +1,1 @@
+"""FIRMS MCP server."""

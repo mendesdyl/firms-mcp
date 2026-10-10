@@ -1,0 +1,67 @@
+# Running List — information to look up and work to do
+
+This is the project's living to-do list. It is updated in the same commit as the work it
+describes. Items move from **Open** to **Done** (with the commit or evidence that closed
+them); nothing is deleted. Each item has a stable ID so that commits, ADRs, and the
+[work summary](WORK_SUMMARY.md) can reference it.
+
+Legend: 🔎 needs research · 🛠 implementation · 📝 documentation · ❓ needs owner decision ·
+🔑 needs a real FIRMS MAP_KEY · 🤝 needs an external party
+
+## Open — information to look up
+
+| ID | Item | Why it matters | Blocked by | Status |
+|---|---|---|---|---|
+| LU-01 | 🔑 Response format of the MAP_KEY status service (`/mapserver/mapkey_status/?MAP_KEY=…`) for a valid key | `get_map_key_status` output schema; consent-page validation | Valid MAP_KEY | Open. Invalid key → HTTP 403, plain text "MAP_KEY is invalid or your have exceeded your transaction/time limit. Please try again later." (observed 2026-10-09) |
+| LU-02 | 🔑 How many transactions a multi-day or `world` area request consumes | Rate-limit budgeting, caching policy | Valid MAP_KEY | Open. FIRMS states only that "larger transactions may count as multiple requests (ex. requesting 7 days)" |
+| LU-03 | 🔑 Exact CSV headers for every area-API source (VIIRS ×3, MODIS, Landsat, SP variants) | Parser and output schema | Valid MAP_KEY | Open. Expected columns taken from the FIRMS attribute page; confirm live |
+| LU-04 | 🔎 When will the `country` / `countries` API endpoints return? | Country queries currently require bounding boxes | FIRMS outage page | Open. Marked "not currently available" on the API page (2026-10-09) |
+| LU-05 | 🤝 Confirm the FIRMS Fire Map hash grammar is stable / acceptable to link to | Deep links depend on it | FIRMS team | Open. Grammar derived from the map's own parser and verified in a browser |
+| LU-06 | 🤝 FIRMS policy on third-party services using users' MAP_KEYs, and on an operator-wide key | Auth design, terms compliance | Earthdata Support (earthdata-support@nasa.gov, subject "FIRMS") | Open |
+| LU-07 | 🔎 Are geostationary (GOES / Meteosat / Himawari) detections available through the area API? | Source catalog completeness | — | Open. Not listed among area-API sources on 2026-10-09; present as map layers |
+| LU-08 | 🔎 US/Canada map (`/usfs/map/`) hash compatibility and its extra layers | Link builder for US/Canada | — | Open. Global map config marks the US/Canada mode as `copyHash: true` |
+| LU-09 | 🔎 Which MCP hosts support MCP Apps, CIMD, and mid-session step-up (401 after anonymous use) | Client compatibility matrix | — | Open |
+| LU-10 | 🔎 Standard-processing (SP) lag per sensor | Explaining availability to users | — | Open. Map date service (2026-10-09): MODIS SP to 2026-07-31; VIIRS S-NPP SP and NOAA-20 SP to 2026-06-30 |
+| LU-11 | 🔎 Review FIRMS API code examples at `/academy/` | Usage patterns, undocumented parameters | — | Open |
+| LU-12 | 🔎 Full text of the LANCE disclaimer | Knowledge-base supplement; disclaimer wording | — | Open. FIRMS map links to <https://www.earthdata.nasa.gov/data/projects/lance#ed-firms-citation> |
+| LU-13 | 🔎 Cross-check knowledge base against the VIIRS C2 375 m user guide (June 2025) and MODIS C6/6.1 user guide | Supplement content; caveat accuracy | — | Open |
+| LU-14 | 🤝 Whether FIRMS wants a specific referral parameter on links (currently `utm_source=firms-mcp&utm_medium=mcp`, mirroring Earthdata MCP) | Referral analytics for FIRMS | FIRMS team | Open. Verified that the map loads correctly with these parameters |
+| LU-15 | 🔎 FIRMS WMS/WFS services (MAP_KEY-based) for possible image or vector outputs | Future visualization options | — | Open |
+
+## Open — work to do
+
+| ID | Item | Work package | Status |
+|---|---|---|---|
+| WK-01 | 📝 Baseline research documents: data products, references | WP1 | In progress |
+| WK-02 | 📝 Decision-making characterization and evaluation plan | WP2 | Open |
+| WK-03 | 🛠 Knowledge base: verbatim FAQ ingestion, supplements, loader, search, refresh script, completeness test | WP3 | Open |
+| WK-04 | 🛠 FIRMS API client, source catalog, CSV normalizer, caching, rate-limit guard | WP4 | Open |
+| WK-05 | 🛠 Map link builder and layer catalog snapshot with refresh/verification script | WP5 | Open |
+| WK-06 | 📝 Viability case | WP6 | Open |
+| WK-07 | 🛠 MCP server: tools, resources, prompts, instructions, health, `server.json`, `ard.json` | WP7 | Open |
+| WK-08 | 🛠 Auth: env var, OAuth 2.1 MAP_KEY connect flow (CIMD + DCR), encrypted tokens, step-up | WP8 | Open |
+| WK-09 | 📝 Operations & governance; integration issues log | WP9 | Open |
+| WK-10 | 🛠 Container image, GitHub Actions CI, MCP Registry metadata | WP10 | Open |
+| WK-11 | 🛠 Evaluation harness and live validation | WP11 | Open |
+| WK-12 | 🛠 MCP Apps in-client map with time animation | WP12 | Open |
+| WK-13 | 📝 Consumer user guide for Claude.ai, ChatGPT, Claude Code, Cursor, VS Code | WP7/WP8 | Open |
+
+## Decisions needed from the owner
+
+| ID | Decision | Current default | Status |
+|---|---|---|---|
+| OD-01 | ❓ License | Apache-2.0 (provisional) | Open |
+| OD-02 | ❓ Hosting target for the public remote endpoint | Container image, host-agnostic; options documented | Open |
+| OD-03 | ❓ Create a public GitHub repository, and its name | Local repository only; nothing pushed | Open |
+| OD-04 | ❓ Allow an operator-wide MAP_KEY for anonymous users on a public deployment | Disabled by default | Open |
+| OD-05 | 🔑 Provide a FIRMS MAP_KEY locally (in `.env`, never in chat) to run live validation | Live tests skip without it | Open |
+
+## Done
+
+| ID | Item | Closed by |
+|---|---|---|
+| LU-00a | Read the ARL metric document in full | Transcribed in [ARL reference](../arl/ARL_METRIC_REFERENCE.md) |
+| LU-00b | Study NASA Earthdata MCP (`nasa/earthdata-mcp` @ `b071caf`) | [References § Earthdata MCP](../research/REFERENCES.md#nasa-earthdata-mcp) |
+| LU-00c | Identify the current MCP specification and SDK versions | MCP 2026-07-28; `mcp` 2.3.0; `fastmcp` 4.1.0 — [ADR-0003](../decisions/0003-target-mcp-2026-07-28-with-backward-compatibility.md) |
+| LU-00d | Determine the FIRMS Fire Map URL grammar | Derived from the map's parser (bundle `firms_map.927094f8.js`) and verified in a browser — [ADR-0006](../decisions/0006-firms-fire-map-deep-links.md) |
+| LU-00e | Current FIRMS API endpoints, sources, and limits | API v4.1.16; `DAY_RANGE` 1–5; 5,000 transactions / 10 min — [Data products](../science/DATA_PRODUCTS.md) |
