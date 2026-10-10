@@ -1,0 +1,519 @@
+# FIRMS MCP requirements.
+#
+# Single source of truth for what the system must do. Every requirement whose
+# `verification` is `test` must be verified by at least one test marked
+#   @pytest.mark.req("<ID>")
+# The meta-test tests/test_traceability.py enforces this, and
+# scripts/gen_traceability.py renders docs/project/TRACEABILITY.md from this file
+# plus the collected markers.
+#
+# Fields: id, title, source (who/what asked for it), rationale, priority
+# (must|should|could), verification (test|inspection|demonstration|analysis),
+# design (ADR or design doc), status (planned|implemented|verified).
+
+version: 1
+requirements:
+
+  # --- Knowledge base (ADR-0005) -------------------------------------------
+  - id: FR-KB-001
+    title: Every question and answer of the reference FIRMS FAQ snapshot is present verbatim
+    source: Owner request ("should not be boiled down")
+    rationale: Agents need FIRMS's own wording, including its caveats.
+    priority: must
+    verification: test
+    design: ADR-0005
+    status: planned
+  - id: FR-KB-002
+    title: Each entry records source, source URL, retrieval date, section, and a content hash
+    source: ADR-0005
+    rationale: Provenance lets agents cite and maintainers detect drift.
+    priority: must
+    verification: test
+    design: ADR-0005
+    status: planned
+  - id: FR-KB-003
+    title: New knowledge can be added as Markdown files with front matter in supplements or configured directories
+    source: Owner request ("a mechanism to add more information in the future")
+    rationale: FIRMS content evolves; operators may add local guidance.
+    priority: must
+    verification: test
+    design: ADR-0005
+    status: planned
+  - id: FR-KB-004
+    title: Invalid knowledge files (missing fields, duplicate IDs, hash mismatch) stop loading with a clear error
+    source: ADR-0005
+    rationale: Silent corruption of reference content is worse than a failed start.
+    priority: must
+    verification: test
+    design: ADR-0005
+    status: planned
+  - id: FR-KB-005
+    title: Search returns deterministically ranked entries with their full verbatim bodies
+    source: ADR-0005
+    rationale: Agents must quote, not paraphrase; results must be reproducible.
+    priority: must
+    verification: test
+    design: ADR-0005
+    status: planned
+  - id: FR-KB-006
+    title: Entries can be retrieved by ID; unknown IDs return a structured not-found result with suggestions
+    source: ADR-0005
+    rationale: Results reference entries by ID; agents must be able to follow them.
+    priority: must
+    verification: test
+    design: ADR-0005
+    status: planned
+  - id: FR-KB-007
+    title: A table of contents of sections, entry IDs, and titles is available
+    source: ADR-0005
+    rationale: Lets agents browse rather than guess queries.
+    priority: should
+    verification: test
+    design: ADR-0005
+    status: planned
+  - id: FR-KB-008
+    title: A refresh script regenerates FAQ entries from the live page and reports added, changed, and retired entries
+    source: Owner request (site "ever evolving")
+    rationale: Keeps the knowledge base current through a reviewed procedure.
+    priority: must
+    verification: test
+    design: ADR-0005
+    status: planned
+  - id: FR-KB-009
+    title: Retired entries are excluded from search by default and flagged when retrieved by ID
+    source: ADR-0005
+    rationale: Avoids serving withdrawn guidance as current.
+    priority: should
+    verification: test
+    design: ADR-0005
+    status: planned
+  - id: FR-KB-010
+    title: Knowledge is exposed as MCP resources (index and per-entry)
+    source: ADR-0005
+    rationale: Hosts that support resources can attach entries as context.
+    priority: should
+    verification: test
+    design: ADR-0005
+    status: planned
+
+  # --- FIRMS data (ADR-0007) ------------------------------------------------
+  - id: FR-DATA-001
+    title: Retrieve detections for a bounding box or the world, a 1-5 day range, an optional date, and one or more sources
+    source: Owner request (build on the existing FIRMS API)
+    rationale: Core data access through the FIRMS area API.
+    priority: must
+    verification: test
+    design: ADR-0007
+    status: planned
+  - id: FR-DATA-002
+    title: Validate inputs (coordinate ranges and order, day range, date format and not in the future, source IDs) with structured errors
+    source: ADR-0007
+    rationale: Prevents wasted FIRMS transactions and confusing upstream errors.
+    priority: must
+    verification: test
+    design: ADR-0007
+    status: planned
+  - id: FR-DATA-003
+    title: Parse FIRMS CSV for each source family into typed records with UTC timestamps, tolerating missing optional columns and keeping unknown ones
+    source: ADR-0007
+    rationale: Sensors have different columns; FIRMS may add fields.
+    priority: must
+    verification: test
+    design: ADR-0007
+    status: planned
+  - id: FR-DATA-004
+    title: Return per-source summaries (count, time range, day/night split, confidence breakdown, FRP statistics, extent)
+    source: ADR-0007
+    rationale: Context economy; prevents summing across sensors.
+    priority: must
+    verification: test
+    design: ADR-0007
+    status: planned
+  - id: FR-DATA-005
+    title: Page records with limit, query-scoped cursor, field selection, and sort
+    source: ADR-0002 (Earthdata MCP pagination)
+    rationale: Large result sets must not flood context.
+    priority: must
+    verification: test
+    design: ADR-0007
+    status: planned
+  - id: FR-DATA-006
+    title: Every data result includes caveat references, the Fire Map disclaimer, the FIRMS citation, a reproducing map link, and provenance with the key redacted
+    source: ADR-0007; owner request (provide information to the agent)
+    rationale: Makes caveats unavoidable (objective O3).
+    priority: must
+    verification: test
+    design: ADR-0007
+    status: planned
+  - id: FR-DATA-007
+    title: FIRMS errors map to stable error codes with remediation text
+    source: ADR-0007
+    rationale: Agents need actionable errors (invalid key, rate limit, bad request, outage).
+    priority: must
+    verification: test
+    design: ADR-0007
+    status: planned
+  - id: FR-DATA-008
+    title: Report data availability per source from the documented API with a key, or the public map date service without one
+    source: ADR-0007
+    rationale: Agents must know whether data for a date can exist.
+    priority: should
+    verification: test
+    design: ADR-0007
+    status: planned
+  - id: FR-DATA-009
+    title: Report MAP_KEY status (transactions used and limit)
+    source: ADR-0007
+    rationale: Lets agents explain rate limiting.
+    priority: should
+    verification: test
+    design: ADR-0007
+    status: planned
+  - id: FR-DATA-010
+    title: Provide a source catalog (sensor, platform, resolution, coverage, processing tier, API ID, map layer)
+    source: ADR-0007
+    rationale: Agents choose sources correctly and explain differences.
+    priority: must
+    verification: test
+    design: ADR-0007
+    status: planned
+  - id: FR-DATA-011
+    title: Produce KML footprint links for valid region, period, and sensor combinations
+    source: FIRMS API (kml_fire_footprints)
+    rationale: Key-free download path for GIS users.
+    priority: could
+    verification: test
+    design: ADR-0007
+    status: planned
+  - id: FR-DATA-012
+    title: Cache identical upstream requests with a TTL by processing tier and coalesce concurrent identical requests
+    source: ADR-0007
+    rationale: Protects the user's FIRMS quota and FIRMS servers.
+    priority: should
+    verification: test
+    design: ADR-0007
+    status: planned
+  - id: FR-DATA-013
+    title: A client-side budget guard keeps per-key usage below the FIRMS transaction limit
+    source: ADR-0007; FIRMS limit 5,000 transactions / 10 minutes
+    rationale: Fail fast with a clear message instead of an upstream lockout.
+    priority: should
+    verification: test
+    design: ADR-0007
+    status: planned
+  - id: FR-DATA-014
+    title: Confidence filtering is applied only on explicit request and filtered counts are reported
+    source: FIRMS FAQ ("no way to establish an optimal cutoff a priori")
+    rationale: Silent thresholds would change scientific meaning.
+    priority: should
+    verification: test
+    design: ADR-0007
+    status: planned
+
+  # --- FIRMS Fire Map links (ADR-0006) ---------------------------------------
+  - id: FR-MAP-001
+    title: Build Fire Map URLs per the map's hash grammar (mode, dates, layers, center/zoom or area of interest)
+    source: Owner request (link to /map with self-building URLs)
+    rationale: Lets users see exactly what the agent queried.
+    priority: must
+    verification: test
+    design: ADR-0006
+    status: planned
+  - id: FR-MAP-002
+    title: Validate layer IDs against the catalog and the mode, and always include a basemap
+    source: ADR-0006 (explicit layers replace defaults; per-sensor layers need advanced mode)
+    rationale: The map silently drops invalid layers.
+    priority: must
+    verification: test
+    design: ADR-0006
+    status: planned
+  - id: FR-MAP-003
+    title: Map API source IDs to map layer IDs so detection queries can be reproduced as links
+    source: ADR-0006
+    rationale: Consistency between data and map.
+    priority: must
+    verification: test
+    design: ADR-0006
+    status: planned
+  - id: FR-MAP-004
+    title: Support the global map (/map/) and the US/Canada map (/usfs/map/)
+    source: ADR-0006
+    rationale: US/Canada users have additional layers there.
+    priority: should
+    verification: test
+    design: ADR-0006
+    status: planned
+  - id: FR-MAP-005
+    title: Referral parameters on links are on by default and configurable
+    source: ADR-0006 (mirrors Earthdata MCP)
+    rationale: Lets FIRMS measure MCP-originated traffic.
+    priority: could
+    verification: test
+    design: ADR-0006
+    status: planned
+  - id: FR-MAP-006
+    title: Each link is returned with a plain-language description of what it shows
+    source: ADR-0006
+    rationale: The agent can tell the user what to expect.
+    priority: should
+    verification: test
+    design: ADR-0006
+    status: planned
+
+  # --- MCP server (ADR-0002, ADR-0003) ---------------------------------------
+  - id: FR-MCP-001
+    title: Tools are registered from manifest.json with name, version, description, annotations, and input and output schemas
+    source: ADR-0002
+    rationale: Earthdata MCP convention; versioned interfaces.
+    priority: must
+    verification: test
+    design: ADR-0002
+    status: planned
+  - id: FR-MCP-002
+    title: Server instructions define the workflow and safety rules (disclaimer, UTC, inform rather than answer science questions)
+    source: Owner request; ADR-0002
+    rationale: Agents follow server instructions to use tools correctly.
+    priority: must
+    verification: test
+    design: ADR-0002
+    status: planned
+  - id: FR-MCP-003
+    title: Prompts provide guided workflows for common tasks
+    source: ADR-0002
+    rationale: Lets users invoke good workflows explicitly.
+    priority: should
+    verification: test
+    design: ADR-0002
+    status: planned
+  - id: FR-MCP-004
+    title: Health endpoint and /.well-known/ard.json discovery document are served
+    source: ADR-0002
+    rationale: Operations and agent discovery.
+    priority: should
+    verification: test
+    design: ADR-0002
+    status: planned
+  - id: FR-MCP-005
+    title: server.json registry metadata is present and consistent with the package version
+    source: ADR-0002
+    rationale: MCP Registry publication.
+    priority: could
+    verification: test
+    design: ADR-0002
+    status: planned
+  - id: FR-MCP-006
+    title: Both stdio and Streamable HTTP transports are supported
+    source: ADR-0003
+    rationale: Local and remote use.
+    priority: must
+    verification: test
+    design: ADR-0003
+    status: planned
+  - id: FR-MCP-007
+    title: The server works for 2026-07-28 clients and handshake-era clients
+    source: Owner request (current standard); ADR-0003
+    rationale: Current spec plus the installed base.
+    priority: must
+    verification: test
+    design: ADR-0003
+    status: planned
+  - id: FR-MCP-008
+    title: tools/list returns tools in a deterministic order
+    source: MCP 2026-07-28 (SHOULD)
+    rationale: Client caching and prompt-cache stability.
+    priority: should
+    verification: test
+    design: ADR-0003
+    status: planned
+
+  # --- Authentication (ADR-0004) ---------------------------------------------
+  - id: FR-AUTH-001
+    title: Local (stdio) use reads the MAP_KEY from FIRMS_MAP_KEY
+    source: MCP authorization spec (stdio SHOULD use environment); ADR-0004
+    rationale: Simplest local setup.
+    priority: must
+    verification: test
+    design: ADR-0004
+    status: planned
+  - id: FR-AUTH-002
+    title: Tools that do not need a MAP_KEY work without authentication
+    source: ADR-0004 (Earthdata MCP anonymous discovery)
+    rationale: Knowledge and links are useful before connecting a key.
+    priority: must
+    verification: test
+    design: ADR-0004
+    status: planned
+  - id: FR-AUTH-003
+    title: Calling a protected tool without a valid token yields HTTP 401 with WWW-Authenticate (resource_metadata, scope)
+    source: MCP authorization spec; ADR-0004
+    rationale: Triggers the client's OAuth flow (step-up).
+    priority: must
+    verification: test
+    design: ADR-0004
+    status: planned
+  - id: FR-AUTH-004
+    title: Protected Resource Metadata (RFC 9728) and Authorization Server Metadata (RFC 8414) are published
+    source: MCP authorization spec
+    rationale: Client discovery.
+    priority: must
+    verification: test
+    design: ADR-0004
+    status: planned
+  - id: FR-AUTH-005
+    title: Clients can register with a Client ID Metadata Document or, for compatibility, Dynamic Client Registration
+    source: MCP 2026-07-28 (CIMD SHOULD; DCR deprecated, MAY)
+    rationale: Works with current and older clients.
+    priority: must
+    verification: test
+    design: ADR-0004
+    status: planned
+  - id: FR-AUTH-006
+    title: The connect page collects the user's MAP_KEY, validates it with FIRMS, and explains failures
+    source: Owner request (easy connection with the FIRMS auth model)
+    rationale: The one human step in the flow.
+    priority: must
+    verification: test
+    design: ADR-0004
+    status: planned
+  - id: FR-AUTH-007
+    title: Authorization codes are single-use, PKCE S256 is enforced, and the authorization response includes iss
+    source: OAuth 2.1; RFC 9207; MCP 2026-07-28
+    rationale: Standard protections against code interception and mix-up.
+    priority: must
+    verification: test
+    design: ADR-0004
+    status: planned
+  - id: FR-AUTH-008
+    title: Access tokens are encrypted, audience-bound to this server, and expire
+    source: ADR-0004; MCP authorization spec (audience validation MUST)
+    rationale: Protects the MAP_KEY and prevents token reuse elsewhere.
+    priority: must
+    verification: test
+    design: ADR-0004
+    status: planned
+  - id: FR-AUTH-009
+    title: Refresh tokens rotate on use and replay of a used refresh token is rejected
+    source: OAuth 2.1 (public clients)
+    rationale: Detects stolen refresh tokens.
+    priority: must
+    verification: test
+    design: ADR-0004
+    status: planned
+  - id: FR-AUTH-010
+    title: An operator-wide MAP_KEY is disabled by default and, when enabled, applies only to anonymous calls
+    source: ADR-0004; owner decision OD-04
+    rationale: Preserves the per-user FIRMS key model by default.
+    priority: should
+    verification: test
+    design: ADR-0004
+    status: planned
+
+  # --- Security --------------------------------------------------------------
+  - id: SEC-001
+    title: A MAP_KEY never appears in tool results, logs, error messages, or links
+    source: ADR-0004
+    rationale: Keys are personal credentials.
+    priority: must
+    verification: test
+    design: ADR-0004
+    status: planned
+  - id: SEC-002
+    title: No tool accepts a MAP_KEY as a parameter
+    source: ADR-0004
+    rationale: Keys must never pass through the model.
+    priority: must
+    verification: test
+    design: ADR-0004
+    status: planned
+  - id: SEC-003
+    title: The connect page is protected against CSRF and redirect-URI manipulation
+    source: ADR-0004; OAuth security BCP
+    rationale: The page handles a credential.
+    priority: must
+    verification: test
+    design: ADR-0004
+    status: planned
+  - id: SEC-004
+    title: Tokens issued by other issuers or for other audiences are rejected
+    source: MCP authorization spec (MUST NOT accept other tokens)
+    rationale: Prevents token passthrough and confused-deputy issues.
+    priority: must
+    verification: test
+    design: ADR-0004
+    status: planned
+
+  # --- Non-functional ----------------------------------------------------------
+  - id: NFR-001
+    title: Non-live tests make no real network calls
+    source: ADR-0008 (Earthdata MCP practice)
+    rationale: Deterministic CI; no load on FIRMS.
+    priority: must
+    verification: test
+    design: ADR-0008
+    status: planned
+  - id: NFR-002
+    title: Every tool declares an output schema and returns structured content
+    source: ADR-0003
+    rationale: Current MCP practice; machine-readable results.
+    priority: must
+    verification: test
+    design: ADR-0003
+    status: planned
+  - id: NFR-003
+    title: Every tool declares a title and annotations (readOnlyHint, destructiveHint, idempotentHint, openWorldHint)
+    source: ADR-0003
+    rationale: Hosts use annotations for consent and safety decisions.
+    priority: must
+    verification: test
+    design: ADR-0003
+    status: planned
+  - id: NFR-004
+    title: Response sizes are bounded (maximum page size enforced)
+    source: ADR-0007
+    rationale: Context economy.
+    priority: must
+    verification: test
+    design: ADR-0007
+    status: planned
+  - id: NFR-005
+    title: Supported on Python 3.12, 3.13, and 3.14
+    source: ADR-0002
+    rationale: Wide local installability.
+    priority: should
+    verification: inspection
+    design: ADR-0002
+    status: planned
+
+  # --- Documentation and process ----------------------------------------------
+  - id: DOC-001
+    title: Relative links in the documentation resolve to existing files
+    source: Owner request (flawless documentation)
+    rationale: Broken links erode trust in the documentation.
+    priority: must
+    verification: test
+    design: ADR-0008
+    status: planned
+  - id: DOC-002
+    title: Every registered tool is documented in the tool catalog
+    source: Owner request (documentation for others)
+    rationale: The catalog must match the code.
+    priority: must
+    verification: test
+    design: ADR-0008
+    status: planned
+  - id: DOC-003
+    title: The ARL assessment log records a LifeCycle entry at every phase gate with evidence links
+    source: NASA ARL metric; owner request
+    rationale: ARL compliance.
+    priority: must
+    verification: inspection
+    design: PROJECT_PLAN §8
+    status: planned
+  - id: PRJ-001
+    title: Work follows the branching, commit, and versioning conventions
+    source: Owner request; ADR-0010
+    rationale: Readable, auditable history.
+    priority: must
+    verification: inspection
+    design: ADR-0010
+    status: planned
