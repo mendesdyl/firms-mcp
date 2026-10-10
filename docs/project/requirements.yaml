@@ -218,7 +218,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0006
-    status: planned
+    status: implemented
   - id: FR-MAP-002
     title: Validate layer IDs against the catalog and the mode, and always include a basemap
     source: ADR-0006 (explicit layers replace defaults; per-sensor layers need advanced mode)
@@ -226,7 +226,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0006
-    status: planned
+    status: implemented
   - id: FR-MAP-003
     title: Map API source IDs to map layer IDs so detection queries can be reproduced as links
     source: ADR-0006
@@ -234,7 +234,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0006
-    status: planned
+    status: implemented
   - id: FR-MAP-004
     title: Support the global map (/map/) and the US/Canada map (/usfs/map/)
     source: ADR-0006
@@ -242,7 +242,7 @@ requirements:
     priority: should
     verification: test
     design: ADR-0006
-    status: planned
+    status: implemented
   - id: FR-MAP-005
     title: Referral parameters on links are on by default and configurable
     source: ADR-0006 (mirrors Earthdata MCP)
@@ -250,7 +250,7 @@ requirements:
     priority: could
     verification: test
     design: ADR-0006
-    status: planned
+    status: implemented
   - id: FR-MAP-006
     title: Each link is returned with a plain-language description of what it shows
     source: ADR-0006
@@ -258,7 +258,7 @@ requirements:
     priority: should
     verification: test
     design: ADR-0006
-    status: planned
+    status: implemented
 
   # --- MCP server (ADR-0002, ADR-0003) ---------------------------------------
   - id: FR-MCP-001

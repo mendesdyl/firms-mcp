@@ -24,7 +24,7 @@ requirements it supports. It is updated with every merge to `main`
 | T12 | Follow the Earthdata MCP design | [ADR-0002](../decisions/0002-follow-nasa-earthdata-mcp-conventions.md), [References §2](../research/REFERENCES.md#nasa-earthdata-mcp) | Designed |
 | T13 | Include all FIRMS FAQs, not boiled down, with a mechanism to add more | [ADR-0005](../decisions/0005-knowledge-base-verbatim-and-extensible.md), [knowledge/](../../knowledge/README.md), [Adding knowledge](../developers/ADDING_KNOWLEDGE.md) | Done (verified: 0 missing lines) |
 | T14 | Provide information to the answering agent rather than answer science questions | Plan §4 guiding principle; ADR-0007 | Designed |
-| T15 | Link to the FIRMS Fire Map with self-building URLs | [ADR-0006](../decisions/0006-firms-fire-map-deep-links.md), WP5 | Designed (grammar verified) |
+| T15 | Link to the FIRMS Fire Map with self-building URLs | [ADR-0006](../decisions/0006-firms-fire-map-deep-links.md), [Map links design](../design/MAP_LINKS.md), `src/firms_mcp/maplinks/` | Done (links verified in the real map) |
 | T16 | Later: map in the client, with animation | [ADR-0009](../decisions/0009-interactive-map-via-mcp-apps.md), WP12 | Proposed |
 
 ## Log
@@ -124,3 +124,25 @@ server). **Tests:** 52 passing.
 **Tests:** 125 passing.
 
 **ARL milestones supported:** ARL2-M1 and ARL3-M1 (API client component).
+
+### 2026-10-10 — WP5: FIRMS Fire Map links (`feature/map-links`)
+
+**What was done**
+
+- `firms_mcp.maplinks`: a pure builder for the Fire Map's URL-hash grammar (mode, dates,
+  layers, area of interest or center/zoom) on the global and US/Canada maps, with referral
+  parameters and a plain-language description of what each link shows.
+- A catalog snapshot of the map's configuration (267 layers, 9 modes, 37 modules) drives
+  validation: every layer must exist and be available in the chosen mode; per-satellite
+  layers switch the link to Advanced mode; a basemap is always included.
+- Verified in the browser: builder output loads exactly as described; the US/Canada map
+  shares the grammar (minimum zoom 4); global zoom range 1–16.
+- `scripts/check_map_catalog.py` detects drift against the live map bundle (no drift on
+  2026-10-10).
+
+**Outputs:** `src/firms_mcp/maplinks/`, `scripts/check_map_catalog.py`,
+`tests/unit/maplinks/`, [Map links design](../design/MAP_LINKS.md).
+
+**Requirements implemented:** FR-MAP-001 … FR-MAP-006. **Tests:** 149 passing.
+
+**ARL milestones supported:** ARL2-M1 and ARL3-M1 (map-link component).

@@ -9,6 +9,9 @@ All notable changes to this project are documented here. The format follows
 
 ### Added
 
+- FIRMS Fire Map link builder (`firms_mcp.maplinks`) for the global and US/Canada maps,
+  validated against a snapshot of the map's own layer and mode configuration, with a live
+  drift check (`scripts/check_map_catalog.py`).
 - FIRMS API client (`firms_mcp.firms`): source catalog, validated areas, async client for
   `area`, `data_availability`, MAP_KEY status, and the public map date service; CSV parsing
   and per-source summaries; response cache with request coalescing; transaction budget
