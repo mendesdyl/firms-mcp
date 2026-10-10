@@ -16,13 +16,13 @@ Status key: ✅ complete in full (with evidence) · 🟡 in progress · ⬜ not 
 
 | Milestone | Status | Evidence | Completed | Commit |
 |---|---|---|---|---|
-| ARL1-M1 Ideas for how research results could enhance decision making | 🟡 | [Plan §1, §3, §7](../plan/PROJECT_PLAN.md) | | |
-| ARL1-M2 Baseline support research identified and documented | 🟡 | [Data products](../science/DATA_PRODUCTS.md), [References](../research/REFERENCES.md) | | |
-| ARL2-M1 Independent application components formulated and created | ⬜ | | | |
-| ARL2-M2 Decision making activity identified | ⬜ | | | |
-| ARL2-M3 Plans to better characterize the decision making activity | ⬜ | | | |
-| ARL3-M1 Components tested and validated independently | ⬜ | | | |
-| ARL3-M2 Detailed characterization of user decision making process | ⬜ | | | |
+| ARL1-M1 Ideas for how research results could enhance decision making | ✅ | [Plan §1, §3, §7](../plan/PROJECT_PLAN.md) | 2026-10-09 | `ba18000` |
+| ARL1-M2 Baseline support research identified and documented | ✅ | [Data products](../science/DATA_PRODUCTS.md), [References](../research/REFERENCES.md) | 2026-10-09 | `ba18000` |
+| ARL2-M1 Independent application components formulated and created | 🟡 | Knowledge base done (`src/firms_mcp/knowledge/`, `e9c1bfe`); API client, map links, auth pending | | |
+| ARL2-M2 Decision making activity identified | ✅ | [Decision context §1–§3](../science/DECISION_CONTEXT.md) | 2026-10-09 | `4f832b8` |
+| ARL2-M3 Plans to better characterize the decision making activity | ✅ | [Decision context §5](../science/DECISION_CONTEXT.md), [Evaluation plan](../design/EVALUATION.md) | 2026-10-09 | `4f832b8` |
+| ARL3-M1 Components tested and validated independently | 🟡 | Knowledge base: 52 tests incl. line-by-line FAQ completeness (`e9c1bfe`); other components pending | | |
+| ARL3-M2 Detailed characterization of user decision making process | ✅ | [Decision context §3–§4](../science/DECISION_CONTEXT.md) (mechanisms M1–M4, limitations F1–F11; quantitative baseline to be measured by the evaluation) | 2026-10-09 | `4f832b8` |
 | ARL3-M3 Convincing case for viability | ⬜ | | | |
 | ARL4-M1 Components integrated; technical integration issues worked out | ⬜ | | | |
 | ARL4-M2 Organizational and human process issues identified and managed | ⬜ | | | |
@@ -37,8 +37,8 @@ Status key: ✅ complete in full (with evidence) · 🟡 in progress · ⬜ not 
 | ARL8-M3 User documentation and training completed | ⬜ | | | |
 | ARL9-M1 Sustained use in decision making context | ⬜ | | | |
 
-**Computed current ARL:** 0 (no level has all milestones complete). Updated with each
-LifeCycle entry below.
+**Computed current ARL:** 1 (all ARL 1 milestones complete; ARL 2 awaits ARL2-M1).
+Updated with each LifeCycle entry below.
 
 ---
 
@@ -90,6 +90,21 @@ evidence, and the computed ARL.)*
 - Milestones newly complete: none yet (ARL 1 evidence in progress).
 - Computed ARL: 0 by the strict rule; Start-of-Project ARL recorded as 1 above on the
   basis of external baseline research, pending documentation.
+
+### L-1 — 2026-10-09 — Knowledge base merged (`e9c1bfe`)
+
+- Milestones newly complete: **ARL1-M1**, **ARL1-M2** (plan and baseline research,
+  `ba18000`); **ARL2-M2**, **ARL2-M3**, **ARL3-M2** (decision-making characterization and
+  evaluation plan, `4f832b8`).
+- Milestones in progress: **ARL2-M1** and **ARL3-M1** — the knowledge-base component is
+  created and independently validated (52 tests, including a line-by-line completeness
+  check against the owner-provided FAQ with 0 missing lines); the API client, map-link
+  builder, and authentication components remain.
+- Note on ARL3-M2: the characterization documents mechanisms and limitations
+  qualitatively. Quantitative baseline performance will be added from the first
+  evaluation run (condition A of the evaluation plan); the owner may choose to treat that
+  measurement as a precondition for this milestone, in which case it reverts to 🟡.
+- **Computed ARL: 1.**
 
 ## Fiscal Year ARL
 
