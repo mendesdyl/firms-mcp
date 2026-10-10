@@ -23,7 +23,7 @@ Legend: 🔎 needs research · 🛠 implementation · 📝 documentation · ❓ 
 | LU-09 | 🔎 Which MCP hosts support MCP Apps, CIMD, and mid-session step-up (401 after anonymous use) | Client compatibility matrix | — | Open |
 | LU-10 | 🔎 Standard-processing (SP) lag per sensor | Explaining availability to users | — | Open. Map date service (2026-10-09): MODIS SP to 2026-07-31; VIIRS S-NPP SP and NOAA-20 SP to 2026-06-30 |
 | LU-11 | 🔎 Review FIRMS API code examples at `/academy/` | Usage patterns, undocumented parameters | — | Open. Note: the area page's own script also generates `/api/area/html/…` URLs (an HTML output type besides `csv`) |
-| LU-13 | 🔎 Cross-check knowledge base against the VIIRS C2 375 m user guide (June 2025) and MODIS C6/6.1 user guide | Supplement content; caveat accuracy | — | Open |
+| LU-13 | 🔎 Cross-check knowledge base against the VIIRS C2 375 m user guide (June 2025) and MODIS C6/6.1 user guide | Supplement content; caveat accuracy | — | In progress: both guides downloaded; confidence semantics verified (MODIS Table 11 thresholds; VIIRS classes 7/8/9) and used by the parser |
 | LU-14 | 🤝 Whether FIRMS wants a specific referral parameter on links (currently `utm_source=firms-mcp&utm_medium=mcp`, mirroring Earthdata MCP) | Referral analytics for FIRMS | FIRMS team | Open. Verified that the map loads correctly with these parameters |
 | LU-15 | 🔎 FIRMS WMS/WFS services (MAP_KEY-based) for possible image or vector outputs | Future visualization options | — | Open |
 
@@ -34,7 +34,7 @@ Legend: 🔎 needs research · 🛠 implementation · 📝 documentation · ❓ 
 | WK-01 | 📝 Baseline research documents: data products, references | WP1 | In progress |
 | WK-02 | 📝 Decision-making characterization and evaluation plan | WP2 | Open |
 | WK-03 | 🛠 Knowledge base: verbatim FAQ ingestion, supplements, loader, search, refresh script, completeness test | WP3 | Done on `feature/knowledge-base` (see Done) |
-| WK-04 | 🛠 FIRMS API client, source catalog, CSV normalizer, caching, rate-limit guard | WP4 | Open |
+| WK-04 | 🛠 FIRMS API client, source catalog, CSV normalizer, caching, rate-limit guard | WP4 | Done on `feature/firms-api-client` (see Done) |
 | WK-05 | 🛠 Map link builder and layer catalog snapshot with refresh/verification script | WP5 | Open |
 | WK-06 | 📝 Viability case | WP6 | Open |
 | WK-07 | 🛠 MCP server: tools, resources, prompts, instructions, health, `server.json`, `ard.json` | WP7 | Open |
@@ -67,3 +67,4 @@ Legend: 🔎 needs research · 🛠 implementation · 📝 documentation · ❓ 
 | LU-12 | Full text of the LANCE disclaimer | Imported verbatim as `supplement.disclaimers.lance-disclaimer` (and acknowledgments) |
 | LU-16 | MAP_KEY format | FIRMS pages validate a MAP_KEY as 32 alphanumeric characters (`/api/map_key/` checks `^[0-9a-z]+$`, the area page checks case-insensitively) and check status at `/mapserver/mapkey_status/?MAP_KEY=…` |
 | WK-03 | Knowledge base (WP3) | 150 entries (142 FAQ + 8 supplements); completeness 0 missing lines; 52 tests — merge of `feature/knowledge-base` |
+| WK-04 | FIRMS API client (WP4) | `firms_mcp.firms`: catalog, client, parser, summaries, cache, budget, KML links, redaction; 125 tests — merge of `feature/firms-api-client` |

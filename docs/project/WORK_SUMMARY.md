@@ -10,7 +10,7 @@ requirements it supports. It is updated with every merge to `main`
 
 | # | Task (from the owner's request) | Where it is accomplished | Status |
 |---|---|---|---|
-| T1 | Build an MCP layer on top of the existing FIRMS API | WP4, WP7 — `src/firms_mcp/` | In progress |
+| T1 | Build an MCP layer on top of the existing FIRMS API | WP4 ([FIRMS API client](../design/FIRMS_API_CLIENT.md)), WP7 — `src/firms_mcp/` | In progress (client done) |
 | T2 | Keep the FIRMS auth model (MAP_KEY) but make connecting easy from a public chatbot | [ADR-0004](../decisions/0004-authentication-bring-your-own-map-key.md), WP8 | Designed |
 | T3 | Use the most current MCP standard and enterprise practice | [ADR-0003](../decisions/0003-target-mcp-2026-07-28-with-backward-compatibility.md) | Designed |
 | T4 | Plan the orchestration of the project | [Project plan](../plan/PROJECT_PLAN.md) | Done (v1.0) |
@@ -97,3 +97,30 @@ requirements, a network guard for tests, and a traceability meta-test and genera
 server). **Tests:** 52 passing.
 
 **ARL milestones supported:** ARL2-M1 and ARL3-M1 (knowledge-base component).
+
+### 2026-10-09 — WP4: FIRMS API client (`feature/firms-api-client`)
+
+**What was done**
+
+- `firms_mcp.firms`: the eight-source catalog (with Fire Map layers, map-date keys, KML
+  sensors, and the knowledge entries that explain each source); validated bounding boxes;
+  an async client for `area`, `data_availability`, MAP_KEY status, and the public map date
+  service; a CSV parser for every sensor family with UTC timestamps, documented confidence
+  classes, processing level (URT/RT/NRT/SP), and preservation of unknown columns;
+  per-source summaries; a TTL/LRU cache with single-flight coalescing; a transaction budget
+  using FIRMS's own displayed weight formula; KML footprint links; stable error codes with
+  remediation text.
+- Verified the MODIS confidence thresholds against the MODIS C6/C6.1 user guide (Table 11)
+  and the VIIRS classes against the VIIRS C2 user guide.
+- Found and fixed, through tests, that `httpx` logs full request URLs (which contain the
+  MAP_KEY) at INFO level: the client now installs log redaction and quiets those loggers.
+- Configuration via `pydantic-settings` with `SecretStr`; `.env.example`.
+
+**Outputs:** `src/firms_mcp/firms/`, `src/firms_mcp/config.py`, `src/firms_mcp/redaction.py`,
+`tests/unit/firms/`, [FIRMS API client design](../design/FIRMS_API_CLIENT.md),
+[Configuration](../developers/CONFIGURATION.md).
+
+**Requirements implemented:** FR-DATA-001 … 004, 007 … 013, SEC-001, FR-AUTH-001.
+**Tests:** 125 passing.
+
+**ARL milestones supported:** ARL2-M1 and ARL3-M1 (API client component).
