@@ -1,0 +1,1183 @@
+NASA's Fire Information for Resource Management System (FIRMS) provides access to near real-time data related to wildfire activity. Learn more by reading the most frequently asked questions about FIRMS along with answers and links to resources provided by our experts.
+Share your questions, comments, or impact stories
+
+Get in touch by emailing Earthdata Support at earthdata-support@nasa.gov with FIRMS in the subject line.
+Join our FIRMS email listserv
+
+Get updates on new blogs, trainings and information on data outages. To subscribe: e-mail lance-firms-users-join@lists.nasa.gov (no subject or text is required).
+
+
+Warning: Super-heated smoke plumes can cause artifacts in nighttime detections. See: Super heated smoke plumes cause data artifacts in nighttime detections (July 17, 2020). Please also see "Are there ever false detections or data artifacts?" below, under the FAQ section "Caveats to consider when using active fire data from FIRMS."
+
+
+Getting Started
+What active fire data and imagery are available in FIRMS Global?
+
+*Additional higher spatial and temporal resolution data and imagery are available for the USA and Canada. See the table in the FIRMS US/Canada FAQ section below.
+Product	Instrument (Platform)	Source	Spatial Resolution	Latency4 (Coverage)
+Polar orbiting Active Fire Detections	MODIS (Terra/Aqua)	NASA LANCE	1km	<3 hours (Global)
+Polar orbiting Active Fire Detections	VIIRS (Suomi NPP/NOAA-20/NOAA-21)	NASA LANCE	375m	<3 hours (Global)
+Polar orbiting Active Fire Detections	MODIS (Terra/Aqua)	SSEC Univ of Wisconsin	1km	<1-30 mins (US-Canada)
+Polar orbiting Active Fire Detections	VIIRS (Suomi NPP/NOAA-20/NOAA-21)	SSEC Univ of Wisconsin	375m	<1-30 mins (US-Canada)
+Polar orbiting Active Fire Detections	OLI (Landsat 8 & 9)	USGS EROS5	30m	30-60 mins (US-Canada)
+Provisional Geostationary Active Fire Detections	ABI (GOES-16 & 19)1	NOAA	2km sub-satellite2	~20-30 mins (Americas)
+Provisional Geostationary Active Fire Detections	ABI (GOES-16 & 19)3	CAMS/IPMA	2km sub-satellite2	~20-30 mins (Americas)
+Provisional Geostationary Active Fire Detections	SEVIRI (Meteosat 9 & 11)3	EUMETSAT/LSA SAF	2km sub-satellite2	~30 mins (Europe-Africa-India)
+Provisional Geostationary Active Fire Detections	AHI (Himawari-9)3	CAMS/IPMA	2km sub-satellite2	~30 mins (Australia-Asia)
+True/False Color Composite Imagery	ABI (GOES-16 & 19)	NASA GIBS	1km	40 mins (Americas)
+True/False Color Composite Imagery	MODIS (Terra/Aqua)	NASA GIBS	250m	<3 hours (Global)
+True/False Color Composite Imagery	VIIRS (Suomi NPP/NOAA-20)	NASA GIBS	250m	<3 hours (Global)
+True/False Color Composite Imagery	OLI (Landsat 8 & 9) / MSI (Sentinel 2A, 2B & 2C)	NASA/IMPACT/HLS	30m	2-4 days (Global)
+HLS Vegetation Indices: Normalized Difference Vegetation Index (NDVI), Normalized Difference Moisture Index (NDMI), Normalized Burn Ratio (NBR) & Normalized Burn Ratio 2 (NBR2)	OLI (Landsat 8 & 9) / MSI (Sentinel 2A, 2B & 2C)	NASA IMPACT/HLS	30m	2-4 days (Global)
+Aerosol Index	OMPS (Suomi NPP)	NASA LANCE/GIBS	~50km	<3 hours (Global)
+Aerosol Index PyroCumuloNimbus	OMPS (Suomi NPP)	NASA LANCE/GIBS	~50km	<3 hours (Global)
+Burned Area	MODIS (Terra/Aqua)	NASA	500m	~3 months (Global)
+
+1FDC: Fire Detection and Characterization algorithm
+2The pixel size systematically grows from sub-satellite towards the edge of the disk
+3FRPPIXEL: Fire Radiative Power algorithm
+4Latency refers to the estimated time from satellite observation to availability in FIRMS
+5Currently curated for FIRMS US/Canada
+
+See the Acronyms section at the bottom of this page for definitions.
+Where can I find the MODIS and VIIRS Active Fire User guides?
+
+For the most current information, use the Active Fire User Guides:
+
+    VIIRS Collection 2 (375m Active Fire) User Guide (Updated June 2025)
+    MODIS Collection 6 and 6.1 Version 1.0  (Updated May 2021)
+
+What are the key differences between URT/RT/NRT and Standard quality fire data?
+
+Standard (science quality) data products are an internally consistent, well-calibrated record of Earth’s geophysical properties to support science. The ultra real-time (URT), real-time (RT), and near real-time (NRT) fire products are generated more rapidly than standard processing allows to meet the needs of the applications community. To facilitate this, a number of changes have been made to the standard processing approach: for the URT and RT, direct broadcast data are used (see Questions about Real-Time (RT) and Ultra Real-Time (URT) active fire data below) and for NRT, data downlinked from the satellite are sorted, processed, and delivered in an expedited manner (as Session-based Production Data Sets).
+
+One key difference between the MODIS/Aqua NRT and MODIS/Aqua Standard (science quality) Fire Products is the accuracy of the fire locations (positions or geolocation). Unlike MODIS/Terra, VIIRS/Suomi NPP, VIIRS/NOAA-20 and VIIRS/NOAA-21, the position of the Aqua satellite is not as well known when the NRT Fire Product is produced. Most of the time, the additional error introduced in the reported fire location of the MODIS and VIIRS NRT products is small (< 100 m), but in some situations this position error may be large (several kilometers). In particular, the larger errors may occur after spacecraft maneuvers and during space weather events. The NRT Fire location accuracy is also degraded for MODIS/Terra, VIIRS/Suomi NPP, VIIRS/NOAA-20 and VIIRS/NOAA-21 after spacecraft maneuvers, but the time period is typically shorter than for MODIS/Aqua (< 2 hours for MODIS/Terra, VIIRS/Suomi NPP, and VIIRS/NOAA-20/21 vs. up to 12 hours for MODIS/Aqua). When the Standard Fire products are later processed, the best available satellite position data is used and the quality assurance team removes data degraded by spacecraft maneuvers. In addition, the Standard Fire products are typically later reprocessed at a later and the fire positions may be even more accurate in the reprocessed products.
+
+The MODIS and VIIRS active fire and thermal anomalies products are Level 2 products. Unlike many other Level 2 products, the fire product does not make use of ancillary data, and so their codes are identical to the ones used in standard operations. However, please note:
+
+    The data distributed via the FIRMS download tool does not attribute the static sources/inferred hotspot "type" (as outlined in table 10 of the MODIS Active Fire User Guide)
+    The day/night column (also described on page 38 of the MODIS Active Fire User Guide) is currently calculated differently. The standard (science quality) processing algorithm uses the solar zenith angle (SZA) to threshold the day/night value; if the SZA exceeds 85 degrees it is assigned a night value. SZA values less than 85 degrees are assigned a day time value. For the NRT algorithm the day/night flag is assigned by ascending (day) vs descending (night) observation. It is expected that the NRT assignment of the day/night flag will be amended to be consistent with the standard processing.
+
+What does a fire detection mean on the ground?
+
+Satellites take a ‘snapshot’ of events as they pass over Earth. Each hotspot/active fire detection represents the center of a pixel flagged as containing one or more fires or other thermal anomalies (such as volcanoes). For MODIS the pixel is approximately 1 km and for VIIRS the pixel is approximately 375 m. The “location” is the center point of the pixel (not necessarily the coordinates of the actual fire). The actual pixel size varies with the scan and track (see: What does scan and track mean?). The fire is often less than the size of the pixel (see: What size fires can be detected?). We are not able to determine the exact location or size of the fire; what we do know is that at least one fire is located within the flagged pixel. Sometimes you will see several active fires in a line. This generally represents a fire front.
+Image
+Figure explaining what a MODIS active fire/hotspot detection means on the ground
+Image
+Figure explaining what a VIIRS 375m active fire/hotspot detection means on the ground
+What are the different sources of MODIS and VIIRS active fire data in FIRMS?
+
+    MODIS NRT C6.1 (MCD14DL) are the NRT MODIS (Terra and Aqua) Collection 6.1 data processed by NASA FIRMS.
+    MCD14ML provided by FIRMS are a subset of the standard quality data processed by the MODIS Fire Team Science Computing Facility at the University of Maryland. These are available with a 2-3 month lag through the Archive Download Tool and can be viewed and queried in Fire Map.
+    VIIRS 375 m NRT active fire data are available from Suomi NPP (VNP14IMGTDL_NRT), NOAA-20 (VJ114IMGTDL_NRT) and NOAA-21 (VJ214IMGTDL_NRT). These are processed by NASA FIRMS.
+    Landsat Fire and Thermal Anomalies (LFTA) product is generated from all daytime Operational Land Imager (OLI) acquisitions and currently provided for most of North America (CONUS, southern Canada and northern Mexico). The LFTA is currently produced through a collaboration by USGS EROS Data Center, NASA, and the USDA Forest Service. Daily Landsat 8 and Landsat 9 OLI observations are processed by EROS and use the NASA-developed algorithm to produce active fire detection data that is ingested into FIRMS.
+
+Please note: A real-time (RT) and ultra real-time (URT) version of both MODIS and VIIRS active fire data are available for the US and Canada within minutes of satellite observation. See: What are the real-time (RT) and ultra real-time (URT) data in FIRMS?
+How often are MODIS and VIIRS active fire data acquired?
+
+The MODIS instruments aboard the Terra and Aqua EOS satellites acquire data continuously, providing global coverage every 1 to 2 days. The MODIS instrument swath is 2,330 km. Terra passes over the equator at approximately 10:30 a.m. and 10:30 p.m. Mean Local Time (MLT) each day; Aqua passes over the equator at approximately 1:30 p.m. and 1:30 a.m. MLT. There are at least four daily MODIS observations for almost every area on the equator, with the number of observations increasing (due to overlapping orbits) closer to the poles.
+
+The VIIRS instruments aboard the Suomi NPP and NOAA-20/21 satellites also acquire data continuously. The 3,040 km VIIRS swath enables about 15% image overlap between consecutive orbits at the equator, thereby providing full global coverage every 12 hours. Suomi NPP passes over the equator at approximately 1:30 p.m. and 1:30 a.m. MLT; NOAA-20/21 passes over the equator about 50 minutes ahead of Suomi NPP at approximately 12:40 p.m. and 12:40 a.m. Thanks to its polar orbit, mid-latitudes will experience 3-4 looks a day.
+
+See also:
+What is the temporal frequency of the geostationary satellite observations and derived active fire data?
+
+What is the temporal frequency of Landsat observations and derived active fire data?
+How often is FIRMS updated?
+
+FIRMS is updated regularly as new data are ingested. However, it is important to note that the data are derived from instruments onboard polar orbiting satellites (MODIS aboard Terra and Aqua, and VIIRS aboard Suomi NPP and NOAA-20/21), and generally these have two overpasses a day (more towards the poles - see How often are the active fire data acquired). FIRMS makes the NRT data available within 3 hours of a satellite observation (on a best-effort basis); the RT data are available within 30 minutes of overpass and the URT within 5 minutes. See also: What time does the satellite pass over my area?
+
+FIRMS fire maps are updated every 5 minutes, and the SHP, KML and CSV files (available for the last 24 hours, 48 hours, and 7 days) are updated every 60 minutes. The first place data are posted is on the updated daily fires text files. As explained on the FIRMS active fire page, you will need an Earthdata Login to download data from this folder. FIRMS web services are generated on the fly and use the most recently processed data.
+What time does the satellite pass over my area?
+
+In FIRMS Fire Map and NASA Worldview you can overlay the daily orbit tracks to see satellite overpass times for your area of interest based on the currently selected date. For more precise information regarding anticipated satellite observations, please use the NASA Ocean Color Overpass Predictor. It provides a report of observations conducted by selected satellite sensors for a user-defined location and period of time, including the anticipated time and number of daily/nightly observations, and key satellite view and solar geometry parameters.
+For what dates are the fire data available?
+
+MODIS data are available from November 2000 (for Terra) and from July 2002 (for Aqua) to the present. VIIRS 375 m data are currently available from 20 January 2012 to the present (for Suomi NPP) and 1 January 2020 to the present (for NOAA-20). VIIRS 375 m (NOAA-21) data are currently available from 17 January 2024 to the present.
+How are fires detected by satellite?
+
+Fire detection is performed using a contextual algorithm that exploits the strong emission of mid-infrared radiation from fires. The NASA MODIS algorithm examines each pixel of the MODIS swath, and ultimately assigns to each pixel one of the following classes: missing data, cloud, water, non-fire, fire, or unknown. More information can be found in: Giglio, L., Descloitres, J., Justice, C. O., & Kaufman, Y. (2003). An enhanced contextual fire detection algorithm for MODIS. Remote Sensing of Environment, 87: 273-282. doi:10.1016/S0034-4257(03)00184-6
+
+In keeping with MODIS, the VIIRS algorithm is a hybrid thresholding and contextual algorithm using radiometric signals from 4 micron and 11 micron bands (M13 and M15, respectively) and additional bands and a suite of tests for internal cloud mask and rejection of false alarms. The product primarily contains latitude and longitude data for those pixels classified as thermal anomalies. More information can be found in: Schroeder, W., Oliva, P., Giglio, L., & Csiszar, I. A. (2014). The New VIIRS 375m active fire detection data product: algorithm description and initial assessment. Remote Sensing of Environment, 143: 85-96. doi:10.1016/j.rse.2013.12.008
+Why was a particular fire not detected?
+
+There are several reasons why MODIS or VIIRS may not have detected a fire: The fire may have started and ended between satellite observations; cloud cover, heavy smoke, or tree canopy may completely obscure a fire; occasionally the instruments are inoperable and can observe nothing during these times (see data outages and known issues for MODIS and VIIRS); the fire may have been too small or too cool to be detected. The VIIRS 375 m active fire product provides a greater response over fires of relatively small areas due to its higher spatial resolution and it has improved nighttime performance. For more information on the minimum size of fire that can be detected using MODIS data see "What size fires can be detected?" and "How do I know if a fire detection was missed due to cloud or missing data?"
+What are the attributes / fields of the active fire data?
+
+View fire attribute fields for NRT active fire data MODIS and VIIRS.
+I only see fire data available for the last 7 days on your website. How can I get older data?
+
+Data for the last 2 months can be downloaded as text (TXT) files older data can be obtained through the MODIS Fire Archive Download Tool or directly from the MODIS Fire Team Science Computing Facility at the University of Maryland. MODIS data are available from November 2000 (for Terra) and from July 2002 (for Aqua) to the present. VIIRS 375 m data are available from 20 January 2012 to the present (for Suomi NPP) and 1 January 2020 to the present (for NOAA-20), and 17 January 2024 to the present (for NOAA-21).
+What projection are the shapefiles in?
+
+The shapefiles are in the Geographic WGS84 projection.
+What is the detection confidence?
+
+The confidence value was added to help users gauge the quality of individual fire pixels included in the Level 2 fire product. The confidence field should be used with caution as it is likely that it will vary in terms of meaning in different parts of the world. Nevertheless, some of our end users have found such a field to be useful in excluding false positive occurrences of fire. The confidence values are attributed differently for MODIS and VIIRS.
+
+For MODIS, the confidence value ranges from 0% to 100% and can be used to assign one of the three fire classes (low-confidence fire, nominal-confidence fire, or high-confidence fire) to all fire pixels. For some uses or applications, errors of commission (or false alarms) are particularly undesirable, and for these applications a user may consider trading a lower detection rate to gain a lower false alarm rate.
+
+Conversely, for other applications missing any fire might be especially undesirable, and a user may be willing to tolerate a higher false alarm rate to ensure that fewer true fires are missed. Users requiring fewer false alarms may wish to retain only nominal- and high-confidence fire pixels and treat low-confidence fire pixels as non-fire, land pixels. Users requiring maximum fire detectability who are able to tolerate a higher incidence of false alarms should consider all three classes of fire pixels.
+
+For VIIRS, the confidence values are set to low, nominal, and high; they are based on a collection of intermediate algorithm quantities used in the detection process and are intended to help users gauge the quality of individual hotspot/fire pixels. Low confidence daytime fire pixels are typically associated with areas of Sun glint and lower relative temperature anomaly (<15 K) in the mid-infrared channel I4. Nominal confidence pixels are those that are free of potential Sun glint contamination during the day and marked by strong (>15 K) temperature anomaly in either day or nighttime data. High confidence fire pixels are associated with day or nighttime saturated pixels.
+
+While the confidence value may not be very helpful for all users or applications, there is no way to establish an optimal cutoff a priori. Users have to adopt an empirical approach—what threshold works best for what I'm trying to do?
+What are MODIS and VIIRS collections?
+
+Reprocessing of the entire MODIS and VIIRS data archive is periodically performed to incorporate better calibration, algorithm refinements, and improved upstream products into all MODIS or VIIRS products. The updated data archive resulting from each reprocessing is referred to as a collection. Later collections supersede all earlier collections.
+
+For Terra MODIS, Collection 1 consists of the first products generated following launch. Terra MODIS data were reprocessed for the first time in June 2001 to produce Collection 3. Note that this first reprocessing was numbered Collection 3, rather than Collection 2, as one would expect. Collection 3 was also the first produced for the Aqua MODIS products. Collection 4 reprocessing was initiated in December 2002 for Terra MODIS and somewhat later for the Aqua MODIS. Collection 5 began reprocessing in early 2007. Improvements in Collection 5 included adding the Fire Radiative Power value to the fire detections and refining the detection confidence to more accurately identify questionable active fire pixels. Collection 6 reprocessing began in 2015.
+
+In terms of fire detections, the key differences between Collection 5 and Collection 6 were that: Collection 6 extends processing to oceans and other large bodies, including detection of off-shore gas flaring; there was a reduction in false alarms in the Amazon caused by small forest clearings. Collection 6.1 has been available since April 2021 and is the latest collection available. In terms of fire detections, there are no algorithm changes; the update is from changes and enhancements to the calibration approach used in the generation of the Terra and Aqua MODIS Level 1B products.
+
+For further details on C61 calibration changes and other changes, the user is encouraged to refer to the pdf summarizing Collection 6.1 specific changes.
+
+For the most up to date information, see the MODIS Collection 6/6.1 Active Fire Product User's Guide (updated May 2021)
+Are there any restrictions on using data or imagery from FIRMS?
+
+NASA promotes full and open sharing of data and and we encourage publication of imagery from FIRMS; when doing so for image captions, please cite it as "NASA FIRMS" and also consider including a direct link to the imagery in FIRMS to allow others to explore the imagery.
+
+For acknowledgment in scientific journals, please use: "We acknowledge the use of imagery from the NASA LANCE FIRMS (https://earthdata.nasa.gov/firms), part of the NASA Earth Science Data and Information System (ESDIS)."  Please also read the LANCE Disclaimer.
+What is UTC?
+
+UTC is known as "Universal Coordinated Time”, “Coordinated Universal Time” or “Zulu Time”. It is a worldwide scientific standard of timekeeping. Its reference point is Greenwich, England: when it is midnight there on Earth's prime meridian, it is midnight (00:00:00.000000). UTC can be converted to local standard time for a particular time zone by adding or subtracting the time difference between UTC and that time zone. Please see this World Time Zone Map to visualize time zones boundaries and differences between UTC and local standard time for the respective time zones. Please note when daylight savings time is applied in a given time one hour should be subtracted from the UTC/time zone difference.
+Why do I sometimes see linear patterns of large numbers of active fire detections?
+
+NASA and NOAA routinely conduct on-orbit mission calibration maneuvers for MODIS, VIIRS, etc. to maintain consistent geometric and radiometric performance for production of science data. Primarily for radiometric calibration purposes, on a near monthly basis the sensor's typical perspective of the Earth’s is changed to view the Moon. This is conducted by physically rolling the satellite/spacecraft over in orbit for a short period of time to observe the Moon.
+
+The illumination of the Moon's surface by the Sun during these maneuvers is used to calibrate the reflective solar bands of the sensor. Upon completion of these maneuvers the satellite rolls back to point the sensor at Earth. At that instant, it is not uncommon for anomalous observation data to be collected by the reflective and thermal bands. This situation can result in linear patterns of large numbers of anomalous active fire detection data within a MODIS or VIIRS swath as show in the example below.
+Image
+Spurious fire detections
+
+NASA FIRMS makes every effort to filter and remove these anomalous detections from the data stream in real-time when they are detected. However, on rare occasions it is possible for some of these detections to temporarily appear in the FIRMS data viewer and datasets before they are removed.
+How do I ingest WMS into ArcGIS and customize the symbols?
+
+Our tutorial, Ingest FIRMS WMS into ArcGIS and Customize the Symbology, will show you how.
+
+
+Support and Mailing Lists
+Who do I contact for support with FIRMS?
+
+For questions about LANCE, FIRMS or user registration, contact Earthdata Support.
+How do I stay informed about updates, announcements, data issues, and scheduled maintenance?
+
+Subscribe to receive notifications from LANCE and FIRMS about updates, announcements, data issues, and scheduled maintenance.
+
+    LANCE-MODIS mailing list (For updates regarding NRT data from MODIS aboard Terra and Aqua and VIIRS/Land aboard Suomi NPP and NOAA-20; this will keep you up-to-date with data outages that may impact the MODIS and VIIRS active fire products)
+        To subscribe: e-mail lance-modis-join@lists.nasa.gov (no subject or text is required)
+        To unsubscribe: e-mail lance-modis-leave@lists.nasa.gov (no subject or text is required)
+    LANCE FIRMS mailing list (For general updates on the Fire Information for Resource Management System)
+        To subscribe: e-mail lance-firms-users-join@lists.nasa.gov (no subject or text is required)
+        To unsubscribe: e-mail lance-firms-users-leave@lists.nasa.gov (no subject or text is required)
+    LANCE Users mailing list (For general updates about LANCE)
+        To subscribe: e-mail lance-users-join@lists.nasa.gov (no subject or text is required)
+        To unsubscribe: e-mail lance-users-leave@lists.nasa.gov (no subject or text is required)
+        Please note, if you wish to receive information about data issues, use LANCE-MODIS list above
+
+Where can I go to interact with other users and NASA subject matter experts on a variety of Earth science research and applications topics?
+
+Please visit the Earthdata Forum.
+
+
+Caveats to Consider When Using Active Fire Data from FIRMS
+Are there ever false fire detections or data artifacts?
+
+To minimize the occurrence of false alarms over bright/reflective surfaces (e.g., metallic factory rooftops), the VIIRS and MODIS algorithms use slightly more conservative tests to avoid the effects of Sun glint.
+Super-Heated Smoke Plumes
+
+A few VIIRS active fire pixels are occasionally located outside the reported perimeter of a large wildfire. The parallax effect causes the tall/superheated plume detection pixel(s) to be displaced laterally when projected onto the surface. Displaced pixels will be located on the fire perimeter’s side further away from the image center and closer to the swath’s edge. If this happens, users may need to look for additional clues to see if it is a data artifact. There have been a few instances when tall, superheated plumes carrying large volumes of hot material into the air are formed over large and intense wildfires; when these occur the VIIRS instrument detects the surface fire along with part of the plume and categorizes them as active fires. Those occurrences typically share the following set of conditions:
+
+(i) Nighttime detection. This is the period during which the VIIRS active fire product is particularly responsive to heat sources thereby favoring plume detection. However, this can also occur during the daytime with;
+
+(ii) Very large wildfires undergoing explosive growth and accompanied by rapid/vertically elongated plume development. Enough hot material must entrain the plume creating a distinguishable thermal signal (i.e., one that significantly exceeds the fire-free surface background);
+
+(iii) High scan angle. This is what will ultimately produce the detections extending beyond the actual fire perimeter.
+
+If those conditions apply, look for alternative observations (previous/next observation) acquired closer to nadir, and try to  prioritize the use of the fire detection data accordingly. Unfortunately, the VIIRS active fire algorithm isn’t currently able to distinguish nighttime surface fire pixels from the isolated plume detections due to strong similarities between their radiometric signatures.
+
+Related FAQs:
+
+    Is the VIIRS 375 m product still being refined?
+    What is the detection confidence?
+
+Related links:
+
+    False fires due to super heated smoke plume in nighttime detections (August 3, 2018)
+    Note on False Fires in VIIRS/NOAA-20 (July 17, 2020)
+
+How do I know if a fire detection was missed due to cloud or missing data?
+
+An indication of cloud cover or missing data can be obtained by viewing the co-incident MODIS or VIIRS imagery in FIRMS Fire Map or Worldview. To take cloud and missing data in to account, it may be more appropriate to use one of the 1 km Level 3 or Climate Modeling Grid (CMG) fire products (see the discussion in the MODIS Fire User Guide).
+
+To check if there are any days where data is missing, please refer to the FIRMS missing data table. This page shows the days in which there are no data for a particular satellite and instrument combination. This information is provided for both standard quality data and near real-time (NRT) data. Note: this will only show the days where there is no data for the satellite/sensor combination.
+How appropriate are the hotspot/fire locations for my research?
+
+The MODIS and VIIRS fire locations are good for determining the location of active fires, providing information on the spatial and temporal distribution of fires, and comparing data between years. The active fire pixel locations may not always be the most appropriate source of fire related information, and, the data do not provide any information on cloud cover or missing data. Depending on the analysis you are performing, misleading or even incorrect results may result, if the other types of pixels are ignored. In some cases, it is more appropriate to use one of the Level 3 or CMG fire products. For more discussion on this, see FAQ "What is the Climate Modeling Grid (CMD) fire product? and "What is the difference between NRT and Standard quality fire data?"
+What is the Climate Modeling Grid (CMG) fire product?
+
+The CMG fire products are gridded statistical summaries of fire pixel information intended for use in regional and global modeling. The products are currently generated at 0.5 degree spatial resolution for time periods of 1 calendar month (MOD14CMH/MYD14CMH) and 8 days (MOD14C8H/MYD14C8H). Higher resolution 0.25 degree CMG fire products will eventually be produced as well. More information can be found in the MODIS Collection 6 Active Fire Product User's Guide.
+Can active fires be detected below the forest canopy?
+
+The likelihood of detecting a fire beneath the tree canopy is unknown, but likely to be very low. Understory fires are typically small, and with the tree canopy obstructing the view of the fire, detection will be very unlikely.
+Are all active fire hotspots vegetation fires?
+
+No. An active fire represents the center of a pixel flagged as containing 1 or more actively burning hotspots /fires. In most cases hotspots/fires are vegetation fires, but sometimes a hotspot/fire is a volcanic eruption or the flare from a gas well. Different types of thermal anomalies are not currently attributed in the NRT MODIS or VIIRS data.
+Can I estimate burned area from active fire data?
+
+It is not recommended to use active fire locations to estimate burned area as determining burned area to an acceptable degree of accuracy is not possible due to nontrivial spatial and temporal sampling issues. For some applications, however, acceptable accuracy can be achieved, although the effective area burned per fire pixel is not simply a constant, but rather varies with respect to several different vegetation and fire-related variables. In the list of FIRMS publications, see Giglio et al. (2006) for more information. See "Where can I get the MODIS burned area product?"
+
+Most recently, Harmonized Landsat Sentinel (HLS) false color composite imagery was included in FIRMS and these data can be helpful in estimating burned area (see our FIRMS Blog post on adding HLS).
+Can you use the active fire data for detecting volcanoes or volcanic eruptions?
+
+While both the MODIS and VIIRS algorithms routinely detect active volcanoes, the active fire products have not been validated against independent data for their ability to detect volcanoes. There is a separate near-real time MODIS product, MODVOLC, specifically for volcanoes.
+What is FRP and what factors should be considered across sensors?
+
+Fire Radiative Power (FRP) is the rate of radiative energy emission per time unit from all fires within a pixel. FRP has been extensively used as a proxy of fire intensity to characterize fire types and is related to the rate of biomass combustion and rate of emissions. FRP estimates are provided for active fire data from MODIS, VIIRS and geostationary sensors used in FIRMS. Sensor spatial resolution, saturation temperature of thermal bands, satellite view zenith angle, time of satellite observation, etc. can affect the accuracy and variability of FRP estimates. Users should consider these factors when comparing FRP information from a specific sensor or multiple sensors.
+
+
+Questions About VIIRS Active Fire Data
+
+The Visible Infrared Imaging Radiometer Suite (VIIRS) is an instrument aboard the Suomi National Polar-orbiting Partnership (Suomi NPP) and NOAA-20/21 weather satellites. VIIRS was launched on Suomi NPP on October 28, 2011, and again on NOAA-20 (formally known as Joint Polar Satellite System-1 [JPSS-1]) on November 18, 2017. The VIIRS instrument was launched on JPSS-2 (NOAA-21) on November 10, 2022 and has joined NOAA-20 and Suomi NPP in the same orbit.
+
+If you wish to view the VIIRS reflectance imagery that corresponds to the active fire detections, you can display this in FIRMS Fire Map or Worldview.
+What is the VIIRS 375 m Active Fire Product?
+
+The VIIRS 375 m active fire product is the latest product to be added to FIRMS. It provides data from the Visible Infrared Imaging Radiometer Suite (VIIRS) sensor aboard the joint NASA/NOAA Suomi National Polar-orbiting Partnership (Suomi NPP), NOAA-20 and NOAA-21 satellites. The 375 m data complements MODIS fire detections, show good agreement in hotspot detection, but the improved spatial resolution of the 375 m data provides greater response over fires of relatively small area, and improved mapping of large fire perimeters. The 375 m data also has improved nighttime performance. Consequently, these data are well suited for use in support of fire management (e.g., near real-time alert systems), as well as other science applications requiring improved fire mapping fidelity.
+
+The VIIRS NRT 375 m active fire products are from: Suomi NPP (VNP14IMGTDL_NRT); NOAA-20, formally known as JPSS-1 (VJ114IMGTDL_NRT); and NOAA-21, formally known as JPSS-2 (VJ214IMGTDL_NRT).
+What is the temporal frequency of the VIIRS 375 m fire data?
+
+The VIIRS instrument aboard the Suomi NPP and NOAA-20/21 satellites acquire data continuously. The 3,040 km VIIRS swath enables ≈15% image overlap between consecutive orbits at the equator, thereby providing full global coverage every 12 hours. Suomi NPP has a nominal (equator-crossing) observation times at 1:30 p.m. and 1:30 a.m., Mean Local Time (MLT); NOAA-21 is flying half an orbit, or 50 minutes, ahead of NOAA-20, with Suomi NPP between them. The mid-latitudes  experience 3-4 looks a day as these are polar-orbiting satellite.
+What is the spatial resolution of the data?
+
+The 375 m data describe the nominal resolution after native data are spatially aggregated (see figure below).
+Image
+SpatialResVIIRSImagerData
+Image Caption
+
+Spatial resolution of VIIRS imagery data as a function of scan angle. The three distinct regions represent unique data aggregation zones extending from nadir to the edge of swath.
+
+The aggregation scheme changes across three distinct image regions. In the first region (nadir to 31.59° scan angle), three native pixels are aggregated in the along scan (cross-track) direction to form one data sample in the Level 1 image. In the second region (31.59° to 44.68° scan angle), two native pixels are aggregated to form one data sample. Finally in the third and last region (44.68° to 56.06° - edge of swath) one native pixel will result in one data sample. All five 375 m channels are aggregated onboard the spacecraft before the data are transmitted to the ground stations, whereas a subset of the VIIRS 750 m data (dual-gain channels only) are aggregated on the ground.
+What is the main difference between the VIIRS 375 m and 750 m active fire data?
+
+The two data products use similar methodologies to detect active fire pixels although differences in the spectral characteristics of the VIIRS channels used in each case led to unique algorithms. Because of its improved spatial resolution, the 375 m algorithm will tend to detect more fire pixels compared to the 750 m data set. That difference is particularly pronounced during the nighttime part of the orbit when the occurrence of smaller/cooler fires will favor the 375 m product.
+Will the VIIRS 375 m fire detection algorithm always outperform the 750 m one?
+
+Generally, the higher resolution product will achieve a higher probability of fire detection in both day and nighttime scenes. However, areas subject to strong solar reflectance associated with sun glint, such as metallic rooftops or highly reflective desert, could see a few 750 m fire pixels without a corresponding 375 m fire detection. This is attributed to the relatively shorter wavelength of the 375 m mid-infrared channel used in the fire algorithm, which will experience greater influence of the solar component. To minimize the associated consequences, namely the occurrence of false alarms over bright/reflective surfaces (e.g., metallic factory rooftops), the 375 m algorithm uses slightly more conservative tests to avoid the effects of Sun glint over those areas.
+Are those few isolated fire pixels in the middle of the South Atlantic Ocean real?
+
+Those occurrences are typically associated with spurious fire detections due to the South Atlantic Magnetic Anomaly. The 375 m active fire algorithm contains a specific filter to flag those occurrences as low confidence detections. However, in some cases (average 2-3 pixels every night) the spurious signal generated in the input Level 1 data is confused for a regular fire pixel and therefore assigned a nominal confidence flag. Note that verified true positives can be found over South Atlantic Ocean waters along the southeast coast of Brazil and the west coast of Africa where oil rigs normally operate.
+Are the VIIRS 375 m (and 750 m) active fire data science-ready?
+
+The VIIRS active fire data have been extensively tested since routine production of the mission’s data record started January 19, 2012. Numerous bad scan episodes (i.e., pixel clusters containing spurious radiances extending across the swath) were found in the Level 1 input data during the initial 18-24 months of the time series (Csiszar, et al., 2014). Those anomalies were gradually addressed by the VIIRS science team and their occurrence has dropped to virtually zero with the implementation of revised Level 1 data processing packages in 2015. Initial assessment of both VIIRS 375 m and 750 m was implemented over a few experimental sites indicating consistent fire detection and characterization performance. Additional data comparison analyses were implemented using near coincident Aqua/MODIS and TET-1 (German Aerospace Center) active fire data, which again showed consistent performance of the VIIRS active fire products across different observation conditions. Consequently, we consider the current data of good enough quality for use in fire management applications and scientific studies.
+Where do I go for more information?
+
+Schroeder, W., Oliva, P., Giglio, L., & Csiszar, I. A. (2014). The New VIIRS 375m active fire detection data product: Algorithm description and initial assessment. Remote Sensing of Environment, 143: 85–96. doi:10.1016/j.rse.2013.12.008
+
+    VIIRS I-Band 375 m Active Fire Data
+    VIIRS (S-NPP) I Band 375 m Active Fire Product NRT (Vector data)
+
+
+Questions About MODIS Active Fire Data
+
+The Moderate Resolution Imaging Spectroradiometer (MODIS) is a payload imaging sensor that was launched into Earth orbit by NASA in 1999 aboard the Terra (EOS AM) satellite and in 2002 aboard the Aqua (EOS PM) satellite.
+
+MODIS reflectance imagery that corresponds to the active fire detections, can be viewed in FIRMS Global, FIRMS US/Canada and Worldview.
+What does a MODIS active fire detection mean on the ground?
+
+Satellites take a ‘snapshot’ of events as they pass over earth. Each hotspot/active fire detection represents the center of a 1 km (approx.) pixel flagged as containing one or more fires or other thermal anomalies (such as volcanoes). The “location” is the center point of the pixel (not necessarily the coordinates of the actual fire). The actual pixel size varies with the scan and track (see: What does scan and track mean?). The fire is often less than 1 km in size (see: What size fires can be detected?). We are not able to determine the exact fire size; what we do know is that at least one fire is located within that 1 km pixel. Sometimes you will see several active fires in a line. This generally represents a fire front.
+Image
+Figure explaining what a MODIS active fire/hotspot detection means on the ground
+Are there any missing MODIS fire data?
+
+Terra was launched on December 18, 1999, and Aqua was launched on May 4, 2002. High quality active fire observations are available from the Terra satellite starting November 2000 and from the Aqua satellite starting July 4, 2002, onwards.
+
+In the fire data archive, there are several days where data were not collected and days with lower than usual fire counts due to reasons such as instrument outage. These include, but are not limited to: April 15, 2001; June 15 to July 3, 2001; and March 19 to 28, 2002.
+
+To check if there are any days where data is missing from the MODIS instrument, please refer to the FIRMS missing data table. This page shows the days in which there are no data for a particular satellite and instrument combination. This information is provided for both standard quality data and near real-time (NRT) data.
+What does scan and track mean?
+
+Scan and Track values are included in the attributes (see: What are the attributes / fields of the active fire data?). The scan value represents the spatial-resolution in the East-West direction of the scan and the track value represents the North-South spatial resolution of the scan. It should be noted that the pixel size is not always 1 km across the scan track. The pixels at the “Eastern” and the “Western” edges of the scan are bigger than 1 km. It is 1 km only along the nadir (exact vertical from the satellite). Thus, the values shown for scan and track represent the actual spatial resolution of the scanned pixel.
+What is the brightness temperature?
+
+The brightness temperature of a fire pixel is measured (in Kelvin) using the MODIS channels 21/22 and channel 31. Brightness temperature is actually a measure of the photons at a particular wavelength received by the spacecraft, but presented in units of temperature.
+Where can I get the MODIS burned area product?
+
+MODIS Active Fire & Burned Area Products web site and the MODIS Burned Area User Guide (Updated November 2022) and the MODIS Collection 6 and 6.1 Active Fire Product User Guide.
+What size fires can be detected?
+
+In any given scene the minimum detectable fire size is a function of many different variables (scan angle, biome, Sun position, land surface temperature, cloud cover, amount of smoke and wind direction, etc.), so the precise value will vary slightly with these conditions. MODIS routinely detects both flaming and smoldering fires 1000 m2 in size. Under very good observing conditions (e.g., near nadir, little or no smoke, relatively homogeneous land surface, etc.) flaming fires one tenth this size can be detected. Under pristine (and extremely rare) observing conditions even smaller flaming fires 50 m2 can be detected. It is not recommended to estimate burned area from the active fire data, see: Can I estimate burned area using the active fire data?.
+
+Unlike most contextual fire detection algorithms designed for satellite sensors that were never intended for fire monitoring (e.g., AVHRR, VIIRS, ATSR), there is no upper limit to the largest and/or hottest fire that can be detected with MODIS.
+Image
+Example of the day and night relationship of fire size and fire temperature
+Image Caption
+
+The diagram shows the day and night relationship of fire size and fire temperature, in different biomes, to the probability of being detected by MODIS (Giglio, et al. (2003)).
+What validation of the MODIS active fire products has been performed?
+
+Validation of the Terra MODIS Fire Product has primarily been performed using coincident observations from the Advanced Spaceborne Thermal Emission and Reflection Radiometer (ASTER); see the MODIS Land Team Validation page, and see FIRMS publications by Csiszar, et al. (2006) and two publications from Morisette, et al. (2005) for details. A very brief discussion of the general validation procedure, with some preliminary results, can be found in the Justice, et al. (2002) publication.
+Where can I get more information on the MODIS Fire Products?
+
+For more information on the active fire product and other MODIS fire products, please refer to the FIRMS publications by Louis Giglio as well as the MODIS Active Fire Burned Area Products website and the MODIS Burned Area User Guide (Updated November 2022) and the MODIS Collection 6 Active Fire Product User Guide (Updated December 2020).
+
+
+Questions About Real-Time (RT) and Ultra Real-Time (URT) Active Fire Data
+What are the real-time (RT) and ultra real-time (URT) data in FIRMS?
+
+NASA EOSDIS defines real-time (RT) data as data that are available to the end user within one hour of the satellite fly-over (see Data Latency and What time does the satellite pass over my area?). Ultra real-time (URT) data are available much quicker—within minutes. Within FIRMS, the URT data are available within a minute of satellite overpass for select direct readout stations in the U.S. and Canada.
+What is "direct broadcast"?
+
+Direct broadcast, in addition to storing collected observation data for later download at designated intervals, some satellites have the capability to immediately broadcast this raw data to the ground. This is known as direct broadcast. As Earth is observed by the satellite, the data are formatted and transmitted to any user below with an antenna and other necessary equipment to receive and process the data. The Terra, Aqua, Suomi NPP, and NOAA-20/21 satellites all have direct broadcast capability.
+What is "direct readout"?
+
+The acquisition of freely transmitted direct broadcast satellite data by users with compatible ground receiving equipment is known as direct readout. Data can be collected by direct readout ground stations while they are in direct line of sight to satellites while they are visible above the horizon.
+Are there particular differences between URT data, RT data and NRT data?
+
+Ultra Real-Time (URT), Real-Time (RT), and Near Real-Time (NRT) data are all relative forms of low-latency data products made available more quickly than standard processing to support environmental monitoring, response to hazard/disaster events, etc.
+
+NRT data processing frameworks, such as NASA LANCE, leverage operational Level 0 global data streams for several NASA missions and provide Level 2 products within 1-3 hours of satellite overpass. RT and URT data are predicated on the use of raw satellite data collected via direct readout ground stations. These ground stations are operated by various agencies and institutions, located around the globe and provide regional coverage. Ground stations typically process raw direct readout data to Level 0 to Level 1 to Level 2 data 30-60 minutes over satellite overpass and are considered RT data. Recently developed data processing technologies can now process direct readout data from Level 0 to Level 2 data products within 1 minute of satellite observation and are considered URT data.
+How are URT active fire detection data integrated and used with NRT active fire detection data in FIRMS?
+
+URT active fire detection data provided by select ground stations are integrated into FIRMS fire maps, KMZs and web map services within minutes of satellite observation. NRT active fire detection data replace the URT data in FIRMS mapping and data products and services as they become available 1-3 hours later. This integration of the data is seamless and not noticeable to the user unless there is a temporary anomaly occurring in either data source (e.g., a gap or artifact in the URT direct readout data stream).
+How do I identify the NRT, RT, and URT data?
+
+FIRMS Fire Map and Map Services: To view the NRT, RT, and URT data in the FIRMS fire map, select the "Time Based" option in the FIRMS menu on the right. This symbolizes the active fire detections by time since detection. Both RT and URT data will display in the <1 hour category while NRT data will display in the 1-3 hour category or later categories. You can also click on individual active fire detection locations to bring up the attributes table; column X lists whether it is NRT, RT or URT data. The RT and URT fires will have a “Version” value (e.g., 2.0) followed by “RT” or “URT”. NRT fires will have a Version” value followed by “NRT.”
+
+FIRMS KMZs: "Active fire detection footprint and centroid" KMZs symbolize active fire detection by time since detection. Time since detection KMZs symbolizes the active fire detections by time since detection. Both RT and URT data will display in the <1 hour category while NRT data will display in the 1-3 hour category or later categories. RT and URT data are not distinguished in the KMZ attributes.
+Are URT data provided for all FIRMS products?
+
+So far, URT active fire detection data are available in FIRMS interactive maps, KMZs, and web services for most of the conterminous U.S. plus S Canada and N Mexico.
+Are URT data provided globally?
+
+URT data are currently provided by four (4) select direct readout ground stations—one in Mayaguez, PR (red) and Hampton, VA (black) and two in Madison, WI (blue) (see graphic below). Each ground station can receive direct readout data when satellite orbits intersect their respective station masks. Additional United States ground stations will continue to be integrated with the objective of providing URT coverage for the U.S., Canada, and Central America. Integration of ground stations elsewhere on the globe will be evaluated and determined at a later date.
+Image
+World Map showing Current and Planned Coverage areas for Ultra Real-Time and Real-Time Active Fire Data covering mostly North and South America
+Image Caption
+
+Current (solid lines) and Planned (dotted lines) Coverage of Ultra Real-Time and Real-Time Active Fire Data
+What is the objective of providing URT data?
+
+Remote sensing observations and derived science products provide a "snapshot" of conditions at the time of satellite observation and are used to assess the situation and inform decisions. Consequently, the value of satellite data used for operational detection and monitoring of wildfires and other hazard/disaster events is inversely proportional to their latency. In other words, the value of the data typically increases with decreasing latency in data availability since satellite observation.
+
+
+Geostationary Active Fire Data
+How are "geostationary" active fire data different from the other data provided by FIRMS?
+
+Geostationary satellite sensors view the same area of Earth’s surface at all times, while polar-orbiting sensors, such as MODIS and VIIRS, typically view the same area of Earth’s surface twice daily. Geostationary satellite sensors can provide repeated observations at 10 to 15 minute intervals, making it possible to capture their growth and change of fires and to detect fires that may not be detected at longer temporal intervals. However, the spatial resolution of geostationary satellite data is generally coarser and therefore less sensitive to small fires. The exception is the new Meteosat Third Generation satellite, which provides active fire detections with a 1 km pixel resolution at sub-nadir. As with other geostationary satellites, the resolution of the pixel grows coarser away from sub-nadir.
+Where does the geostationary active fire data come from and how can I get more information about them?
+
+Please refer to the following references and the information in the table below:
+Satellite	GOES-East and West	GOES-East and West	Meteosat Second Generation	Himawari	Meteosat Third Generation MTG-Imaging (MTG-0)
+Instrument/Algorithm	Advanced Baseline Imager (ABI) / Fire Detection and Characterization (FDC-HSC)	Advanced Baseline Imager (ABI) / Fire Radiative Power (FRP-PIXEL)	Spinning Enhanced Visible and Infra-Red Imager (SEVIRI) / Fire Radiative Power (FRP-PIXEL)	Advanced Himawari Imager (AHI) / Fire Radiative Power (FRP-PIXEL)	Flexible Combined Imager (FCI)
+Satellite Source Agency	NOAA	NOAA	EUMETSAT	JAXA
+
+EUMETSAT
+Data Source	NOAA CLASS	Instituto Português do Mar e da Atmosfera (IPMA) under Copernicus Atmosphere Monitoring Service (CAMS)	EUMETSAT Land Surface Analysis Applications Facility (LSA SAF)	IPMA under Copernicus Atmosphere Monitoring Service (CAMS)
+
+EUMETSAT Land Surface Analysis Applications Facility (LSA SAF)
+Coverage and Satellite Locations*
+
+
+
+GOES East (GOES 19) Location 75.2W
+
+GOES West (GOES 18) Location 137.0 W
+
+Check GOES status here
+
+
+GOES East (GOES 19) Location 75.2W
+
+GOES West (GOES 18)Location 137.0 W
+
+Check GOES status here
+
+
+Europe, Africa, and Asia
+
+MSG IODC (MSG  9), MSG 0º (MSG 10)
+Check which EUMETSAT satellite is currently operational.
+
+
+Asia and Australia
+
+Himawari 9: 0º, 140º
+
+
+Europe, Africa, and Asia
+More Information/Product User Manual (PUM)	NOAA GOES-R Series Advanced Baseline Imager (ABI) Level 2 Fire / Hot Spot Characterization (FDC) - Datasets
+
+FRP: GOES-R and Himawari Satellites PUM
+
+See Xu et al. (2021)
+
+
+Fire Radiative Power Pixel (FRPPIXEL, LSA-502)
+
+See Wooster et al. (2015): See Roberts et al. (2015)
+
+
+FRP: GOES-R and Himawari Satellites PUM
+
+See Xu et al. (2021)
+
+
+Fire Detections and Emissions
+Algorithm	Filtered Fire Detection and Characterization (FDC-HSC) algorithm (provisional) (Schmidt et al., 2020). See: Why are the geostationary fire data filtered in FIRMS?	Geostationary Fire Thermal Anomaly (FTA) algorithm & FRP retrieval developed by King’s College, London. See Xu et al. (2021)	Geostationary Fire Thermal Anomaly (FTA) algorithm & FRP retrieval developed by King’s College, London. See Wooster et al. (2015)	Geostationary Fire Thermal Anomaly (FTA) algorithm & FRP retrieval developed by King’s College, London. See Xu et at. (2017)	Geostationary Fire Thermal Anomaly (FTA) algorithm & FRP retrieval developed by King’s College, London. See Xu et al. (2026)
+
+*See the Coverage Figure below.
+What are the attributes of the geostationary fire data?
+
+The attributes are described in the following table:
+Attribute	Short Description	Long Description
+Latitude	Latitude (decimal degrees)	Latitude of pixel center. Note: Pixel size/dimension is affected by satellite view geometry and curvature of Earth’s surface. Consequently, pixel size becomes more distorted (larger) with increasing distance from the point immediately below the satellite. The reported coordinate is the center of each pixel’s footprint. See: What is the spatial resolution of the geostationary satellite observations?
+Longitude	Longitude (decimal degrees)	Longitude of pixel center. Note: Pixel size/dimension is affected by satellite view geometry and curvature of Earth’s surface. Consequently, pixel size becomes more distorted (larger) with increasing distance from the point immediately below the satellite. The reported coordinate is the center of each pixel’s footprint. See: What is the spatial resolution of the geostationary satellite observations?
+Brightness	Brightness Temperature (BT) (kelvins)	Middle-infrared channel BT (kelvins)
+No BT values are output from the FDC algorithm indicated by -999
+Pixel_Y	Pixel size (E-W direction)	These values reflect the approximate pixel size.
+Pixel_X	Pixel size (N-S direction)	These values reflect the approximate pixel size.
+Acquire_Time	Time and date of start of scan	Scan start time. The format is YYYY-MM-DD followed by HH:MM. For example, the time 12:14
+Confidence	Confidence
+
+FRP-PIXEL: Value range 0-1. Higher values correspond to higher detection confidences.
+
+FDC-HSC: class values range from 10-15 and 30- 35 and are indicative, but not a measure of fire confidence level. The former sub-group defines instantaneous (first/single) fire detections whereas the latter identifies temporally-filtered cases when two or more co-located detections are observed within a 12-hour interval.
+
+FIRMS filters and displays only:
+
+    10 or 30: Good quality (highest confidence)
+    11 or 31: Saturated fire pixel
+
+Version	Version (FIRMS reference only)	1.0 NRT
+Brightness2	Brightness Temperature (kelvins)	Long-wave infrared channel brightness temperature (kelvins)
+No BT values are output from the FDC algorithm indicated by -999
+FRP	Fire Radiative Power	FRP depicts the pixel-integrated fire radiative power in MW (megawatts).
+Day/Night	Day or Night	D= Daytime fire, N= Nighttime fire
+Satellite	Satellite
+
+Him8 = Himawari-8 KCL/IPMA
+
+Met9 = Meteosat-9 (MSG 0) KCL/LSA SAF
+
+Met11 = Meteosat-11 (MSG IODC) KCL/LSA SAF
+
+MTG0 = Meteosat-12 (MTG-0) KCL/LSA SAF
+
+G16 = GOES-16 (GOES-East) NOAA FDC
+
+G19 = GOES-19 (GOES-West) NOAA FDC
+
+G16FRP = GOES-16 (GOES-East) KCL/IPMA
+
+G19FRP = GOES-19 (GOES-West) KCL/IPMA
+What is the temporal frequency of the geostationary satellite observations and derived active fire data?
+
+    GOES active fire detections occur every 10 minutes and should be available within FIRMS in approximately 20 to 30 minutes.
+
+    Meteosat Third Generation (MTG-0) active fire detections occur every 10 minutes and should be available within FIRMS in approximately 20 to 30 minutes.
+
+    Meteosat Second Generation (e.g. MSG 0 and MSG IODC) active fire detections occur every 15 minutes and should be available within FIRMS in approximately 30 minutes.
+
+    Himawari active fire detections occur every 10 minutes and should be available within FIRMS in approximately 30 minutes.
+
+What size fires can be detected with geostationary satellite observations?
+
+GOES - The theoretical minimum detectable fire size is approximately 0.004 km2 (4,000m2) at nadir in optimum viewing conditions, burning at 800 K (Schmidt et al., 2013).
+
+Meteosat - The theoretical minimum detectable fire size for “actively burning fires” is approximately 0.0001 of the area of a 3km SEVIRI pixel at nadir or approximately 0.0009km2 (900m2) (Schmidt et al., 2013).
+
+Himawari - Documentation describing the minimum detectable fire size of Himawari AHI using JAXA's Wild Fire product algorithm is currently limited but performance is anticipated to be similar to GOES ABI. Several recent research efforts demonstrate the use of Himawari AHI using customized/adapted fire detection algorithms with varying results.
+
+Please see the following papers:
+
+Schmidt, C., Hoffman, J., Prins, E., and Lindstrom, S. (2013). GOES-R Advanced Baseline Imager (ABI) Algorithm Theoretical Basis Document For Fire/ Hot Spot Characterization v2.6. NOAA NESDIS STAR, https://www.star.nesdis.noaa.gov/goesr/documents/ATBDs/Baseline/ATBD_GOES-R_FIRE_v2.6_Oct2013.pdf
+
+Wooster, M. J., Roberts, G., Freeborn, P. H., Xu, W., Govaerts, Y., Beeby, R., He, J., Lattanzio, A., Fisher, D., and Mullen, R. (2015). LSA SAF Meteosat FRP products – Part 1: Algorithms, product contents, and analysis. Atmospheric Chemistry and Physics, 15(22): 13217–13239. doi:10.5194/acp-15-13217-2015
+What is the spatial resolution of the geostationary satellite observations?
+
+The thermal bands, used to detect active fires, have a spatial resolution directly below the satellite (known as the “sub-satellite point”) of 1 km for MTG FCI, 2 km for GOES ABI and Himawari AHI, and 3 km for MSG SEVIRI. However, as already noted, the spatial resolution of the pixel (i.e., the pixel size) systematically grows away from the sub-satellite point towards the edge of the disk (Figures 1-4). Please note each hotspot/active fire detection represents the center of a pixel flagged as containing one or more fires or other thermal anomalies (such as volcanoes).
+Image
+Image representation of the difference between ground observation and output display of fires from geostationary satellites.
+Image Caption
+
+Please note the pixel size systematically grows away from the sub-satellite point towards the edge of the disk (see Figures 1 - 4).
+
+The following figures (Figures 1-4) illustrate how the spatial resolution of the geostationary satellites increases away from the sub-satellite point - please note all measurements are in km2.
+Image
+GOES-17 ABI disk coverage map showing dotted lines around the Americas East and West
+Image Caption
+
+Figure 1. Coverage of GOES-19 indicating the variation in pixel area (in km²)
+Image
+GOES-16 ABI coverage map over the Americas East and West
+Image Caption
+
+Figure 2. Coverage of GOES-16 indicating the variation in pixel area (in km²).
+Image
+MSG SEVIRI coverage map covering Europe and Africa
+Image Caption
+
+Figure 3. Coverage of Meteosat SEVIRI indicating the variation in pixel area (in km²).
+Image
+Himawari-8 AHI coverage map showing dotted lines around Asia and Australia
+Image Caption
+
+Figure 4. Coverage of Himawari-8 indicating the variation in pixel area (in km²).
+Why are the geostationary fire data filtered in FIRMS?
+
+While geostationary active fire data provide a much enhanced temporal frequency compared to active fire data from polar-orbiting satellites, data from geostationary satellites can yield spurious fire detections. These can result from sunglint, bright water, bright deserts/soils, coastlines, and navigation inconsistencies resulting in positioning error. The Meteosat SEVIRI and Himawari AHI data, made available from EUMETSAT and CAM, have a 65-degree view zenith angle cut-off due to the large pixel size at high latitudes. MTG FCI data have a 60-degree view zenith angle cut-off.
+
+The following images provide examples of where spurious fire detections from Meteosat SEVIRI have been noted.
+Image
+FIRMS screenshot showing active fire in orange on a green background; key on right
+Image Caption
+
+This series (1 of 3) of FIRMS screenshots, from August 11, 2022, show fires detected in the Serra da Estrela National Park, Portugal. This first screenshot shows a MODIS/Terra 7,2,1 Corrected Reflectance image with burned area in reddish-brown and an active fire front in orange (note: no active fires have been overlayed).
+Image
+FIRMS fire map image of orange fire on a green background; key on right
+Image Caption
+
+This second image in the series of FIRMS screenshots from August 11, 2022, shows fires detected in the Serra da Estrela National Park, Portugal. This screenshot shows a MODIS/Terra 7,2,1 Corrected Reflectance image, overlain with VIIRS active fire detections shown as red pixels.
+Image
+FIRMS example with fire indicated by dots and key on right
+Image Caption
+
+This third image in the series of FIRMS screenshots from August 11, 2022, shows fires detected in the Serra da Estrela National Park, Portugal. This third screenshot shows a MODIS/Terra 7,2,1 Corrected Reflectance image, overlain with VIIRS active fire detections shown as red pixels and Meteosat-11 SEVIRI FRP pixels shown as orange pixels. Some spurious SEVIRI fire detections are evident.
+
+The Filtered Fire Detection and Characterization (FDC-HSC) algorithm used to produce the GOES-16 and GOES-19 active fire data from NOAA, is still under development. To limit false detections, the data shown in FIRMS are filtered to show only fire detections with higher confidence values; these are classes 10 and 30, and 11 and 31. These criteria are driven by the validation analysis (See Hall et al 2019) and a qualitative review of the current algorithm output. The full list of classes available is outlined in the table below:
+Class	Description
+10 or 30	Good quality (highest confidence) fire detections**
+11 or 31	Saturated fire pixel**
+12 or 32	Cloud contaminated fire pixel
+13 or 33	High probability fire pixels that do not satisfy requirements to be categorized as good quality fire detections
+14 or 34	High probability fire pixels that do not satisfy requirements to be categorized as good quality fire detections
+15 or 35	Low probability fire pixels that do not satisfy requirements to be categorized as good quality fire detections
+
+**indicates the classes shown in FIRMS
+
+Our qualitative assessment indicates some spurious fire detections are showing (see example below). This could be due to sun glint,  bright water, bright deserts/soil, coastlines and lake edges etc so users are requested to use the data with caution. If in doubt, we recommend users look for coincident fire detections from MODIS or VIIRS in the vicinity. If they are present, the user can have more confidence in the geostationary data.
+Image
+Fire false positives shown on map due to issue with GOES FDC
+Image Caption
+
+In this screenshot from FIRMS, on 15 July 2022, the GOES FDC data from NOAA (shown in pink) along the lake edge are thought to be false positives / spurious fire detections. Users should exercise caution when using the data.
+What validation of geostationary active fire data has been conducted?
+
+Satellite-derived active fire products are validated with spatially and temporally coincident observations from higher resolution sensors. Landsat and Sentinel-2 are both appropriate sensors for validating geostationary active fire products. Given the Landsat and Sentinel-2 overpass times, any validation efforts will be focused on certain times of the day and, therefore, false positives associated with unique solar angle issues may be missed.
+
+Please see the following papers:
+
+Hall, J. V., Zhang, R., Schroeder, W., Huang, C., & Giglio, L. (2019) Validation of GOES-16 ABI and MSG SEVIRI active fire products. International Journal of Applied Earth Observation and Geoinformation, 83, 101928. doi:10.1016/j.jag.2019.101928
+
+Roberts, G., Wooster, M.J., Xu, W., Freeborn, P.H., Morcrette, J.-J., Jones, L., Benedetti, A., Jianping, H., Fisher, D., Kaiser, J.W. (2015) LSA SAF Meteosat FRP products - Part 2: Evaluation and demonstration for use in the Copernicus Atmosphere Monitoring Service (CAMS). Atmospheric Chemistry and Physics, 15(22): 13241–13267. doi:10.5194/acp-15-13241-2015
+
+Wooster, M. J., Roberts, G., Freeborn, P. H., Xu, W., Govaerts, Y., Beeby, R., He, J., Lattanzio, A., Fisher, D., and Mullen, R. (2015) LSA SAF Meteosat FRP products – Part 1: Algorithms, product contents, and analysis. Atmospheric Chemistry and Physics, 15(22): 13217–13239. doi:10.5194/acp-15-13217-2015
+
+Xu, W., Wooster, M.J., He, J. and Zhang, T. (2021) Improvements in high-temporal resolution active fire detection and FRP retrieval over the Americas using GOES-16 ABI with the geostationary Fire Thermal Anomaly (FTA) algorithm. Science of Remote Sensing, 3, p.100016. doi:10.1016/j.srs.2021.100016
+
+Xu, W., Wooster, M.J., Kaneko, T., He, J., Zhang, T. and Fisher, D. (2017) Major advances in geostationary fire radiative power (FRP) retrieval over Asia and Australia stemming from use of Himawari-8 AHI. Remote Sensing of Environment, 193, pp.138-149. doi:10.1016/j.rse.2017.02.024
+
+Xu, W., Wooster, M.J., Kaneko, T., He, J.,Meraner, A., Gomez-Dans, J., Liu, Z., Trigo, I.F., Dutra, E. (2026) Major improvements in spaceborne early fire detection and small-fire FRP retrieval with the meteosat third generation flexible combined imager. Science of Remote Sensing (13),100366, ISSN 2666-0172, doi:10.1016/j.srs.2026.100366.
+Can you provide a brief description of the two algorithms used to produce geostationary active fire products from GOES-16 and 19?
+FRP-PIXEL Product
+
+The key outputs from the FRP-PIXEL algorithm are active fire pixel detections and fire characteristics including fire radiative power (FRP), FRP uncertainty, active fire temperature, and fire detection confidence levels. The detection algorithm used in the FRP-PIXEL product is based on the principles applied to generate active fire detections within the MODIS Fire Products (Giglio et al., 2003). The algorithm works on statistics derived primarily from middle-infrared (MIR) and thermal infrared (TIR1) brightness temperature imagery. On a first pass, a series of absolute thresholds applied to these data are used to detect “potential” fire pixels. These pixels are then further assessed as true or false fire detections based on a series of further contextual tests based on statistics derived from immediate neighboring non-fire background pixels. Further description of the algorithm can be found in (Govaerts et al., 2010; Wooster et al., 2015).
+
+The FRP-PIXEL product is available every 15 minutes for the SEVIRI full-disk and every 10 minutes for the AHI and ABI disks. The spatial resolution of the product at the sub-satellite point is 3-km for the SEVIRI data and 2-km for the AHI and ABI, but the pixel size systematically grows with increasing view zenith angle (VZA) from the sub-satellite point towards the edge of the disk (See: What is the spatial resolution of the geostationary satellite observations?).
+FDC-HSC Product
+
+The key outputs from the FDC-HSC algorithm include information on the fire pixel locations, sub-pixel fire characteristics (active fire area and temperature), and FRP. The current FDC-HSC algorithm is a multispectral contextual algorithm designed to identify fire pixels through a decision-tree approach comparing them with their neighboring non-fire background pixels. The FDC-HSC algorithm uses a two-step approach. The first step is designed to identify all potential fire pixels while the second step further confirms and then characterizes the sub-pixel fire activity. The FDC-HSC product is available every 10 minutes. The spatial resolution of the product at the sub-satellite point is 2km, and the pixel size systematically grows with increasing VZA from the sub-satellite point towards the edge of the disk.The FDC-HSC product is available every 10 minutes. The spatial resolution of the product at the sub-satellite point is 2km, and the pixel size systematically grows with increasing VZA from the sub-satellite point towards the edge of the disk.
+What are the Product Uncertainties and Limitations?
+
+The FRP-PIXEL and FDC-HSC products are subject to several sources of uncertainties due to the characteristics of geostationary satellite full-disk data and associated image processing. Among these limitations:
+
+    The spatial resolution of the data leads to missed smaller/less intense fires. Furthermore, the sensitivity to small/less intense fires decreases away from the sub-satellite point.
+    The FRP-derived value is sensitive to the fire location within the pixel. This effect is due to the shape of the point spread function, i.e., its departure from an ideal rectangular box. A fire located at the center of the instrument’s instantaneous field-of-view will elevate the pixel temperature much more than a fire located far away from its center.
+    Specific to the FRP, the non-linearity of the SEVIRI 3.9-μm channel above 310 K and the saturation of that band above 335 K can produce errors in the FRP estimate. Similarly, the saturation of the GOES-R ABI and AHI 3.9-μm channel above 400 K can produce errors in FRP.
+
+
+Landsat Fire Data
+What is the Landsat Fire and Thermal Anomalies Product?
+
+The Landsat Fire and Thermal Anomalies (LFTA) product is predicated on previous NASA-sponsored research to develop an active fire detection algorithm for the Advanced Spaceborne Thermal Emission and Reflection Radiometer (ASTER) aboard Terra. ASTER multispectral imagery and derived active fire detection data have been routinely used over the past two decades to validate active fire products from MODIS and geostationary sensors. The LFTA product was added to FIRMS in August 2022.
+
+Developed under the auspices of the NASA Applied Sciences Wildland Fire Program, the product is based on multispectral imagery acquired by the Operational Land Imager (OLI) sensor aboard the Landsat 8 and Landsat 9 satellites. The 30 m active fire detection data has 1,000 times and 160 times finer spatial resolution than the 1 km MODIS and 375 m VIIRS active fire detections, respectively. However, unlike MODIS and VIIRS, Landsat does not provide comprehensive global coverage on a daily basis. Each Landsat satellite typically images the same location on Earth every 16 days, but provides spatially explicit data and detail of observable fire activity at the time of the satellite overpass. These data augment fire management capabilities when available and can potentially enable applications at tactical scales.
+
+The LFTA product is generated from all daytime OLI acquisitions and currently provided for most of North America (CONUS, southern Canada, and northern Mexico). Increased geographic coverage for the product is under consideration and will be investigated in the near future. Targeted nighttime OLI data collection for most of North America is also possible (OLI data are collected by request at nighttime), potentially increasing the opportunity for more frequent observations for selected geographic areas of heightened wildfire activity, but opportunities for nighttime observations are much more limited due to several factors.
+What is the temporal frequency of Landsat observations and derived active fire data?
+
+The OLI sensor aboard the Landsat 8 and Landsat 9 satellites each image the entire Earth every 16 days at the mid latitudes. The respective orbits of the two satellites are 8 days out of phase so when considered collectively, the entire planet is imaged at least every 8 days. Active fire detection data are derived from multispectral imagery acquired by OLI and provided daily for each of the scheduled WRS-2 paths imaged by Landsat 8 and 9 on a given date.
+
+Please consult the Landsat 8 and Landsat 9 orbit tracks on the FIRMS fire maps to visualize the time of Landsat observations for a selected date (as depicted below; please see What time does the satellite pass over my area? to learn how to view satellite orbit tracks in the FIRMS FAQs). Additional active fire detection data from tasked nighttime Landsat OLI observations are possible, but not routinely conducted.
+Image
+FIRMS US/Canada Fire Map Interface showing Landsat imagery swath and orbit track
+Image Caption
+
+The FIRMS fire map interface can display Landsat orbit tracks for user-selected dates with time of observation. True color and false color Landsat HLS imagery can also be displayed to view with active fire detection data. This display of a June 6, 2022, Landsat 8 acquisition provides the user the coverage provided by a single 185 km Landsat swath.
+What is the spatial resolution of the Landsat observations and derived active fire data?
+
+Each hotspot/active fire detection represents the center of a 30 m pixel flagged as containing one or more fires or other thermal anomalies (such as active volcanoes). The “location” is the center point of the pixel (not necessarily the coordinates of the actual fire).
+What size of fires can be detected with Landsat?
+
+Landsat provides better active fire detection performance compared to coarser spatial resolution sensors, such as MODIS and VIIRS. Flaming fires as small as approximately 4 m2 have a better than 50% chance of detection during the daytime observations. Nighttime detection of similar fire activity improves to an area as small as 1 m2.
+Image
+Graph showing Landsat active fire detection performance for daytime and nighttime observations
+Image Caption
+
+Schroeder, W., Oliva, P., Giglio, L., Quayle, B., Lorenz, E., & Morelli, F. (2016). Active fire detection using Landsat-8/OLI data. Remote Sensing of Environment, 185: 210-220. doi:10.1016/j.rse.2015.08.032
+Why are Landsat fire data only available for North America?
+
+The Landsat Fire and Thermal Anomalies (LFTA) product is currently produced through a collaboration by USGS EROS Data Center, NASA, and the USDA Forest Service. Daily Landsat 8 and Landsat 9 OLI observations are processed in real-time by EROS and use the NASA-developed algorithm to produce active fire detection data that is ingested into FIRMS. Currently, only Landsat 8 and 9 OLI data collected by the USGS EROS Landsat Ground Station in Sioux Falls, South Dakota, are used to produce active fire detection data. The coverage of the USGS EROS Landsat Ground Station in Sioux Falls is highlighted in the figure below.
+
+Expansion of the geographic coverage for the product is possible through the integration of additional near real-time Landsat 8 and Landsat 9 OLI data from other ground stations. The feasibility of including additional ground stations for North America and elsewhere is currently being investigated.
+Image
+Image of Landsat ground station coverage over North America
+Image Caption
+
+Landsat ground stations for North America. While only the USGS EROS Landsat ground station in Sioux Falls, South Dakota currently produces LFTA data for the area covered by the USGS EROS Landsat Ground Station mask (within the red circle), both the USGS EROS Landsat ground station and the NOAA Gilmore Creek ground station (near Fairbanks, Alaska) collect Landsat 8 and Landsat 9 OLI data. The Canada Centre for Mapping and Earth Observation ground station (Canada) collects Landsat 8 OLI data. Recorded and real-time OLI data from Landsat 8 and Landsat 9 are collected by the EROS and Gilbert Creek ground stations when either satellite is within "line of sight". This condition is achieved when the Landsat orbit passes within the green circles on the map. Near real-time Landsat 8 OLI data can be collected by the Prince Albert ground station in Saskatchewan when Landsat 8 is within its "line of sight" (red circle).
+What is the temporal extent of Landsat Active Fire and Thermal Anomalies product in FIRMS?
+
+The temporal extent of Landsat active fire data currently reaches back to June 2022. Processing of earlier acquisitions by Landsat 8 and Landsat 9 is possible, but not planned at this time.
+What are the attributes of the Landsat fire data?
+
+The attributes are described in the following table:
+Attribute	Short Description	Long Description
+Satellite	Satellite	L8 = Landsat 8; L9 = Landsat 9
+Latitude	Latitude (decimal degrees)	Latitude of pixel center
+Longitude	Longitude (decimal degrees)	Longitude of pixel center
+Path	Path	Path number as identified in the World Reference System-2 (WRS-2)
+Row	Row	Row number as identified in the World Reference System-2 (WRS-2)
+Track	Track	The pixel location in the along-track dimension of the Landsat path based on the OLI Line-of-Sight (LOS) coordinate system. Generally increases in value from north to south for daytime and nighttime overpasses.
+Scan	Scan	The pixel location in the cross-track dimension of the Landsat path based on the OLI Line-of-Sight (LOS) coordinate system. Generally increases in value from west to east for daytime and nighttime overpasses.
+Acquire_Time	Date and time of start of scan	Date and time of acquisition/overpass of the satellite (in UTC). The format is YYYY-MM-DD followed by HH:MM-SS. For example, 2022-07-23 10:09:00.
+Confidence	Confidence
+
+Value domain: H, M, and L:
+
+    H: Higher confidence
+    M: Medium confidence
+    L: Lower confidence
+
+Version	Version (FIRMS reference only)	1.0.7 NRT
+DayNight	Day or Night	D= Daytime fire, N= Nighttime fire
+What validation of the Landsat fire products has been performed?
+
+Validation of the Landsat active fire product has primarily been performed using available high resolution aerial and commercial satellite imagery, coincident/near coincident 1 km Terra and Aqua MODIS active fire data, and 750 m and 375 m Suomi NPP VIIRS active fire data. A discussion of the validation procedures and results can be found in Schroeder, et al. (2016).
+Where can I find more information about the Landsat fire data?
+
+The Landsat active fire detection algorithm is based on the legacy algorithm developed for the Advanced Spaceborne Thermal Emission and Reflection Radiometer (ASTER). Development of the Landsat algorithm was conducted under the auspices of the NASA Applied Sciences Program. Please refer to the following papers by Louis Giglio and Wilfrid Schroder and the NASA Applied Sciences Program project summary for more information on the Landsat active fire algorithm and product.
+
+Schroeder, W., Oliva, P., Giglio, L., Quayle, B., Lorenz, E., & Morelli, F. (2016). Active fire detection using Landsat-8/OLI data. Remote Sensing of Environment, 185: 210-220. doi:10.1016/j.rse.2015.08.032
+
+Giglio, L., Csiszar, I., Restás, Á., Morisette, J. T., Schroeder, W., Morton, D., & Justice, C. O. (2008). Active fire detection and characterization with the advanced spaceborne thermal emission and reflection radiometer (ASTER). Remote Sensing of Environment, 112(6): 3055-3063. doi:10.1016/j.rse.2008.03.003
+How does Landsat active fire data compare with MODIS and VIIRS active fire data?
+
+Landsat active fire data are more than 1,000 times more resolute than MODIS and more than 150 times more resolute than VIIRS. The algorithm routinely detects fires as small as a few square meters or smaller, providing spatially explicit detail of the location and extent of fire activity at the time of a satellite overpass. Active fire fronts and scattered smaller fires within the fire perimeter are routinely detected.
+
+However, these relatively high spatial resolution data are provided at a lower temporal resolution compared to the daily observation frequency afforded by MODIS and VIIRS. Between both Landsat OLI instruments, areas in the lower to mid latitudes are imaged every 8 days. The temporal resolution of Landsat data can be increased though the collection of nighttime Landsat 8 and Landsat 9 imagery for targeted areas.
+
+The following graphic shows Landsat active fire data compared for MODIS (Terra and Aqua) (1km) and VIIRS (Suomi NPP and NOAA-20) (375m) for the Double Creek Fire in Northeast Oregon on September 10, 2022.
+Image
+Multi sensor imaging of the Double Creek Fire in Oregon on 10 September 2022. Active fire detections derived from Landsat-9/OLI 30 m (displayed on a Landsat 9 HLS surface reflectance image), Terra/MODIS 1 km, Aqua/MODIS 1 km, S-NPP/VIIRS 375 m and NOAA-20/VIIRS 375 m (all displayed on respective MODIS and VIIRS corrected reflectance images), are marked in yellow.
+Image Caption
+
+Multi sensor imaging of the Double Creek Fire in Oregon on 10 September 2022. Active fire detections, marked as yellow, derived from Landsat-9/OLI 30 m (displayed on a Landsat 9 HLS surface reflectance image), Terra/MODIS 1 km, Aqua/MODIS 1 km,  Suomi NPP/VIIRS 375 m and NOAA-20/VIIRS 375 m (all displayed on respective MODIS and VIIRS corrected reflectance images). Temporal span for these consecutive images is approximately 3 hours.
+Why does the latency differ between the Landsat active fire detection data and the HLS Landsat imagery?
+
+Landsat active fire detection data are produced in collaboration with the USGS EROS Data Center in Sioux Falls, South Dakota. Daily Landsat 8 and Landsat 9 OLI imagery for the continental United States, southern Canada, and northern Mexico are captured via the Landsat ground station at EROS. This imagery is formatted and pre-processed in near real-time by the USGS and further processed onsite at EROS using NASA algorithms to extract 30-meter active fire detection data and made available for ingest into FIRMS approximately 30 minutes after a satellite overpass.
+
+Landsat imagery in FIRMS is processed as part of the Harmonized Landsat-Sentinel-2 (HLS) project to create BRDF-adjusted, 30-meter Landsat and Sentinel-2 surface reflectance products. Generated separately as provisional/research NASA products, HLS currently has a latency requirement of < 7 days. Consequently, FIRMS users desiring to view Landsat active fire detection data in the context of HLS Landsat true and false color composite imagery are required to wait until the processing of the HLS imagery is complete and made available in FIRMS.
+
+The HLS imagery is currently processed and available in FIRMS 2-4 days after acquisition, which is less than the current HLS processing latency requirement. Opportunities to reduce the latency of HLS imagery processing and its availability in FIRMS will continue to be assessed by NASA and implemented if possible.
+
+
+Harmonized Landsat Sentinel-2 (HLS) imagery in FIRMS
+What is HLS?
+
+HLS stands for the Harmonized Landsat Sentinel-2 dataset. It provides 30-meter spatial resolution imagery derived from the Operational Land Imager (OLI) aboard the Landsat 8 and 9 satellites and from the Multi-Spectral Instrument (MSI) aboard the Sentinel-2A, 2B, and 2C satellites. By combining observations from these satellites, HLS provides high-quality, continuous observations of Earth's surface at 30-meter spatial resolution approximately every 1.6 days. For more information see the FIRMS blog on Adding HLS False Color Composite Layer to FIRMS and also information on the HLS project.
+What are the bands used/available in HLS products?
+
+Please see the list of HLS spectral bands from Landsat OLI and Sentinel-2 MSI, including wavelengths and their respective HLS band code names.
+What HLS products are available in FIRMS?
+
+FIRMS offers several 30-meter resolution HLS products, including true-color and false-color reflectance images. In addition, FIRMS features four specific vegetation indices (VIs) for both Landsat 8/9 and Sentinel-2:
+
+    NDVI: Normalized Difference Vegetation Index
+    NDMI: Normalized Difference Moisture Index
+    NBR: Normalized Burn Ratio
+    NBR2: Normalized Burn Ratio 2
+
+Additionally, the "Customize HLS Bands" option allows the user to assign their selected band to each RGB channel. See the FAQ “What are the bands used/available in HLS products?” for band for band references when configuring a composite HLS image when using the “Customize HLS Bands” option.
+
+
+Imagery / vegetation indices	Band Combination
+True Color - Adjusted Reflectance BRDF
+
+Bands B2, B3, B4 (Sentinel-2)
+
+Bands B2, B3, B4 (Landsat 8/9)
+False Color - Adjusted Reflectance BRDF
+
+Bands B12, B8a, B4 (Sentinel-2)
+
+Bands B7, B5, B4 (Landsat)
+NDVI - Normalized Difference Vegetation Index
+
+Uses the Red band and Near-Infrared (NIR) band. (Value range from -1 to 1)
+
+Bands (B8A – B4) / (B8A + B4) (Sentinel-2)
+
+Bands (B5 – B4) / (B5 + B4) (Landsat)
+
+NDMI -  Normalized Difference Moisture Index
+
+Uses the Near-Infrared (NIR) band and the 1.6 µm Shortwave Infrared (SWIR) band. (Value range: -1 to 1).
+
+
+Bands (B8A-B11) / (B8A + B11) (Sentinel-2)
+
+
+
+(Band 5 - Band 6) / (Band 5 + Band 6) (Landsat)
+
+NBR - Normalized Burn Ratio
+
+Uses the Near-Infrared (NIR) band and the 2.1 µm Shortwave Infrared (SWIR) band. (Value range: -1 to 1)
+
+
+Bands (B8A – B12) / (B8A + B12) (Sentinel-2)
+
+Bands (B5 – B7) / (B5 + B7) (Landsat)
+
+NBR2 - Normalized Burn Ratio 2
+
+
+
+Uses the Near-Infrared (NIR) band and the 2.1 µm Shortwave Infrared (SWIR) band. (Value range: -1 to 1)
+
+
+Bands (B11 – B12) / (B11 + B12) (Sentinel-2)
+
+Bands (B6 – B7) / (B6 + B7) (Landsat)
+What is the temporal coverage, latency and spatial resolution of HLS data in FIRMS?
+
+    Temporal coverage: Landsat HLS product data in FIRMS extend from April 11, 2013, to the present. Sentinel-2 HLS product data extend from November 28, 2015, to the present.
+    Temporal resolution: Landsat 8/9 products have a temporal resolution of 8 days, while Sentinel-2A/2B/2C products have a temporal resolution of 4 to 5 days.
+    Data latency: Data is typically available in FIRMS approximately 2 to 4 days after the satellite observation. Please note that NASA tentatively plans to make HLS data available approximately 6 hours after satellite observation in the near future.
+    Spatial resolution: All output HLS products (including L30 for Landsat and S30 for Sentinel-2) are maintained or resampled to a spatial resolution of 30 meters.
+
+How is HLS imagery useful for wildland fire management?
+
+HLS time-series data lends itself to land surface applications at the field/plot scale, which strongly supports pre- and post-fire monitoring, agricultural health, and natural hazard impacts.
+
+The HLS short-wave infrared false-color composite imagery layer is particularly useful for identifying and monitoring burned areas. It complements the false-color composite MODIS and VIIRS imagery by providing higher fidelity imagery to view active fire fronts, discern fire impacts and damage on the landscape and, to a qualitative degree, how much those areas have recovered.
+
+HLS false-color composite imagery helps better delineate burned areas using short-wave and near-infrared wavelengths undetectable by the human eye. The result is high-resolution imagery where burned areas appear almost brick red, making them much easier to see on the landscape.
+Image
+Hermits Peak Fire in New Mexico on April 28, 2022
+Image Caption
+
+This screenshot of the Hermits Peak Fire in New Mexico on April 28, 2022, shows how burned areas appear in a brick red color in the new HLS short-wave infrared false color composite imagery now available in FIRMS. Credit: NASA FIRMS.
+
+Additionally, HLS imagery and its derived vegetation indices are highly useful for assessing pre-fire conditions, evaluating active fire risks, and mapping post-fire impacts. Here is how each specific index is utilized:
+
+    NDVI (Vegetation Greenness): Historically used to measure and assess vegetation greenness and health of vegetation which may be affected by drought stress. NDVI can be used to map the extent of burned areas and assess fire impacts on aboveground vegetation.
+    NDMI (Moisture Content): Highly sensitive to liquid water content in vegetation. It provides critical information on the moisture content of fuels, helping managers understand vegetation drought stress and susceptibility to increased fire risk.
+    NBR (Burn Severity): Also sensitive to vegetation water content as well as ash and exposed, dry soils, it is used to delineate burned areas and measure the degree of fire effects (burn severity). Comparing NBR data before and after a fire helps map the burned extent, vegetation impacts and supports post-fire response and recovery planning.
+    NBR2 (Water Sensitivity & Post-fire Conditions): A variant of NBR that highlights water sensitivity. It is excellent for assessing post-fire vegetation conditions and identifying small variations in moisture content and recovery stages. NBR2 is particularly useful for delineating burned areas in biomes where the burn signal is subtle, such as grass/shrublands, coastal marshes, or herbaceous wetlands.
+
+How does cloud cover affect HLS imagery?
+
+Because HLS data relies on optical imagery from the Landsat and Sentinel-2 satellites, it cannot see through clouds. Cloud cover presents a limitation when analyzing land surfaces because they will obscure the view of the ground and vegetation. However, by combining the data streams from multiple satellites, HLS provides a higher temporal frequency (plot-scale observations every 2 to 4 days). This combined rapid revisit time significantly increases the chances of capturing clear-sky, cloud-free imagery over a given area.
+
+
+FIRMS Fire Map
+Can I download the fire data from the FIRMS Fire Map?
+
+Active fire data are not currently available for download directly from the FIRMS Fire Maps. However, active fire locations from MODIS and VIIRS (and Landsat for the US and Canada) are available for download for the last 24 hours, last 48 hours, and last 7 days on the FIRMS page. Older MODIS and VIIRS data can be obtained through the Archive Download Tool.
+How can I share what I see in the Fire Map viewer with others?
+
+You can create a customized view of imagery and geospatial data in the Fire Map viewer focused on a particular area of interest and share it with others as a PNG, JPG, GIF, or GeoTIFF image. To save and share an image of your map, click the screenshot icon at the bottom of the viewer and select your preferred option. Alternatively, you can create a unique URL for your customized view to share via email or social media by clicking the share icon at the bottom of the Fire Map viewer.
+What are the different sources of fire data in Fire Map?
+
+See the FAQ What are the different sources of data in FIRMS? in the Getting Started section.
+What does today vs 24 hours mean?
+
+"Today" will show active fire detection data from 0000 GMT to present. “24 hours” will display active fire detection data from 0000 GMT yesterday to present. Click on the "i" icon in the date tab (top right of the FIRMS Fire Map menu) to see what Today and 24 hours means in your local time.
+What is the best way to view smoke in the Fire Map?
+
+To view smoke, add one of the corrected reflectance layers from the MODIS or VIIRS from the "backgrounds" section of the menu on the right. In addition, you could add the OMPS Aerosol Index (AI) and OMPS Aerosol Index (PyroCumuloNimbus) from the "overlays" section.
+OMPS AI detects and measures the density of smoke and suspended particles in the vertical air column in the atmosphere. FIRMS provides OMPS AI data from three satellites:
+
+    Suomi-NPP (S-NPP) OMPS: Launched in 2011, spatial resolution of 50 km x 50 km (~31 x 31 miles)
+    NOAA-20 OMPS: Launched in 2017, with improved spatial resolution of 17 km x 13 km (~10.5 x 8 miles)
+    NOAA-21 OMPS: Launched in November 2022, with the best spatial resolution at 12 km x 10 km (~6 x 6 miles), available from April 28, 2025
+
+These instruments provide complementary coverage, improving the temporal resolution and reliability of smoke detection globally.
+
+For AI values significantly higher than 5, use the OMPS Aerosol Index (PyroCumuloNimbus) layer. Larger AI values between 5 and 10 usually indicate dense smoke from intensely burning fires that reach higher in the troposphere. Once the AI gets above 10, the smoke has likely been produced from a pyroCb event, with dense smoke lofted into the upper troposphere and, often, into the stratosphere.
+Why is the spatial resolution of the VIIRS active fire pixels 375m and the spatial resolution of the VIIRS imagery displayed in FIRMS 250m?
+
+The VIIRS instrument has 22 spectral bands (5 bands have a spatial resolution of 375m and 17 bands have a spatial resolution of 750m). The VIIRS active fire product uses three bands (two bands (I3 and I4) with a spatial resolution of 375m and one band (M11) with a spatial resolution of 750m). M11 is co-located with the 375m pixels and the same value is assigned to both 375m pixels or the value is split between the pixels.
+
+The OMPS AI layer is useful for identifying and tracking smoke from wildfires or biomass burning events as well as dust from desert dust storms and the long-range transport of volcanic ash from volcanic eruptions. Values of 5.0, or higher, indicate heavy concentrations of aerosols that could reduce visibility or impact human health.
+Why Should I Care About Using the NOAA-20 OMPS AI Instead of or In Addition to the S-NPP OMPS AI?
+
+The OMPS instruments aboard the Suomi NPP and NOAA-20 platforms observe Earth at approximately the same time on a daily basis (roughly within 1 hour of each other). However, the OMPS instrument aboard NOAA-20 has improved spatial resolution, 17 km x 13 km, compared to the 50 km x 50 km resolution of Suomi NPP OMPS. So the NOAA-20 OMPS AI provides much finer resolution compared to the Suomi NPP OMPS AI, allowing for better detection and monitoring of smoke and aerosols.
+
+
+Satellite Swaths and Coverage
+What is a satellite "swath"?
+
+A swath is the strip of Earth's surface that satellite instruments (like MODIS or VIIRS) observe or "see" as they orbit the planet. You can think of it as the footprint of the sensor's vision. As the satellite moves along its orbital path, the instrument images the strip below the satellite, collecting data that is used to generate imagery and detect thermal anomalies and active fires.
+Why are swaths important for active fire detection?
+
+The width of the swath determines how much of Earth's surface can be monitored in a single pass. Instruments used in FIRMS typically have very wide swaths (e.g., about 2,330 km for MODIS and 3,040 km for VIIRS). This wide coverage allows these satellites to image almost the entire globe at least twice a day, enabling new, rapidly spreading fires to be detected.
+How does overlapping swath coverage help fire monitoring?
+
+Because Earth is rotating while a satellite orbits (see this Aqua MODIS animation), the swaths from consecutive orbits often overlap, especially at high latitudes. Furthermore, by using multiple satellites (such as Terra and Aqua for MODIS, or Suomi NPP and NOAA-20 for VIIRS), FIRMS can provide multiple swaths over the same area at different times of day. This frequent revisit time is crucial for tracking the progression of active fires and monitoring diurnal fire behavior.
+Does the location of a fire within the swath affect the detection?
+
+Yes. The spatial resolution (pixel size) is best directly under the satellite, known as the "nadir." For example, a MODIS pixel is 1 km x 1 km at nadir. However, towards the edges of the swath, the sensor is viewing Earth at an angle, which causes the pixel to stretch and cover a larger area on the ground (often referred to as the "bow-tie effect"). While a fire will still be detected at the edge of a swath, the exact location and the minimum detectable fire size may be less precise compared to a detection at nadir.
+How does VIIRS improve upon the swath edge effects compared to MODIS?
+
+The VIIRS instrument features onboard processing that limits the growth of pixels toward the edge of the swath. While MODIS pixels expand significantly at swath edges, VIIRS maintains a much more consistent pixel size across its entire 3,040 km field of view. This means VIIRS provides higher spatial resolution and more consistent active fire detection capability, even at the extreme edges of its observational swath.
+Why do I sometimes see gaps between swaths near the equator?
+
+Depending on the instrument and the satellite's orbit, the swaths from consecutive orbits might not completely overlap at the equator. This results in small, diamond-shaped gaps in daily coverage in tropical regions (between approximately 30 degrees North and South). However, these gaps are typically covered on the satellite's next pass or by a different satellite in the FIRMS network.
+Do geostationary satellites (like GOES) also image the Earth in swaths?
+
+No, geostationary satellites operate very differently.
+
+Satellites with MODIS and VIIRS instruments are in low-earth orbit (LEO) and fly from pole to pole, sweeping out "swaths" as the Earth rotates beneath them. In contrast, geostationary satellites (like the GOES network in the US, Meteosat in Europe, or Himawari in Japan) orbit much higher up — about 36,000 km (22,000 miles) above the equator. At this altitude, their orbital speed exactly matches Earth's rotation, meaning they effectively "stare" at the same hemisphere continuously.
+
+Instead of imaging in swaths, geostationary instruments scan their entire field of view to create "full disk" images, or they can zoom in to rapidly scan smaller regional sectors. Similar to the viewing distortion at the edge of MODIS swaths, geostationary satellite imagery becomes increasingly distorted in all directions from the center of their view (nadir).  Because they are constantly looking at the same area, geostationary satellites can provide new imagery every 1 to 10 minutes. While their spatial resolution (pixel size) is generally coarser than LEO swath data, this constant "staring" capability makes geostationary satellites incredibly valuable for FIRMS, as they can detect the exact moment a fire ignites and track its spread in real-time.
+
+
+Email Alerts
+Can you notify me when a fire occurs in my area of interest?
+
+We have developed a global fire email alert system to notify users when a fire occurs in or near a specified area of interest, country, or protected area. You can subscribe to receive near-real time, daily, or weekly email alerts in English, Spanish, or French.
+
+To subscribe to, or learn more about the email based alert system, please see the FIRMS Email Alerts page.
+Do you provide mobile/cell phone text messages?
+
+We do not currently provide SMS text messages. Previously, we helped develop such a service in collaboration with ESKOM and CSIR Meraka in South Africa for the protection of power lines in remote areas from wildfires by informing operators in the field about fire events in near-real time. For more information see: Davies, D. K., H. F. Vosloo, et al. (2008). Near real-time fire alert system in South Africa: from desktop to mobile service. Proceedings of the 7th ACM conference on Designing interactive systems Cape Town, South Africa ACM: 315-322. doi:10.1145/1394445.1394479
+What are the near-real time email alerts?
+
+The fire points are sent out in an email as soon as they are processed by FIRMS. Alerts are sent only if a fire/hotspot was detected. The number of alerts varies according to geographic location: more frequent satellite observations occur at high latitudes. Near real-time alerts are usually sent within 3 hours of satellite observation for fires detected using MODIS aboard Aqua and Terra, and within 4 hours for fires detected using data from VIIRS aboard Suomi NPP and NOAA-20/21. Near real-time alerts are subscribed to, and managed by, the user just the same way as the daily and weekly detection summaries.
+How do I subscribe or edit email alerts?
+
+Go to the FIRMS Email Alerts page.
+
+    Enter the email address where you want to receive the email alerts and click “Proceed”.
+    If you have not yet subscribed you will be asked to enter your Name, Organization, and Country. Click on “Save” after you have entered your information.
+    You will be taken to the subscription summary page, where the user can create a new subscription or view existing subscriptions. The user can create several subscriptions, and they will be added to their subscription summary profile.
+    Click on the “Create a New Subscription” link to take the user to the interface to subscribe to an email alert.
+    Creating a new subscription:
+        Choose your area of interest. Choose between:
+            World
+            Country
+            Custom Region
+            Protected Area
+        Customize your email alert by changing your subscription preferences:
+            Name your alert (optional): You can choose to give your alert a name for you to easily reference.
+            Output map size: You may choose to receive a map in the email and different sized maps are available.
+            Background image: This refers to the background image on which the fires will be overlaid in the map in the email.
+            Language preference: English, Spanish, and French.
+            Alert type: Daily, Weekly, or Near-Real Time.
+                Daily: Fire detections are sent in a summary email every morning Easter Daylight Time (EDT) with fire detections from the previous 24 hours.
+                Weekly: A week’s worth of fire points detected for the specified area are sent to you on Monday mornings EDT.
+                Near-real time: The fire points are sent out in an email as soon as they are processed by LANCE (within 3 hours of satellite observation). The number of emails varies depending on whether or not there was a fire in the specified area, whether or not it was detected, and the geographical location of the area (there are more frequent observations at high latitudes, and 4 daily observations for most places on the equator).
+        Email preferences: You can choose to receive an email with a map and text or with text only.
+        Attach .CSV file: By default this option is flagged, meaning that the subscriber will also receive a CSV file containing the fire location information.
+        Help with subscription preferences: Clicking on the hyperlinked text of the subscription preferences will open pop-up messages containing the description and usage of the preference.
+        Email confirmation and final subscription: You can choose not to receive an email confirming that you have subscribed successfully to an alert. The final signoff is completed by clicking either “Save Subscription” or “Cancel” (deletes all selections).
+        Subscription confirmations: The successful subscription is identified by two steps, the first of which is the confirmation page and a confirmation email (if this was selected). The confirmation page provides a link to let you return to the ‘Add, view, or edit your subscription’ page.
+
+How do I unsubscribe from an email alert?
+
+Go to the FIRMS Email Alerts page.
+
+    Enter the email address where that you want to unsubscribe from and click “Proceed”.
+    You should see a list of all alerts associated with this email address.
+    Using the "delete" option on the right hand side of the page, you can unsubscribe the alert. Alternatively, you can change the status of the alert from "active" to "inactive" if you are planning to re-activate the alert in the near future.
+
+I requested a map image with my email alert but I can’t see the map in my email alert, where is it?
+
+Please check the settings in your email client. Your email client may be blocking images from being displayed in your email as a security measure. You will have to enable the choice to view images in your email. Your email client may also be sending the email alert to your spam/junk folder as a security measure; it is likely that you will also not be able to view the map image if the email is in your spam/junk folder. You should add the FIRMS email address and/or email domain to the safe senders list so it will deliver the email to your inbox and display images. You can also view the map by clicking on the link below the map image “View Map Image on FIRMS server”; this will open the map in your browser. Map images are stored for 14 days on the FIRMS server.
+I requested a CSV file with my email alert but I can’t see the file attached to my email alert, where is it?
+
+If the number of fires in the alert exceeds 90,000, a link to download the CSV file will be provided instead of an attachment. CSV files are stored for 14 days on the FIRMS server.
+I have received a CSV file as part of my Email Alert, can I add it as a layer in a Desktop GIS software?
+
+A CSV (comma separated value) file is a text file in which separate fields are delimited by commas. This type of file can be used to store simple tabular data efficiently, minimizing file size. CSV files are easily opened with DB administration software such as PostgreSQL or MS Access, or by spreadsheet software such as MS Excel. This type of file can also be used to easily plot point data on desktop GIS software, given, as the active fire data does, that the tabular data contain X and Y coordinate information. The active fire data contains latitude and longitude location coordinates and the attributes of the detected fires.
+
+
+FIRMS US/Canada
+Why was FIRMS US/Canada developed?
+
+FIRMS US/Canada is the result of an agreement between the U.S. Forest Service and NASA to modernize the Forest Service's distribution of active fire information by leveraging FIRMS web-based active fire mapping tools and capabilities for disseminating data, products and services.
+
+The significance of this NASA-Forest Service partnership goes beyond the creation of FIRMS US/Canada. It establishes a single, authoritative source of near real-time fire mapping, visualization, and geospatial data products and information for the United States and Canada jointly supported and enabled by both agencies.
+
+This enhanced cooperation will boost the availability of selected contextual geospatial data to increase the utility of near real-time fire geospatial data products, as well as increase opportunities, under the auspices of LANCE, to evaluate and integrate additional sources of NASA, NOAA, and international space agency satellite data of value to the user community.
+What active fire data and imagery are available in FIRMS US/Canada?
+
+*Other data and imagery sources are available for global coverage. See the FIRMS Global table .
+Product	Sensor (Platform)	Source	Spatial Resolution	Latency4
+Polar orbiting Active Fire Detections	MODIS (Terra/Aqua)	SSEC Univ of Wisconsin	1km	<1-30 mins
+Polar orbiting Active Fire Detections	VIIRS (Suomi NPP/NOAA-20/NOAA-21)	SSEC Univ of Wisconsin	375m	<1-30 mins
+Polar orbiting Active Fire Detections	MODIS (Terra/Aqua)	NASA LANCE	1km	<3 hours
+Polar orbiting Active Fire Detections	VIIRS (Suomi NPP/NOAA-20/NOAA-21)	NASA LANCE	375m	<3 hours
+Polar orbiting Active Fire Detections	OLI (Landsat 8 & 9)	USGS EROS5	30m	30-60 mins
+Provisional Geostationary Active Fire Detections	ABI (GOES-16 & 18)1	NOAA	2km sub-satellite2	~20-30 mins
+Provisional Geostationary Active Fire Detections	ABI (GOES-16 & 18)3	CAMS/IPMA	2km sub-satellite2	~20-30 mins
+True/False Color Composite Imagery	ABI (GOES-16 & 18)	NASA GIBS	1km	40 mins
+True/False Color Composite Imagery	MODIS (Terra/Aqua)	NASA GIBS	250m	<3 hours
+True/False Color Composite Imagery	VIIRS (Suomi NPP/NOAA-20)	NASA GIBS	250m	<3 hours
+True/False Color Composite Imagery	OLI (Landsat 8 & 9)	NASA IMPACT/HLS	30m	2-4 days
+True/False Color Composite Imagery	MSI (Sentinel 2A & 2B)	NASA IMPACT/HLS	30m	2-4 days
+Aerosol Index	OMPS (Suomi NPP)	NASA LANCE/GIBS	~50km	<3 hours
+Aerosol Index PyroCumuloNimbus	OMPS (Suomi NPP)	NASA LANCE/GIBS	~50km	<3 hours
+Burned Area	MODIS (Terra/Aqua)	NASA	500m	~3 months
+
+1FDC: Fire Detection and Characterization algorithm
+2The pixel size systematically grows from sub-satellite towards the edge of the disk
+3FRPPIXEL: Fire Radiative Power algorithm
+4Latency refers to the estimated time from satellite observation to availability in FIRMS
+5Currently curated for FIRMS US/Canada
+
+See Acronyms section for definitions.
+What specific areas are covered by FIRMS US/Canada?
+
+FIRMS US/Canada includes coverage for the continental United States, Alaska, Hawaii, Puerto Rico, and Canada. Due to the geographic extent of these areas of interest, Mexico and Caribbean countries are also included.
+What are the differences between FIRMS Global and FIRMS US/Canada?
+
+Just like FIRMS Global, FIRMS US/Canada provides active fire data generally within 3 hours of a satellite observation from MODIS aboard NASA’s Aqua and Terra satellites and VIIRS aboard the Suomi NPP and NOAA-20 satellites. Imagery is typically available within 3 to 4 hours and can be viewed on the interactive Fire Map application.
+
+In addition, FIRMS US/Canada meets the new Forest Service requirements by offering additional contextual layers and enhancements, including classifying fires to show time since detection to depict active fire fronts, incident locations and other information for current large fires in the US and Canada. FIRMS US/Canada provides current and historical corrected reflectance imagery from NASA and NOAA satellites, U.S. and Canada administrative ownership boundaries, daily fire danger forecasts, and current National Weather Service fire weather watch and red flag warning areas.
+What is the difference between the USA Active Fires – IRWIN and USA Active Fires – IMSR layers displayed in FIRMS US/Canada, and what information do they provide?
+
+The USA Active Fires layer includes wildland fire incidents from the Integrated Reporting of Wildland Fire Information (IRWIN) integration service that meet the following criteria: valid Wildfire (WF); Prescribed Fire (RX); and Incident Complex (CX) records that have not been declared contained, controlled, or out, have not had fire report records completed (certified), are not “quarantined” in IRWIN due to potential conflicts with other records, and have incident information has been updated within the past 14 days.
+
+In addition to the above criteria, FIRMS also limits the incidents displayed in the USA Active Fires layer to fires that are at least 100 acres(40 hectares)in size. Selected descriptive information, including fire name, latest reported size, and date/time of ignition are included in the attributes (available when a user clicks on a fire icon). The displayed wildfire location is typically based on the identified or assumed point of origin of the fire. The IRWIN service is maintained by the U.S. Department of Interior Office of Wildland Fire. IRWIN harvests and integrates information from numerous federal, state, and local wildfire reporting systems in near real-time to provide a single source of current information about all reported wildfire incidents.
+
+The Incident Management Situation Report (IMSR) layer includes only large wildland fire incidents currently being tracked by the National Interagency Coordination Center (NICC). Large wildland fire incidents are classified by the NICC as 100 acres or larger in timber and slash fuel models, 300 acres or larger in grass or brush fuel models. Wildland fires that do not meet the large wildland fire criteria but have a Complex Incident Management Team (CIMT) assigned are also included in the IMSR.
+
+For Complex fires, the location included in the IMSR may not have any associated active fire detections because the location represents the location of the incident management center. The IMSR layer is updated weekly (Friday) by the NICC when the National Wildland Fire Preparedness Level is at Preparedness Level 1 and daily when at Preparedness Level 2 or higher. The IMSR typically represents a subset of the fires in IRWIN
+What is the source of the Canada Active Fires layer and what information does it provide?
+
+The Canada Active Fires layer is based on information from the Canadian Wildland Fire Information System Active Wildfires dataset coordinated and maintained by the Canadian Interagency Forest Fire Center (CIFFC) and Natural Resources Canada. Reported wildfire locations are updated and provided daily by partner provincial and territorial fire management agencies and Parks Canada. The Canada Active Fires layer displays the location of current wildfires greater than 100 acres (40 hectares) in size and selected descriptive information, including fire name/ID, latest reported size, and date/time of ignition.
+What is the minimum size of wildfire displayed in the USA Active Fires – IMSR and Canada Active Fires – DIP layers in FIRMS?
+
+The spatial and temporal resolution of the satellite active fire detection data provided in FIRMS is appropriate for the routine detection and monitoring of fire activity associated with relatively larger sized incidents. Consequently, FIRMS limits the display of wildfire incident locations in the US and Canada to those greater than or equal to 100 acres (40 hectares) in size.
+Where can I get more information about current wildfires in the U.S. and Canada?
+
+Additional information about current large wildfires in the United States can be found in the Incident Management Situation Report published by the National Interagency Coordination Center. Additional information about current large wildfires in Canada can be found in the National Fire Situation Report published by the Canadian Interagency Forest Fire Center (CIFFC).
+What is the source for USA Fire Weather Watches and Red Flag Warnings and what do they mean?
+
+The National Weather Service (NWS) is the source for fire weather watches and red flag warnings. A fire weather watch or red flag warning is issued by local/regional NWS forecast offices when the combination of dry fuels and weather conditions in designated NWS fire weather zones support extreme fire danger.
+
+Criteria for fire weather watches and red flag warnings vary by NWS office, but are typically based on the presence of fuel characteristics favorable for large fire growth, as determined by the land management agencies, and NWS-established critical thresholds for temperature, sustained winds, and relative humidity. Fire weather watches are issued up to 72 hours before these conditions are expected to occur while red flag warnings are issued when these conditions are expected to occur or are occurring within the next 24 hours. A similar layer for Canada is currently not available.
+What is the source for the USA Forecasted Fire Danger layer and what information does it provide?
+
+The Forecasted Fire Danger layer is based on the National Fire Danger Rating System (NFDRS), which produces several components and indexes (e.g., ignition probability, fire rate of spread, etc.) that collectively describe current and potential fire danger conditions. Daily forecasted fire danger updates are used by wildland fire management agencies to assess current fire danger at local and national levels and inform decisions on an area’s fire protection needs. NFDRS fire danger is expressed as an adjective class rating that normalizes rating classes across different fuel models, indexes, and station locations.
+What is the source for the Canada Forecasted Fire Danger layer and what information does it provide?
+
+The Canada Fire Danger forecast layer is a relative index of how easy it is to ignite vegetation, how difficult a fire may be to control, and how much damage a fire may do. These ratings, updated and mapped daily, are based on the effects of fuel moisture and weather conditions on fire behavior as determined by the Canadian Forest Fire Weather Index (FWI) System. Fire danger conditions are classified by the provincial and territorial fire management agencies and the choice and interpretation of classes may vary between provinces.
+What is the source for the United States wildfire perimeters and what does it display?
+
+The US Fire Perimeter layer displays the extent of current wildfires based on perimeter data from the National Incident Feature Service (NIFS) maintained by the National Interagency Fire Center (NIFC). Incident management teams for individual wildfire incidents are the source for these data. Input data/information sources for routine perimeter updates conducted by incident management teams, as well as the update frequency, can vary.
+How do I interpret/use wildfire perimeter data in the context of satellite active fire detection data?
+
+Wildfire perimeters for individual fires are typically updated once daily using relatively large scale data (airborne infrared flights, airborne or terrestrial GPS, etc.), but may be updated more or less frequently in particular circumstances. MODIS and VIIRS active fire detection data introduce additional factors that can contribute spatial and temporal alignment between these data and perimeters for ongoing wildfire incidents. These factors include:
+
+    Timing of satellite observations: MODIS and VIIRS are onboard polar-orbiting satellite platforms that do not provide persistent observations. They only detect the location and extent of active fires at the time of a satellite overpass. This may result in gaps in active fire detection data within perimeters.
+    Properties of fire activity and active fire detection data resolution: The size and intensity of fires at the time of a satellite overpass, including small, very hot fires and larger, smoldering fires, can both trigger fire detection algorithms. In both conditions, the detected fire activity will be indicated at the spatial resolution of the thermal bands (375 m for VIIRS and 1 km for MODIS). In other words, a small, intense fire occupying a fraction of the pixel or a broader, cooler-burning fire occupying most of the pixel will both be represented as a fire at the spatial resolution of the data. This typically results in cumulative active fire detection data overestimating the size of a wildfire and not aligning with the perimeter boundaries.
+    Satellite observation conditions: Atmospheric conditions, including clouds and heavy smoke, can partially or fully obscure fire activity at the time of a satellite overpass and hinder its detection. This omission of potentially detected fire activity can result in gaps in active fire detection data within perimeters. Additionally, the view geometry becomes more distorted with increasing distance from the nadir of the satellite observation. As a result, active fire detections in pixels towards the outer edges of the satellite view swath will be shifted/displaced outwards and fall outside the wildfire perimeter.
+
+Are additional capabilities planned for FIRMS US/Canada?
+
+Yes. The beta release of FIRMS US/Canada was completed in January 2021. Ongoing development activities include introduction of more remote sensing layers in the fire map viewer, particularly additional sources of near real-time satellite imagery and fire-relevant science data products, and enhancements to data downloads and user-defined fire alerts.
+More about the Ultra Real-Time (URT) and Real-Time (RT) data in FIRMS
+
+Ultra Real-Time (URT) MODIS and VIIRS active fire detections are available for the US and Canada. These data are compiled from multiple direct readout ground stations in CONUS as part of a partnership with the Space Science and Engineering Center (SSEC) at the University of Wisconsin-Madison.
+
+MODIS and VIIRS micro granules collected via direct broadcast are processed in seconds and made available in FIRMS within 1-2 minutes of satellite observation. The attributes of these URT data have a "version" ending in URT. (To obtain the attributes, zoom in and click on a MODIS or VIIRS active fire detection in FIRMS Map viewer, and review the VERSION column).
+
+Real-Time (RT) MODIS active fire detections are available through Direct Broadcast stations that process the data after the overpass has occurred. These data are generally available in FIRMS 20-25 minutes after satellite observation.
+
+See the Questions about Real-Time (RT) and Ultra Real-Time (URT) active fire data section for more information.
+
+Additional direct readout ground stations are being incrementally added to FIRMS. These additions will further increase the availability of URT MODIS and VIIRS data for North America collected from Terra, Aqua, Suomi NPP and NOAA-20.
+
+
+Experimental Mode
+
+This provides new and/or prototype satellite data products for access and evaluation by the user community. Currently these include the VIIRS modeled fire perimeters and static thermal anomalies.
+What is the VIIRS Modeled Fire Perimeter product?
+
+The VIIRS Modeled Fire Perimeter Product uses the Fire Event Database Suite (FEDS) algorithm (Chen et al., 2022) to cluster VIIRS 375 m active fire detection data into individual fire events and track fire spread and behavior every 12 hours (see Figure 1). The FEDS algorithm uses an alpha shape approach to model the fire perimeter, estimate the active portion of the fire perimeter, and quantify metrics of fire behavior for each 12-hour time step. The FEDS algorithm currently uses the 375 m active fire detections from the VIIRS sensors onboard the Suomi-NPP and NOAA-20 satellites to model the fire perimeter.
+Image
+Two fire data visualizations appear side by side, each overlaid with colored and grey dots, which represent newly detected and previously detected VIIRS 375 m active fire pixels.
+Image Caption
+
+Figure 1. A schematic diagram of the FEDS fire tracking algorithm (Chen et al., 2022). (a) Two idealized fire objects (Fire 1, Fire 2) at the time step t. Colored and grey dots represent newly detected and previously detected VIIRS 375 m active fire pixels, respectively. The brown segments along the fire perimeter are the modeled estimate of the active portions of the fire perimeter. (b) At the next time step t+1, new fire pixels (in red) are clustered (C1, C2, C3), and are used for forming a new fire object (C1 for Fire 3), or for the growth of an existing fire object (C2 for Fire 1). Expanded fire objects (Fire 2) are merged with an existing active fire object (Fire 1) if they grow close enough (due to the addition of C3). Vector shapes of the modeled fire perimeter and active fire line segments for each fire object are updated at each 12-hour time step.
+
+The VIIRS Modeled Fire Perimeter data based on the FEDS algorithm includes three different types of information about each ongoing fire event in the Continental United States (CONUS) and Canada, updated approximately four hours after each VIIRS overpass: 1) the modeled perimeter of each large fire event, 2) the active portion of the modeled fire perimeter (i.e., the active fire line or “hot edge” of the modeled fire perimeter), and 3) the instantaneous fire radiative power (FRP) from all active fire detections associated with a given fire event during each overpass time, including fire detections at the hot edge and residual flaming or smoldering activity within the modeled fire perimeter (see Figure 1a).
+
+By clustering and tracking fire detections into individual fire events, the FEDS algorithm provides a consistent assessment of the change in fire behavior and intensity with each successive VIIRS overpass (nominally at 01:30 and 13:30 local time).
+
+For additional information, please see the Wildfire Tracking Lab GitHub project page and the UC-I/NASA Fire Tracking Page.
+What is the source of the VIIRS Modeled Fire Perimeter data?
+
+The VIIRS Modeled Fire Perimeter data based on the FEDS algorithm are provided by NASA's Earth Information System (EIS) Project, which harnesses the full power of NASA’s satellite observations, models, and scientific expertise to deliver information for societal benefit that is open, accessible, and actionable. The FEDS algorithm was developed by Yang Chen and colleagues at the University of California-Irvine, NASA’s Goddard Space Flight Center (GSFC), Cardiff University (UK), and Universidad del Rosario (Colombia), as described in a scientific paper published in 2022 (Chen et al., 2022).
+
+Reference:
+
+Chen Y, Hantson S, Andela N, Coffield SR, Graff CA, Morton DC, Ott LE, Foufoula-Georgio E, Smyth P, Goulden M, Randerson JT. 2022. California wildfire spread derived using VIIRS satellite observations and an object-based tracking system. Scientific Data, 9: 249. https://doi.org/10.1038/s41597-022-01343-0
+What is the temporal frequency of the VIIRS Modeled Fire Perimeter data?
+
+The VIIRS Modeled Fire Perimeter data based on the FEDS algorithm are updated twice per day using the VIIRS 375 m active fire information from the morning (01:30) and afternoon (13:30) Suomi-NPP and NOAA-20 satellite overpasses over each fire event. The vector output from the FEDS algorithm is produced within approximately 4 hours following the availability of VIIRS 375 m active fire data in FIRMS.
+What is the spatial resolution of the VIIRS Modeled Fire Perimeter data?
+
+Although the vector data in the VIIRS Modeled Fire Perimeter product has no defined spatial resolution, the product is derived from the VIIRS 375 m active fire detections, and therefore reflects the spatial resolution and geolocation accuracy of those products from the Suomi-NPP and NOAA-20 satellites. The FEDS algorithm uses an alpha hull approach to cluster new active fire detections and model the updated fire perimeter every 12 hours. The alpha hull approach groups individual fire detection points from the VIIRS sensors on two satellite platforms to model their combined spatial extent and distribution at each 12-hour time step. Compared to a convex hull, the alpha hull approach is better able to capture irregular shapes of active fire events and changes in shape over time. See Chen et al. (2022) for additional details.
+Why are the VIIRS Modeled Fire Perimeter Data based on the FEDS algorithm only available for the Continental United States (CONUS) and Canada?
+
+The FEDS algorithm was originally developed and tested for large fires in California (Chen et al., 2022). The EIS Fire team has scaled the production of the fire event tracking approach to cover CONUS and Canada, with data available via OGC API. Data for additional regions, including Alaska and Hawaii, will be released through FIRMS when available.
+What is the temporal extent of VIIRS Modeled Fire Perimeter data in FIRMS?
+
+The VIIRS Modeled Fire Perimeter data based on the FEDS algorithm are currently available through FIRMS beginning January 1, 2024. Archive data for prior years is available via OGC API. This example notebook, Get Fire Perimeters from an OGC API, demonstrates how to subset, analyze, and visualize these data outside of FIRMS.
+What validation of the VIIRS Modeled Fire Perimeter data has been performed?
+
+Chen et al., 2022 provide a rigorous validation of the FEDS algorithm for large fire events in California between 2012-2020. The study compared the final FEDS perimeter data to official year-end fire perimeter data from the Fire and Resource Assessment Program (FRAP), established by the California Department of Forestry and Fire Protection. Table 6 in Chen et al. (2022) summarizes the comparison between FEDS and FRAP data for large fires in California in 2018 using standard comparison metrics (e.g., Accuracy, Precision, Recall, and Intersection Over Union). Overall, the FEDS data compare favorably to the FRAP year-end data. Validation for other regions and other fire types is an area of ongoing research by the EIS Fire Project team, and updates from these ongoing studies will be added, as available.
+How does the VIIRS Modeled Fire Perimeter Data product differ from the USA Fire Perimeter layers in FIRMS?
+
+The VIIRS Modeled Fire Perimeter Data product provides situational awareness for large fire events in CONUS and Canada every 12 hours, based on the FEDS algorithm and available 375 m VIIRS active fire detection data from Suomi-NPP and NOAA-20. The modeled perimeter is an estimate of the fire-affected area, active portion of the fire perimeter, and metrics of fire behavior.
+
+The VIIRS Modeled Fire Perimeter data also provides a history of modeled large fire growth every 12 hours for all fire events detected by VIIRS in CONUS and Canada. By contrast, the USA Fire Perimeter layer is the most recent official incident perimeter data. Official incident data provide a more precise estimate of the perimeter of large fire events in the US than the VIIRS Modeled Fire Perimeter data. The USA Fire Perimeter layer is updated periodically with new official incident perimeter data.
+What are the attributes of the VIIRS Modeled Fire Perimeter data based on the FEDS algorithm?
+Column	Description	Type/Unit
+duration	Number of days since first observation of fire. Fires with a single observation have a duration of zero.	Days
+farea	Area within estimated fire perimeter.	Km2
+fireid	Fire ID. Unique for each fire. Matches fireid.	Numeric ID
+flinelen	Length of active fire line, based on new pixels. If no new pixels are detected, flinelen is set to zero.	km
+fperim	Length of estimated fire perimeter.	km
+meanfrp	Mean fire radiative power. The weighted sum of the fire radiative power detected at each new pixel, divided by the number of pixels. If no new pixels are detected, meanfrp is set to zero.	Megawatts (MW)/(pixel area)
+n_newpixels	Number of pixels newly detected since last overpass.	pixels
+n_pixels	Number of pixel detections in history of fire.	pixels
+pixden	Pixel density, the number of pixels divided by area of the estimated perimeter.	pixels/km2
+Primarykey	ID Composed of identifying metadata. <region>|<fireID>|<am_or_pm>	String ID
+Region	Region over which algorithm was run to generate fire. FireIDs are unique within region.
+t	Time of VIIRS detection, corrected to noon and midnight.	Datetime. yyyy-mm-ddThh:mm:ss. Local time.
+isactive	Have new fire pixels been detected in the last 5 days?	Boolean
+ogc_fid	The ID used by the OGC API to sort perimeters.	Numeric ID
+geometry	The shape of the estimated perimeter.	Geometry
+What is the rationale for the 5-day threshold on new fire pixels?
+
+The FEDS algorithm uses spatial and temporal search criteria to cluster VIIRS 375 m active fire detections into existing or new fire objects. The use of the 5-day threshold to associate new fire detections with an existing fire object reflects the nature of large fire behavior and periodic gaps in active fire detection data. Large fire events often exhibit episodic growth in response to changes in fire weather, suppression activity, and fuels. Periods with less intense fire activity may not generate active fire detections from VIIRS, leading to temporal gaps (12-hour, 24-hour, etc.) in fire detection information.
+
+The 5-day threshold allows the FEDS algorithm to connect future fire detections to the same fire object, or event, rather than splitting a large fire into multiple objects. In addition to periods of lower fire intensity, gaps in fire detection can occur due to satellite outages or observing conditions such as clouds that impact the VIIRS fire detection algorithm. The 5-day threshold reduces the influence of these data gaps on the fragmentation of large fire events in the FEDS algorithm output.
+How can I find more information about the FEDS algorithm, VIIRS Modeled Fire Perimeter data product versions, and related analyses?
+
+Additional information about the FEDS algorithm can be found in Chen et al., 2022. The source code used to generate the VIIRS Modeled Fire Perimeter data product is available on the EIS fireatlas GitHub page. The Wildfire Tracking Lab GitHub project page and the UC-I/NASA Fire Tracking Page provide links to related publications, data products, and an example notebook, Get Fire Perimeters from an OGC API, that demonstrates how to subset, analyze, and visualize the FEDS output outside of FIRMS, is available on NASA's VEDA platform. Finally, the data products from the FEDS algorithm are also available via OGC API.
+
+
+Static Thermal Anomalies
+What is a Static Thermal Anomaly (STA)?
+
+An STA is defined as a contiguous - sometimes persistent - cluster of thermal anomalies that are not considered to be vegetation fires. These can include petrochemical and cement production, gas flares and volcanoes.
+How is the Static Thermal Anomalies - Mask layer created?
+
+This layer is derived from the global analysis of 375m S-NPP VIIRS active fire detection data for calendar year 2023. The centroids of active fire detections are summarized on a 400m grid. Each grid cell containing 5 or more active fire detection counts over the course of the year are extracted to create a mask of frequently observed or static thermal activity. The resulting mask is spatially filtered using multiple industrial/power plant location datasets in an effort to limit the mask to areas not associated with vegetation fires.
+What is the Static Thermal Anomalies - Detections layer?
+
+This layer consists of MODIS, VIIRS, and Landsat active fire detections that intersect with, or are adjacent, to areas identified in the Static Thermal Anomalies - Mask layer for the date/time range selected by the user. The date/time range of the active fire detections displayed will be coincident with the date/time range selected by the user.
+Can I download this layer?
+
+These data are provided for reference purposes only and should be used with caution. This layer is developed by NASA FIRMS and is not available for distribution.
+
+
+What citations should I use for the various industrial/power plant locations shown in FIRMS?
+
+The Power Plants layer suggested citation is:
+
+Global Energy Observatory, Google, KTH Royal Institute of Technology in Stockholm, Enipedia, World Resources Institute. 2018. Global Power Plant Database. Published on Resource Watch and Google Earth Engine; http://resourcewatch.org/ https://earthengine.google.com/
+
+The Cement Plants layer suggested citation is:
+
+McCarten, M., Bayaraa, M., Caldecott, B., Christiaen, C., Foster, P., Hickey, C., Kampmann, D., Layman, C., Rossi, C., Scott, K., Tang, K., Tkachenko, N., and Yoken, D. 2021. Global Database of Cement Production Assets. Spatial Finance Initiative.
+
+The Gas Flares layer suggested citation is:
+
+Data compiled by the World Bank for the Global Gas Flaring Tracker Report MARCH 2023: Attribution and data sources: Flare gas volumes -  NOAA, the Payne Institute at the Colorado School of Mines, World Bank/GFMR, and Oil production - EIA (Crude oil including lease condensate only). See: https://www.worldbank.org/en/programs/gasflaringreduction/global-flarin…) Flare volume and flaring intensity estimates by economy for the time period 2012 – 2022.
+
+The Iron and Steel Plants layer suggested citation is:
+
+McCarten, M., Bayaraa, M., Caldecott, B., Christiaen, C., Foster, P., Hickey, C., Kampmann, D., Layman, C., Rossi, C., Scott, K., Tang, K., Tkachenko, N., and Yoken, D., 2021. Global Database of Iron and Steel Production Assets. Spatial Finance Initiative.
+
+The Nonferrous Metal Plants layer recommended citation is:
+
+Minerals Information Team, US Geological Survey, 2003.
+
+The Mineral Resources Data System layer recommended citation is:
+
+U.S. Geological Survey Mineral Databases; MRDS and MAS/MILS, US Geological Survey, 2000.
+
+The Petro Chemical Plants layer suggested citation is:
+
+McCarten, M, Spatial Finance Initiative Petrochemicals Database for Europe and North America (April 2022).
+
+The Steel Plants layer recommended citation is:
+
+Global Steel Plant Tracker, Global Energy Monitor, April 2024 (V1) release.
+What are the status categories in the Steel Plants layer?
+
+The status categories in the Steel Plants layer are:
+
+    Announced: Projects that have been announced in corporate or governmental planning documents, but have not begun operation.
+    Construction: Physical plant structure building has begun.
+    Operating: Plant is operating one or more iron or steelmaking furnace(s).
+    Operating pre-retirement: Plant is operating one or more iron or steelmaking furnace(s).
+    Mothballed: Plant iron and steelmaking has been idled such that it cannot be brought into operation immediately, but is not closed.
+    Retired: Plant has ceased operations and no longer has ability to produce iron and/or steel.
+    Cancelled: Plant previously planned or under development that has been cancelled. If no progress or announcements for a proposed plant are made after 5 years, the plant is considered to be cancelled.
+
+
+
+Acronyms
+Acronym	Definition
+ABI	Advanced Baseline Imager
+AHI	Advanced Himawari Imager
+BT	Brightness Temperature
+CAMS	Copernicus Atmosphere Monitoring Service
+CMG	Climate Modeling Grid
+EROS	Earth Resources Observation and Science Center
+EUMETSAT	European Organisation for the Exploitation of Meteorological Satellites
+FIRMS	Fire Information for Resource Management System
+FRP	Fire Radiative Power
+GIBS	Global Imagery Browse Services
+GOES	Geostationary Operational Environmental Satellite
+HLS	Harmonized Landsat-Sentinel 2
+IPMA	Instituto Português do Mar e da Atmosfera
+IMPACT	Interagency Implementation and Advanced Concepts Team (NASA)
+JAXA	Japan Aerospace Exploration Agency
+KCL	King's College, London
+KMZ	Keyhole Markup Language
+LANCE	Land, Atmosphere Near real-time Capability for Earth observations
+LSA SAF	Land Surface Analysis Satellite Application Facility
+MODIS	Moderate Resolution Imaging Spectroradiometer
+MSI	MultiSpectral Instrument
+NOAA	National Oceanic and Atmospheric Administration
+NRT	Near Real-Time
+OLI	Operational Land Imager
+OMPS	Ozone Mapping and Profiler Suite
+RT	Real-Time
+SEVIRI	Spinning Enhanced Visible and InfraRed Imager
+SSEC	Space Science and Engineering Center
+Suomi NPP	Suomi National Polar orbiting Partnership
+URT	Ultra Real-Time
+USGS	United States Geological Survey
+VIIRS	Visible Infrared Imaging Radiometer Suite

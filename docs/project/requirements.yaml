@@ -22,7 +22,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0005
-    status: planned
+    status: implemented
   - id: FR-KB-002
     title: Each entry records source, source URL, retrieval date, section, and a content hash
     source: ADR-0005
@@ -30,7 +30,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0005
-    status: planned
+    status: implemented
   - id: FR-KB-003
     title: New knowledge can be added as Markdown files with front matter in supplements or configured directories
     source: Owner request ("a mechanism to add more information in the future")
@@ -38,7 +38,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0005
-    status: planned
+    status: implemented
   - id: FR-KB-004
     title: Invalid knowledge files (missing fields, duplicate IDs, hash mismatch) stop loading with a clear error
     source: ADR-0005
@@ -46,7 +46,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0005
-    status: planned
+    status: implemented
   - id: FR-KB-005
     title: Search returns deterministically ranked entries with their full verbatim bodies
     source: ADR-0005
@@ -54,7 +54,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0005
-    status: planned
+    status: implemented
   - id: FR-KB-006
     title: Entries can be retrieved by ID; unknown IDs return a structured not-found result with suggestions
     source: ADR-0005
@@ -62,7 +62,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0005
-    status: planned
+    status: implemented
   - id: FR-KB-007
     title: A table of contents of sections, entry IDs, and titles is available
     source: ADR-0005
@@ -70,7 +70,7 @@ requirements:
     priority: should
     verification: test
     design: ADR-0005
-    status: planned
+    status: implemented
   - id: FR-KB-008
     title: A refresh script regenerates FAQ entries from the live page and reports added, changed, and retired entries
     source: Owner request (site "ever evolving")
@@ -78,7 +78,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0005
-    status: planned
+    status: implemented
   - id: FR-KB-009
     title: Retired entries are excluded from search by default and flagged when retrieved by ID
     source: ADR-0005
@@ -86,7 +86,7 @@ requirements:
     priority: should
     verification: test
     design: ADR-0005
-    status: planned
+    status: implemented
   - id: FR-KB-010
     title: Knowledge is exposed as MCP resources (index and per-entry)
     source: ADR-0005
