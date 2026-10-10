@@ -129,3 +129,15 @@ reproduced.
 - Schmidt, C., Hoffman, J., Prins, E., & Lindstrom, S. (2013). GOES-R ABI ATBD for Fire/Hot Spot Characterization v2.6. NOAA NESDIS STAR.
 - Chen, Y., et al. (2022). California wildfire spread derived using VIIRS satellite observations and an object-based tracking system. *Scientific Data*, 9, 249. doi:10.1038/s41597-022-01343-0
 - Csiszar, I., et al. (2006; 2014), Morisette, J. T., et al. (2005), Justice, C. O., et al. (2002), Giglio, L., et al. (2006) — MODIS/VIIRS validation and burned-area relationships, as listed in the FIRMS publications page.
+
+## 8. Comparable MCP servers
+
+Surveyed 2026-10-10 for the [viability case](../plan/VIABILITY_CASE.md#36-v6--alternatives-survey-of-2026-10-10):
+the official MCP Registry API searched for `firms` and `fire`, and a web search for FIRMS
+MCP servers. Descriptions are as published by each project; nothing was installed or run.
+
+| Server | Location | Retrieved | Observations |
+|---|---|---|---|
+| `io.github.pipeworx-io/nasa-firms` v0.1.1 | <https://registry.modelcontextprotocol.io/v0/servers?search=firms>; <https://github.com/pipeworx-io/mcp-nasa-firms> | 2026-10-10 | Tools `firms_hotspots_area`, `firms_hotspots_near`, `firms_data_availability`; remote gateway and `npx` package; README: MAP_KEY supplied as an `_apiKey` tool argument, fallback environment variable; MIT |
+| Wildfire MCP Server (aliafsahnoudeh) | <https://glama.ai/mcp/servers/aliafsahnoudeh/wildfire-mcp-server> | 2026-10-10 | Community server combining FIRMS, OpenWeatherMap, and Google Earth Engine; listings say each source needs its own key |
+| `com.olyport/wildfire`, `com.daedalmap/wildfires` | <https://registry.modelcontextprotocol.io/v0/servers?search=fire> | 2026-10-10 | Wildfire incidents (National Interagency Fire Center) and aggregated wildfire events (paid per call); not satellite detections |

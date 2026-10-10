@@ -35,7 +35,7 @@ Legend: 🔎 needs research · 🛠 implementation · 📝 documentation · ❓ 
 | WK-03 | 🛠 Knowledge base: verbatim FAQ ingestion, supplements, loader, search, refresh script, completeness test | WP3 | Done on `feature/knowledge-base` (see Done) |
 | WK-04 | 🛠 FIRMS API client, source catalog, CSV normalizer, caching, rate-limit guard | WP4 | Done on `feature/firms-api-client` (see Done) |
 | WK-05 | 🛠 Map link builder and layer catalog snapshot with refresh/verification script | WP5 | Done on `feature/map-links` (see Done) |
-| WK-06 | 📝 Viability case | WP6 | Open |
+| WK-06 | 📝 Viability case | WP6 | Done (see Done) |
 | WK-07 | 🛠 MCP server: tools, resources, prompts, instructions, health, `server.json`, `ard.json` | WP7 | Open |
 | WK-08 | 🛠 Auth: env var, OAuth 2.1 MAP_KEY connect flow (CIMD + DCR), encrypted tokens, step-up | WP8 | Open |
 | WK-09 | 📝 Operations & governance; integration issues log | WP9 | Open |
@@ -84,3 +84,4 @@ Queue empty as of 2026-10-10.
 | LU-08 | US/Canada map hash compatibility | Verified 2026-10-10: `/usfs/map/` honours the same grammar and layer IDs (270 layers; minimum zoom 4) |
 | WK-05 | Fire Map link builder (WP5) | `firms_mcp.maplinks` + catalog snapshot + `scripts/check_map_catalog.py`; generated links verified in the real map; 149 tests |
 | WK-04 | FIRMS API client (WP4) | `firms_mcp.firms`: catalog, client, parser, summaries, cache, budget, KML links, redaction; 125 tests — merge of `feature/firms-api-client` |
+| WK-06 | Viability case (WP6) | [Viability case](../plan/VIABILITY_CASE.md); ARL3-M3 recorded in L-3, owner review pending |

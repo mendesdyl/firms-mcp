@@ -9,6 +9,8 @@ All notable changes to this project are documented here. The format follows
 
 ### Added
 
+- Viability case for the application concept (ARL3-M3), including a survey of comparable
+  MCP servers and FIRMS transaction costs for typical queries.
 - FIRMS Fire Map link builder (`firms_mcp.maplinks`) for the global and US/Canada maps,
   validated against a snapshot of the map's own layer and mode configuration, with a live
   drift check (`scripts/check_map_catalog.py`).

@@ -23,7 +23,7 @@ Status key: ✅ complete in full (with evidence) · 🟡 in progress · ⬜ not 
 | ARL2-M3 Plans to better characterize the decision making activity | ✅ | [Decision context §5](../science/DECISION_CONTEXT.md), [Evaluation plan](../design/EVALUATION.md) | 2026-10-09 | `4f832b8` |
 | ARL3-M1 Components tested and validated independently | 🟡 | Knowledge base: 52 tests incl. line-by-line FAQ completeness (`e9c1bfe`); API client: 73 tests (`951aa26`); map links: 24 tests mirroring the map's parser, links verified in the real map (`b4bf2b6`); auth component pending | | |
 | ARL3-M2 Detailed characterization of user decision making process | ✅ | [Decision context §3–§4](../science/DECISION_CONTEXT.md) (mechanisms M1–M4, limitations F1–F11; quantitative baseline to be measured by the evaluation) | 2026-10-09 | `4f832b8` |
-| ARL3-M3 Convincing case for viability | ⬜ | | | |
+| ARL3-M3 Convincing case for viability | ✅ | [Viability case](../plan/VIABILITY_CASE.md) (owner review pending; reverts to 🟡 if not accepted) | 2026-10-10 | see L-3 |
 | ARL4-M1 Components integrated; technical integration issues worked out | ⬜ | | | |
 | ARL4-M2 Organizational and human process issues identified and managed | ⬜ | | | |
 | ARL5-M1 Functioning prototype with realistic supporting elements | ⬜ | | | |
@@ -127,6 +127,25 @@ evidence, and the computed ARL.)*
 - Neither milestone is claimed until the authentication component exists and is tested,
   because the plan (§8, ARL 2) lists the auth module among the components.
 - **Computed ARL: 1** (unchanged; ARL 2 awaits ARL2-M1).
+
+### L-3 — 2026-10-10 — Viability case (WP6)
+
+- Milestone newly complete: **ARL3-M3** — [Viability case](../plan/VIABILITY_CASE.md).
+  The case fixes nine criteria (V1–V9) before presenting the evidence and rates each as
+  demonstrated, supported, or open: three of four components built and tested; a
+  feasibility spike against the locked FastMCP 4.1.0 / `mcp` 2.3.0 in both protocol eras,
+  in memory and over Streamable HTTP; query costs from FIRMS's own transaction-weight
+  formula (a 1° × 1° one-day query with the four default sources is 7 of the 5,000
+  transactions allowed per 10 minutes); a mechanism for each baseline failure mode
+  F1–F11; a survey of comparable MCP servers (2026-10-10); organizational constraints;
+  and four conditions (K1–K4) under which the concept would not be viable.
+- The plan names owner review as this milestone's verification. The milestone is recorded
+  as complete on submission, as ARL2-M2, ARL2-M3, and ARL3-M2 were in L-1; if the owner
+  does not accept the case, a new entry reverts it to 🟡.
+- Milestones in progress: ARL2-M1 and ARL3-M1 (authentication component, WP8).
+- **Computed ARL: 1** (unchanged; ARL 2 awaits ARL2-M1). Once WP8 completes ARL2-M1 and
+  ARL3-M1, all ARL 1–3 milestones will be complete and the computed ARL becomes 3
+  (phase gate G1).
 
 ## Fiscal Year ARL
 

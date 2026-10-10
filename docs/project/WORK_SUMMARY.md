@@ -146,3 +146,30 @@ server). **Tests:** 52 passing.
 **Requirements implemented:** FR-MAP-001 … FR-MAP-006. **Tests:** 149 passing.
 
 **ARL milestones supported:** ARL2-M1 and ARL3-M1 (map-link component).
+
+### 2026-10-10 — Signed replay of WP4 and WP5 (`main`)
+
+**What was done:** with the owner present to approve 1Password signing, the two features
+held as tree snapshots were replayed as signed commits and `--no-ff` merges
+(`feature/firms-api-client` → `951aa26`, `feature/map-links` → `b4bf2b6`). `main`'s tree
+equals the final snapshot tree; 149 tests pass. ARL LifeCycle entry L-2 recorded.
+
+### 2026-10-10 — WP6: viability case (`main`)
+
+**What was done**
+
+- Wrote the [viability case](../plan/VIABILITY_CASE.md) against nine criteria fixed in
+  advance (components, integration, FIRMS capacity, credential handling, value,
+  alternatives, user effort, organizational constraints, keeping current), each rated
+  demonstrated, supported, or open, with the conditions under which the concept would not
+  be viable.
+- Ran a feasibility spike with the locked FastMCP 4.1.0 / `mcp` 2.3.0: tools with
+  structured output, resources, resource templates, prompts, and a custom route work for
+  handshake-era (2025-11-25) and 2026-07-28 clients, in memory and over Streamable HTTP;
+  2026-07-28 requests carry `Mcp-Method` / `Mcp-Name` headers (used by WP8's step-up).
+- Computed query costs with FIRMS's displayed transaction-weight formula and measured
+  response sizes (about 400 bytes per detection, 470 bytes per source summary).
+- Surveyed comparable MCP servers in the MCP Registry and on the web
+  ([References §8](../research/REFERENCES.md#8-comparable-mcp-servers)).
+
+**ARL milestones supported:** ARL3-M3 (recorded in L-3; owner review pending).
