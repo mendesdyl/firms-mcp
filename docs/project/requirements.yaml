@@ -482,7 +482,7 @@ requirements:
     priority: should
     verification: inspection
     design: ADR-0002
-    status: planned
+    status: implemented
 
   # --- Documentation and process ----------------------------------------------
   - id: DOC-001

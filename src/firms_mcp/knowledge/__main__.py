@@ -53,12 +53,12 @@ def _rehash(args: argparse.Namespace) -> int:
 
 
 def _sync(args: argparse.Namespace) -> int:
-    from firms_mcp.knowledge.sync import FAQ_URL, parse_faq_html, write_entries  # noqa: PLC0415
+    from firms_mcp.knowledge.sync import FAQ_URL, parse_faq_html, write_entries
 
     if args.html:
         html = Path(args.html).read_text(encoding="utf-8")
     else:
-        import httpx  # noqa: PLC0415
+        import httpx
 
         response = httpx.get(
             FAQ_URL, headers={"User-Agent": USER_AGENT}, timeout=60, follow_redirects=True
@@ -82,12 +82,12 @@ def _sync(args: argparse.Namespace) -> int:
 
 
 def _import_page(args: argparse.Namespace) -> int:
-    from firms_mcp.knowledge.sync import extract_page_markdown  # noqa: PLC0415
+    from firms_mcp.knowledge.sync import extract_page_markdown
 
     if args.html:
         html = Path(args.html).read_text(encoding="utf-8")
     else:
-        import httpx  # noqa: PLC0415
+        import httpx
 
         response = httpx.get(
             args.url, headers={"User-Agent": USER_AGENT}, timeout=60, follow_redirects=True

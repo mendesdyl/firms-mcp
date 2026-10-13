@@ -92,7 +92,9 @@ def test_table_of_contents_lists_sections_in_page_order(repo_kb) -> None:
     assert ids[:4] == ["preamble", "getting-started", "support", "caveats"]
     assert "disclaimers" in ids and "api" in ids
     caveats = next(s for s in sections if s.id == "caveats")
-    assert caveats.entry_ids[0] == "faq.caveats.are-there-ever-false-fire-detections-or-data-artifacts"
+    assert (
+        caveats.entry_ids[0] == "faq.caveats.are-there-ever-false-fire-detections-or-data-artifacts"
+    )
 
 
 @pytest.mark.req("FR-KB-006")

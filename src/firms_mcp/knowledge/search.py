@@ -13,11 +13,12 @@ from firms_mcp.knowledge.models import KnowledgeEntry
 _TOKEN = re.compile(r"[a-z0-9]+(?:\.[0-9]+)?")
 _MARKDOWN_LINK = re.compile(r"!?\[([^\]]*)\]\([^)]*\)")
 
+# A word list is easier to read and edit as one string than as a 60-line list literal.
 STOPWORDS = frozenset(
     """a an and are as at be been being but by can do does for from has have how i if in
     into is it its may me my of on or our so such than that the their them then there these
     they this those to too us was we were what when where which who why will with would you
-    your""".split()
+    your""".split()  # noqa: SIM905
 )
 
 # Domain terms that end in "s" but are not plurals.

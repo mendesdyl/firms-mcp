@@ -24,7 +24,7 @@ Status key: ✅ complete in full (with evidence) · 🟡 in progress · ⬜ not 
 | ARL3-M1 Components tested and validated independently | ✅ | Knowledge base: 52 tests incl. line-by-line FAQ completeness (`e9c1bfe`); API client: 73 tests (`951aa26`); map links: 24 tests mirroring the map's parser, links verified in the real map (`b4bf2b6`); authentication: 34 tests (token codec, step-up, the full connect flow with FIRMS mocked; `feature/oauth-map-key`) | 2026-10-10 | see L-5 |
 | ARL3-M2 Detailed characterization of user decision making process | ✅ | [Decision context §3–§4](../science/DECISION_CONTEXT.md) (mechanisms M1–M4, limitations F1–F11; quantitative baseline to be measured by the evaluation) | 2026-10-09 | `4f832b8` |
 | ARL3-M3 Convincing case for viability | ✅ | [Viability case](../plan/VIABILITY_CASE.md) (owner review pending; reverts to 🟡 if not accepted) | 2026-10-10 | see L-3 |
-| ARL4-M1 Components integrated; technical integration issues worked out | 🟡 | MCP server composing all four components (`src/firms_mcp/server.py`; `feature/mcp-server`, `feature/oauth-map-key`); integration tests in both protocol eras over in-memory, Streamable HTTP, and stdio transports, including the full OAuth connect flow; [integration issues log](../project/INTEGRATION_ISSUES.md) II-01 … II-16, all resolved, mitigated, or accepted except II-08 (lint configuration, WP10) | | |
+| ARL4-M1 Components integrated; technical integration issues worked out | ✅ | MCP server composing all four components (`src/firms_mcp/server.py`; `feature/mcp-server`, `feature/oauth-map-key`); integration tests in both protocol eras over in-memory, Streamable HTTP, and stdio transports, including the full OAuth connect flow; [integration issues log](../project/INTEGRATION_ISSUES.md) II-01 … II-16 resolved, mitigated, or accepted; quality gates in CI (`feature/packaging-ci`) | 2026-10-10 | see L-7 |
 | ARL4-M2 Organizational and human process issues identified and managed | ✅ | [Operations and governance](../project/OPERATIONS_AND_GOVERNANCE.md): 18 issues, each with an owner and a mitigation; procedures; data handled (owner review pending; reverts to 🟡 if not accepted) | 2026-10-10 | see L-6 |
 | ARL5-M1 Functioning prototype with realistic supporting elements | ⬜ | | | |
 | ARL5-M2 Potential to improve decision making articulated | ⬜ | | | |
@@ -37,10 +37,10 @@ Status key: ✅ complete in full (with evidence) · 🟡 in progress · ⬜ not 
 | ARL8-M3 User documentation and training completed | ⬜ | | | |
 | ARL9-M1 Sustained use in decision making context | ⬜ | | | |
 
-**Computed current ARL:** 3 (all ARL 1–3 milestones complete; ARL 4 awaits ARL4-M1 and
-ARL4-M2). ARL3-M3 is recorded pending the owner's review of the viability case; if the
-owner does not accept it, the computed ARL returns to 2. Updated with each LifeCycle entry
-below.
+**Computed current ARL:** 4 (all ARL 1–4 milestones complete; ARL 5 awaits ARL5-M1 and
+ARL5-M2). ARL3-M3 and ARL4-M2 are recorded pending the owner's review of the viability
+case and of operations and governance; if either is not accepted, the computed ARL falls
+back accordingly. Updated with each LifeCycle entry below.
 
 ---
 
@@ -210,6 +210,27 @@ evidence, and the computed ARL.)*
   submission, as ARL3-M3 was, and reverts if the owner does not accept it.
 - Milestones in progress: **ARL4-M1** (🟡), waiting only on integration issue II-08 (WP10).
 - **Computed ARL: 3** (unchanged; ARL 4 awaits ARL4-M1).
+
+### L-7 — 2026-10-10 — Packaging and quality gates; phase gate G2 (merge of `feature/packaging-ci`, WP10)
+
+- Integration issue II-08 resolved: the lint exclusion that hid `src/firms_mcp/knowledge`
+  is anchored to the content directory and the package's findings are fixed; `ruff check .` and `ruff format --check .` pass on the
+  whole repository. Every integration issue in the log is now resolved, mitigated, or
+  accepted.
+- Quality gates written for CI (lint, format, knowledge-base validation, tests with
+  coverage on Python 3.12, 3.13, and 3.14, traceability, wheel contents, container smoke
+  test), a container image, release and MCP Registry publication workflows, a pull-request
+  checklist, and Dependabot. The full suite was run locally on CPython 3.12.15, 3.13.16,
+  and 3.14.6 (252 tests each). The workflows will first run when the repository is
+  published (OD-03); the container build has not yet been run locally (Docker daemon not
+  running; running-list item WK-16).
+- Milestone newly complete: **ARL4-M1** — components integrated and technical integration
+  issues worked out (plan §8: server, integration tests, integration issues log).
+- **Phase gate G2 reached: every ARL 1–4 milestone is complete. Computed ARL: 4**
+  (*Initial Integration & Verification*). Caveat: ARL3-M3 and ARL4-M2 await owner review.
+- Next: ARL5-M1 needs the server against the live FIRMS API with a real MAP_KEY and real
+  MCP clients (WP11, OD-05); ARL5-M2 needs the projected-impact analysis with numbers from
+  the first evaluation run.
 
 ## Fiscal Year ARL
 

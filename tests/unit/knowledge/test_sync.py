@@ -61,7 +61,10 @@ def test_source_urls_use_page_anchors(parsed) -> None:
 def test_answer_text_is_preserved_verbatim(parsed) -> None:
     body = parsed["faq.getting-started.what-is-a-detection"].body
     # nbsp folded to a space, zero-width spaces dropped, emphasis kept, <br> as hard break
-    assert "A detection is the center of a pixel. It has **bold** and *italic* text.\\\nSecond line." in body
+    assert (
+        "A detection is the center of a pixel. It has **bold** and *italic* text.\\\nSecond line."
+        in body
+    )
     assert "​" not in body
 
 
@@ -106,7 +109,9 @@ def test_write_entries_reports_added_changed_unchanged_and_retired(html: str, tm
 
     changed_html = html.replace("Section introduction text.", "Section introduction, revised.")
     changed_html = changed_html.replace(
-        changed_html[changed_html.index('<div class="accordion-item" id="heading-accordion-2-1">') :],
+        changed_html[
+            changed_html.index('<div class="accordion-item" id="heading-accordion-2-1">') :
+        ],
         "</div></div></div></div></body></html>",
     )
     later = dt.date(2026, 11, 1)
@@ -131,7 +136,9 @@ def test_write_entries_reports_added_changed_unchanged_and_retired(html: str, tm
 
 @pytest.mark.req("FR-KB-003")
 def test_extract_page_markdown_by_selector_and_heading(html: str) -> None:
-    by_selector = extract_page_markdown(html, PAGE, selector="#heading-accordion-2-1 .panel-collapse")
+    by_selector = extract_page_markdown(
+        html, PAGE, selector="#heading-accordion-2-1 .panel-collapse"
+    )
     assert by_selector.startswith("See [What is a detection]")
     by_heading = extract_page_markdown(html, PAGE, heading="Sub heading")
     assert by_heading == "Under the sub heading."

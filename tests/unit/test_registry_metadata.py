@@ -30,3 +30,10 @@ def test_server_json_matches_the_package() -> None:
     (variable,) = package["environmentVariables"]
     assert variable["name"] == "FIRMS_MAP_KEY"
     assert variable["isSecret"] is True and variable["isRequired"] is False
+
+
+@pytest.mark.req("FR-MCP-005")
+def test_readme_carries_the_registry_name_for_pypi_verification() -> None:
+    server = json.loads((REPO_ROOT / "server.json").read_text(encoding="utf-8"))
+    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    assert f"mcp-name: {server['name']}" in readme

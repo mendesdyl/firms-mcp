@@ -261,3 +261,28 @@ and a review cadence. The technical counterpart, the
 [integration issues log](INTEGRATION_ISSUES.md), has been kept since WP7.
 
 **ARL milestones supported:** ARL4-M2 (recorded in L-6; owner review pending).
+
+### 2026-10-10 — WP10: packaging and quality gates (`feature/packaging-ci`)
+
+**What was done**
+
+- Resolved integration issue II-08: anchored the lint exclusion to the `knowledge/`
+  content directory (whose Markdown must never be reformatted) so it no longer matches the
+  `src/firms_mcp/knowledge` package, and fixed what it had hidden; `ruff check .` and
+  `ruff format --check .` pass on the whole repository.
+- `Dockerfile` (two stages: uv installs the project as a wheel; slim runtime as an
+  unprivileged user; `firms-mcp http` on port 8000 with a health check) and
+  `.dockerignore`. Not yet built locally: the Docker daemon was not running (WK-16).
+- GitHub Actions: CI (lint, format, knowledge validation, tests with coverage on Python
+  3.12, 3.13, and 3.14, traceability, wheel contents, container smoke test including the
+  401 challenge), release to PyPI with trusted publishing on `v*` tags, and MCP Registry
+  publication by hand (as the Earthdata MCP does); a pull-request checklist; Dependabot.
+- `mcp-name` marker in the README for registry verification of the PyPI package, with a
+  test that it matches `server.json`.
+- Ran the full suite on CPython 3.12.15, 3.13.16, and 3.14.6: 252 tests pass on each
+  (NFR-005).
+- Developer guides: [Testing](../developers/TESTING.md) and
+  [Versioning and releasing](../developers/RELEASING.md).
+
+**ARL milestones supported:** ARL4-M1 complete; phase gate G2 — computed ARL 4 (L-7),
+pending the owner's reviews of ARL3-M3 and ARL4-M2.

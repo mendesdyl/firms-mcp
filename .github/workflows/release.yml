@@ -1,0 +1,38 @@
+# Publish a tagged release to PyPI with trusted publishing (no stored token). The tag must
+# equal the package version (ADR-0010: releases are tagged vX.Y.Z on main).
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: read
+
+jobs:
+  pypi:
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      contents: read
+      id-token: write # PyPI trusted publishing
+    steps:
+      - name: Check out
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+
+      - name: Install uv
+        run: pip install "uv==0.13.0"
+
+      - name: The tag matches the package version
+        run: test "v$(uv version --short)" = "${GITHUB_REF_NAME}"
+
+      - name: Build
+        run: uv build
+
+      - name: Publish to PyPI
+        run: uv publish --trusted-publishing always

@@ -39,11 +39,12 @@ Legend: 🔎 needs research · 🛠 implementation · 📝 documentation · ❓ 
 | WK-07 | 🛠 MCP server: tools, resources, prompts, instructions, health, `server.json`, `ard.json` | WP7 | Done on `feature/mcp-server` (snapshot queued for signing; see Done) |
 | WK-08 | 🛠 Auth: env var, OAuth 2.1 MAP_KEY connect flow (CIMD + DCR), encrypted tokens, step-up | WP8 | Done on `feature/oauth-map-key` (snapshot queued for signing; see Done) |
 | WK-09 | 📝 Operations & governance; integration issues log | WP9 | Done (snapshot queued for signing; see Done) |
-| WK-10 | 🛠 Container image, GitHub Actions CI, MCP Registry metadata | WP10 | Open |
+| WK-10 | 🛠 Container image, GitHub Actions CI, MCP Registry metadata | WP10 | Done on `feature/packaging-ci` (snapshot queued for signing; see Done) |
 | WK-11 | 🛠 Evaluation harness and live validation | WP11 | Open |
 | WK-12 | 🛠 MCP Apps in-client map with time animation | WP12 | Open |
 | WK-13 | 📝 Consumer user guide for Claude.ai, ChatGPT, Claude Code, Cursor, VS Code | WP7/WP8 | Open |
-| WK-14 | 🛠 Bring WP3–WP5 modules in line with `ruff` 0.17 (4 files to reformat, 9 lint findings) and anchor the `knowledge` lint exclusion, which also hides `src/firms_mcp/knowledge` (integration issue II-08) | WP10 | Open |
+| WK-14 | 🛠 Bring WP3–WP5 modules in line with `ruff` 0.17 (4 files to reformat, 9 lint findings) and anchor the `knowledge` lint exclusion, which also hides `src/firms_mcp/knowledge` (integration issue II-08) | WP10 | Done (II-08 resolved) |
+| WK-16 | 🛠 Build and run the container image (`docker build`, health and metadata checks): the Docker daemon was not running on 2026-10-10, so the Dockerfile is written but not yet built; CI builds it once the repository is public | WP10 | Open |
 | WK-15 | 🛠 Per-tool step-up must parse the JSON-RPC body for handshake-era requests, which carry no `Mcp-Name` header (integration issue II-06) | WP8 | Done (II-06 resolved) |
 
 ## Decisions needed from the owner
@@ -71,6 +72,7 @@ commits and `--no-ff` merges when the owner is back to approve (owner decision,
 | 03 | `feature/mcp-server` (WP7) | `refs/snapshots/03-wp7` | Awaiting signing |
 | 04 | `feature/oauth-map-key` (WP8) | `refs/snapshots/04-wp8` | Awaiting signing |
 | 05 | `main` (WP9, documentation) | `refs/snapshots/05-wp9` | Awaiting signing |
+| 06 | `feature/packaging-ci` (WP10) | `refs/snapshots/06-wp10` | Awaiting signing |
 
 The owner stepped away on 2026-10-10 and asked for later work to be batched; entries from
 03 on follow the snapshot procedure above.
@@ -94,3 +96,5 @@ The owner stepped away on 2026-10-10 and asked for later work to be batched; ent
 | WK-07 | MCP server (WP7) | `firms_mcp.server` + nine manifest-defined tools, resources, prompts, instructions, `/health`, `/.well-known/ard.json`, `server.json`; [tool catalog](../design/TOOLS.md), [architecture](../design/ARCHITECTURE.md), [integration issues](INTEGRATION_ISSUES.md); 217 tests — `feature/mcp-server` |
 | WK-08 | Authentication (WP8) | `firms_mcp.auth`: MAP_KEY connect flow (CIMD + DCR, PKCE, `iss`, JWE tokens, refresh rotation with replay detection, revocation), step-up middleware, `firms-mcp keygen`; [Authentication](../design/AUTHENTICATION.md); 251 tests — `feature/oauth-map-key` |
 | WK-09 | Operations and governance (WP9) | [Operations and governance](OPERATIONS_AND_GOVERNANCE.md) (ARL4-M2, owner review pending); [integration issues log](INTEGRATION_ISSUES.md) started in WP7 |
+| WK-10 | Packaging and CI (WP10) | `Dockerfile`, `.github/workflows/` (CI on Python 3.12–3.14, release to PyPI, MCP Registry publication), PR template, Dependabot, `mcp-name` marker; [Testing](../developers/TESTING.md), [Versioning and releasing](../developers/RELEASING.md); 252 tests pass on CPython 3.12.15, 3.13.16, 3.14.6 — `feature/packaging-ci` |
+| WK-14 | Lint and format clean across the repository (II-08) | `feature/packaging-ci` |

@@ -1,13 +1,15 @@
 # FIRMS MCP
 
+<!-- mcp-name: io.github.mendesdyl/firms-mcp -->
+
 A [Model Context Protocol](https://modelcontextprotocol.io) (MCP) server that gives AI
 assistants direct, well-documented access to NASA's
 [Fire Information for Resource Management System (FIRMS)](https://firms.modaps.eosdis.nasa.gov/):
 active fire detections, the complete FIRMS FAQ and product documentation, and links into
 the FIRMS Fire Map.
 
-> **Status:** under active development — Phase I (Discovery & Feasibility) of the
-> [project plan](docs/plan/PROJECT_PLAN.md). See the [ARL assessment log](docs/arl/ARL_ASSESSMENT_LOG.md)
+> **Status:** under active development — Phase II (Development, Testing, & Validation) of
+> the [project plan](docs/plan/PROJECT_PLAN.md); computed ARL 4. See the [ARL assessment log](docs/arl/ARL_ASSESSMENT_LOG.md)
 > for the current readiness level and the [running list](docs/project/RUNNING_LIST.md) for
 > what is in progress.
 

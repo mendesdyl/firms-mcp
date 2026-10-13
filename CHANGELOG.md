@@ -9,6 +9,8 @@ All notable changes to this project are documented here. The format follows
 
 ### Added
 
+- Container image (`Dockerfile`), CI on Python 3.12–3.14, release and MCP Registry
+  publication workflows, pull-request checklist, Dependabot; testing and releasing guides.
 - Operations and governance: roles, organizational issue register, data handled,
   procedures (deployment, FAQ refresh, catalog checks, key rotation, incidents).
 - MAP_KEY connect flow for remote use (`firms-mcp http`): OAuth 2.1 authorization server
@@ -51,5 +53,7 @@ All notable changes to this project are documented here. The format follows
 
 ### Changed
 
+- Lint and format checks now cover `src/firms_mcp/knowledge`, which an over-broad
+  exclusion had skipped.
 - `FIRMS_MCP_KNOWLEDGE_DIRS` is read through the settings, so a value in `.env` now
   applies (it was previously read only from the process environment).

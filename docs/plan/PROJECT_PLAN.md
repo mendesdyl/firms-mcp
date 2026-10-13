@@ -3,12 +3,12 @@
 | | |
 |---|---|
 | **Project** | FIRMS MCP: a Model Context Protocol layer for NASA's Fire Information for Resource Management System |
-| **Plan version** | 1.0 (initial baseline) |
+| **Plan version** | 1.1 |
 | **Date** | 2026-10-09 |
 | **Project owner / PI** | Dylan Mendes |
 | **Implementing agent** | Claude (Anthropic), working under the owner's direction |
 | **Readiness framework** | NASA Applied Sciences *Application Readiness Level (ARL)* metric — see [ARL reference](../arl/ARL_METRIC_REFERENCE.md) |
-| **Status** | Active — Phase I (Discovery & Feasibility) |
+| **Status** | Active — Phase II (Development, Testing, & Validation); computed ARL 4 ([ARL log](../arl/ARL_ASSESSMENT_LOG.md)) |
 
 This plan is the controlling document for the project. Every work package below is tied
 to one or more ARL milestones, every design choice is recorded as an
@@ -404,3 +404,4 @@ Details: [ADR-0008](../decisions/0008-testing-and-verification-strategy.md) and
 | Version | Date | Change |
 |---|---|---|
 | 1.0 | 2026-10-09 | Initial baseline |
+| 1.1 | 2026-10-10 | Status updated: phase gates G1 (ARL 3) and G2 (ARL 4) reached (ARL log L-5, L-7); no change to milestones, work packages, or requirements |
