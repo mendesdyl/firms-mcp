@@ -94,7 +94,7 @@ requirements:
     priority: should
     verification: test
     design: ADR-0005
-    status: planned
+    status: implemented
 
   # --- FIRMS data (ADR-0007) ------------------------------------------------
   - id: FR-DATA-001
@@ -136,7 +136,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0007
-    status: planned
+    status: implemented
   - id: FR-DATA-006
     title: Every data result includes caveat references, the Fire Map disclaimer, the FIRMS citation, a reproducing map link, and provenance with the key redacted
     source: ADR-0007; owner request (provide information to the agent)
@@ -144,7 +144,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0007
-    status: planned
+    status: implemented
   - id: FR-DATA-007
     title: FIRMS errors map to stable error codes with remediation text
     source: ADR-0007
@@ -208,7 +208,7 @@ requirements:
     priority: should
     verification: test
     design: ADR-0007
-    status: planned
+    status: implemented
 
   # --- FIRMS Fire Map links (ADR-0006) ---------------------------------------
   - id: FR-MAP-001
@@ -268,7 +268,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0002
-    status: planned
+    status: implemented
   - id: FR-MCP-002
     title: Server instructions define the workflow and safety rules (disclaimer, UTC, inform rather than answer science questions)
     source: Owner request; ADR-0002
@@ -276,7 +276,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0002
-    status: planned
+    status: implemented
   - id: FR-MCP-003
     title: Prompts provide guided workflows for common tasks
     source: ADR-0002
@@ -284,7 +284,7 @@ requirements:
     priority: should
     verification: test
     design: ADR-0002
-    status: planned
+    status: implemented
   - id: FR-MCP-004
     title: Health endpoint and /.well-known/ard.json discovery document are served
     source: ADR-0002
@@ -292,7 +292,7 @@ requirements:
     priority: should
     verification: test
     design: ADR-0002
-    status: planned
+    status: implemented
   - id: FR-MCP-005
     title: server.json registry metadata is present and consistent with the package version
     source: ADR-0002
@@ -300,7 +300,7 @@ requirements:
     priority: could
     verification: test
     design: ADR-0002
-    status: planned
+    status: implemented
   - id: FR-MCP-006
     title: Both stdio and Streamable HTTP transports are supported
     source: ADR-0003
@@ -308,7 +308,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0003
-    status: planned
+    status: implemented
   - id: FR-MCP-007
     title: The server works for 2026-07-28 clients and handshake-era clients
     source: Owner request (current standard); ADR-0003
@@ -316,7 +316,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0003
-    status: planned
+    status: implemented
   - id: FR-MCP-008
     title: tools/list returns tools in a deterministic order
     source: MCP 2026-07-28 (SHOULD)
@@ -324,7 +324,7 @@ requirements:
     priority: should
     verification: test
     design: ADR-0003
-    status: planned
+    status: implemented
 
   # --- Authentication (ADR-0004) ---------------------------------------------
   - id: FR-AUTH-001
@@ -342,7 +342,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0004
-    status: planned
+    status: implemented
   - id: FR-AUTH-003
     title: Calling a protected tool without a valid token yields HTTP 401 with WWW-Authenticate (resource_metadata, scope)
     source: MCP authorization spec; ADR-0004
@@ -424,7 +424,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0004
-    status: planned
+    status: implemented
   - id: SEC-003
     title: The connect page is protected against CSRF and redirect-URI manipulation
     source: ADR-0004; OAuth security BCP
@@ -450,7 +450,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0008
-    status: planned
+    status: implemented
   - id: NFR-002
     title: Every tool declares an output schema and returns structured content
     source: ADR-0003
@@ -458,7 +458,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0003
-    status: planned
+    status: implemented
   - id: NFR-003
     title: Every tool declares a title and annotations (readOnlyHint, destructiveHint, idempotentHint, openWorldHint)
     source: ADR-0003
@@ -466,7 +466,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0003
-    status: planned
+    status: implemented
   - id: NFR-004
     title: Response sizes are bounded (maximum page size enforced)
     source: ADR-0007
@@ -474,7 +474,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0007
-    status: planned
+    status: implemented
   - id: NFR-005
     title: Supported on Python 3.12, 3.13, and 3.14
     source: ADR-0002
@@ -500,7 +500,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0008
-    status: planned
+    status: implemented
   - id: DOC-003
     title: The ARL assessment log records a LifeCycle entry at every phase gate with evidence links
     source: NASA ARL metric; owner request

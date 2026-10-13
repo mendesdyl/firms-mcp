@@ -9,6 +9,17 @@ All notable changes to this project are documented here. The format follows
 
 ### Added
 
+- MCP server (`firms-mcp`, `python -m firms_mcp`) on stdio and Streamable HTTP, serving
+  MCP 2026-07-28 and handshake-era clients: nine tools (`search_knowledge`,
+  `get_knowledge_entry`, `list_knowledge_topics`, `get_fire_data_sources`,
+  `get_data_availability`, `get_fire_detections`, `get_map_key_status`,
+  `build_fire_map_link`, `get_fire_footprint_kml_links`) registered from per-tool
+  manifests, three resources, two prompts, server instructions, `/health`,
+  `/.well-known/ard.json`, and MCP Registry metadata (`server.json`).
+- Detection results with per-source summaries, paged records, FIRMS caveats, the Fire Map
+  disclaimer and FIRMS citation verbatim, and a reproducing Fire Map link.
+- JSON logs on stderr with MAP_KEY redaction; `FIRMS_MCP_HOST`, `FIRMS_MCP_PORT`,
+  `FIRMS_MCP_LOG_LEVEL` settings.
 - Viability case for the application concept (ARL3-M3), including a survey of comparable
   MCP servers and FIRMS transaction costs for typical queries.
 - FIRMS Fire Map link builder (`firms_mcp.maplinks`) for the global and US/Canada maps,
@@ -30,3 +41,8 @@ All notable changes to this project are documented here. The format follows
   and assessment log, Architecture Decision Records 0001–0010, FIRMS data-products
   baseline, research references (including an analysis of NASA's Earthdata MCP), running
   list, and work summary.
+
+### Changed
+
+- `FIRMS_MCP_KNOWLEDGE_DIRS` is read through the settings, so a value in `.env` now
+  applies (it was previously read only from the process environment).

@@ -1,0 +1,26 @@
+{
+  "name": "search_knowledge",
+  "version": "1.0.0",
+  "title": "Search FIRMS documentation",
+  "description": "Search FIRMS's own documentation — the complete FIRMS FAQ plus the Fire Map disclaimer, the MODIS/VIIRS attribute definitions, and the FIRMS API pages — and return the best-matching entries in full.\n\nEvery entry's `body` is FIRMS's text, verbatim, with its `source_url` and `retrieved` date. Quote or closely follow these bodies when you explain what detections mean, their caveats, latency, sensors, or how to use FIRMS; do not answer such questions from memory when an entry covers them. The `snippet` only shows where the query matched.\n\nRanking is deterministic (BM25 over titles, tags, and bodies). Use plain words or FIRMS terms. Keep `limit` small (default 3): each entry is returned in full. Use `section` (an ID from list_knowledge_topics, such as `caveats`, `viirs`, `modis`, `landsat`, `fire-map`) to narrow a search, and get_knowledge_entry to follow `related` IDs.\n\nThis tool does not need a FIRMS MAP_KEY.",
+  "entry_function": "search_knowledge",
+  "tags": ["knowledge", "faq", "documentation"],
+  "annotations": {
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+  },
+  "require_auth": false,
+  "enabled": true,
+  "examples": {
+    "meaning": {
+      "description": "What a detection means on the ground",
+      "params": {"query": "what does a fire detection mean on the ground"}
+    },
+    "caveats": {
+      "description": "False detections, within the caveats section",
+      "params": {"query": "false detections artifacts", "section": "caveats", "limit": 2}
+    }
+  }
+}

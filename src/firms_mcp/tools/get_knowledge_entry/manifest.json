@@ -1,0 +1,27 @@
+{
+  "name": "get_knowledge_entry",
+  "version": "1.0.0",
+  "title": "Get FIRMS documentation entries",
+  "description": "Return one or more FIRMS knowledge-base entries by ID, each with FIRMS's text verbatim in `body`, its `source_url`, and its `retrieved` date.\n\nUse it to read the caveat entries listed in get_fire_detections results, to follow the `related` IDs of an entry, or to open an entry found with list_knowledge_topics. Unknown IDs are listed in `not_found` with the closest existing IDs. Entries FIRMS no longer publishes have `status: retired` and a `notice`; say so if you rely on one.\n\nThis tool does not need a FIRMS MAP_KEY.",
+  "entry_function": "get_knowledge_entry",
+  "tags": ["knowledge", "faq", "documentation"],
+  "annotations": {
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+  },
+  "require_auth": false,
+  "enabled": true,
+  "examples": {
+    "two_entries": {
+      "description": "Detection meaning and UTC",
+      "params": {
+        "entry_ids": [
+          "faq.getting-started.what-does-a-fire-detection-mean-on-the-ground",
+          "faq.getting-started.what-is-utc"
+        ]
+      }
+    }
+  }
+}

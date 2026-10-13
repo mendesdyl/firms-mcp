@@ -1,0 +1,20 @@
+{
+  "name": "get_fire_footprint_kml_links",
+  "version": "1.0.0",
+  "title": "Get FIRMS fire footprint KML links",
+  "description": "Download links for FIRMS fire footprint files (KMZ, for Google Earth and GIS software) by region and period (24h, 48h, 72h, 7d), one per sensor: MODIS (c6.1), VIIRS Suomi NPP, NOAA-20, NOAA-21, and Landsat (Canada and the contiguous USA + Hawaii only). The files show detection footprints colored by time since detection.\n\nRegions: canada, alaska, usa_contiguous_and_hawaii, central_america, south_america, europe, northern_and_central_africa, southern_africa, russia_asia, south_asia, southeast_asia, australia_newzealand. Use it when the user wants files to open in GIS or Google Earth rather than numbers or a web map.\n\nThis tool does not need a FIRMS MAP_KEY, and neither do the files.",
+  "entry_function": "get_fire_footprint_kml_links",
+  "tags": ["links", "kml", "downloads"],
+  "annotations": {
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+  },
+  "require_auth": false,
+  "enabled": true,
+  "examples": {
+    "canada_week": {"description": "All sensors for Canada, 7 days", "params": {"region": "canada", "period": "7d"}},
+    "europe_viirs": {"description": "VIIRS NOAA-20 for Europe, 24 hours", "params": {"region": "europe", "sensors": ["noaa-20-viirs-c2"]}}
+  }
+}

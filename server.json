@@ -1,0 +1,25 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.mendesdyl/firms-mcp",
+  "title": "FIRMS MCP",
+  "description": "NASA FIRMS fire detections, verbatim FIRMS FAQ, and Fire Map links (independent project)",
+  "version": "0.1.0",
+  "packages": [
+    {
+      "registryType": "pypi",
+      "identifier": "firms-mcp",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "FIRMS_MAP_KEY",
+          "description": "Your FIRMS MAP_KEY (free: https://firms.modaps.eosdis.nasa.gov/api/map_key/). Needed only for detections and key status.",
+          "isRequired": false,
+          "isSecret": true
+        }
+      ]
+    }
+  ]
+}

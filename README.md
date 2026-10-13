@@ -83,6 +83,20 @@ uv sync --extra dev
 uv run pytest
 ```
 
+Run the server locally on stdio (put your key in `.env` as `FIRMS_MAP_KEY`), or over
+Streamable HTTP at `http://127.0.0.1:8000/mcp`:
+
+```bash
+uv run firms-mcp
+```
+
+```bash
+uv run firms-mcp http
+```
+
+The tools, resources, and prompts are described in the [tool catalog](docs/design/TOOLS.md);
+the structure of the server in [Architecture](docs/design/ARCHITECTURE.md).
+
 Contributor guidelines: [CONTRIBUTING.md](CONTRIBUTING.md). Security reports:
 [SECURITY.md](SECURITY.md).
 

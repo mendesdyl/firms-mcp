@@ -6,7 +6,9 @@ Secrets are held as ``SecretStr`` so they never appear in reprs or logs.
 
 from __future__ import annotations
 
+import os
 from functools import lru_cache
+from pathlib import Path
 
 from pydantic import AliasChoices, Field, SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -57,10 +59,30 @@ class Settings(BaseSettings):
     # Links (ADR-0006) --------------------------------------------------------------------
     referral_params: bool = Field(default=True, validation_alias=AliasChoices("FIRMS_MCP_REFERRAL"))
 
+    # Knowledge base (ADR-0005) ------------------------------------------------------------
+    knowledge_dirs: str = Field(
+        default="",
+        validation_alias=AliasChoices("FIRMS_MCP_KNOWLEDGE_DIRS"),
+        description="Extra knowledge directories, separated by os.pathsep (':' on Unix)",
+    )
+
+    # Server (ADR-0003) ---------------------------------------------------------------------
+    host: str = Field(default="127.0.0.1", validation_alias=AliasChoices("FIRMS_MCP_HOST"))
+    port: int = Field(default=8000, ge=1, le=65535, validation_alias=AliasChoices("FIRMS_MCP_PORT"))
+    log_level: str = Field(default="INFO", validation_alias=AliasChoices("FIRMS_MCP_LOG_LEVEL"))
+
     # Auth (ADR-0004) ---------------------------------------------------------------------
     allow_operator_key: bool = Field(
         default=False, validation_alias=AliasChoices("FIRMS_MCP_ALLOW_OPERATOR_KEY")
     )
+
+    @property
+    def extra_knowledge_dirs(self) -> list[Path]:
+        return [
+            Path(part).expanduser()
+            for part in self.knowledge_dirs.split(os.pathsep)
+            if part.strip()
+        ]
 
 
 @lru_cache(maxsize=1)

@@ -1,0 +1,32 @@
+{
+  "name": "get_fire_detections",
+  "version": "1.0.0",
+  "title": "Get FIRMS fire detections",
+  "description": "Active fire / thermal anomaly detections from NASA FIRMS for an area and 1-5 UTC days, retrieved live from the FIRMS area API with the user's own FIRMS MAP_KEY.\n\nArea: a box {west, south, east, north} in decimal degrees — longitudes first (Boise, Idaho is roughly west -116.4, south 43.4, east -116.0, north 43.8) — or 'world'. Boxes must not cross the antimeridian (split them). Days: `day_range` 1-5; without `date` you get the most recent days (today back to today-(day_range-1), UTC); with `date` you get that day and the following days. Sources: FIRMS source IDs from get_fire_data_sources; by default the three VIIRS near-real-time sources and MODIS near-real-time.\n\nThe result has a summary per source (detections, overpasses, first and last time, day/night, confidence classes, processing level, FRP statistics, extent), then a page of records (`limit`, default 50, maximum 500; 0 returns summaries only; `fields` trims each record; pass `next_cursor` back as `cursor` for the next page — never construct or edit a cursor). Every result also carries `caveats` (FIRMS documentation IDs to read with get_knowledge_entry), the FIRMS Fire Map `disclaimer` and the FIRMS `citation` verbatim, a `map_link` that opens the same view in the FIRMS Fire Map, and the FIRMS request with the key redacted.\n\nWhen you present results: say which satellites and UTC time window they cover; never add counts across sources or overpasses as a number of fires; describe each detection as a pixel center, not a fire's exact location or size; mention the caveats that apply; include the disclaimer's warning and the map link. `min_confidence` filters only when you ask and reports what it removed. No detections does not mean no fire (clouds, timing, latency).\n\nRequires the user's FIRMS MAP_KEY to be connected; the key never appears in arguments or results. If the result says auth_required, ask the user to connect their key through their client — never ask them to paste it into the conversation.",
+  "entry_function": "get_fire_detections",
+  "tags": ["data", "detections", "firms-api"],
+  "annotations": {
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": true
+  },
+  "require_auth": true,
+  "enabled": true,
+  "examples": {
+    "recent": {
+      "description": "Last 24 hours (today, UTC) around Boise with the default sources",
+      "params": {"area": {"west": -116.6, "south": 43.3, "east": -115.8, "north": 43.9}}
+    },
+    "historical": {
+      "description": "VIIRS detections over Maui on 8-9 August 2023, summaries only",
+      "params": {
+        "area": {"west": -156.75, "south": 20.5, "east": -155.9, "north": 21.05},
+        "date": "2023-08-08",
+        "day_range": 2,
+        "sources": ["VIIRS_SNPP_SP", "VIIRS_NOAA20_SP"],
+        "limit": 0
+      }
+    }
+  }
+}

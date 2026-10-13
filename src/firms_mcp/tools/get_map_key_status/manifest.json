@@ -1,0 +1,19 @@
+{
+  "name": "get_map_key_status",
+  "version": "1.0.0",
+  "title": "Check FIRMS MAP_KEY usage",
+  "description": "How many FIRMS transactions the user's connected MAP_KEY has used in the current 10-minute interval, as reported by FIRMS (FIRMS allows 5,000 per interval; larger requests count as several), plus this server's own estimate and ceiling.\n\nUse it when a request was refused for rate limiting, or before a large request (the whole world or 5 days with several sources). The key itself is never shown. Requires the user's FIRMS MAP_KEY to be connected.",
+  "entry_function": "get_map_key_status",
+  "tags": ["data", "rate-limit", "firms-api"],
+  "annotations": {
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": true
+  },
+  "require_auth": true,
+  "enabled": true,
+  "examples": {
+    "status": {"description": "Current usage", "params": {}}
+  }
+}
