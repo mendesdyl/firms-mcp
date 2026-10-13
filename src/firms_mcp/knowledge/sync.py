@@ -73,7 +73,7 @@ class SyncDependencyError(RuntimeError):
 
 def _soup(html: str):
     try:
-        from bs4 import BeautifulSoup  # noqa: PLC0415 - optional dependency
+        from bs4 import BeautifulSoup
     except ImportError as exc:  # pragma: no cover - environment dependent
         raise SyncDependencyError(
             "FAQ sync needs BeautifulSoup: run `uv sync --extra sync`"
@@ -138,7 +138,7 @@ class MarkdownConverter:
 
     # -- inline -----------------------------------------------------------------
     def inline(self, node) -> str:
-        from bs4 import Comment, NavigableString  # noqa: PLC0415
+        from bs4 import Comment, NavigableString
 
         if isinstance(node, Comment):
             return ""
@@ -182,7 +182,7 @@ class MarkdownConverter:
 
     # -- blocks -----------------------------------------------------------------
     def blocks(self, node, depth: int = 0) -> list[str]:
-        from bs4 import NavigableString  # noqa: PLC0415
+        from bs4 import NavigableString
 
         out: list[str] = []
         buffer: list[str] = []
@@ -279,7 +279,7 @@ class MarkdownConverter:
 
     def blocks_for(self, node) -> list[str]:
         """Blocks for one top-level node (text, element, or image paragraph)."""
-        from bs4 import NavigableString  # noqa: PLC0415
+        from bs4 import NavigableString
 
         if isinstance(node, NavigableString):
             text = _finish_inline(self.inline(node))
@@ -480,8 +480,6 @@ def parse_faq_html(html: str, page_url: str = FAQ_URL) -> list[ParsedEntry]:
     return entries
 
 
-
-
 def _resolve_related(entries: list[ParsedEntry], anchors: dict[str, str], page_url: str) -> None:
     link = re.compile(r"\]\(" + re.escape(page_url) + r"#([^)\s]+)\)")
     for entry in entries:
@@ -567,9 +565,10 @@ def write_entries(
         previous = existing.get(item.id)
         if previous is None:
             report.added.append(item.id)
-        elif previous[1].get("content_sha256") != entry.content_sha256 or previous[1].get(
-            "title"
-        ) != entry.title:
+        elif (
+            previous[1].get("content_sha256") != entry.content_sha256
+            or previous[1].get("title") != entry.title
+        ):
             report.changed.append(item.id)
         else:
             report.unchanged.append(item.id)

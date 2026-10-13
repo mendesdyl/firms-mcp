@@ -35,13 +35,28 @@ def test_hits_carry_the_full_verbatim_body(kb) -> None:
 @pytest.mark.parametrize(
     ("query", "expected"),
     [
-        ("what does a fire detection mean on the ground", "faq.getting-started.what-does-a-fire-detection-mean-on-the-ground"),
-        ("isolated pixels South Atlantic ocean", "faq.viirs.are-those-few-isolated-fire-pixels-in-the-middle-of-the-south"),
-        ("estimate burned area from detections", "faq.caveats.can-i-estimate-burned-area-from-active-fire-data"),
+        (
+            "what does a fire detection mean on the ground",
+            "faq.getting-started.what-does-a-fire-detection-mean-on-the-ground",
+        ),
+        (
+            "isolated pixels South Atlantic ocean",
+            "faq.viirs.are-those-few-isolated-fire-pixels-in-the-middle-of-the-south",
+        ),
+        (
+            "estimate burned area from detections",
+            "faq.caveats.can-i-estimate-burned-area-from-active-fire-data",
+        ),
         ("MAP_KEY transaction limit", "supplement.api.map-key"),
         ("time zone UTC", "faq.getting-started.what-is-utc"),
-        ("smoke plume parallax", "faq.caveats.are-there-ever-false-fire-detections-or-data-artifacts"),
-        ("detection confidence low nominal high", "faq.getting-started.what-is-the-detection-confidence"),
+        (
+            "smoke plume parallax",
+            "faq.caveats.are-there-ever-false-fire-detections-or-data-artifacts",
+        ),
+        (
+            "detection confidence low nominal high",
+            "faq.getting-started.what-is-the-detection-confidence",
+        ),
         ("preservation of life or property", "supplement.disclaimers.fire-map-disclaimer"),
     ],
 )
@@ -59,7 +74,9 @@ def test_lay_terms_are_expanded(kb) -> None:
 def test_filters_and_empty_queries(kb) -> None:
     assert kb.search("the of and") == []
     assert all(h.entry.section == "viirs" for h in kb.search("pixels", section="viirs", limit=5))
-    assert all(h.entry.kind == "supplement" for h in kb.search("API", kinds=["supplement"], limit=5))
+    assert all(
+        h.entry.kind == "supplement" for h in kb.search("API", kinds=["supplement"], limit=5)
+    )
 
 
 def test_tokenizer_and_snippet() -> None:

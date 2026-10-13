@@ -27,12 +27,12 @@ from pydantic import Field
 from firms_mcp.tools.common import InputModel, ToolOutput
 
 
-class MyToolInput(InputModel):              # InputModel rejects unknown arguments
+class MyToolInput(InputModel):  # InputModel rejects unknown arguments
     place: str = Field(description="What the model should pass, in plain words")
     limit: int = Field(default=10, ge=1, le=50, description="…")
 
 
-class MyToolOutput(ToolOutput):             # ToolOutput adds status and error fields
+class MyToolOutput(ToolOutput):  # ToolOutput adds status and error fields
     items: list[str] = Field(default_factory=list)
 ```
 

@@ -1,0 +1,102 @@
+# Quality gates (ADR-0008): lint, format, knowledge-base validation, tests with coverage,
+# the requirements traceability matrix, the package contents, and the container image.
+# Live tests against FIRMS are never run here (they need a personal MAP_KEY).
+name: CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request: {}
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Tests (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.12", "3.13", "3.14"]
+    steps:
+      - name: Check out
+        uses: actions/checkout@v7
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v7
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install uv
+        run: pip install "uv==0.13.0"
+
+      - name: Install dependencies
+        run: uv sync --locked --extra dev --extra sync --python "${{ matrix.python-version }}"
+
+      - name: Lint
+        run: uv run ruff check .
+
+      - name: Format
+        run: uv run ruff format --check .
+
+      - name: Validate the knowledge base
+        run: uv run python -m firms_mcp.knowledge validate
+
+      - name: Tests
+        run: uv run pytest --cov --cov-report=term
+
+      - name: Traceability matrix is current
+        run: uv run python scripts/gen_traceability.py --check
+
+  package:
+    name: Package and container
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+
+      - name: Install uv
+        run: pip install "uv==0.13.0"
+
+      - name: Build the wheel and sdist
+        run: uv build
+
+      - name: The wheel carries the knowledge base, tool manifests, and discovery document
+        run: |
+          python - <<'PY'
+          import glob, zipfile
+          names = zipfile.ZipFile(glob.glob("dist/*.whl")[0]).namelist()
+          assert sum(n.startswith("firms_mcp/_knowledge/faq/") for n in names) >= 142, "FAQ"
+          assert sum(n.endswith("/manifest.json") for n in names) == 9, "tool manifests"
+          assert "firms_mcp/discovery/ard.json" in names, "ard.json"
+          PY
+
+      - name: Build the container image
+        run: docker build -t firms-mcp:ci .
+
+      - name: Start the container and check its endpoints
+        run: |
+          docker run -d --name firms-mcp -p 8000:8000 \
+            -e FIRMS_MCP_PUBLIC_URL=http://127.0.0.1:8000 firms-mcp:ci
+          for attempt in $(seq 1 30); do
+            curl -fsS http://127.0.0.1:8000/health && break
+            sleep 1
+          done
+          curl -fsS http://127.0.0.1:8000/.well-known/oauth-protected-resource/mcp
+          curl -fsS http://127.0.0.1:8000/.well-known/ard.json > /dev/null
+          status=$(curl -s -o /dev/null -w '%{http_code}' -X POST http://127.0.0.1:8000/mcp \
+            -H 'Content-Type: application/json' -H 'Accept: application/json, text/event-stream' \
+            -H 'MCP-Protocol-Version: 2026-07-28' -H 'Mcp-Method: tools/call' \
+            -H 'Mcp-Name: get_fire_detections' \
+            -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"get_fire_detections","arguments":{"area":"world"}}}')
+          test "$status" = "401"
+
+      - name: Container logs
+        if: always()
+        run: docker logs firms-mcp || true
