@@ -10,6 +10,7 @@ import json
 import sys
 from pathlib import Path
 
+import httpx2
 import pytest
 from fastmcp import Client
 from fastmcp.client.transports import StdioTransport
@@ -123,3 +124,24 @@ async def test_stdio_transport_runs_the_installed_entry_point(tmp_path: Path) ->
             "get_fire_detections", {"area": "world"}, raise_on_error=False
         )
         assert missing_key.structured_content["error_code"] == "auth_required"
+
+
+@pytest.mark.req("FR-MCP-006", "FR-AUTH-004")
+async def test_http_command_serves_metadata_for_its_own_address(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    import uvicorn
+
+    import firms_mcp.server as server_module
+
+    captured: dict = {}
+    monkeypatch.chdir(tmp_path)  # no .env
+    monkeypatch.setattr(server_module, "configure_logging", lambda level: None)
+    monkeypatch.setattr(uvicorn, "run", lambda app, **kwargs: captured.update(app=app, **kwargs))
+    server_module.main(["http", "--port", "9123"])
+    assert (captured["host"], captured["port"]) == ("127.0.0.1", 9123)
+    async with httpx2.AsyncClient(
+        transport=httpx2.ASGITransport(app=captured["app"]), base_url="http://127.0.0.1:9123"
+    ) as http:
+        metadata = (await http.get("/.well-known/oauth-protected-resource/mcp")).json()
+    assert metadata["resource"] == "http://127.0.0.1:9123/mcp"

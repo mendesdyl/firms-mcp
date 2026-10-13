@@ -39,7 +39,7 @@ knowledge base ships inside the package, so knowledge tools work offline.
 | Components (ARL2-M1) | `firms_mcp.knowledge` | Verbatim knowledge base: models, loader, search, sync | [Knowledge base](KNOWLEDGE_BASE.md) |
 | | `firms_mcp.firms` | FIRMS client, source catalog, parsing and summaries, cache, budget, KML links | [FIRMS API client](FIRMS_API_CLIENT.md) |
 | | `firms_mcp.maplinks` | Fire Map link builder and catalog snapshot | [Map links](MAP_LINKS.md) |
-| | `firms_mcp.auth` *(WP8)* | Authorization server for the MAP_KEY connect flow, token encryption, step-up | ADR-0004 |
+| | `firms_mcp.auth` | Authorization server for the MAP_KEY connect flow, token encryption, step-up | [Authentication](AUTHENTICATION.md), ADR-0004 |
 
 The components below the MCP surface do not depend on MCP; each was built and tested on
 its own (ARL3-M1). The MCP layer composes them (ARL4-M1).
@@ -85,7 +85,7 @@ Earthdata MCP registers plain functions instead; the difference is recorded in t
 | FIRMS responses | `ResponseCache` (TTL + LRU, single-flight) | 5 min NRT, 6 h SP | FIRMS data are public; a cached response can serve any user |
 | Transaction estimates | `TransactionBudget`, per hashed key | Rolling 10 min | Per process; replicas keep separate windows |
 | Pagination | The cursor itself (query + offset + first-page facts) | Client-held | No server-side session state (ADR-0003) |
-| OAuth artifacts *(WP8)* | Pluggable key-value store | Minutes | Client registrations, codes, refresh rotation |
+| OAuth records | Pluggable key-value store (in memory by default) | Minutes to 90 days | Client registrations, pending authorizations, codes, used refresh tokens, revoked families; access tokens need no lookup |
 
 The MCP request path holds no per-session state, matching the stateless 2026-07-28
 protocol; the same server also serves handshake-era sessions.
@@ -101,11 +101,23 @@ starting the real `python -m firms_mcp` process
 | Transport | Command | Credential mode |
 |---|---|---|
 | stdio | `firms-mcp` (or `python -m firms_mcp`) | Local: `FIRMS_MAP_KEY` |
-| Streamable HTTP | `firms-mcp http` → `http://127.0.0.1:8000/mcp` | Remote: connected key (WP8); the operator key only if `FIRMS_MCP_ALLOW_OPERATOR_KEY=true` |
+| Streamable HTTP | `firms-mcp http` → `http://127.0.0.1:8000/mcp` | Remote: the key connected through the OAuth flow; the operator key only for anonymous calls and only if `FIRMS_MCP_ALLOW_OPERATOR_KEY=true` |
 
 HTTP routes: `/mcp` (MCP), `/health` (liveness and counts), `/.well-known/ard.json`
-(agent discovery document, CORS `*`). FastMCP's host and origin protection applies to the
+(agent discovery document, CORS `*`), and with OAuth enabled the authorization-server and
+protected-resource metadata, `/register`, `/authorize`, `/connect`, `/token`, and `/revoke`
+([Authentication](AUTHENTICATION.md)). FastMCP's host and origin protection applies to the
 MCP endpoint.
+
+```mermaid
+flowchart LR
+    R[HTTP request] --> A[AuthenticationMiddleware<br/>bearer token → user, never rejects]
+    A --> X[AuthContextMiddleware]
+    X --> S{StepUpAuth<br/>protected tool?}
+    S -- "no, or token with firms:data" --> M[/mcp: FastMCP Streamable HTTP/]
+    S -- "yes, no valid token" --> C[401 / 403 challenge]
+    A --> O[OAuth routes, /connect, /health, /.well-known/*]
+```
 
 ## Errors, logging, and secrets
 
@@ -126,12 +138,16 @@ MCP endpoint.
 | Knowledge | Add Markdown entries to a configured knowledge directory | [Adding knowledge](../developers/ADDING_KNOWLEDGE.md) |
 | A FIRMS source | Add it to `firms_mcp.firms.sources` (with map layers and knowledge entries) | [FIRMS API client](FIRMS_API_CLIENT.md) |
 
+## Authentication
+
+`create_http_app(mcp, auth=provider)` composes the remote authentication
+([Authentication](AUTHENTICATION.md)): the FastMCP server itself is built without `auth=`
+so anonymous tools stay reachable (II-09); the provider's token-parsing middleware and the
+`StepUpAuth` middleware sit in front of `/mcp`, and the provider's routes are added to the
+app. Tools obtain the connected key through `Services.credentials`, which reads it from the
+verified access token of the current request.
+
 ## Planned attachments
 
-- **Authentication (WP8).** `create_http_app` accepts ASGI middleware. WP8 adds an
-  `OAuthProvider` subclass (authorization-server routes, the connect page, encrypted
-  tokens), a per-tool step-up middleware in front of `/mcp` that challenges calls to tools
-  whose manifest says `require_auth` (using the `Mcp-Name` header on 2026-07-28 requests),
-  and a credential resolver that reads the MAP_KEY from the verified token.
 - **In-client map (WP12).** A `show_fire_map` tool declaring a `ui://` resource for MCP
   Apps hosts ([ADR-0009](../decisions/0009-interactive-map-via-mcp-apps.md)).

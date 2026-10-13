@@ -9,6 +9,11 @@ All notable changes to this project are documented here. The format follows
 
 ### Added
 
+- MAP_KEY connect flow for remote use (`firms-mcp http`): OAuth 2.1 authorization server
+  with Client ID Metadata Documents and Dynamic Client Registration, PKCE, RFC 9207 `iss`,
+  a connect page that checks the key with FIRMS, encrypted (JWE) audience-bound access
+  tokens, rotating refresh tokens with replay detection, revocation, and per-tool step-up
+  authentication; `firms-mcp keygen` for token keys.
 - MCP server (`firms-mcp`, `python -m firms_mcp`) on stdio and Streamable HTTP, serving
   MCP 2026-07-28 and handshake-era clients: nine tools (`search_knowledge`,
   `get_knowledge_entry`, `list_knowledge_topics`, `get_fire_data_sources`,

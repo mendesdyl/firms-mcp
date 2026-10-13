@@ -213,3 +213,38 @@ FR-MCP-001 … FR-MCP-008, FR-AUTH-002, SEC-002, NFR-001 … NFR-004, DOC-002.
 **Tests:** 217 passing (68 new).
 
 **ARL milestones supported:** ARL4-M1 (in progress until authentication is integrated).
+
+### 2026-10-10 — WP8: MAP_KEY connect flow (`feature/oauth-map-key`)
+
+**What was done**
+
+- `firms_mcp.auth.provider.FirmsOAuthProvider` (a FastMCP `OAuthProvider`): clients by
+  Client ID Metadata Document (FastMCP's `CIMDClientManager`) or Dynamic Client
+  Registration with safe redirect URIs; `/authorize` → a pending authorization and the
+  connect page; the key checked with FIRMS's MAP_KEY status service; a single-use code
+  returned with `state` and `iss`; PKCE S256 at `/token`; JWE access tokens (`dir` +
+  A256GCM, one hour, audience-bound) and rotating refresh tokens with replay detection
+  that revokes the family; RFC 7009 revocation for public clients; RFC 8707 resource
+  checks.
+- The connect page: no scripts, CSP pinned by hash, framing denied, a browser-binding
+  cookie and a CSRF token, five attempts, clear messages for malformed, rejected, or
+  unverifiable keys, a cancel button, and the "not operated or endorsed by NASA" label.
+- `firms_mcp.auth.stepup.StepUpAuth`: 401/403 challenges for tools whose manifest sets
+  `require_auth`, from the `Mcp-Name` header on 2026-07-28 requests and the JSON-RPC body
+  otherwise; anonymous tools pass through.
+- Remote credential resolution reads the connected key from the verified token; the
+  operator key applies only to anonymous calls and only when allowed.
+- `firms-mcp keygen`; settings for the public URL, token keys, lifetimes, and client
+  registration methods.
+- Running the command and the tests found eight integration issues (II-09 … II-16), all
+  worked out, including two defects in this work package.
+
+**Outputs:** `src/firms_mcp/auth/`, `src/firms_mcp/credentials.py`,
+`tests/integration/test_oauth_flow.py`, `tests/unit/test_stepup.py`,
+`tests/unit/test_tokens.py`, [Authentication](../design/AUTHENTICATION.md).
+
+**Requirements implemented:** FR-AUTH-003 … FR-AUTH-010, SEC-003, SEC-004.
+**Tests:** 251 passing (34 new).
+
+**ARL milestones supported:** ARL2-M1 and ARL3-M1 complete (all four components); phase
+gate G1 — computed ARL 3 (L-5), pending the owner's review of the viability case.
