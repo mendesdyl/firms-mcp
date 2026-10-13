@@ -38,7 +38,7 @@ Legend: 🔎 needs research · 🛠 implementation · 📝 documentation · ❓ 
 | WK-06 | 📝 Viability case | WP6 | Done (see Done) |
 | WK-07 | 🛠 MCP server: tools, resources, prompts, instructions, health, `server.json`, `ard.json` | WP7 | Done on `feature/mcp-server` (snapshot queued for signing; see Done) |
 | WK-08 | 🛠 Auth: env var, OAuth 2.1 MAP_KEY connect flow (CIMD + DCR), encrypted tokens, step-up | WP8 | Done on `feature/oauth-map-key` (snapshot queued for signing; see Done) |
-| WK-09 | 📝 Operations & governance; integration issues log | WP9 | Open |
+| WK-09 | 📝 Operations & governance; integration issues log | WP9 | Done (snapshot queued for signing; see Done) |
 | WK-10 | 🛠 Container image, GitHub Actions CI, MCP Registry metadata | WP10 | Open |
 | WK-11 | 🛠 Evaluation harness and live validation | WP11 | Open |
 | WK-12 | 🛠 MCP Apps in-client map with time animation | WP12 | Open |
@@ -70,6 +70,7 @@ commits and `--no-ff` merges when the owner is back to approve (owner decision,
 | 02 | `feature/map-links` (WP5) | `refs/snapshots/02-wp5` | Done 2026-10-10: signed `bf810b1`, merged `b4bf2b6`; `main` tree equals the snapshot tree |
 | 03 | `feature/mcp-server` (WP7) | `refs/snapshots/03-wp7` | Awaiting signing |
 | 04 | `feature/oauth-map-key` (WP8) | `refs/snapshots/04-wp8` | Awaiting signing |
+| 05 | `main` (WP9, documentation) | `refs/snapshots/05-wp9` | Awaiting signing |
 
 The owner stepped away on 2026-10-10 and asked for later work to be batched; entries from
 03 on follow the snapshot procedure above.
@@ -92,3 +93,4 @@ The owner stepped away on 2026-10-10 and asked for later work to be batched; ent
 | WK-06 | Viability case (WP6) | [Viability case](../plan/VIABILITY_CASE.md); ARL3-M3 recorded in L-3, owner review pending |
 | WK-07 | MCP server (WP7) | `firms_mcp.server` + nine manifest-defined tools, resources, prompts, instructions, `/health`, `/.well-known/ard.json`, `server.json`; [tool catalog](../design/TOOLS.md), [architecture](../design/ARCHITECTURE.md), [integration issues](INTEGRATION_ISSUES.md); 217 tests — `feature/mcp-server` |
 | WK-08 | Authentication (WP8) | `firms_mcp.auth`: MAP_KEY connect flow (CIMD + DCR, PKCE, `iss`, JWE tokens, refresh rotation with replay detection, revocation), step-up middleware, `firms-mcp keygen`; [Authentication](../design/AUTHENTICATION.md); 251 tests — `feature/oauth-map-key` |
+| WK-09 | Operations and governance (WP9) | [Operations and governance](OPERATIONS_AND_GOVERNANCE.md) (ARL4-M2, owner review pending); [integration issues log](INTEGRATION_ISSUES.md) started in WP7 |

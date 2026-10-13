@@ -248,3 +248,16 @@ FR-MCP-001 … FR-MCP-008, FR-AUTH-002, SEC-002, NFR-001 … NFR-004, DOC-002.
 
 **ARL milestones supported:** ARL2-M1 and ARL3-M1 complete (all four components); phase
 gate G1 — computed ARL 3 (L-5), pending the owner's review of the viability case.
+
+### 2026-10-10 — WP9: operations and governance (`main`)
+
+**What was done:** wrote [Operations and governance](OPERATIONS_AND_GOVERNANCE.md): roles
+(owner, maintainer, operator, user, NASA FIRMS); a register of 18 organizational and
+human-process issues, each with an owner and a mitigation (eight await an owner decision
+or an external answer: OD-01 … OD-04, LU-05, LU-06, LU-14, partnership); the data the
+server handles and its retention; procedures for deploying, refreshing the FAQ, checking
+the map catalog, rotating token keys, handling incidents, and responding to FIRMS changes;
+and a review cadence. The technical counterpart, the
+[integration issues log](INTEGRATION_ISSUES.md), has been kept since WP7.
+
+**ARL milestones supported:** ARL4-M2 (recorded in L-6; owner review pending).

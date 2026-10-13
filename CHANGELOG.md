@@ -9,6 +9,8 @@ All notable changes to this project are documented here. The format follows
 
 ### Added
 
+- Operations and governance: roles, organizational issue register, data handled,
+  procedures (deployment, FAQ refresh, catalog checks, key rotation, incidents).
 - MAP_KEY connect flow for remote use (`firms-mcp http`): OAuth 2.1 authorization server
   with Client ID Metadata Documents and Dynamic Client Registration, PKCE, RFC 9207 `iss`,
   a connect page that checks the key with FIRMS, encrypted (JWE) audience-bound access

@@ -25,7 +25,7 @@ Status key: ✅ complete in full (with evidence) · 🟡 in progress · ⬜ not 
 | ARL3-M2 Detailed characterization of user decision making process | ✅ | [Decision context §3–§4](../science/DECISION_CONTEXT.md) (mechanisms M1–M4, limitations F1–F11; quantitative baseline to be measured by the evaluation) | 2026-10-09 | `4f832b8` |
 | ARL3-M3 Convincing case for viability | ✅ | [Viability case](../plan/VIABILITY_CASE.md) (owner review pending; reverts to 🟡 if not accepted) | 2026-10-10 | see L-3 |
 | ARL4-M1 Components integrated; technical integration issues worked out | 🟡 | MCP server composing all four components (`src/firms_mcp/server.py`; `feature/mcp-server`, `feature/oauth-map-key`); integration tests in both protocol eras over in-memory, Streamable HTTP, and stdio transports, including the full OAuth connect flow; [integration issues log](../project/INTEGRATION_ISSUES.md) II-01 … II-16, all resolved, mitigated, or accepted except II-08 (lint configuration, WP10) | | |
-| ARL4-M2 Organizational and human process issues identified and managed | ⬜ | | | |
+| ARL4-M2 Organizational and human process issues identified and managed | ✅ | [Operations and governance](../project/OPERATIONS_AND_GOVERNANCE.md): 18 issues, each with an owner and a mitigation; procedures; data handled (owner review pending; reverts to 🟡 if not accepted) | 2026-10-10 | see L-6 |
 | ARL5-M1 Functioning prototype with realistic supporting elements | ⬜ | | | |
 | ARL5-M2 Potential to improve decision making articulated | ⬜ | | | |
 | ARL6-M1 Beta-tested in simulated operational environment | ⬜ | | | |
@@ -194,6 +194,22 @@ evidence, and the computed ARL.)*
 - Milestones in progress: **ARL4-M1** (🟡) — all components are integrated and the
   technical integration issues are worked out except II-08 (lint configuration, WP10);
   **ARL4-M2** starts with WP9.
+
+### L-6 — 2026-10-10 — Operations and governance (WP9)
+
+- Milestone newly complete: **ARL4-M2** — [Operations and governance](../project/OPERATIONS_AND_GOVERNANCE.md).
+  Roles; a register of 18 organizational and human-process issues (getting a key,
+  transaction limits, third-party handling of keys, the operator key, terms and citation,
+  endorsement, knowledge-base governance, map-grammar drift, FIRMS API change, key
+  security, support, operations ownership, privacy, licensing, release management,
+  dependency churn, accessibility, partnership), each with an owner and a mitigation,
+  eight still waiting on an owner decision or an external answer; the data the server
+  handles and how long; procedures for deployment, FAQ refresh, catalog checks, token-key
+  rotation, incidents, and FIRMS changes; a review cadence.
+- The plan names owner review as this milestone's verification; it is recorded on
+  submission, as ARL3-M3 was, and reverts if the owner does not accept it.
+- Milestones in progress: **ARL4-M1** (🟡), waiting only on integration issue II-08 (WP10).
+- **Computed ARL: 3** (unchanged; ARL 4 awaits ARL4-M1).
 
 ## Fiscal Year ARL
 
