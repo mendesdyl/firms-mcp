@@ -44,7 +44,6 @@ Legend: 🔎 needs research · 🛠 implementation · 📝 documentation · ❓ 
 | WK-12 | 🛠 MCP Apps in-client map with time animation | WP12 | Open |
 | WK-13 | 📝 Consumer user guide for Claude.ai, ChatGPT, Claude Code, Cursor, VS Code | WP7/WP8 | Open |
 | WK-14 | 🛠 Bring WP3–WP5 modules in line with `ruff` 0.17 (4 files to reformat, 9 lint findings) and anchor the `knowledge` lint exclusion, which also hides `src/firms_mcp/knowledge` (integration issue II-08) | WP10 | Done (II-08 resolved) |
-| WK-16 | 🛠 Build and run the container image (`docker build`, health and metadata checks): the Docker daemon was not running on 2026-10-10, so the Dockerfile is written but not yet built; CI builds it once the repository is public | WP10 | Open |
 | WK-15 | 🛠 Per-tool step-up must parse the JSON-RPC body for handshake-era requests, which carry no `Mcp-Name` header (integration issue II-06) | WP8 | Done (II-06 resolved) |
 
 ## Decisions needed from the owner
@@ -53,7 +52,7 @@ Legend: 🔎 needs research · 🛠 implementation · 📝 documentation · ❓ 
 |---|---|---|---|
 | OD-01 | ❓ License | Apache-2.0 (provisional) | Open |
 | OD-02 | ❓ Hosting target for the public remote endpoint | Container image, host-agnostic; options documented | Open |
-| OD-03 | ❓ Create a public GitHub repository, and its name | Local repository only; nothing pushed. `server.json` uses the provisional registry name `io.github.mendesdyl/firms-mcp` (the GitHub account the `gh` CLI is logged in to); the registry requires the name's namespace to match the publishing account | Open |
+| OD-03 | ❓ Create a public GitHub repository, and its name | Public repository `github.com/mendesdyl/firms-mcp`. `server.json` uses the registry name `io.github.mendesdyl/firms-mcp`; the registry requires the name's namespace to match the publishing account | Decided 2026-10-12: the owner created the public repository `mendesdyl/firms-mcp`, and `main` was pushed to it |
 | OD-04 | ❓ Allow an operator-wide MAP_KEY for anonymous users on a public deployment | Disabled by default | Open |
 | OD-05 | 🔑 Provide a FIRMS MAP_KEY locally (in `.env`, never in chat) to run live validation | Live tests skip without it | Open |
 
@@ -69,13 +68,13 @@ commits and `--no-ff` merges when the owner is back to approve (owner decision,
 |---|---|---|---|
 | 01 | `feature/firms-api-client` (WP4) | `refs/snapshots/01-wp4` | Done 2026-10-10: signed `c227ee3`, merged `951aa26` |
 | 02 | `feature/map-links` (WP5) | `refs/snapshots/02-wp5` | Done 2026-10-10: signed `bf810b1`, merged `b4bf2b6`; `main` tree equals the snapshot tree |
-| 03 | `feature/mcp-server` (WP7) | `refs/snapshots/03-wp7` | Awaiting signing |
-| 04 | `feature/oauth-map-key` (WP8) | `refs/snapshots/04-wp8` | Awaiting signing |
-| 05 | `main` (WP9, documentation) | `refs/snapshots/05-wp9` | Awaiting signing |
-| 06 | `feature/packaging-ci` (WP10) | `refs/snapshots/06-wp10` | Awaiting signing |
+| 03 | `feature/mcp-server` (WP7) | `refs/snapshots/03-wp7` | Done 2026-10-12: signed `569ca42`, merged `5a502fb` |
+| 04 | `feature/oauth-map-key` (WP8) | `refs/snapshots/04-wp8` | Done 2026-10-12: signed `e5f3223`, merged `109c1ae` |
+| 05 | `main` (WP9, documentation) | `refs/snapshots/05-wp9` | Done 2026-10-12: signed `0f42412` |
+| 06 | `feature/packaging-ci` (WP10) | `refs/snapshots/06-wp10` | Done 2026-10-12: signed `f1f5c9f`, merged `d126779`; `main` tree equals the snapshot tree |
 
 The owner stepped away on 2026-10-10 and asked for later work to be batched; entries from
-03 on follow the snapshot procedure above.
+03 on follow the snapshot procedure above. The queue is empty as of 2026-10-12.
 
 ## Done
 
@@ -98,3 +97,4 @@ The owner stepped away on 2026-10-10 and asked for later work to be batched; ent
 | WK-09 | Operations and governance (WP9) | [Operations and governance](OPERATIONS_AND_GOVERNANCE.md) (ARL4-M2, owner review pending); [integration issues log](INTEGRATION_ISSUES.md) started in WP7 |
 | WK-10 | Packaging and CI (WP10) | `Dockerfile`, `.github/workflows/` (CI on Python 3.12–3.14, release to PyPI, MCP Registry publication), PR template, Dependabot, `mcp-name` marker; [Testing](../developers/TESTING.md), [Versioning and releasing](../developers/RELEASING.md); 252 tests pass on CPython 3.12.15, 3.13.16, 3.14.6 — `feature/packaging-ci` |
 | WK-14 | Lint and format clean across the repository (II-08) | `feature/packaging-ci` |
+| WK-16 | Build and run the container image | 2026-10-12, Docker 29.8.2, built from `refs/snapshots/06-wp10`: image builds; runs as user `firms`; `/health` reports 9 tools and 150 knowledge entries; `/.well-known/ard.json` and the protected-resource metadata are served; an MCP client over Streamable HTTP lists the nine tools and calls `search_knowledge` and `build_fire_map_link` successfully |
