@@ -173,3 +173,43 @@ equals the final snapshot tree; 149 tests pass. ARL LifeCycle entry L-2 recorded
   ([References §8](../research/REFERENCES.md#8-comparable-mcp-servers)).
 
 **ARL milestones supported:** ARL3-M3 (recorded in L-3; owner review pending).
+
+### 2026-10-10 — WP7: MCP server (`feature/mcp-server`)
+
+**What was done**
+
+- `firms_mcp.server` assembles a FastMCP 4 server from the three components: nine tools
+  registered from per-tool `manifest.json` files (Earthdata MCP layout: manifest,
+  Pydantic models, entry function), resources `firms://knowledge/index`,
+  `firms://knowledge/{entry_id}`, and `firms://sources`, prompts
+  `investigate_fire_activity` and `explain_detection`, server instructions defining
+  *Orient → Retrieve → Contextualize → Link*, `/health`, `/.well-known/ard.json`, and
+  `server.json` for the MCP Registry. CLI: `firms-mcp` (stdio) and `firms-mcp http`.
+- `get_fire_detections` returns per-source summaries, paged records (limit, tool- and
+  query-scoped cursor, field selection, sort), an explicit-only confidence filter with
+  removed counts, FIRMS caveat references, the Fire Map disclaimer and FIRMS citation
+  verbatim from the knowledge base, a map link reproducing the area, UTC days, and
+  satellites, and provenance with the key redacted. One failed source does not fail the
+  call.
+- Tools validate arguments with their own models and return every outcome as structured
+  content (`status`, `error_code`, `remediation`), flagged `isError` for errors.
+- Credentials: local (stdio) use reads `FIRMS_MAP_KEY`; remote (HTTP) use ignores the
+  operator's key unless `FIRMS_MCP_ALLOW_OPERATOR_KEY=true`; malformed keys are rejected
+  before any FIRMS call. `FIRMS_MCP_KNOWLEDGE_DIRS` moved into the settings so `.env`
+  values apply.
+- Tested in both protocol eras, in memory, over Streamable HTTP (in-process ASGI), and
+  over stdio with the real process; a raw 2025-06-18 `initialize` is accepted.
+- Started the integration issues log (II-01 … II-08).
+
+**Outputs:** `src/firms_mcp/server.py`, `src/firms_mcp/tools/`, `src/firms_mcp/services.py`,
+`src/firms_mcp/credentials.py`, `src/firms_mcp/instructions.py`, `src/firms_mcp/prompts.py`,
+`src/firms_mcp/resources.py`, `src/firms_mcp/discovery/ard.json`, `server.json`,
+[Tool catalog](../design/TOOLS.md), [Architecture](../design/ARCHITECTURE.md),
+[Adding a tool](../developers/ADDING_A_TOOL.md),
+[Integration issues](INTEGRATION_ISSUES.md).
+
+**Requirements implemented:** FR-KB-010, FR-DATA-005, FR-DATA-006, FR-DATA-014,
+FR-MCP-001 … FR-MCP-008, FR-AUTH-002, SEC-002, NFR-001 … NFR-004, DOC-002.
+**Tests:** 217 passing (68 new).
+
+**ARL milestones supported:** ARL4-M1 (in progress until authentication is integrated).

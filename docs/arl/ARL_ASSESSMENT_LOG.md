@@ -24,7 +24,7 @@ Status key: ✅ complete in full (with evidence) · 🟡 in progress · ⬜ not 
 | ARL3-M1 Components tested and validated independently | 🟡 | Knowledge base: 52 tests incl. line-by-line FAQ completeness (`e9c1bfe`); API client: 73 tests (`951aa26`); map links: 24 tests mirroring the map's parser, links verified in the real map (`b4bf2b6`); auth component pending | | |
 | ARL3-M2 Detailed characterization of user decision making process | ✅ | [Decision context §3–§4](../science/DECISION_CONTEXT.md) (mechanisms M1–M4, limitations F1–F11; quantitative baseline to be measured by the evaluation) | 2026-10-09 | `4f832b8` |
 | ARL3-M3 Convincing case for viability | ✅ | [Viability case](../plan/VIABILITY_CASE.md) (owner review pending; reverts to 🟡 if not accepted) | 2026-10-10 | see L-3 |
-| ARL4-M1 Components integrated; technical integration issues worked out | ⬜ | | | |
+| ARL4-M1 Components integrated; technical integration issues worked out | 🟡 | MCP server composing the knowledge base, FIRMS client, and map-link builder (`src/firms_mcp/server.py`, `feature/mcp-server`); integration tests in both protocol eras over in-memory, Streamable HTTP, and stdio transports; [integration issues log](../project/INTEGRATION_ISSUES.md); authentication integration pending (WP8) | | |
 | ARL4-M2 Organizational and human process issues identified and managed | ⬜ | | | |
 | ARL5-M1 Functioning prototype with realistic supporting elements | ⬜ | | | |
 | ARL5-M2 Potential to improve decision making articulated | ⬜ | | | |
@@ -146,6 +146,26 @@ evidence, and the computed ARL.)*
 - **Computed ARL: 1** (unchanged; ARL 2 awaits ARL2-M1). Once WP8 completes ARL2-M1 and
   ARL3-M1, all ARL 1–3 milestones will be complete and the computed ARL becomes 3
   (phase gate G1).
+
+### L-4 — 2026-10-10 — MCP server integrated (merge of `feature/mcp-server`, WP7)
+
+- The three existing components are brought together in one MCP server: nine tools
+  registered from per-tool manifests (Earthdata MCP layout), three resources, two prompts,
+  server instructions (*Orient → Retrieve → Contextualize → Link*), `/health`,
+  `/.well-known/ard.json`, and `server.json`. Detection results carry per-source
+  summaries, paged records, FIRMS caveat references, the Fire Map disclaimer and FIRMS
+  citation verbatim, a reproducing map link, and provenance with the key redacted.
+- Verified together, not only separately: 68 new tests (217 in total), including the
+  server in the 2026-07-28 and handshake eras (2025-11-25 through the client, 2025-06-18
+  through a raw `initialize`), in memory, over Streamable HTTP, and over stdio with the
+  real `python -m firms_mcp` process.
+- Technical integration issues found and worked out are recorded in the
+  [integration issues log](../project/INTEGRATION_ISSUES.md): II-01 … II-08 (five resolved
+  or mitigated, one accepted, two open and assigned to WP8 and WP10).
+- Milestones in progress: **ARL4-M1** (🟡) — the authentication component is not yet
+  built, so it is not yet integrated; **ARL2-M1**, **ARL3-M1** (authentication component,
+  WP8). ARL4-M2 starts with WP9.
+- **Computed ARL: 1** (unchanged; ARL 2 awaits ARL2-M1).
 
 ## Fiscal Year ARL
 

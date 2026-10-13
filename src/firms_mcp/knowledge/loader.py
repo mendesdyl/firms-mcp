@@ -9,7 +9,6 @@ strict: any invalid file stops loading with an error that names the file and pro
 
 from __future__ import annotations
 
-import os
 from collections.abc import Iterable, Sequence
 from dataclasses import dataclass, field
 from importlib import resources
@@ -18,11 +17,12 @@ from pathlib import Path
 import yaml
 from pydantic import ValidationError
 
+from firms_mcp.config import Settings
 from firms_mcp.knowledge.frontmatter import FrontMatterError, split
 from firms_mcp.knowledge.models import KnowledgeEntry, KnowledgeSource, content_hash
 from firms_mcp.knowledge.search import SearchHit, SearchIndex
 
-KNOWLEDGE_DIRS_ENV = "FIRMS_MCP_KNOWLEDGE_DIRS"
+KNOWLEDGE_DIRS_ENV = "FIRMS_MCP_KNOWLEDGE_DIRS"  # read through Settings.knowledge_dirs
 SOURCES_FILE = "sources.yaml"
 EXCLUDED_DIRS = {"snapshots", "reports"}
 EXCLUDED_FILES = {"README.md"}
@@ -44,12 +44,14 @@ def default_knowledge_dir() -> Path:
     return Path(__file__).resolve().parents[3] / "knowledge"
 
 
-def configured_knowledge_dirs() -> list[Path]:
-    """Default directory plus any extra directories from ``FIRMS_MCP_KNOWLEDGE_DIRS``."""
-    dirs = [default_knowledge_dir()]
-    extra = os.environ.get(KNOWLEDGE_DIRS_ENV, "")
-    dirs.extend(Path(p).expanduser() for p in extra.split(os.pathsep) if p.strip())
-    return dirs
+def configured_knowledge_dirs(settings: Settings | None = None) -> list[Path]:
+    """Default directory plus any extra directories from ``FIRMS_MCP_KNOWLEDGE_DIRS``.
+
+    The variable is read through ``Settings``, so a value in ``.env`` counts as well as one
+    in the process environment.
+    """
+    settings = settings or Settings()
+    return [default_knowledge_dir(), *settings.extra_knowledge_dirs]
 
 
 @dataclass(frozen=True)

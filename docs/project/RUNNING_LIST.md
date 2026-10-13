@@ -19,7 +19,7 @@ Legend: 🔎 needs research · 🛠 implementation · 📝 documentation · ❓ 
 | LU-05 | 🤝 Confirm the FIRMS Fire Map hash grammar is stable / acceptable to link to | Deep links depend on it | FIRMS team | Open. Grammar derived from the map's own parser and verified in a browser |
 | LU-06 | 🤝 FIRMS policy on third-party services using users' MAP_KEYs, and on an operator-wide key | Auth design, terms compliance | Earthdata Support (earthdata-support@nasa.gov, subject "FIRMS") | Open |
 | LU-07 | 🔎 Are geostationary (GOES / Meteosat / Himawari) detections available through the area API? | Source catalog completeness | — | Open. Not listed among area-API sources on 2026-10-09; present as map layers |
-| LU-09 | 🔎 Which MCP hosts support MCP Apps, CIMD, and mid-session step-up (401 after anonymous use) | Client compatibility matrix | — | Open |
+| LU-09 | 🔎 Which MCP hosts support MCP Apps, CIMD, and mid-session step-up (401 after anonymous use) | Client compatibility matrix | — | Open. Protocol side verified 2026-10-10 with the FastMCP 4.1 client: 2026-07-28 and handshake-era (2025-11-25, 2025-06-18) clients over stdio and Streamable HTTP. Real hosts still to check (WP8, WP11) |
 | LU-10 | 🔎 Standard-processing (SP) lag per sensor | Explaining availability to users | — | Open. Map date service (2026-10-09): MODIS SP to 2026-07-31; VIIRS S-NPP SP and NOAA-20 SP to 2026-06-30 |
 | LU-11 | 🔎 Review FIRMS API code examples at `/academy/` | Usage patterns, undocumented parameters | — | Open. Note: the area page's own script also generates `/api/area/html/…` URLs (an HTML output type besides `csv`) |
 | LU-13 | 🔎 Cross-check knowledge base against the VIIRS C2 375 m user guide (June 2025) and MODIS C6/6.1 user guide | Supplement content; caveat accuracy | — | In progress: both guides downloaded; confidence semantics verified (MODIS Table 11 thresholds; VIIRS classes 7/8/9) and used by the parser |
@@ -36,13 +36,15 @@ Legend: 🔎 needs research · 🛠 implementation · 📝 documentation · ❓ 
 | WK-04 | 🛠 FIRMS API client, source catalog, CSV normalizer, caching, rate-limit guard | WP4 | Done on `feature/firms-api-client` (see Done) |
 | WK-05 | 🛠 Map link builder and layer catalog snapshot with refresh/verification script | WP5 | Done on `feature/map-links` (see Done) |
 | WK-06 | 📝 Viability case | WP6 | Done (see Done) |
-| WK-07 | 🛠 MCP server: tools, resources, prompts, instructions, health, `server.json`, `ard.json` | WP7 | Open |
+| WK-07 | 🛠 MCP server: tools, resources, prompts, instructions, health, `server.json`, `ard.json` | WP7 | Done on `feature/mcp-server` (snapshot queued for signing; see Done) |
 | WK-08 | 🛠 Auth: env var, OAuth 2.1 MAP_KEY connect flow (CIMD + DCR), encrypted tokens, step-up | WP8 | Open |
 | WK-09 | 📝 Operations & governance; integration issues log | WP9 | Open |
 | WK-10 | 🛠 Container image, GitHub Actions CI, MCP Registry metadata | WP10 | Open |
 | WK-11 | 🛠 Evaluation harness and live validation | WP11 | Open |
 | WK-12 | 🛠 MCP Apps in-client map with time animation | WP12 | Open |
 | WK-13 | 📝 Consumer user guide for Claude.ai, ChatGPT, Claude Code, Cursor, VS Code | WP7/WP8 | Open |
+| WK-14 | 🛠 Bring WP3–WP5 modules in line with `ruff` 0.17 (4 files to reformat, 9 lint findings; integration issue II-08) | WP10 | Open |
+| WK-15 | 🛠 Per-tool step-up must parse the JSON-RPC body for handshake-era requests, which carry no `Mcp-Name` header (integration issue II-06) | WP8 | Open |
 
 ## Decisions needed from the owner
 
@@ -50,7 +52,7 @@ Legend: 🔎 needs research · 🛠 implementation · 📝 documentation · ❓ 
 |---|---|---|---|
 | OD-01 | ❓ License | Apache-2.0 (provisional) | Open |
 | OD-02 | ❓ Hosting target for the public remote endpoint | Container image, host-agnostic; options documented | Open |
-| OD-03 | ❓ Create a public GitHub repository, and its name | Local repository only; nothing pushed | Open |
+| OD-03 | ❓ Create a public GitHub repository, and its name | Local repository only; nothing pushed. `server.json` uses the provisional registry name `io.github.mendesdyl/firms-mcp` (the GitHub account the `gh` CLI is logged in to); the registry requires the name's namespace to match the publishing account | Open |
 | OD-04 | ❓ Allow an operator-wide MAP_KEY for anonymous users on a public deployment | Disabled by default | Open |
 | OD-05 | 🔑 Provide a FIRMS MAP_KEY locally (in `.env`, never in chat) to run live validation | Live tests skip without it | Open |
 
@@ -66,8 +68,10 @@ commits and `--no-ff` merges when the owner is back to approve (owner decision,
 |---|---|---|---|
 | 01 | `feature/firms-api-client` (WP4) | `refs/snapshots/01-wp4` | Done 2026-10-10: signed `c227ee3`, merged `951aa26` |
 | 02 | `feature/map-links` (WP5) | `refs/snapshots/02-wp5` | Done 2026-10-10: signed `bf810b1`, merged `b4bf2b6`; `main` tree equals the snapshot tree |
+| 03 | `feature/mcp-server` (WP7) | `refs/snapshots/03-wp7` | Awaiting signing |
 
-Queue empty as of 2026-10-10.
+The owner stepped away on 2026-10-10 and asked for later work to be batched; entries from
+03 on follow the snapshot procedure above.
 
 ## Done
 
@@ -85,3 +89,4 @@ Queue empty as of 2026-10-10.
 | WK-05 | Fire Map link builder (WP5) | `firms_mcp.maplinks` + catalog snapshot + `scripts/check_map_catalog.py`; generated links verified in the real map; 149 tests |
 | WK-04 | FIRMS API client (WP4) | `firms_mcp.firms`: catalog, client, parser, summaries, cache, budget, KML links, redaction; 125 tests — merge of `feature/firms-api-client` |
 | WK-06 | Viability case (WP6) | [Viability case](../plan/VIABILITY_CASE.md); ARL3-M3 recorded in L-3, owner review pending |
+| WK-07 | MCP server (WP7) | `firms_mcp.server` + nine manifest-defined tools, resources, prompts, instructions, `/health`, `/.well-known/ard.json`, `server.json`; [tool catalog](../design/TOOLS.md), [architecture](../design/ARCHITECTURE.md), [integration issues](INTEGRATION_ISSUES.md); 217 tests — `feature/mcp-server` |

@@ -1,0 +1,20 @@
+{
+  "name": "get_data_availability",
+  "version": "1.0.0",
+  "title": "Get FIRMS data availability",
+  "description": "The first and last UTC day for which each FIRMS detection source has data, so you can tell whether data for a date can exist before querying it, and explain gaps (for example, standard-processing sources are published months after observation).\n\nWith the user's FIRMS MAP_KEY connected it uses FIRMS's documented data_availability API (`method: firms_api`); without one it uses the public date service the FIRMS Fire Map uses (`method: fire_map_date_service`). Pass a FIRMS source ID or ALL. The result lists FIRMS documentation entries about data dates and latency.\n\nWorks with or without a MAP_KEY.",
+  "entry_function": "get_data_availability",
+  "tags": ["data", "availability", "firms-api"],
+  "annotations": {
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": true
+  },
+  "require_auth": false,
+  "enabled": true,
+  "examples": {
+    "all": {"description": "Every source", "params": {}},
+    "one": {"description": "MODIS standard processing", "params": {"source": "MODIS_SP"}}
+  }
+}

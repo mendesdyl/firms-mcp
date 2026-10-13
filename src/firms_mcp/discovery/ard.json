@@ -1,0 +1,31 @@
+{
+  "entries": [
+    {
+      "identifier": "urn:mcp:firms-mcp:server:firms",
+      "displayName": "FIRMS MCP",
+      "type": "application/mcp-server+json",
+      "capabilities": [
+        "build_fire_map_link",
+        "get_data_availability",
+        "get_fire_data_sources",
+        "get_fire_detections",
+        "get_fire_footprint_kml_links",
+        "get_knowledge_entry",
+        "get_map_key_status",
+        "list_knowledge_topics",
+        "search_knowledge"
+      ],
+      "description": "An independent MCP server for NASA's Fire Information for Resource Management System (FIRMS): active fire / thermal anomaly detections from VIIRS, MODIS, and Landsat retrieved with the user's own FIRMS MAP_KEY, the complete FIRMS FAQ and related documentation verbatim, and links into the FIRMS Fire Map. Not an official NASA service.",
+      "representativeQueries": [
+        "are there any satellite fire detections near Boise, Idaho in the last 24 hours",
+        "how many VIIRS detections were there around Maui on 8 August 2023",
+        "what does a fire detection mean on the ground",
+        "what is the difference between VIIRS and MODIS active fire data",
+        "why are there fire detections in the middle of the South Atlantic Ocean",
+        "show me recent fire activity in southern California on the FIRMS map",
+        "for what dates is MODIS standard processing data available",
+        "download fire footprints for Canada for the last 7 days as KML"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "name": "get_fire_data_sources",
+  "version": "1.0.0",
+  "title": "List FIRMS detection sources",
+  "description": "Catalog of the active fire detection sources the FIRMS area API offers: VIIRS (Suomi NPP, NOAA-20, NOAA-21; 375 m), MODIS (Terra and Aqua; 1 km), and Landsat 8/9 (30 m; US/Canada only), each in near-real-time (NRT, including real-time and ultra-real-time) and, for VIIRS S-NPP, VIIRS NOAA-20, and MODIS, standard-processing (SP) form.\n\nFor each source: the FIRMS source ID to pass to get_fire_detections, FIRMS's display name, instrument and platforms, nominal pixel size, coverage, processing tier, whether it is queried by default, the FIRMS Fire Map layers that show it, its KML footprint sensor, the record start given in the FIRMS FAQ, and the FIRMS documentation entries that explain it.\n\nUse it to choose sources (recent activity: NRT; historical science-quality data: SP) and to explain how sensors differ. This tool does not need a FIRMS MAP_KEY.",
+  "entry_function": "get_fire_data_sources",
+  "tags": ["data", "sources", "catalog"],
+  "annotations": {
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+  },
+  "require_auth": false,
+  "enabled": true,
+  "examples": {
+    "all": {"description": "Every source", "params": {}},
+    "viirs_nrt": {"description": "One source", "params": {"source_ids": ["VIIRS_NOAA20_NRT"]}}
+  }
+}
