@@ -85,8 +85,10 @@ as a parameter (SEC-002) and never put one in a result (SEC-001).
 ```
 
 All four annotations are required; `openWorldHint` is true when the tool calls an external
-service. `require_auth: true` marks tools that need the user's MAP_KEY (the HTTP step-up
-in WP8 uses it). Examples are validated against the input model when the server starts.
+service. `require_auth: true` marks tools that need the user's MAP_KEY: over HTTP, calls to
+them without a token get the OAuth challenge
+([Authentication](../design/AUTHENTICATION.md#step-up-fr-auth-003)). Examples are validated
+against the input model when the server starts.
 
 ## 5. Test and document
 

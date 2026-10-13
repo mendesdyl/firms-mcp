@@ -350,7 +350,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0004
-    status: planned
+    status: implemented
   - id: FR-AUTH-004
     title: Protected Resource Metadata (RFC 9728) and Authorization Server Metadata (RFC 8414) are published
     source: MCP authorization spec
@@ -358,7 +358,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0004
-    status: planned
+    status: implemented
   - id: FR-AUTH-005
     title: Clients can register with a Client ID Metadata Document or, for compatibility, Dynamic Client Registration
     source: MCP 2026-07-28 (CIMD SHOULD; DCR deprecated, MAY)
@@ -366,7 +366,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0004
-    status: planned
+    status: implemented
   - id: FR-AUTH-006
     title: The connect page collects the user's MAP_KEY, validates it with FIRMS, and explains failures
     source: Owner request (easy connection with the FIRMS auth model)
@@ -374,7 +374,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0004
-    status: planned
+    status: implemented
   - id: FR-AUTH-007
     title: Authorization codes are single-use, PKCE S256 is enforced, and the authorization response includes iss
     source: OAuth 2.1; RFC 9207; MCP 2026-07-28
@@ -382,7 +382,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0004
-    status: planned
+    status: implemented
   - id: FR-AUTH-008
     title: Access tokens are encrypted, audience-bound to this server, and expire
     source: ADR-0004; MCP authorization spec (audience validation MUST)
@@ -390,7 +390,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0004
-    status: planned
+    status: implemented
   - id: FR-AUTH-009
     title: Refresh tokens rotate on use and replay of a used refresh token is rejected
     source: OAuth 2.1 (public clients)
@@ -398,7 +398,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0004
-    status: planned
+    status: implemented
   - id: FR-AUTH-010
     title: An operator-wide MAP_KEY is disabled by default and, when enabled, applies only to anonymous calls
     source: ADR-0004; owner decision OD-04
@@ -406,7 +406,7 @@ requirements:
     priority: should
     verification: test
     design: ADR-0004
-    status: planned
+    status: implemented
 
   # --- Security --------------------------------------------------------------
   - id: SEC-001
@@ -432,7 +432,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0004
-    status: planned
+    status: implemented
   - id: SEC-004
     title: Tokens issued by other issuers or for other audiences are rejected
     source: MCP authorization spec (MUST NOT accept other tokens)
@@ -440,7 +440,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0004
-    status: planned
+    status: implemented
 
   # --- Non-functional ----------------------------------------------------------
   - id: NFR-001

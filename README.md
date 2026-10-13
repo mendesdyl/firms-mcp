@@ -35,13 +35,15 @@ The planned tool, resource, and prompt surface is in the
 
 ## Connecting
 
-Two ways to use the server are planned:
+There are two ways to use the server:
 
-- **Remote (public chatbots such as Claude.ai or ChatGPT):** add the server URL as a
-  custom connector. When the assistant first needs FIRMS data, you are sent to a one-page
-  "Connect your FIRMS MAP_KEY" step; the key goes to the server, never into the chat.
-  Request a free key at <https://firms.modaps.eosdis.nasa.gov/api/map_key/>. Design:
-  [ADR-0004](docs/decisions/0004-authentication-bring-your-own-map-key.md).
+- **Remote (public chatbots such as Claude.ai or ChatGPT):** add the server's URL (ending
+  in `/mcp`) as a custom connector. Knowledge and map tools work right away. When the
+  assistant first needs FIRMS data, you are sent to a one-page "Connect your FIRMS
+  MAP_KEY" step; the key goes to the server and FIRMS, never into the chat. Request a free
+  key at <https://firms.modaps.eosdis.nasa.gov/api/map_key/>. Details:
+  [Authentication](docs/design/AUTHENTICATION.md). No public endpoint is running yet
+  (hosting is owner decision OD-02).
 - **Local (Claude Desktop, Claude Code, Cursor, VS Code):** run the server over stdio
   with your key in the `FIRMS_MAP_KEY` environment variable.
 

@@ -37,14 +37,14 @@ Legend: 🔎 needs research · 🛠 implementation · 📝 documentation · ❓ 
 | WK-05 | 🛠 Map link builder and layer catalog snapshot with refresh/verification script | WP5 | Done on `feature/map-links` (see Done) |
 | WK-06 | 📝 Viability case | WP6 | Done (see Done) |
 | WK-07 | 🛠 MCP server: tools, resources, prompts, instructions, health, `server.json`, `ard.json` | WP7 | Done on `feature/mcp-server` (snapshot queued for signing; see Done) |
-| WK-08 | 🛠 Auth: env var, OAuth 2.1 MAP_KEY connect flow (CIMD + DCR), encrypted tokens, step-up | WP8 | Open |
+| WK-08 | 🛠 Auth: env var, OAuth 2.1 MAP_KEY connect flow (CIMD + DCR), encrypted tokens, step-up | WP8 | Done on `feature/oauth-map-key` (snapshot queued for signing; see Done) |
 | WK-09 | 📝 Operations & governance; integration issues log | WP9 | Open |
 | WK-10 | 🛠 Container image, GitHub Actions CI, MCP Registry metadata | WP10 | Open |
 | WK-11 | 🛠 Evaluation harness and live validation | WP11 | Open |
 | WK-12 | 🛠 MCP Apps in-client map with time animation | WP12 | Open |
 | WK-13 | 📝 Consumer user guide for Claude.ai, ChatGPT, Claude Code, Cursor, VS Code | WP7/WP8 | Open |
-| WK-14 | 🛠 Bring WP3–WP5 modules in line with `ruff` 0.17 (4 files to reformat, 9 lint findings; integration issue II-08) | WP10 | Open |
-| WK-15 | 🛠 Per-tool step-up must parse the JSON-RPC body for handshake-era requests, which carry no `Mcp-Name` header (integration issue II-06) | WP8 | Open |
+| WK-14 | 🛠 Bring WP3–WP5 modules in line with `ruff` 0.17 (4 files to reformat, 9 lint findings) and anchor the `knowledge` lint exclusion, which also hides `src/firms_mcp/knowledge` (integration issue II-08) | WP10 | Open |
+| WK-15 | 🛠 Per-tool step-up must parse the JSON-RPC body for handshake-era requests, which carry no `Mcp-Name` header (integration issue II-06) | WP8 | Done (II-06 resolved) |
 
 ## Decisions needed from the owner
 
@@ -69,6 +69,7 @@ commits and `--no-ff` merges when the owner is back to approve (owner decision,
 | 01 | `feature/firms-api-client` (WP4) | `refs/snapshots/01-wp4` | Done 2026-10-10: signed `c227ee3`, merged `951aa26` |
 | 02 | `feature/map-links` (WP5) | `refs/snapshots/02-wp5` | Done 2026-10-10: signed `bf810b1`, merged `b4bf2b6`; `main` tree equals the snapshot tree |
 | 03 | `feature/mcp-server` (WP7) | `refs/snapshots/03-wp7` | Awaiting signing |
+| 04 | `feature/oauth-map-key` (WP8) | `refs/snapshots/04-wp8` | Awaiting signing |
 
 The owner stepped away on 2026-10-10 and asked for later work to be batched; entries from
 03 on follow the snapshot procedure above.
@@ -90,3 +91,4 @@ The owner stepped away on 2026-10-10 and asked for later work to be batched; ent
 | WK-04 | FIRMS API client (WP4) | `firms_mcp.firms`: catalog, client, parser, summaries, cache, budget, KML links, redaction; 125 tests — merge of `feature/firms-api-client` |
 | WK-06 | Viability case (WP6) | [Viability case](../plan/VIABILITY_CASE.md); ARL3-M3 recorded in L-3, owner review pending |
 | WK-07 | MCP server (WP7) | `firms_mcp.server` + nine manifest-defined tools, resources, prompts, instructions, `/health`, `/.well-known/ard.json`, `server.json`; [tool catalog](../design/TOOLS.md), [architecture](../design/ARCHITECTURE.md), [integration issues](INTEGRATION_ISSUES.md); 217 tests — `feature/mcp-server` |
+| WK-08 | Authentication (WP8) | `firms_mcp.auth`: MAP_KEY connect flow (CIMD + DCR, PKCE, `iss`, JWE tokens, refresh rotation with replay detection, revocation), step-up middleware, `firms-mcp keygen`; [Authentication](../design/AUTHENTICATION.md); 251 tests — `feature/oauth-map-key` |

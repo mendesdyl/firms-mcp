@@ -18,13 +18,13 @@ Status key: ✅ complete in full (with evidence) · 🟡 in progress · ⬜ not 
 |---|---|---|---|---|
 | ARL1-M1 Ideas for how research results could enhance decision making | ✅ | [Plan §1, §3, §7](../plan/PROJECT_PLAN.md) | 2026-10-09 | `ba18000` |
 | ARL1-M2 Baseline support research identified and documented | ✅ | [Data products](../science/DATA_PRODUCTS.md), [References](../research/REFERENCES.md) | 2026-10-09 | `ba18000` |
-| ARL2-M1 Independent application components formulated and created | 🟡 | Knowledge base (`src/firms_mcp/knowledge/`, `e9c1bfe`); FIRMS API client (`src/firms_mcp/firms/`, `951aa26`); map-link builder (`src/firms_mcp/maplinks/`, `b4bf2b6`); auth component pending (WP8) | | |
+| ARL2-M1 Independent application components formulated and created | ✅ | Knowledge base (`src/firms_mcp/knowledge/`, `e9c1bfe`); FIRMS API client (`src/firms_mcp/firms/`, `951aa26`); map-link builder (`src/firms_mcp/maplinks/`, `b4bf2b6`); authentication (`src/firms_mcp/auth/`, merge of `feature/oauth-map-key`) | 2026-10-10 | see L-5 |
 | ARL2-M2 Decision making activity identified | ✅ | [Decision context §1–§3](../science/DECISION_CONTEXT.md) | 2026-10-09 | `4f832b8` |
 | ARL2-M3 Plans to better characterize the decision making activity | ✅ | [Decision context §5](../science/DECISION_CONTEXT.md), [Evaluation plan](../design/EVALUATION.md) | 2026-10-09 | `4f832b8` |
-| ARL3-M1 Components tested and validated independently | 🟡 | Knowledge base: 52 tests incl. line-by-line FAQ completeness (`e9c1bfe`); API client: 73 tests (`951aa26`); map links: 24 tests mirroring the map's parser, links verified in the real map (`b4bf2b6`); auth component pending | | |
+| ARL3-M1 Components tested and validated independently | ✅ | Knowledge base: 52 tests incl. line-by-line FAQ completeness (`e9c1bfe`); API client: 73 tests (`951aa26`); map links: 24 tests mirroring the map's parser, links verified in the real map (`b4bf2b6`); authentication: 34 tests (token codec, step-up, the full connect flow with FIRMS mocked; `feature/oauth-map-key`) | 2026-10-10 | see L-5 |
 | ARL3-M2 Detailed characterization of user decision making process | ✅ | [Decision context §3–§4](../science/DECISION_CONTEXT.md) (mechanisms M1–M4, limitations F1–F11; quantitative baseline to be measured by the evaluation) | 2026-10-09 | `4f832b8` |
 | ARL3-M3 Convincing case for viability | ✅ | [Viability case](../plan/VIABILITY_CASE.md) (owner review pending; reverts to 🟡 if not accepted) | 2026-10-10 | see L-3 |
-| ARL4-M1 Components integrated; technical integration issues worked out | 🟡 | MCP server composing the knowledge base, FIRMS client, and map-link builder (`src/firms_mcp/server.py`, `feature/mcp-server`); integration tests in both protocol eras over in-memory, Streamable HTTP, and stdio transports; [integration issues log](../project/INTEGRATION_ISSUES.md); authentication integration pending (WP8) | | |
+| ARL4-M1 Components integrated; technical integration issues worked out | 🟡 | MCP server composing all four components (`src/firms_mcp/server.py`; `feature/mcp-server`, `feature/oauth-map-key`); integration tests in both protocol eras over in-memory, Streamable HTTP, and stdio transports, including the full OAuth connect flow; [integration issues log](../project/INTEGRATION_ISSUES.md) II-01 … II-16, all resolved, mitigated, or accepted except II-08 (lint configuration, WP10) | | |
 | ARL4-M2 Organizational and human process issues identified and managed | ⬜ | | | |
 | ARL5-M1 Functioning prototype with realistic supporting elements | ⬜ | | | |
 | ARL5-M2 Potential to improve decision making articulated | ⬜ | | | |
@@ -37,8 +37,10 @@ Status key: ✅ complete in full (with evidence) · 🟡 in progress · ⬜ not 
 | ARL8-M3 User documentation and training completed | ⬜ | | | |
 | ARL9-M1 Sustained use in decision making context | ⬜ | | | |
 
-**Computed current ARL:** 1 (all ARL 1 milestones complete; ARL 2 awaits ARL2-M1).
-Updated with each LifeCycle entry below.
+**Computed current ARL:** 3 (all ARL 1–3 milestones complete; ARL 4 awaits ARL4-M1 and
+ARL4-M2). ARL3-M3 is recorded pending the owner's review of the viability case; if the
+owner does not accept it, the computed ARL returns to 2. Updated with each LifeCycle entry
+below.
 
 ---
 
@@ -166,6 +168,32 @@ evidence, and the computed ARL.)*
   built, so it is not yet integrated; **ARL2-M1**, **ARL3-M1** (authentication component,
   WP8). ARL4-M2 starts with WP9.
 - **Computed ARL: 1** (unchanged; ARL 2 awaits ARL2-M1).
+
+### L-5 — 2026-10-10 — Authentication merged; phase gate G1 (merge of `feature/oauth-map-key`, WP8)
+
+- The fourth component, authentication (ADR-0004), is built and validated: an OAuth 2.1
+  authorization server whose consent step is the "Connect your FIRMS MAP_KEY" page
+  (key checked with FIRMS's MAP_KEY status service), Client ID Metadata Documents and
+  Dynamic Client Registration, PKCE S256, single-use codes, `iss` on every authorization
+  response, JWE access tokens (`dir` + A256GCM, audience-bound) with rotating refresh
+  tokens and replay detection, a public-client revocation endpoint, and per-tool step-up
+  using the `Mcp-Name` header on 2026-07-28 requests and the JSON-RPC body otherwise.
+- Validated independently and together: 34 new tests (251 in total), including the full
+  flow from the 401 challenge to a detection request made with the connected key, through
+  the FastMCP client in both protocol eras; attacks on the flow (forged CSRF token, missing
+  browser binding, unregistered redirect URI, code reuse, wrong PKCE verifier, refresh
+  replay, tokens for other audiences or issuers or encrypted with other keys, header
+  spoofing) are refused.
+- Integration issues II-09 … II-16 were found and worked out (two of them, II-14 and II-15,
+  were defects in this work package caught by its own tests and by running the command).
+- Milestones newly complete: **ARL2-M1** (all four components exist as separate modules
+  with their own design records) and **ARL3-M1** (each validated independently).
+- **Phase gate G1 reached: every ARL 1–3 milestone is complete. Computed ARL: 3**
+  (*Proof of Application Concept — Viability Established*). Caveat: ARL3-M3 rests on the
+  viability case submitted in L-3, whose owner review is pending.
+- Milestones in progress: **ARL4-M1** (🟡) — all components are integrated and the
+  technical integration issues are worked out except II-08 (lint configuration, WP10);
+  **ARL4-M2** starts with WP9.
 
 ## Fiscal Year ARL
 

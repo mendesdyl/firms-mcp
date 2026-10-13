@@ -21,6 +21,13 @@ is git-ignored). A template is in [`.env.example`](../../.env.example). Secrets 
 | `FIRMS_MCP_PORT` | `8000` | Port for `firms-mcp http` |
 | `FIRMS_MCP_LOG_LEVEL` | `INFO` | Log level; logs are JSON lines on stderr with MAP_KEYs redacted |
 | `FIRMS_MCP_ALLOW_OPERATOR_KEY` | `false` | On remote deployments, serve anonymous data requests with `FIRMS_MAP_KEY` |
+| `FIRMS_MCP_AUTH` | `oauth` | HTTP only: `oauth` runs the MAP_KEY connect flow; `none` disables it (private deployments) |
+| `FIRMS_MCP_PUBLIC_URL` | `http://<host>:<port>` | Public base URL clients use (OAuth issuer and resource); set it behind a proxy or in a container |
+| `FIRMS_MCP_TOKEN_KEYS` | temporary key | Token encryption keys, `kid:key` comma-separated (generate with `firms-mcp keygen`); first encrypts, all decrypt |
+| `FIRMS_MCP_ACCESS_TOKEN_TTL` | `3600` | Access-token lifetime, seconds |
+| `FIRMS_MCP_REFRESH_TOKEN_TTL` | `2592000` | Refresh-token lifetime, seconds (30 days) |
+| `FIRMS_MCP_ENABLE_CIMD` | `true` | Accept Client ID Metadata Documents |
+| `FIRMS_MCP_ENABLE_DCR` | `true` | Offer Dynamic Client Registration |
 
 ## Running the server
 

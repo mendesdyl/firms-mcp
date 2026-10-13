@@ -9,6 +9,7 @@ from __future__ import annotations
 import os
 from functools import lru_cache
 from pathlib import Path
+from typing import Literal
 
 from pydantic import AliasChoices, Field, SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -75,6 +76,35 @@ class Settings(BaseSettings):
     allow_operator_key: bool = Field(
         default=False, validation_alias=AliasChoices("FIRMS_MCP_ALLOW_OPERATOR_KEY")
     )
+    auth_mode: Literal["oauth", "none"] = Field(
+        default="oauth",
+        validation_alias=AliasChoices("FIRMS_MCP_AUTH"),
+        description="HTTP only: 'oauth' runs the MAP_KEY connect flow; 'none' disables it",
+    )
+    public_url: str | None = Field(
+        default=None,
+        validation_alias=AliasChoices("FIRMS_MCP_PUBLIC_URL"),
+        description="Public base URL of the HTTP server (OAuth issuer and resource), e.g. https://firms-mcp.example.org",
+    )
+    token_keys: SecretStr | None = Field(
+        default=None,
+        validation_alias=AliasChoices("FIRMS_MCP_TOKEN_KEYS"),
+        description="Token encryption keys, 'kid:base64url32bytes' comma-separated; first encrypts",
+    )
+    access_token_ttl_seconds: int = Field(
+        default=3600, ge=60, le=86400, validation_alias=AliasChoices("FIRMS_MCP_ACCESS_TOKEN_TTL")
+    )
+    refresh_token_ttl_seconds: int = Field(
+        default=30 * 24 * 3600,
+        ge=3600,
+        validation_alias=AliasChoices("FIRMS_MCP_REFRESH_TOKEN_TTL"),
+    )
+    enable_dcr: bool = Field(default=True, validation_alias=AliasChoices("FIRMS_MCP_ENABLE_DCR"))
+    enable_cimd: bool = Field(default=True, validation_alias=AliasChoices("FIRMS_MCP_ENABLE_CIMD"))
+
+    @property
+    def effective_public_url(self) -> str:
+        return (self.public_url or f"http://{self.host}:{self.port}").rstrip("/")
 
     @property
     def extra_knowledge_dirs(self) -> list[Path]:
