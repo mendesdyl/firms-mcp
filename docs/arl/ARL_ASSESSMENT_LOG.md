@@ -24,8 +24,8 @@ Status key: ✅ complete in full (with evidence) · 🟡 in progress · ⬜ not 
 | ARL3-M1 Components tested and validated independently | ✅ | Knowledge base: 52 tests incl. line-by-line FAQ completeness (`e9c1bfe`); API client: 73 tests (`951aa26`); map links: 24 tests mirroring the map's parser, links verified in the real map (`b4bf2b6`); authentication: 34 tests (token codec, step-up, the full connect flow with FIRMS mocked; `feature/oauth-map-key`) | 2026-10-10 | see L-5 |
 | ARL3-M2 Detailed characterization of user decision making process | ✅ | [Decision context §3–§4](../science/DECISION_CONTEXT.md) (mechanisms M1–M4, limitations F1–F11; quantitative baseline to be measured by the evaluation) | 2026-10-09 | `4f832b8` |
 | ARL3-M3 Convincing case for viability | ✅ | [Viability case](../plan/VIABILITY_CASE.md) (owner review pending; reverts to 🟡 if not accepted) | 2026-10-10 | see L-3 |
-| ARL4-M1 Components integrated; technical integration issues worked out | ✅ | MCP server composing all four components (`src/firms_mcp/server.py`; `feature/mcp-server`, `feature/oauth-map-key`); integration tests in both protocol eras over in-memory, Streamable HTTP, and stdio transports, including the full OAuth connect flow; [integration issues log](../project/INTEGRATION_ISSUES.md) II-01 … II-16 resolved, mitigated, or accepted; quality gates in CI (`feature/packaging-ci`) | 2026-10-10 | see L-7 |
-| ARL4-M2 Organizational and human process issues identified and managed | ✅ | [Operations and governance](../project/OPERATIONS_AND_GOVERNANCE.md): 18 issues, each with an owner and a mitigation; procedures; data handled (owner review pending; reverts to 🟡 if not accepted) | 2026-10-10 | see L-6 |
+| ARL4-M1 Components integrated; technical integration issues worked out | 🟡 | Reopened by L-8 for the TypeScript rewrite. Iteration 1 evidence (Python, `v0-iteration-1`): MCP server composing all four components, integration tests in both protocol eras over in-memory, Streamable HTTP, and stdio, integration issues II-01 … II-16, CI quality gates. Iteration 2 needs the same for the TypeScript server | 2026-10-10 (iteration 1) | see L-7, L-8 |
+| ARL4-M2 Organizational and human process issues identified and managed | 🟡 | Reopened by L-8: [Operations and governance](../project/OPERATIONS_AND_GOVERNANCE.md) must be revised for the keyless scope (ADR-0011) and accepted by the owner | 2026-10-10 (iteration 1) | see L-6, L-8 |
 | ARL5-M1 Functioning prototype with realistic supporting elements | ⬜ | | | |
 | ARL5-M2 Potential to improve decision making articulated | ⬜ | | | |
 | ARL6-M1 Beta-tested in simulated operational environment | ⬜ | | | |
@@ -37,10 +37,10 @@ Status key: ✅ complete in full (with evidence) · 🟡 in progress · ⬜ not 
 | ARL8-M3 User documentation and training completed | ⬜ | | | |
 | ARL9-M1 Sustained use in decision making context | ⬜ | | | |
 
-**Computed current ARL:** 4 (all ARL 1–4 milestones complete; ARL 5 awaits ARL5-M1 and
-ARL5-M2). ARL3-M3 and ARL4-M2 are recorded pending the owner's review of the viability
-case and of operations and governance; if either is not accepted, the computed ARL falls
-back accordingly. Updated with each LifeCycle entry below.
+**Computed current ARL:** 3 (L-8, 2026-11-02: ARL 1–3 complete; ARL4-M1 and ARL4-M2
+reopened for the TypeScript rewrite and keyless scope of iteration 2). ARL3-M3 is recorded
+pending the owner's review of the viability case; if it is not accepted, the computed ARL
+falls back to 2. The reasoning is explained in the [ARL guide](ARL_GUIDE.md). Updated with each LifeCycle entry below.
 
 ---
 
@@ -231,6 +231,36 @@ evidence, and the computed ARL.)*
 - Next: ARL5-M1 needs the server against the live FIRMS API with a real MAP_KEY and real
   MCP clients (WP11, OD-05); ARL5-M2 needs the projected-impact analysis with numbers from
   the first evaluation run.
+
+### L-8 — 2026-11-02 — Iteration 2: keyless scope and TypeScript rewrite; reassessed to ARL 3
+
+- Iteration 1 is preserved unchanged at branch `archive/iteration-1` and signed tag
+  `v0-iteration-1` (`d41a57d`). Its evidence for ARL 1–4 stands as a record of that code.
+- The owner decided ([ADR-0011](../decisions/0011-keyless-scope-typescript-rewrite-standard-data-first.md)),
+  after a design review on 2026-11-02, to rewrite the server in TypeScript and narrow it
+  to knowledge, URL building, and keyless checks; fetching data with a user's MAP_KEY
+  moves to a documented extension ([design](../design/EXTENDING_TO_KEYED_DATA.md)).
+  The [iteration 1 retrospective](../project/ITERATION_1_RETROSPECTIVE.md) gives the
+  reasoning.
+- Milestones reopened:
+  - **ARL4-M1** — integration must be verified on the TypeScript server that will ship;
+    the Python integration tests do not cover it.
+  - **ARL4-M2** — the organizational issue register was written for a server that holds
+    users' keys and must be revised for the keyless scope, then accepted by the owner.
+- Milestones kept: **ARL 1–3**. They concern the application concept and its proof; the
+  components were created and validated independently in iteration 1, and the rewrite
+  changes the implementation language, not their design or what their tests proved.
+  Removing the API client and authentication components does not invalidate the evidence
+  for the components that remain. A stricter reading (reopening ARL2-M1 and ARL3-M1 until
+  the TypeScript components pass their own tests, giving ARL 1) is set out in the
+  [ARL guide §5](ARL_GUIDE.md#5-where-the-project-stands-arl-3) for the owner's review.
+- Decided by the owner on 2026-11-02: record the drop to 3 now and return to 4 once the
+  TypeScript tests prove the components and their integration, so that the score reflects
+  the code that ships.
+- **Computed ARL: 3** (*Proof of Application Concept — Viability Established*). Caveat:
+  ARL3-M3 still awaits owner review.
+- Next: ARL4-M1 (TypeScript integration), ARL4-M2 (revised operations and governance,
+  owner review). Goal ARL unchanged (7; fallback 6 without a partner).
 
 ## Fiscal Year ARL
 
