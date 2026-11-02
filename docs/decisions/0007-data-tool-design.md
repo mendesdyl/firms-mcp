@@ -1,6 +1,6 @@
 # ADR-0007: Data tool design
 
-- **Status:** Accepted
+- **Status:** Accepted; superseded in part by [ADR-0011](0011-keyless-scope-typescript-rewrite-standard-data-first.md) (2026-11-02) — retained for [option C](../design/EXTENDING_TO_KEYED_DATA.md)
 - **Date:** 2026-10-09
 - **ARL linkage:** ARL2-M1, ARL3-M1, ARL4-M1, ARL5-M1.
 

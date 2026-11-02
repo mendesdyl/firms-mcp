@@ -25,6 +25,7 @@ Legend: 🔎 needs research · 🛠 implementation · 📝 documentation · ❓ 
 | LU-13 | 🔎 Cross-check knowledge base against the VIIRS C2 375 m user guide (June 2025) and MODIS C6/6.1 user guide | Supplement content; caveat accuracy | — | In progress: both guides downloaded; confidence semantics verified (MODIS Table 11 thresholds; VIIRS classes 7/8/9) and used by the parser |
 | LU-14 | 🤝 Whether FIRMS wants a specific referral parameter on links (currently `utm_source=firms-mcp&utm_medium=mcp`, mirroring Earthdata MCP) | Referral analytics for FIRMS | FIRMS team | Open. Verified that the map loads correctly with these parameters |
 | LU-15 | 🔎 FIRMS WMS/WFS services (MAP_KEY-based) for possible image or vector outputs | Future visualization options | — | Open |
+| LU-17 | 🤝 Confirm FIRMS is content for third-party use of two undocumented keyless services: the map date service (`/api/map_dates/`) and the missing-data table (`/api/missing_data/?action=fetch_data`) | Iteration 2 chooses SP or NRT from the first and snapshots the second (ADR-0011) | FIRMS team | Open. Missing-data table took 71 s for 169 rows on 2026-11-02 |
 
 ## Open — work to do
 
@@ -40,11 +41,19 @@ Legend: 🔎 needs research · 🛠 implementation · 📝 documentation · ❓ 
 | WK-08 | 🛠 Auth: env var, OAuth 2.1 MAP_KEY connect flow (CIMD + DCR), encrypted tokens, step-up | WP8 | Done on `feature/oauth-map-key` (snapshot queued for signing; see Done) |
 | WK-09 | 📝 Operations & governance; integration issues log | WP9 | Done (snapshot queued for signing; see Done) |
 | WK-10 | 🛠 Container image, GitHub Actions CI, MCP Registry metadata | WP10 | Done on `feature/packaging-ci` (snapshot queued for signing; see Done) |
-| WK-11 | 🛠 Evaluation harness and live validation | WP11 | Open |
-| WK-12 | 🛠 MCP Apps in-client map with time animation | WP12 | Open |
+| WK-11 | 🛠 Evaluation harness and live validation | WP11 | Open; continues in iteration 2 against the TypeScript server (`feature/evaluation`, Python) |
+| WK-12 | 🛠 MCP Apps in-client map with time animation | WP12 | Wish list; depends on option C ([design](../design/EXTENDING_TO_KEYED_DATA.md)) |
 | WK-13 | 📝 Consumer user guide for Claude.ai, ChatGPT, Claude Code, Cursor, VS Code | WP7/WP8 | Open |
 | WK-14 | 🛠 Bring WP3–WP5 modules in line with `ruff` 0.17 (4 files to reformat, 9 lint findings) and anchor the `knowledge` lint exclusion, which also hides `src/firms_mcp/knowledge` (integration issue II-08) | WP10 | Done (II-08 resolved) |
 | WK-15 | 🛠 Per-tool step-up must parse the JSON-RPC body for handshake-era requests, which carry no `Mcp-Name` header (integration issue II-06) | WP8 | Done (II-06 resolved) |
+| WK-18 | 📝 Iteration 2 documents: iteration 1 retrospective, ADR-0011, extending to keyed data (option C), ARL guide, ARL reassessment L-8 | Iteration 2 | Done on `feature/iteration-2-docs` (awaiting owner review) |
+| WK-19 | 🛠 TypeScript project setup: Node LTS, MCP TS SDK v2, vitest with `[REQ-…]` traceability, requirements reclassified (`deferred`), CI; ADR on the per-tool manifest layout | Iteration 2 | Open |
+| WK-20 | 🛠 Knowledge loader and search in TypeScript, with the line-by-line FAQ completeness test | Iteration 2 | Open |
+| WK-21 | 🛠 FAQ sync ported to TypeScript; weekly sync pull request with change report; missing-data snapshot; deploy-time check; documented off switch | Iteration 2 | Open |
+| WK-22 | 🛠 URL builders: Fire Map (SP layers first), FIRMS API (SP-first selection, `[MAP_KEY]` placeholder, limitations), KML | Iteration 2 | Open |
+| WK-23 | 🛠 Seven `firms_` tools, resources, and server instructions (inform-don't-conclude, SP-first, KML gating, key reminder) | Iteration 2 | Open |
+| WK-24 | 📝 Self-hosting guide: Claude Desktop and Claude Code in full; Codex, opencode, and other agents in outline; what public use would need | Iteration 2 | Open |
+| WK-25 | 📝 Revise operations and governance for the keyless scope (ARL4-M2) | Iteration 2 | Open |
 
 ## Decisions needed from the owner
 
@@ -99,3 +108,4 @@ The owner stepped away on 2026-10-10 and asked for later work to be batched; ent
 | WK-14 | Lint and format clean across the repository (II-08) | `feature/packaging-ci` |
 | WK-16 | Build and run the container image | 2026-10-12, Docker 29.8.2, built from `refs/snapshots/06-wp10`: image builds; runs as user `firms`; `/health` reports 9 tools and 150 knowledge entries; `/.well-known/ard.json` and the protected-resource metadata are served; an MCP client over Streamable HTTP lists the nine tools and calls `search_knowledge` and `build_fire_map_link` successfully |
 | WK-17 | Security dependency updates (2026-11-02): `pip-audit` found 13 advisories in authlib, certifi, fastmcp, joserfc; all fixed, plus Dependabot PRs #2, #5–#8 folded in | `chore/security-updates`; 252 tests pass, ruff clean, `pip-audit` reports no known vulnerabilities |
+| WK-26 | Iteration 1 preserved: branch `archive/iteration-1` and signed tag `v0-iteration-1` at `d41a57d`, pushed 2026-11-02; seven merged local branches deleted | 2026-11-02 |

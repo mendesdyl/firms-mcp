@@ -1,6 +1,6 @@
 # ADR-0004: Authentication — bring your own FIRMS MAP_KEY
 
-- **Status:** Accepted
+- **Status:** Accepted; superseded in part by [ADR-0011](0011-keyless-scope-typescript-rewrite-standard-data-first.md) (2026-11-02) — retained for [option C](../design/EXTENDING_TO_KEYED_DATA.md)
 - **Date:** 2026-10-09
 - **ARL linkage:** ARL2-M1 (auth component), ARL4-M1 (integration), ARL4-M2 (human
   process: how users obtain and connect a key; organizational: FIRMS limits and terms).
