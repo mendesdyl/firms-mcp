@@ -7,6 +7,15 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+### Security
+
+- Dependency updates for published advisories found by `pip-audit` on 2026-11-02: authlib
+  1.8.0 → 1.9.2 (PYSEC-2026-4355…4360, CVE-2026-96760, CVE-2026-116672), fastmcp 4.1.0 →
+  4.1.5 (GHSA-7xgj-8392-5q4r, GHSA-vqqp-x5qm-5qp4), joserfc 1.7.5 → 1.7.7 (CVE-2026-119284),
+  certifi 2026.7.22 → 2026.10.23 (PYSEC-2026-4320). Floors raised to `fastmcp>=4.1.2` and
+  `joserfc>=1.7.6`. Also takes the open Dependabot bumps: starlette 1.10.0, pydantic
+  2.14.2, pydantic-settings 2.16.2, ruff 0.17.3.
+
 ### Added
 
 - Container image (`Dockerfile`), CI on Python 3.12–3.14, release and MCP Registry
