@@ -5,10 +5,10 @@ kind: faq
 section: getting-started
 section_title: Getting Started
 source: firms-faq
-source_url: https://www.earthdata.nasa.gov/data/tools/firms/faq#heading-accordion-124369-16
+source_url: https://www.earthdata.nasa.gov/data/tools/firms/faq#heading-accordion-124369-17
 retrieved: '2026-10-09'
 content_sha256: 2f7ef55b1e26781ae891b926493803e185a242dbf56528294a16511347bb78fd
-order: 16
+order: 17
 tags:
 - modis
 - viirs

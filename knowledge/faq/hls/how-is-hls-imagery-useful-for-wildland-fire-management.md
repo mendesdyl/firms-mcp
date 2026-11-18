@@ -8,7 +8,7 @@ source: firms-faq
 source_url: https://www.earthdata.nasa.gov/data/tools/firms/faq#heading-accordion-4409166-5
 retrieved: '2026-10-09'
 content_sha256: 48d2386fcc56bae881b24589ea2ec39cdeaec20c741b5add0419d7ed49396857
-order: 84
+order: 85
 tags:
 - landsat
 - hls

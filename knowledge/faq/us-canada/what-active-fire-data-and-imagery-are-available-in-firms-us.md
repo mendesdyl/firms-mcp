@@ -8,7 +8,7 @@ source: firms-faq
 source_url: https://www.earthdata.nasa.gov/data/tools/firms/faq#heading-accordion-124627-2
 retrieved: '2026-10-09'
 content_sha256: 8fada8957d7c4339c82df60be1d54366822dd18a54610410d798878dbbcb6bf8
-order: 109
+order: 110
 tags: []
 related:
 - faq.getting-started.what-active-fire-data-and-imagery-are-available-in-firms-global

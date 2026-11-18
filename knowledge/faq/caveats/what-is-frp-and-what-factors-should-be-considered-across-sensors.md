@@ -8,7 +8,7 @@ source: firms-faq
 source_url: https://www.earthdata.nasa.gov/data/tools/firms/faq#heading-accordion-124439-9
 retrieved: '2026-10-09'
 content_sha256: aa47db3b86584a0911b7ebf24a2919489580e8510bf6e36e92171c938ec82048
-order: 32
+order: 33
 tags:
 - caveats
 - frp

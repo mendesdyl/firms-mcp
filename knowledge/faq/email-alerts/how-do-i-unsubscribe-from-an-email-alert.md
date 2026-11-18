@@ -8,7 +8,7 @@ source: firms-faq
 source_url: https://www.earthdata.nasa.gov/data/tools/firms/faq#heading-accordion-124595-5
 retrieved: '2026-10-09'
 content_sha256: 8ee560c3389d4b20c462294464eaa2ed646fc3c018752996c09294e18db5102e
-order: 104
+order: 105
 tags:
 - alerts
 related: []

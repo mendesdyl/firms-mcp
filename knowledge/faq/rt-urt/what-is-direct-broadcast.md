@@ -8,7 +8,7 @@ source: firms-faq
 source_url: https://www.earthdata.nasa.gov/data/tools/firms/faq#heading-accordion-124500-2
 retrieved: '2026-10-09'
 content_sha256: 79aeef9d7dededb8fc9b7db0b77cc54007f779299da109a2b4cc8782f57df314
-order: 52
+order: 53
 tags:
 - latency
 related: []

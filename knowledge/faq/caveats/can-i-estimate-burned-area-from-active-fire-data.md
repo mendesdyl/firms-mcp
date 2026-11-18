@@ -8,7 +8,7 @@ source: firms-faq
 source_url: https://www.earthdata.nasa.gov/data/tools/firms/faq#heading-accordion-124439-7
 retrieved: '2026-10-09'
 content_sha256: 3ed05976b2c2ebbeeca5c71d1217c7e81cb7f3c6aea7a8c67fc919de591e322b
-order: 30
+order: 31
 tags:
 - caveats
 - burned-area

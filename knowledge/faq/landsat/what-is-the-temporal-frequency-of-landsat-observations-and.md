@@ -8,11 +8,11 @@ source: firms-faq
 source_url: https://www.earthdata.nasa.gov/data/tools/firms/faq#heading-accordion-124563-2
 retrieved: '2026-10-09'
 content_sha256: b232b679e65f5271e0298ee9f6785cc80b1856b36f4ae0f20372227cb7f61da8
-order: 70
+order: 71
 tags:
 - landsat
 related:
-- faq.getting-started.what-time-does-the-satellite-pass-over-my-area
+- faq.getting-started.how-often-is-firms-updated
 status: current
 ---
 

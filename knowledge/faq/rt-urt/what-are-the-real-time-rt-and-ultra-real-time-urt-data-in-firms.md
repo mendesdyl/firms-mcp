@@ -8,11 +8,11 @@ source: firms-faq
 source_url: https://www.earthdata.nasa.gov/data/tools/firms/faq#heading-accordion-124500-1
 retrieved: '2026-10-09'
 content_sha256: 9dca8b95feabd7229b899a0a60751ea12989897193b28975ea982cf9ac23ff55
-order: 51
+order: 52
 tags:
 - latency
 related:
-- faq.getting-started.what-time-does-the-satellite-pass-over-my-area
+- faq.getting-started.how-often-is-firms-updated
 status: current
 ---
 

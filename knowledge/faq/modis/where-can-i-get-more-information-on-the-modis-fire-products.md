@@ -8,7 +8,7 @@ source: firms-faq
 source_url: https://www.earthdata.nasa.gov/data/tools/firms/faq#heading-accordion-124479-8
 retrieved: '2026-10-09'
 content_sha256: 2baf45c811e731afb39c73d78819e3808adcd33f9ec0c96ed36f1071e30fcdd0
-order: 50
+order: 51
 tags:
 - modis
 related: []

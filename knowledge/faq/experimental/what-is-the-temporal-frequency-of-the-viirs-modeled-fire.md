@@ -8,7 +8,7 @@ source: firms-faq
 source_url: https://www.earthdata.nasa.gov/data/tools/firms/faq#heading-accordion-128897-2
 retrieved: '2026-10-09'
 content_sha256: 139a1f2e166409ee6b2ae9ea9d19d1f398834013211592348098055e69920c18
-order: 126
+order: 127
 tags:
 - viirs
 - perimeter
