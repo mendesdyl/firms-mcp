@@ -2,8 +2,9 @@
 
 * requirements.yaml is well formed.
 * Every ``req`` marker names a known requirement.
-* Every requirement verified by ``test`` whose status is ``implemented`` or
-  ``verified`` has at least one test.
+* (Iteration 1 only) Every requirement verified by ``test`` whose status is
+  ``implemented`` or ``verified`` has at least one test; since iteration 2 the
+  TypeScript traceability check enforces this.
 """
 
 from __future__ import annotations
@@ -48,6 +49,9 @@ def test_markers_reference_known_requirements() -> None:
 
 
 def test_implemented_requirements_have_tests() -> None:
+    # Iteration 2 (ADR-0012): statuses describe the TypeScript server, and
+    # scripts/ts/traceability.ts enforces this rule against the TypeScript tests.
+    pytest.skip("enforced by `npm run traceability:check` since iteration 2")
     if not FULL_COLLECTION["value"]:
         pytest.skip("traceability is only checked when the full suite is collected")
     untested = [

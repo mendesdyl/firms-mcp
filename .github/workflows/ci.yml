@@ -8,6 +8,9 @@ on:
   push:
     branches: ["main"]
   pull_request: {}
+  # Lets the knowledge-sync workflow start CI on its branch: pull requests opened with the
+  # workflow's own token do not trigger `pull_request` runs.
+  workflow_dispatch: {}
 
 permissions:
   contents: read

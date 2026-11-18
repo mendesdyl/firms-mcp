@@ -352,3 +352,33 @@ pending the owner's reviews of ARL3-M3 and ARL4-M2.
 **ARL milestones supported:** ARL4-M1 (in progress); component evidence for ARL3-M1 under
 the stricter reading in the ARL guide §5.
 
+### 2026-11-18 — WK-21: FAQ sync in TypeScript and the weekly review pull request (`feature/ts-sync`)
+
+**What was done**
+
+- Ported the FAQ sync (HTML → Markdown converter, page walk, entry writer, change report,
+  `import-page`) to `scripts/ts/faq-sync/`, using htmlparser2 in place of BeautifulSoup.
+  On the 2026-11-18 page it writes files byte-identical to the Python sync's (fixture:
+  hashes of all 143 files and the report); the new front-matter writer reproduces all 150
+  existing entry files byte for byte.
+- Found that NASA has edited the FAQ since 2026-10-09 (1 question added, 8 answers
+  changed, including the URT/RT/NRT vs Standard answer, and a notice about Suomi NPP). The
+  changes are not in this pull request; they arrive through the first sync pull request.
+- Completeness after NASA's edits: the reference becomes the saved page, read from the DOM
+  without the converter ([ADR-0013](../decisions/0013-faq-completeness-reference-follows-the-synced-page.md)).
+- Safety: `sync` refuses an implausible parse and writes nothing (FR-KB-012); writes only
+  when entries changed.
+- Missing-data table: parsed, validated, and saved to `knowledge/reference/missing-data.json`
+  (FR-KB-013); unchanged tables keep the earlier copy.
+- `check`: a dry run against the live page for deployment.
+- The *Knowledge sync* workflow: weekly and on demand, `npm run check`, one rolling review
+  pull request, CI dispatched on the branch; how to turn it off is in Operations §4.2.
+- Removed the PyPI and MCP Registry publication workflows (II-25).
+
+**Requirements implemented (TypeScript):** FR-KB-008, FR-KB-012, FR-KB-013.
+**Tests:** 80 TypeScript tests (2 switch on after the first sync); Python 251 passed, 1
+skipped by design.
+
+**ARL milestones supported:** ARL4-M1 (in progress); ARL4-M2 (the review duty and its off
+switch are part of the revised operations).
+

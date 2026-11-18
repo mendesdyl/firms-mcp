@@ -25,7 +25,7 @@ Legend: 🔎 needs research · 🛠 implementation · 📝 documentation · ❓ 
 | LU-13 | 🔎 Cross-check knowledge base against the VIIRS C2 375 m user guide (June 2025) and MODIS C6/6.1 user guide | Supplement content; caveat accuracy | — | In progress: both guides downloaded; confidence semantics verified (MODIS Table 11 thresholds; VIIRS classes 7/8/9) and used by the parser |
 | LU-14 | 🤝 Whether FIRMS wants a specific referral parameter on links (currently `utm_source=firms-mcp&utm_medium=mcp`, mirroring Earthdata MCP) | Referral analytics for FIRMS | FIRMS team | Open. Verified that the map loads correctly with these parameters |
 | LU-15 | 🔎 FIRMS WMS/WFS services (MAP_KEY-based) for possible image or vector outputs | Future visualization options | — | Open |
-| LU-17 | 🤝 Confirm FIRMS is content for third-party use of two undocumented keyless services: the map date service (`/api/map_dates/`) and the missing-data table (`/api/missing_data/?action=fetch_data`) | Iteration 2 chooses SP or NRT from the first and snapshots the second (ADR-0011) | FIRMS team | Open. Missing-data table took 71 s for 169 rows on 2026-11-02 |
+| LU-17 | 🤝 Confirm FIRMS is content for third-party use of two undocumented keyless services: the map date service (`/api/map_dates/`) and the missing-data table (`/api/missing_data/?action=fetch_data`) | Iteration 2 chooses SP or NRT from the first and snapshots the second (ADR-0011) | FIRMS team | Open. Missing-data table took 71 s for 169 rows on 2026-11-02 and 8 s on 2026-11-18 |
 
 ## Open — work to do
 
@@ -48,8 +48,8 @@ Legend: 🔎 needs research · 🛠 implementation · 📝 documentation · ❓ 
 | WK-15 | 🛠 Per-tool step-up must parse the JSON-RPC body for handshake-era requests, which carry no `Mcp-Name` header (integration issue II-06) | WP8 | Done (II-06 resolved) |
 | WK-18 | 📝 Iteration 2 documents: iteration 1 retrospective, ADR-0011, extending to keyed data (option C), ARL guide, ARL reassessment L-8 | Iteration 2 | Done: PR #12, merged 2026-11-18 (`4ba88bc`) |
 | WK-19 | 🛠 TypeScript project setup: Node LTS, MCP TS SDK v2, vitest with `[REQ-…]` traceability, requirements reclassified (`deferred`), CI; ADR on the per-tool manifest layout | Iteration 2 | Done: PR #22, merged 2026-11-18 (`36da379`) |
-| WK-20 | 🛠 Knowledge loader and search in TypeScript, with the line-by-line FAQ completeness test | Iteration 2 | Done on `feature/ts-knowledge`; awaiting review |
-| WK-21 | 🛠 FAQ sync ported to TypeScript; weekly sync pull request with change report; missing-data snapshot; deploy-time check; documented off switch | Iteration 2 | Open |
+| WK-20 | 🛠 Knowledge loader and search in TypeScript, with the line-by-line FAQ completeness test | Iteration 2 | Done: PR #26, merged 2026-11-18 (`12fb50f`) |
+| WK-21 | 🛠 FAQ sync ported to TypeScript; weekly sync pull request with change report; missing-data snapshot; deploy-time check; documented off switch | Iteration 2 | Done on `feature/ts-sync`; awaiting review. The first sync pull request follows the merge |
 | WK-22 | 🛠 URL builders: Fire Map (SP layers first), FIRMS API (SP-first selection, `[MAP_KEY]` placeholder, limitations), KML | Iteration 2 | Open |
 | WK-23 | 🛠 Seven `firms_` tools, resources, and server instructions (inform-don't-conclude, SP-first, KML gating, key reminder) | Iteration 2 | Open |
 | WK-24 | 📝 Self-hosting guide: Claude Desktop and Claude Code in full; Codex, opencode, and other agents in outline; what public use would need | Iteration 2 | Open |
@@ -64,6 +64,7 @@ Legend: 🔎 needs research · 🛠 implementation · 📝 documentation · ❓ 
 | OD-03 | ❓ Create a public GitHub repository, and its name | Public repository `github.com/mendesdyl/firms-mcp`. `server.json` uses the registry name `io.github.mendesdyl/firms-mcp`; the registry requires the name's namespace to match the publishing account | Decided 2026-10-12: the owner created the public repository `mendesdyl/firms-mcp`, and `main` was pushed to it |
 | OD-04 | ❓ Allow an operator-wide MAP_KEY for anonymous users on a public deployment | Disabled by default | Open |
 | OD-05 | 🔑 Provide a FIRMS MAP_KEY locally (in `.env`, never in chat) to run live validation | Live tests skip without it | Open |
+| OD-06 | ❓ Allow GitHub Actions to open pull requests (Settings → Actions → General → Workflow permissions → "Allow GitHub Actions to create and approve pull requests") so the weekly knowledge sync can open its review pull request | Off (checked 2026-11-18): the workflow pushes the `knowledge-sync` branch and fails with a link to open the pull request by hand | Open |
 
 ## Pending signed commits
 
