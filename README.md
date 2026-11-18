@@ -1,18 +1,17 @@
 # FIRMS MCP
 
-<!-- mcp-name: io.github.mendesdyl/firms-mcp -->
-
 A [Model Context Protocol](https://modelcontextprotocol.io) (MCP) server that gives AI
-assistants direct, well-documented access to NASA's
+assistants well-documented access to NASA's
 [Fire Information for Resource Management System (FIRMS)](https://firms.modaps.eosdis.nasa.gov/):
-active fire detections, the complete FIRMS FAQ and product documentation, and links into
-the FIRMS Fire Map.
+the complete FIRMS FAQ and product documentation, verbatim, and ready-made links into the
+FIRMS Fire Map and the FIRMS API, standard-processing data first. It is keyless: it never
+needs or sees a FIRMS MAP_KEY.
 
-> **Status:** iteration 2 in progress — a keyless TypeScript rewrite
+> **Status:** iteration 2 — a keyless TypeScript server
 > ([ADR-0011](docs/decisions/0011-keyless-scope-typescript-rewrite-standard-data-first.md));
-> computed ARL 3 (see the [ARL guide](docs/arl/ARL_GUIDE.md)). The Python server described
-> below is iteration 1 and stays until the TypeScript server replaces it; iteration 1 is
-> preserved at tag `v0-iteration-1`. Developers: [Development](docs/developers/DEVELOPMENT.md).
+> computed ARL 3 (see the [ARL guide](docs/arl/ARL_GUIDE.md)). Iteration 1 (Python, with
+> detection fetching and a MAP_KEY connect flow) is preserved at tag `v0-iteration-1`.
+> Developers: [Development](docs/developers/DEVELOPMENT.md).
 
 > **Owner to-do:** the weekly FIRMS FAQ sync runs from a Mac and is **not installed yet**. See
 > [Setting up the weekly sync on a Mac](docs/project/OPERATIONS_AND_GOVERNANCE.md#setting-up-the-weekly-sync-on-a-mac).
@@ -24,36 +23,28 @@ the FIRMS Fire Map.
 
 ## What it does
 
-The server does not answer science questions. It gives the agent that is answering the
-data, FIRMS's own explanations, and the caveats it needs to answer accurately.
+The server does not answer science questions and does not fetch fire detections. It gives
+the agent FIRMS's own explanations and caveats, and builds the exact URLs the user opens to
+see the data.
 
-| Capability | Description | Needs a FIRMS MAP_KEY? |
+| Capability | Tool | Description |
 |---|---|---|
-| **Fire detections** | Active fire / thermal anomaly detections for an area and date window from VIIRS (Suomi NPP, NOAA-20, NOAA-21), MODIS (Terra, Aqua), and Landsat (US/Canada), with summaries, caveats, citation, and a map link | Yes (the user's own key) |
-| **Knowledge base** | The full FIRMS FAQ, verbatim and searchable, plus the Fire Map disclaimer, attribute definitions, and API notes, each with its source and retrieval date | No |
-| **Fire Map links** | Links that open the FIRMS Fire Map at the right place, dates, satellites, and basemap | No |
-| **Data availability** | Date coverage for each FIRMS source | Optional |
-| **KML footprints** | Download links for FIRMS fire-footprint KMZ files by region and period | No |
-| **In-chat map** *(planned)* | Interactive, animated map of detections rendered in MCP Apps–capable clients | Yes |
+| **Knowledge base** | `firms_search_knowledge`, `firms_get_knowledge_entry`, `firms_list_knowledge_topics` | The full FIRMS FAQ, verbatim and searchable, plus the Fire Map and LANCE disclaimers, attribute definitions, and API pages, each with its source and retrieval date; kept current by a reviewed weekly sync |
+| **Fire Map links** | `firms_build_fire_map_url` | Links that open the FIRMS Fire Map at the right place, dates, satellites, and basemap; standard-processing layers for past dates |
+| **FIRMS API URLs** | `firms_build_api_url` | Area CSV URLs (standard processing where it covers the dates, near real-time after it), `data_availability`, MAP_KEY status, and FIRMS's missing-data table; URLs carry a `[MAP_KEY]` placeholder |
+| **KML footprints** | `firms_build_kml_footprint_url` | Download links for FIRMS fire-footprint KML files, for GIS users |
+| **Source catalog** | `firms_list_data_sources` | VIIRS (NOAA-20, NOAA-21, Suomi NPP), MODIS, and Landsat sources, standard processing first, with the dates FIRMS currently has |
 
-The planned tool, resource, and prompt surface is in the
-[project plan §7.1](docs/plan/PROJECT_PLAN.md#71-planned-mcp-surface-initial).
+Details: [tool catalog](docs/design/TOOLS.md). How fetching data with a user's key could be
+added later: [Extending to keyed data](docs/design/EXTENDING_TO_KEYED_DATA.md).
 
 ## Connecting
 
-There are two ways to use the server:
-
-- **Remote (public chatbots such as Claude.ai or ChatGPT):** add the server's URL (ending
-  in `/mcp`) as a custom connector. Knowledge and map tools work right away. When the
-  assistant first needs FIRMS data, you are sent to a one-page "Connect your FIRMS
-  MAP_KEY" step; the key goes to the server and FIRMS, never into the chat. Request a free
-  key at <https://firms.modaps.eosdis.nasa.gov/api/map_key/>. Details:
-  [Authentication](docs/design/AUTHENTICATION.md). No public endpoint is running yet
-  (hosting is owner decision OD-02).
-- **Local (Claude Desktop, Claude Code, Cursor, VS Code):** run the server over stdio
-  with your key in the `FIRMS_MAP_KEY` environment variable.
-
-Step-by-step instructions per client will be in the [user guide](docs/consumers/USER_GUIDE.md).
+No public endpoint is running yet: nothing is published until the owner has spoken with
+FIRMS (ADR-0011 §9). To use the server now, run your own copy over stdio in a local client
+such as Claude Desktop or Claude Code (see Development below); a step-by-step self-hosting
+guide is running-list item WK-24. To open the API URLs, request a free MAP_KEY at
+<https://firms.modaps.eosdis.nasa.gov/api/map_key/> and put it in place of `[MAP_KEY]`.
 
 ## Documentation
 
@@ -69,41 +60,46 @@ Step-by-step instructions per client will be in the [user guide](docs/consumers/
 
 ## Design at a glance
 
-- **Follows NASA's Earthdata MCP** ([`nasa/earthdata-mcp`](https://github.com/nasa/earthdata-mcp)):
-  Python + FastMCP, one directory per tool with a versioned `manifest.json`, Pydantic
-  models, workflow-defining server instructions, anonymous use with per-tool step-up
-  authentication. See [ADR-0002](docs/decisions/0002-follow-nasa-earthdata-mcp-conventions.md).
+- **TypeScript on the MCP TypeScript SDK v2**, stateless, stdio and Streamable HTTP; tool
+  contracts generated from Zod schemas into [`contracts/tools.json`](contracts/tools.json)
+  so a port to another stack (for example FIRMS's PHP backend) has a fixed target. See
+  [ADR-0012](docs/decisions/0012-typescript-project-layout-and-tool-contracts.md).
+- **Follows NASA's Earthdata MCP** conventions where they fit
+  ([ADR-0002](docs/decisions/0002-follow-nasa-earthdata-mcp-conventions.md)):
+  workflow-defining server instructions, one place per tool, versioned contracts.
 - **Current MCP specification** (2026-07-28, stateless) with support for clients on earlier
-  revisions; Streamable HTTP and stdio transports. See
-  [ADR-0003](docs/decisions/0003-target-mcp-2026-07-28-with-backward-compatibility.md).
+  revisions ([ADR-0003](docs/decisions/0003-target-mcp-2026-07-28-with-backward-compatibility.md)).
 - **Readiness tracked with NASA's Application Readiness Levels**: Start-of-Project ARL 1,
   Goal ARL 7.
 
 ## Development
 
-Requirements: Python 3.12+ and [uv](https://docs.astral.sh/uv/).
+Requirements: Node.js 24 or 26 (`.node-version` is 26).
 
 ```bash
-uv sync --extra dev
+npm ci
 ```
 
 ```bash
-uv run pytest
+npm run check
 ```
 
-Run the server locally on stdio (put your key in `.env` as `FIRMS_MAP_KEY`), or over
-Streamable HTTP at `http://127.0.0.1:8000/mcp`:
+Build, then run the server on stdio, or over Streamable HTTP at `http://127.0.0.1:8000/mcp`:
 
 ```bash
-uv run firms-mcp
+npm run build
 ```
 
 ```bash
-uv run firms-mcp http
+node dist/index.js
 ```
 
-The tools, resources, and prompts are described in the [tool catalog](docs/design/TOOLS.md);
-the structure of the server in [Architecture](docs/design/ARCHITECTURE.md).
+```bash
+node dist/index.js http
+```
+
+The structure of the server is in [Architecture](docs/design/ARCHITECTURE.md); everyday
+commands in [Development](docs/developers/DEVELOPMENT.md).
 
 Contributor guidelines: [CONTRIBUTING.md](CONTRIBUTING.md). Security reports:
 [SECURITY.md](SECURITY.md).

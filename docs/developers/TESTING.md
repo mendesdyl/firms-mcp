@@ -1,79 +1,48 @@
 # Testing
 
-> **Iteration 1 (Python).** This guide describes the Python server, which stays on `main`
-> until the TypeScript server reaches parity and is then removed (ADR-0012). For the
-> TypeScript server see [Development](DEVELOPMENT.md).
-
-How the project is tested, following [ADR-0008](../decisions/0008-testing-and-verification-strategy.md).
-Tests check that the software does what its requirements say; whether it improves the
-answers people get is the separate [evaluation](../design/EVALUATION.md).
-
-## Running the tests
+How the server is verified ([ADR-0008](../decisions/0008-testing-and-verification-strategy.md)).
+Every check CI runs is one command:
 
 ```bash
-uv sync --extra dev --extra sync
+npm run check
 ```
 
-```bash
-uv run pytest
-```
+It runs Biome (lint and format), TypeScript, knowledge-base validation, the vitest suite, the
+tool-contract check, the traceability check, the build, and a stdio smoke test against
+`dist/`. CI (`.github/workflows/ci.yml`) runs it on Node 24 and 26, audits the dependencies
+the server ships with (`npm audit --omit=dev`), and builds the container image and checks its
+`/health` and `tools/list`.
 
-Useful variations:
+## Layout
 
-```bash
-uv run pytest tests/integration -q
-```
-
-```bash
-uv run pytest --cov --cov-report=term
-```
-
-The same checks run in CI (`.github/workflows/ci.yml`) on Python 3.12, 3.13, and 3.14,
-together with `ruff check`, `ruff format --check`, `python -m firms_mcp.knowledge validate`,
-the traceability check, a wheel-contents check, and a container smoke test.
-
-## Layers
-
-| Directory | What it tests | Network |
+| Directory | What it covers | Network |
 |---|---|---|
-| `tests/unit/` | One component at a time: knowledge base, FIRMS client and parser, map links, each tool (through the in-memory MCP client), token codec, step-up middleware, settings | None (FIRMS mocked with `respx`) |
-| `tests/contract/` | The knowledge base against the owner-provided FAQ text, line by line | None |
-| `tests/integration/` | The assembled server: both protocol eras, in memory, over Streamable HTTP (in-process ASGI), over stdio (the real `python -m firms_mcp` process), and the OAuth connect flow end to end | Loopback only |
-| `tests/test_traceability.py`, `tests/test_documentation.py` | Requirements are well formed and implemented ones are tested; the tool catalog matches the manifests | None |
-| `tests/live/` *(WP11)* | The real FIRMS API with a real MAP_KEY | Real; opt-in |
+| `test/unit/knowledge/` | Loader, front matter, search (including parity with iteration 1 on a frozen corpus) | None |
+| `test/unit/sync/` | The FAQ sync: page parsing, conversion, guard, missing-data table | None (fixtures) |
+| `test/unit/urls/` | Source catalog, coverage and its fallback, standard-first selection, API URLs, KML, Fire Map links, the map catalog check's parsing | None (fixtures) |
+| `test/unit/tools/` | The seven tools, the resources, and the server instructions through an in-memory MCP client; the tool catalog (DOC-002) | None (`fetch` stubbed) |
+| `test/unit/*.test.ts` | `defineTool`, contracts, traceability, version, the network guard | None |
+| `test/contract/` | FAQ completeness: every line of the synced page is in the knowledge base (FR-KB-001) | None |
+| `test/integration/` | The assembled server over stdio and stateless Streamable HTTP, current and handshake-era clients | Loopback only |
 
 ## Rules
 
-- **No real network.** An autouse fixture in `tests/conftest.py` makes every non-loopback
-  connection fail with `NetworkAccessBlocked` (NFR-001). Mock FIRMS with `respx`
-  (FIRMS host `https://firms.test` in `tests/fixtures/services.py`).
-- **Requirements.** Mark each test with the requirements it verifies:
-  `@pytest.mark.req("FR-DATA-005")`. A requirement whose status is `implemented` must have
-  at least one test; the traceability matrix is now generated from the TypeScript tests
-  (`npm run traceability`; see [Development](DEVELOPMENT.md)).
-- **Fixed time.** Server tests use a fixed clock (2026-10-10 12:00 UTC) so date windows and
-  map links are deterministic.
-- **Secrets.** Tests use the 32-character test keys in `tests/fixtures/firms_csv.py`; never
-  a real key. Tests assert that keys never appear in results, links, or logs.
-- **Both eras.** Server behaviour is tested with the FastMCP client in `legacy` mode
-  (handshake, 2025-11-25) and `auto` mode (negotiates 2026-07-28).
+- **No real network** (NFR-001). `test/setup/no-network.ts` makes every non-loopback
+  connection or `fetch` throw. FIRMS responses come from `test/fixtures/` (for example the
+  map date service response captured on 2026-11-18); tool tests stub `fetch` and pin the
+  date with `vi.setSystemTime`.
+- **Requirements in test names.** `it("[REQ-FR-URL-001] …")`. A requirement whose status is
+  `implemented` and verification `test` must have at least one tagged test;
+  `npm run traceability:check` fails otherwise and `npm run traceability` regenerates
+  [TRACEABILITY.md](../project/TRACEABILITY.md).
+- **No secrets.** The server never sees a MAP_KEY; tests use the `[MAP_KEY]` placeholder.
 
-## Helpers
+## Checks against live FIRMS
 
-`tests/fixtures/services.py` provides `make_services(...)` (settings, knowledge base, FIRMS
-client, credential mode, clock), `make_server(...)`, `http_client(server, mode)` (an MCP
-client over in-process Streamable HTTP that also records the `mcp-*` headers of each
-request), and `raw_http(server)` for operational routes and hand-built requests. The OAuth
-tests build an app with `create_auth_provider` and drive `/register`, `/authorize`,
-`/connect`, and `/token` with `httpx2`.
+Not part of `npm run check`; run by hand:
 
-## Live tests *(WP11)*
-
-Live tests are marked `live`, excluded by default (`addopts = -m "not live"`), and skipped
-unless `FIRMS_MAP_KEY` is set. Run them with:
-
-```bash
-uv run pytest -m live
-```
-
-Their results are ARL 5 evidence and are recorded in the work summary, not in CI.
+| Command | Checks |
+|---|---|
+| `npm run map-catalog` | The Fire Map layer catalog against the live map (II-29) |
+| `npm run knowledge -- check` | The knowledge base against the live FAQ page, without writing |
+| A Fire Map link opened in a browser | The map keeps every layer in the link ([map links](../design/MAP_LINKS.md)) |
