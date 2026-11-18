@@ -111,7 +111,7 @@ describe("area API URLs, standard data first", () => {
     expect(result.notes.join("\n")).toMatch(/standard-processing data cannot exist yet/);
   });
 
-  it("[REQ-FR-URL-001] builds no recent-days URL for a sensor whose NRT data have stopped", () => {
+  it("[REQ-FR-URL-005] leaves a default sensor out of recent days it has no data for", () => {
     const result = build({ area: "world", recent_days: 3 });
     expect(result.requests.map((r) => r.source)).toEqual([
       "VIIRS_NOAA20_NRT",
@@ -119,8 +119,31 @@ describe("area API URLs, standard data first", () => {
       "MODIS_NRT",
     ]);
     expect(result.notes.join("\n")).toMatch(
-      /VIIRS Suomi NPP: no data for 2026-11-16 to 2026-11-18.*\n.*VIIRS Suomi NPP: no URL was built/,
+      /VIIRS Suomi NPP is left out of the default sensors for 2026-11-16 to 2026-11-18, where FIRMS has no data for it; VIIRS NOAA-20, VIIRS NOAA-21, MODIS \(Terra and Aqua\) cover those dates\./,
     );
+    expect(result.notes.join("\n")).not.toMatch(/no URL was built/);
+  });
+
+  it("[REQ-FR-URL-005] keeps Suomi NPP among the defaults for dates it has data", () => {
+    const result = build({ area: "world", start_date: "2026-10-30", end_date: "2026-11-04" });
+    const snpp = result.requests.filter((r) => r.sensor === "viirs_snpp");
+    expect(snpp.map((r) => [r.source, r.start_date, r.end_date])).toEqual([
+      ["VIIRS_SNPP_NRT", "2026-10-30", "2026-11-02"],
+    ]);
+    expect(
+      result.requests.filter((r) => r.sensor === "viirs_noaa20").map((r) => r.end_date),
+    ).toEqual(["2026-11-03", "2026-11-04"]);
+    expect(result.notes.join("\n")).toMatch(
+      /VIIRS Suomi NPP is left out of the default sensors for 2026-11-03 to 2026-11-04.*VIIRS NOAA-20/,
+    );
+    expect(result.notes.join("\n")).not.toMatch(/VIIRS Suomi NPP: no data/);
+  });
+
+  it("[REQ-FR-URL-005] still warns about a sensor the user named", () => {
+    const result = build({ area: "world", sensors: ["viirs_snpp"], recent_days: 1 });
+    expect(result.requests).toEqual([]);
+    expect(result.notes.join("\n")).toMatch(/VIIRS Suomi NPP: no data for 2026-11-18/);
+    expect(result.notes.join("\n")).toMatch(/VIIRS Suomi NPP: no URL was built/);
   });
 
   it("[REQ-FR-URL-001] queries the four global sensors when none is chosen", () => {

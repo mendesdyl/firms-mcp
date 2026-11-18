@@ -1,5 +1,1418 @@
 {
   "server": "firms-mcp-server",
-  "version": "0.2.0",
-  "tools": []
+  "version": "0.3.0",
+  "tools": [
+    {
+      "name": "firms_search_knowledge",
+      "version": "1.0.0",
+      "title": "Search FIRMS documentation",
+      "description": "Search FIRMS's own documentation (the complete FIRMS FAQ, the Fire Map and LANCE disclaimers, the MODIS/VIIRS attribute definitions, and the FIRMS API pages) and return the best-matching entries in full.\n\nEvery entry's `body` is FIRMS's text, verbatim, with its `source_url` and `retrieved` date. Quote or closely follow these bodies when you explain what detections mean, caveats, latency, sensors, standard versus near real-time data, or how to use FIRMS; do not answer such questions from memory when an entry covers them. The `snippet` only shows where the query matched.\n\nRanking is deterministic (BM25 over titles, tags, and bodies). Keep `limit` small (default 3): entries are returned whole. Use `section` (an ID from firms_list_knowledge_topics, such as `caveats`, `viirs`, `modis`, `landsat`, `fire-map`) to narrow a search, and firms_get_knowledge_entry to follow `related` IDs.",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500,
+            "description": "What to look for, in plain words, e.g. 'why was a fire not detected'"
+          },
+          "limit": {
+            "default": 3,
+            "description": "Entries to return (1-10); each is returned in full",
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10
+          },
+          "section": {
+            "description": "Only search one section, by ID from firms_list_knowledge_topics",
+            "type": "string",
+            "maxLength": 80
+          },
+          "include_retired": {
+            "default": false,
+            "description": "Also search entries FIRMS no longer publishes (kept for provenance)",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "query",
+          "limit",
+          "include_retired"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string"
+          },
+          "total": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string",
+                  "description": "FIRMS's question or heading, verbatim"
+                },
+                "kind": {
+                  "type": "string"
+                },
+                "section": {
+                  "type": "string"
+                },
+                "section_title": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "current",
+                    "retired"
+                  ]
+                },
+                "body": {
+                  "type": "string",
+                  "description": "FIRMS's text, verbatim (Markdown)"
+                },
+                "source_url": {
+                  "type": "string"
+                },
+                "retrieved": {
+                  "type": "string"
+                },
+                "content_sha256": {
+                  "type": "string"
+                },
+                "related": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "notice": {
+                  "description": "Set when FIRMS no longer publishes the entry",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "score": {
+                  "type": "number",
+                  "description": "Relevance; comparable only within one search"
+                },
+                "snippet": {
+                  "type": "string",
+                  "description": "Where the query terms appear; not a quote"
+                }
+              },
+              "required": [
+                "id",
+                "title",
+                "kind",
+                "section",
+                "section_title",
+                "status",
+                "body",
+                "source_url",
+                "retrieved",
+                "content_sha256",
+                "related",
+                "notice",
+                "score",
+                "snippet"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "suggestion": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "query",
+          "total",
+          "results",
+          "suggestion"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "firms_get_knowledge_entry",
+      "version": "1.0.0",
+      "title": "Get FIRMS documentation entries",
+      "description": "Return FIRMS knowledge-base entries by ID, each with FIRMS's text verbatim in `body`, its `source_url`, and its `retrieved` date.\n\nUse it to open entry IDs cited in other results (for example the FAQ entry on standard versus near real-time data), to follow an entry's `related` IDs, or to read an entry found with firms_list_knowledge_topics. Unknown IDs are listed in `not_found` with the closest existing IDs. Entries FIRMS no longer publishes have `status: retired` and a `notice`; say so if you rely on one.",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "entry_ids": {
+            "minItems": 1,
+            "maxItems": 10,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200
+            },
+            "description": "Entry IDs (1-10), from search results, `related`, notes, or the table of contents"
+          }
+        },
+        "required": [
+          "entry_ids"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "entries": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string",
+                  "description": "FIRMS's question or heading, verbatim"
+                },
+                "kind": {
+                  "type": "string"
+                },
+                "section": {
+                  "type": "string"
+                },
+                "section_title": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "current",
+                    "retired"
+                  ]
+                },
+                "body": {
+                  "type": "string",
+                  "description": "FIRMS's text, verbatim (Markdown)"
+                },
+                "source_url": {
+                  "type": "string"
+                },
+                "retrieved": {
+                  "type": "string"
+                },
+                "content_sha256": {
+                  "type": "string"
+                },
+                "related": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "notice": {
+                  "description": "Set when FIRMS no longer publishes the entry",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              },
+              "required": [
+                "id",
+                "title",
+                "kind",
+                "section",
+                "section_title",
+                "status",
+                "body",
+                "source_url",
+                "retrieved",
+                "content_sha256",
+                "related",
+                "notice"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "not_found": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "suggestions": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "Closest existing IDs"
+                }
+              },
+              "required": [
+                "id",
+                "suggestions"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "entries",
+          "not_found"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "firms_list_knowledge_topics",
+      "version": "1.0.0",
+      "title": "List FIRMS documentation topics",
+      "description": "Table of contents of the FIRMS knowledge base: the FIRMS FAQ in the FAQ's own sections and order, then supplements (Fire Map disclaimer, LANCE disclaimer and acknowledgments, attribute definitions, FIRMS API pages), with the sources they were taken from.\n\nWithout arguments it returns each section's ID, title, and entry count. Pass `section` to list that section's entry IDs and titles, or `include_entries: true` to list every entry. Then read entries with firms_get_knowledge_entry or search them with firms_search_knowledge.",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "section": {
+            "description": "List the entries of one section, by ID (e.g. 'caveats')",
+            "type": "string",
+            "maxLength": 80
+          },
+          "include_entries": {
+            "default": false,
+            "description": "List every entry of every section (about 150 titles) instead of counts",
+            "type": "boolean"
+          },
+          "include_retired": {
+            "default": false,
+            "description": "Include entries FIRMS no longer publishes",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "include_entries",
+          "include_retired"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "total_entries": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "sections": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "entry_count": {
+                  "type": "integer",
+                  "minimum": -9007199254740991,
+                  "maximum": 9007199254740991
+                },
+                "entries": {
+                  "description": "Present when a section is requested or include_entries is true",
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "title": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string"
+                      },
+                      "status": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "title",
+                      "kind",
+                      "status"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "id",
+                "title",
+                "entry_count"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "publisher": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string"
+                },
+                "retrieved": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "title",
+                "publisher",
+                "url",
+                "retrieved"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "total_entries",
+          "sections",
+          "sources"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "firms_build_fire_map_url",
+      "version": "1.0.0",
+      "title": "Build a FIRMS Fire Map link",
+      "description": "Build links that open the FIRMS Fire Map (global, or the US/Canada map) on a place, dates, and fire layers, each with a plain-language `description` of what it will show. No MAP_KEY is needed.\n\nStandard data first: for past dates, each sensor shows its standard-processing (SP) layer where FIRMS's SP data cover the dates and its near real-time (NRT) layer after that; if that choice changes inside the period, you get one link per stretch. Recent periods (`today` … `7days`) use NRT, because SP cannot exist yet. With neither dates nor sensors the link is the map's own default (Basic mode, last 24 hours). Coverage comes from FIRMS's map date service; `coverage.checked: false` means it could not be reached and saved dates were used.\n\nGive either `area` (the map fits and draws the box) or `center` with `zoom`; and either `period` or `start_date`/`end_date` (UTC). Pass the links and their descriptions to the user with `notes`. You have not seen the map: do not describe fires on it.",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
+      },
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "map": {
+            "default": "global",
+            "description": "'us-canada' opens FIRMS US/Canada, which has extra US/Canada layers",
+            "type": "string",
+            "enum": [
+              "global",
+              "us-canada"
+            ]
+          },
+          "area": {
+            "type": "object",
+            "properties": {
+              "west": {
+                "type": "number",
+                "minimum": -180,
+                "maximum": 180,
+                "description": "Western longitude, decimal degrees"
+              },
+              "south": {
+                "type": "number",
+                "minimum": -90,
+                "maximum": 90,
+                "description": "Southern latitude"
+              },
+              "east": {
+                "type": "number",
+                "minimum": -180,
+                "maximum": 180,
+                "description": "Eastern longitude"
+              },
+              "north": {
+                "type": "number",
+                "minimum": -90,
+                "maximum": 90,
+                "description": "Northern latitude"
+              }
+            },
+            "required": [
+              "west",
+              "south",
+              "east",
+              "north"
+            ],
+            "additionalProperties": false,
+            "description": "Bounding box in decimal degrees, longitude first: west < east, south < north. Split a box that crosses the 180° meridian into two calls."
+          },
+          "center": {
+            "description": "Map center, if no area is given",
+            "type": "object",
+            "properties": {
+              "longitude": {
+                "type": "number",
+                "minimum": -180,
+                "maximum": 180
+              },
+              "latitude": {
+                "type": "number",
+                "minimum": -90,
+                "maximum": 90
+              }
+            },
+            "required": [
+              "longitude",
+              "latitude"
+            ],
+            "additionalProperties": false
+          },
+          "zoom": {
+            "description": "Zoom with `center` (global 1-16, US/Canada 4-16)",
+            "type": "number",
+            "minimum": 1,
+            "maximum": 16
+          },
+          "period": {
+            "description": "A recent period; default 24hrs",
+            "type": "string",
+            "enum": [
+              "today",
+              "24hrs",
+              "48hrs",
+              "72hrs",
+              "7days"
+            ]
+          },
+          "start_date": {
+            "description": "First UTC day (YYYY-MM-DD), for past dates",
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+          },
+          "end_date": {
+            "description": "Last UTC day; defaults to start_date",
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+          },
+          "sensors": {
+            "minItems": 1,
+            "maxItems": 5,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "viirs_noaa20",
+                "viirs_noaa21",
+                "viirs_snpp",
+                "modis",
+                "landsat"
+              ]
+            },
+            "description": "Sensors to use. Omit for the defaults (VIIRS NOAA-20, NOAA-21, Suomi NPP, MODIS; each only for dates FIRMS has its data). landsat covers US/Canada only."
+          },
+          "mode": {
+            "description": "Map mode; chosen automatically (advanced for sensors or past dates, else basic)",
+            "type": "string",
+            "enum": [
+              "basic",
+              "advanced",
+              "burned_area",
+              "smoke",
+              "experimental"
+            ]
+          },
+          "basemap": {
+            "description": "Basemap layer ID; default 'earth' (Blue Marble)",
+            "type": "string",
+            "maxLength": 80
+          },
+          "overlays": {
+            "description": "Overlay layer IDs; default ['country-outline']",
+            "maxItems": 10,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 80
+            }
+          },
+          "extra_layers": {
+            "description": "Further Fire Map layer IDs to show (must exist in the chosen mode)",
+            "maxItems": 10,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 80
+            }
+          }
+        },
+        "required": [
+          "map"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "links": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "url": {
+                  "type": "string"
+                },
+                "map": {
+                  "type": "string"
+                },
+                "mode": {
+                  "type": "string"
+                },
+                "dates": {
+                  "type": "string",
+                  "description": "The map's d: value"
+                },
+                "start_date": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "end_date": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "layers": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "description": {
+                  "type": "string",
+                  "description": "What the link shows; repeat it to the user"
+                }
+              },
+              "required": [
+                "url",
+                "map",
+                "mode",
+                "dates",
+                "start_date",
+                "end_date",
+                "layers",
+                "description"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "notes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "coverage": {
+            "type": "object",
+            "properties": {
+              "checked": {
+                "type": "boolean",
+                "description": "False when FIRMS's map date service could not be reached"
+              },
+              "as_of": {
+                "type": "string"
+              },
+              "source": {
+                "type": "string",
+                "enum": [
+                  "map_dates_service",
+                  "snapshot"
+                ]
+              },
+              "note": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "checked",
+              "as_of",
+              "source",
+              "note"
+            ],
+            "additionalProperties": false
+          },
+          "limitations": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "links",
+          "notes",
+          "coverage",
+          "limitations"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "firms_build_api_url",
+      "version": "1.0.0",
+      "title": "Build FIRMS API URLs",
+      "description": "Build FIRMS API URLs for the user to open; this server does not fetch them. `request` chooses what:\n- `area`: CSV of fire detections for a box (or 'world') and dates. Standard data first: dates FIRMS's standard-processing (SP) data cover use the SP source, dates after that use near real-time (NRT), and a period that spans both gets labelled SP and NRT URLs. `recent_days` (1-5) gives the most recent data (NRT). Periods are cut into URLs of at most 5 days; at most 31 days per call (longer: the archive download page in `related`). Known missing days from FIRMS's missing-data table are noted.\n- `data_availability`: CSV of the dates each source covers (`source`, default ALL).\n- `map_key_status`: the transactions the user's key has used.\n- `missing_data`: days FIRMS lists as missing, from the copy saved by the weekly sync (filter with `sensors` and dates), with the date it was saved and the live page.\nURLs that need a key contain the placeholder [MAP_KEY]; `map_key` says where the user gets a free key and where it goes. Never ask for a key. If the user has already shared theirs in the conversation, you may put it into the URLs for them. Pass on `notes` and `limitations`: you have not seen the data.",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
+      },
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "request": {
+            "type": "string",
+            "enum": [
+              "area",
+              "data_availability",
+              "map_key_status",
+              "missing_data"
+            ],
+            "description": "Which FIRMS URL to build"
+          },
+          "area": {
+            "description": "For `area`: a bounding box, or 'world'",
+            "anyOf": [
+              {
+                "type": "string",
+                "const": "world"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "west": {
+                    "type": "number",
+                    "minimum": -180,
+                    "maximum": 180,
+                    "description": "Western longitude, decimal degrees"
+                  },
+                  "south": {
+                    "type": "number",
+                    "minimum": -90,
+                    "maximum": 90,
+                    "description": "Southern latitude"
+                  },
+                  "east": {
+                    "type": "number",
+                    "minimum": -180,
+                    "maximum": 180,
+                    "description": "Eastern longitude"
+                  },
+                  "north": {
+                    "type": "number",
+                    "minimum": -90,
+                    "maximum": 90,
+                    "description": "Northern latitude"
+                  }
+                },
+                "required": [
+                  "west",
+                  "south",
+                  "east",
+                  "north"
+                ],
+                "additionalProperties": false,
+                "description": "Bounding box in decimal degrees, longitude first: west < east, south < north. Split a box that crosses the 180° meridian into two calls."
+              }
+            ]
+          },
+          "sensors": {
+            "minItems": 1,
+            "maxItems": 5,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "viirs_noaa20",
+                "viirs_noaa21",
+                "viirs_snpp",
+                "modis",
+                "landsat"
+              ]
+            },
+            "description": "Sensors to use. Omit for the defaults (VIIRS NOAA-20, NOAA-21, Suomi NPP, MODIS; each only for dates FIRMS has its data). landsat covers US/Canada only."
+          },
+          "recent_days": {
+            "description": "For `area`: the most recent 1-5 UTC days (instead of dates)",
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 5
+          },
+          "start_date": {
+            "description": "First UTC day (YYYY-MM-DD)",
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+          },
+          "end_date": {
+            "description": "Last UTC day; defaults to start_date",
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+          },
+          "processing": {
+            "default": "standard_first",
+            "description": "For `area`: 'nrt' only when the user explicitly asks for near real-time data",
+            "type": "string",
+            "enum": [
+              "standard_first",
+              "nrt"
+            ]
+          },
+          "source": {
+            "default": "ALL",
+            "description": "For `data_availability`: one source ID, or ALL",
+            "type": "string",
+            "enum": [
+              "ALL",
+              "VIIRS_NOAA20_SP",
+              "VIIRS_NOAA21_SP",
+              "VIIRS_SNPP_SP",
+              "MODIS_SP",
+              "VIIRS_NOAA20_NRT",
+              "VIIRS_NOAA21_NRT",
+              "VIIRS_SNPP_NRT",
+              "MODIS_NRT",
+              "LANDSAT_NRT"
+            ]
+          }
+        },
+        "required": [
+          "request",
+          "processing",
+          "source"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "request": {
+            "type": "string",
+            "enum": [
+              "area",
+              "data_availability",
+              "map_key_status",
+              "missing_data"
+            ]
+          },
+          "urls": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "label": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string"
+                },
+                "sensor": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "source": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "processing": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "enum": [
+                        "SP",
+                        "NRT"
+                      ]
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "start_date": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "end_date": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "day_range": {
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "minimum": -9007199254740991,
+                      "maximum": 9007199254740991
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "label",
+                "url",
+                "sensor",
+                "source",
+                "processing",
+                "start_date",
+                "end_date",
+                "day_range"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "notes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "coverage": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "checked": {
+                    "type": "boolean",
+                    "description": "False when FIRMS's map date service could not be reached"
+                  },
+                  "as_of": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "type": "string",
+                    "enum": [
+                      "map_dates_service",
+                      "snapshot"
+                    ]
+                  },
+                  "note": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "checked",
+                  "as_of",
+                  "source",
+                  "note"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "How SP/NRT coverage was determined (area only)"
+          },
+          "map_key": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "placeholder": {
+                    "type": "string",
+                    "const": "[MAP_KEY]"
+                  },
+                  "get_a_key": {
+                    "type": "string"
+                  },
+                  "where_it_goes": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "placeholder",
+                  "get_a_key",
+                  "where_it_goes"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Set when the URLs contain [MAP_KEY]"
+          },
+          "missing_data": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "retrieved": {
+                    "type": "string",
+                    "description": "When the weekly sync saved FIRMS's table"
+                  },
+                  "page_url": {
+                    "type": "string",
+                    "description": "The live table"
+                  },
+                  "note": {
+                    "type": "string"
+                  },
+                  "standard": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "date": {
+                          "type": "string"
+                        },
+                        "satellite": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "date",
+                        "satellite"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "description": "Days missing from the standard-processing archive"
+                  },
+                  "nrt": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "date": {
+                          "type": "string"
+                        },
+                        "satellite": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "date",
+                        "satellite"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "description": "Days missing from the near real-time archive"
+                  }
+                },
+                "required": [
+                  "retrieved",
+                  "page_url",
+                  "note",
+                  "standard",
+                  "nrt"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "related": {
+            "type": "object",
+            "properties": {
+              "data_availability_url": {
+                "type": "string"
+              },
+              "missing_data_page": {
+                "type": "string"
+              },
+              "archive_download_page": {
+                "type": "string"
+              },
+              "map_key_page": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "data_availability_url",
+              "missing_data_page",
+              "archive_download_page",
+              "map_key_page"
+            ],
+            "additionalProperties": false
+          },
+          "limitations": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "request",
+          "urls",
+          "notes",
+          "coverage",
+          "map_key",
+          "missing_data",
+          "related",
+          "limitations"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "firms_build_kml_footprint_url",
+      "version": "1.0.0",
+      "title": "Build a KML fire footprint link",
+      "description": "Build FIRMS's keyless download link for a KML file of recent fire points and pixel footprints for a region (near real-time data, last 24 hours to 7 days). The file opens in a GIS tool such as Google Earth or QGIS, not in a browser.\n\nOffer it only when the user mentions GIS, footprints, Google Earth, or QGIS; otherwise ask whether they work with KML files before suggesting it. Say that the link downloads a file. Landsat footprints exist only for canada and usa_contiguous_and_hawaii.",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "region": {
+            "type": "string",
+            "enum": [
+              "canada",
+              "alaska",
+              "usa_contiguous_and_hawaii",
+              "central_america",
+              "south_america",
+              "europe",
+              "northern_and_central_africa",
+              "southern_africa",
+              "russia_asia",
+              "south_asia",
+              "southeast_asia",
+              "australia_newzealand"
+            ],
+            "description": "FIRMS KML region"
+          },
+          "period": {
+            "type": "string",
+            "enum": [
+              "24h",
+              "48h",
+              "72h",
+              "7d"
+            ],
+            "description": "How far back: 24h, 48h, 72h, or 7d"
+          },
+          "sensor": {
+            "type": "string",
+            "enum": [
+              "viirs_noaa20",
+              "viirs_noaa21",
+              "viirs_snpp",
+              "modis",
+              "landsat"
+            ],
+            "description": "Sensor whose footprints to download"
+          }
+        },
+        "required": [
+          "region",
+          "period",
+          "sensor"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string"
+          },
+          "region": {
+            "type": "string"
+          },
+          "region_label": {
+            "type": "string"
+          },
+          "period": {
+            "type": "string"
+          },
+          "period_label": {
+            "type": "string"
+          },
+          "sensor": {
+            "type": "string"
+          },
+          "sensor_label": {
+            "type": "string"
+          },
+          "downloads_file": {
+            "type": "boolean",
+            "const": true
+          },
+          "note": {
+            "type": "string"
+          },
+          "limitations": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "url",
+          "region",
+          "region_label",
+          "period",
+          "period_label",
+          "sensor",
+          "sensor_label",
+          "downloads_file",
+          "note",
+          "limitations"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "firms_list_data_sources",
+      "version": "1.0.0",
+      "title": "List FIRMS fire data sources",
+      "description": "The FIRMS active-fire sources: for each, the sensor, satellites, nominal pixel size, coverage, processing (standard or near real-time), FIRMS API source ID, Fire Map layers, the knowledge entries that explain it, and the dates FIRMS currently has (from FIRMS's map date service). No MAP_KEY is needed.\n\nStandard-processing (SP) sources come first and are marked `preferred`: use them wherever their dates cover the request. Near real-time sources cover the recent months SP has not reached yet. The URL tools apply this automatically.",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
+      },
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "sources": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "label": {
+                  "type": "string"
+                },
+                "sensor": {
+                  "type": "string"
+                },
+                "processing": {
+                  "type": "string",
+                  "enum": [
+                    "SP",
+                    "NRT"
+                  ]
+                },
+                "preferred": {
+                  "type": "boolean"
+                },
+                "instrument": {
+                  "type": "string"
+                },
+                "platforms": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "nominal_resolution_m": {
+                  "type": "number"
+                },
+                "coverage": {
+                  "type": "string"
+                },
+                "map_layers": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "knowledge_entries": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "dates": {
+                  "type": "object",
+                  "properties": {
+                    "start": {
+                      "type": "string"
+                    },
+                    "end": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "start",
+                    "end"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "id",
+                "label",
+                "sensor",
+                "processing",
+                "preferred",
+                "instrument",
+                "platforms",
+                "nominal_resolution_m",
+                "coverage",
+                "map_layers",
+                "knowledge_entries",
+                "dates"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "sensors": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "label": {
+                  "type": "string"
+                },
+                "sp_source": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "nrt_source": {
+                  "type": "string"
+                },
+                "default": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "id",
+                "label",
+                "sp_source",
+                "nrt_source",
+                "default"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "coverage": {
+            "type": "object",
+            "properties": {
+              "checked": {
+                "type": "boolean",
+                "description": "False when FIRMS's map date service could not be reached"
+              },
+              "as_of": {
+                "type": "string"
+              },
+              "source": {
+                "type": "string",
+                "enum": [
+                  "map_dates_service",
+                  "snapshot"
+                ]
+              },
+              "note": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "checked",
+              "as_of",
+              "source",
+              "note"
+            ],
+            "additionalProperties": false
+          },
+          "notes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "sources",
+          "sensors",
+          "coverage",
+          "notes"
+        ],
+        "additionalProperties": false
+      }
+    }
+  ]
 }

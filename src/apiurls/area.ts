@@ -24,11 +24,10 @@ import {
 import {
   type Coverage,
   type CoverageSummary,
-  DEFAULT_SENSORS,
   getSensor,
   type Processing,
   type ProcessingPreference,
-  planSensor,
+  planSensors,
   RECENT_NOTE,
   type SensorId,
   type SourceId,
@@ -141,21 +140,20 @@ export function buildAreaUrls(
   today: IsoDate,
 ): AreaUrlResult {
   const area = areaCoordinates(input.area);
-  const sensors = (input.sensors?.length ? input.sensors : DEFAULT_SENSORS).map((s) =>
-    getSensor(s),
-  );
   const dates = resolveDates(input, today);
   const requests: AreaRequest[] = [];
   const notes: string[] = [];
 
   if (typeof dates === "number") {
+    // The URL asks for "the most recent N days", so a sensor whose NRT data stopped before
+    // that window (Suomi NPP after 2026-11-02) would only return an empty file.
     const start = addDays(today, 1 - dates);
-    for (const sensor of sensors) {
-      // The URL asks for "the most recent N days", so a sensor whose NRT data stopped before
-      // that window (Suomi NPP after 2026-11-02) would only return an empty file.
-      const plan = planSensor(sensor.id, start, today, coverage, "nrt");
+    const planned = planSensors(input.sensors, start, today, coverage, "nrt");
+    notes.push(RECENT_NOTE, ...planned.notes.filter((note) => !note.includes("are preferred")));
+    for (const plan of planned.plans) {
+      const sensor = getSensor(plan.sensor);
       if (!plan.runs.length) {
-        notes.push(...plan.notes, `${sensor.label}: no URL was built for the most recent days.`);
+        notes.push(`${sensor.label}: no URL was built for the most recent days.`);
         continue;
       }
       requests.push(
@@ -168,29 +166,24 @@ export function buildAreaUrls(
           areaUrl(sensor.nrt_source, area, dates),
         ),
       );
-      if (sensor.sp_source === null) notes.push(...plan.notes);
-      else notes.push(...plan.notes.filter((note) => !note.includes("are preferred")));
     }
-    notes.unshift(RECENT_NOTE);
   } else {
-    for (const sensor of sensors) {
-      const plan = planSensor(sensor.id, dates.start, dates.end, coverage, input.processing);
-      notes.push(...plan.notes);
-      for (const run of plan.runs) {
-        for (let chunk = run.start; chunk <= run.end; chunk = addDays(chunk, MAX_DAY_RANGE)) {
-          const chunkEnd = [addDays(chunk, MAX_DAY_RANGE - 1), run.end].sort()[0] as IsoDate;
-          const days = daysInclusive(chunk, chunkEnd);
-          requests.push(
-            request(
-              sensor.id,
-              run.source,
-              run.processing,
-              chunk,
-              chunkEnd,
-              areaUrl(run.source, area, days, chunk),
-            ),
-          );
-        }
+    const planned = planSensors(input.sensors, dates.start, dates.end, coverage, input.processing);
+    notes.push(...planned.notes);
+    for (const run of planned.plans.flatMap((plan) => plan.runs)) {
+      for (let chunk = run.start; chunk <= run.end; chunk = addDays(chunk, MAX_DAY_RANGE)) {
+        const chunkEnd = [addDays(chunk, MAX_DAY_RANGE - 1), run.end].sort()[0] as IsoDate;
+        const days = daysInclusive(chunk, chunkEnd);
+        requests.push(
+          request(
+            run.sensor,
+            run.source,
+            run.processing,
+            chunk,
+            chunkEnd,
+            areaUrl(run.source, area, days, chunk),
+          ),
+        );
       }
     }
   }

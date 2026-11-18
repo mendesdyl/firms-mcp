@@ -9,7 +9,7 @@ import pytest
 from firms_mcp.tools.loader import discover_tools
 from tests.conftest import REPO_ROOT
 
-TOOLS_DOC = REPO_ROOT / "docs" / "design" / "TOOLS.md"
+TOOLS_DOC = REPO_ROOT / "docs" / "design" / "TOOLS_ITERATION_1.md"
 
 
 def _sections(text: str) -> dict[str, str]:

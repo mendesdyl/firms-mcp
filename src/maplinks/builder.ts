@@ -14,16 +14,15 @@
  * link shows one consistent set of layers.
  */
 import { type BoundingBox, checkBox, formatBox, formatNumber } from "../common/area.js";
-import { checkDate, describeDates, eachDay, type IsoDate } from "../common/dates.js";
+import { addDays, checkDate, describeDates, eachDay, type IsoDate } from "../common/dates.js";
 import { UrlBuilderError } from "../common/errors.js";
 import { FIRMS_BASE_URL, LIMITATIONS } from "../common/links.js";
 import {
   type Coverage,
   type CoverageSummary,
-  DEFAULT_SENSORS,
   getSensor,
   getSource,
-  planSensor,
+  planSensors,
   RECENT_NOTE,
   type SensorId,
   type SourceId,
@@ -40,6 +39,14 @@ const PERIOD_TEXT: Record<Period, string> = {
   "48hrs": "the last 48 hours",
   "72hrs": "the last 72 hours",
   "7days": "the last 7 days",
+};
+/** Days before today that each period reaches back (24hrs spans yesterday and today). */
+const PERIOD_PAST_DAYS: Record<Period, number> = {
+  today: 0,
+  "24hrs": 1,
+  "48hrs": 2,
+  "72hrs": 3,
+  "7days": 6,
 };
 /** View when no area or center is given. */
 const DEFAULT_VIEW: Record<MapName, { longitude: number; latitude: number; zoom: number }> = {
@@ -118,7 +125,11 @@ function resolveStretches(
         basic: true,
       };
     }
-    const sensors = chosen ?? DEFAULT_SENSORS;
+    // Default sensors appear only if FIRMS has NRT data for them in the period's window.
+    const windowStart = addDays(today, -PERIOD_PAST_DAYS[period]);
+    const sensors =
+      chosen ??
+      planSensors(undefined, windowStart, today, coverage, "nrt").plans.map((p) => p.sensor);
     notes.push(RECENT_NOTE);
     return {
       stretches: [
@@ -148,11 +159,8 @@ function resolveStretches(
     return { stretches: [{ dates, start, end, sources: [] }], mode: resolvedMode, basic: true };
   }
 
-  const plans = (chosen ?? DEFAULT_SENSORS).map((sensor) => {
-    const plan = planSensor(sensor, start, end, coverage);
-    notes.push(...plan.notes);
-    return plan;
-  });
+  const { plans, notes: planNotes } = planSensors(chosen, start, end, coverage);
+  notes.push(...planNotes);
   const sourcesOn = (day: IsoDate): SourceId[] =>
     plans.flatMap((plan) =>
       plan.runs.filter((r) => r.start <= day && day <= r.end).map((r) => r.source),

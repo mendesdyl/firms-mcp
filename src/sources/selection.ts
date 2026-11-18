@@ -6,7 +6,13 @@
  */
 import { describeDates, eachDay, type IsoDate } from "../common/dates.js";
 import { SP_VS_NRT_ENTRY } from "../common/links.js";
-import { getSensor, type Processing, type SensorId, type SourceId } from "./catalog.js";
+import {
+  DEFAULT_SENSORS,
+  getSensor,
+  type Processing,
+  type SensorId,
+  type SourceId,
+} from "./catalog.js";
 import type { Coverage, DateRange } from "./coverage.js";
 
 /** `standard_first` is the default; `nrt` is for a user who asks for NRT data explicitly. */
@@ -21,6 +27,7 @@ export interface Run {
 }
 
 export interface SensorPlan {
+  sensor: SensorId;
   runs: Run[];
   /** Days no source covers, as ranges. */
   uncovered: DateRange[];
@@ -108,7 +115,51 @@ export function planSensor(
       `${sensor.label}: no data for ${describeDates(gap.start, gap.end)} in the dates FIRMS lists for this sensor (${coverage.checked ? `checked ${coverage.as_of}` : `as saved on ${coverage.as_of}`}).`,
     );
   }
-  return { runs, uncovered, notes };
+  return { sensor: sensor.id, runs, uncovered, notes };
+}
+
+const GAP_NOTE = ": no data for ";
+
+/**
+ * Plans for the sensors the user named, or for the default sensors. A default sensor is used
+ * only for the dates FIRMS has its data (owner decision 2026-11-18, after Suomi NPP data
+ * production ceased on 2026-11-02): it is left out of the other dates with one short note
+ * naming the default sensors that cover them, instead of a "no data" warning. A sensor the
+ * user named keeps the warning, because they asked for it.
+ */
+export function planSensors(
+  requested: readonly SensorId[] | undefined,
+  start: IsoDate,
+  end: IsoDate,
+  coverage: Coverage,
+  preference: ProcessingPreference = "standard_first",
+): { plans: SensorPlan[]; notes: string[] } {
+  const explicit = requested !== undefined && requested.length > 0;
+  const sensors = explicit ? requested : DEFAULT_SENSORS;
+  const plans = sensors.map((s) => planSensor(s, start, end, coverage, preference));
+  if (explicit) return { plans, notes: plans.flatMap((p) => p.notes) };
+
+  const covers = (plan: SensorPlan, gap: DateRange) =>
+    eachDay(gap.start, gap.end).every((day) =>
+      plan.runs.some((r) => r.start <= day && day <= r.end),
+    );
+  const notes: string[] = [];
+  plans.forEach((plan, i) => {
+    notes.push(...plan.notes.filter((note) => !note.includes(GAP_NOTE)));
+    const label = getSensor(plan.sensor).label;
+    for (const gap of plan.uncovered) {
+      const others = plans
+        .filter((other, j) => j !== i && covers(other, gap))
+        .map((other) => getSensor(other.sensor).label);
+      notes.push(
+        `${label} is left out of the default sensors for ${describeDates(gap.start, gap.end)}, where FIRMS has no data for it` +
+          (others.length
+            ? `; ${others.join(", ")} cover${others.length === 1 ? "s" : ""} those dates.`
+            : "."),
+      );
+    }
+  });
+  return { plans: plans.filter((plan) => plan.runs.length), notes };
 }
 
 /** The note for "today" or "the last N days", where SP cannot exist yet. */

@@ -9,6 +9,10 @@ All notable changes to this project are documented here. The format follows
 
 ### Changed (iteration 2)
 
+- Seven keyless `firms_` tools (knowledge search, entries, topics; Fire Map, FIRMS API, and
+  KML URL building; source catalog), three resources, and full server instructions. Default
+  sensors include Suomi NPP only for dates FIRMS has its data. Server version 0.3.0.
+
 - URL builders in TypeScript, standard data first: FIRMS area API URLs with a `[MAP_KEY]`
   placeholder, split into labelled standard and NRT stretches; Fire Map links that use the
   standard-processing layers for past dates; KML footprint links; coverage from FIRMS's map

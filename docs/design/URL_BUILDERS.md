@@ -4,7 +4,7 @@ Implements [ADR-0011](../decisions/0011-keyless-scope-typescript-rewrite-standar
 §2, §4 and §7. Requirements: FR-URL-001 … FR-URL-004, FR-MAP-001 … FR-MAP-007,
 FR-DATA-002, FR-DATA-008, FR-DATA-010, FR-DATA-011, FR-DATA-015. Running list: WK-22.
 
-The builders are pure functions: they take the request, the date coverage, and today's
+The builders are pure functions (the tools in [TOOLS.md](TOOLS.md) call them): they take the request, the date coverage, and today's
 date, and return URLs with notes. They never fetch FIRMS data and never see a MAP_KEY. The
 tools that call them (WK-23) fetch the coverage first.
 
@@ -56,7 +56,10 @@ NRT, with a note that SP cannot exist yet for those days.
 - Without dates, `recent_days` (1–5) builds the "most recent data" URL. A sensor whose NRT
   data stopped before that window (Suomi NPP after 2026-11-02) gets no URL and a note.
 - Default sensors: VIIRS NOAA-20, VIIRS NOAA-21, VIIRS Suomi NPP, MODIS (Landsat is
-  US/Canada only and must be asked for).
+  US/Canada only and must be asked for). A default sensor is used only for the dates FIRMS
+  has its data (owner decision 2026-11-18, OD-07; FR-URL-005): Suomi NPP, whose data stopped
+  on 2026-11-02, is left out after that with one note naming the default sensors that cover
+  those dates. A sensor the user names keeps the "no data" warning.
 - Every result carries the MAP_KEY guidance (placeholder, sign-up page, where it goes), the
   fixed limitations statement, and the related pages: the `data_availability` URL, the
   missing-data page, the archive download page, and the MAP_KEY page.

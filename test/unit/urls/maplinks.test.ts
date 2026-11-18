@@ -85,6 +85,23 @@ describe("Fire Map links", () => {
     expect(result.notes.join("\n")).toMatch(/standard-processing data cannot exist yet/);
   });
 
+  it("[REQ-FR-URL-005] shows default sensors only for dates they have data", () => {
+    const recent = build({ mode: "advanced", period: "24hrs" });
+    expect(recent.links[0]?.layers).toEqual([
+      "fires_viirs_noaa20",
+      "fires_viirs_noaa21",
+      "fires_modis_terra",
+      "fires_modis_aqua",
+      "country-outline",
+      "earth",
+    ]);
+    const past = build({ start_date: "2026-11-01", end_date: "2026-11-04" });
+    expect(past.links.map((l) => [l.dates, l.layers.includes("fires_viirs_snpp")])).toEqual([
+      ["2026-11-01..2026-11-02", true],
+      ["2026-11-03..2026-11-04", false],
+    ]);
+  });
+
   it("[REQ-FR-MAP-002] validates layers against the catalog and the mode", () => {
     expect(() => build({ extra_layers: ["no_such_layer"] })).toThrow(
       /unknown Fire Map layer\(s\): no_such_layer/,
