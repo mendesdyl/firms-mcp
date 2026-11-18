@@ -1,0 +1,1361 @@
+{
+ "generated_by": "iteration-1 Python search (v0-iteration-1), 2026-11-18",
+ "cases": [
+  {
+   "query": "VIIRS confidence",
+   "hits": [
+    {
+     "id": "faq.getting-started.what-is-the-detection-confidence",
+     "score": 6.0833,
+     "snippet": "The confidence value was added to help users gauge the quality of individual fire pixels included in the Level 2 fire product. The confidence field should be used with caution as it is likely that it will vary in terms of meaning in differe…"
+    },
+    {
+     "id": "supplement.data-attributes.modis-viirs-nrt",
+     "score": 5.3147,
+     "snippet": "…eter (MODIS) and Visible Infrared Imaging Radiometer Suite (VIIRS). Learn more about MODIS NRT data, VIIRS-Atmosphere NRT data, and VIIRS-Land NRT data. NRT active fire data is distributed by NASA's Fire Information for Resource Management…"
+    },
+    {
+     "id": "faq.viirs.are-those-few-isolated-fire-pixels-in-the-middle-of-the-south",
+     "score": 4.9945,
+     "snippet": "…contains a specific filter to flag those occurrences as low confidence detections. However, in some cases (average 2-3 pixels every night) the spurious signal generated in the input Level 1 data is confused for a regular fire pixel and ther…"
+    },
+    {
+     "id": "faq.landsat.what-are-the-attributes-of-the-landsat-fire-data",
+     "score": 4.5145,
+     "snippet": "…followed by HH:MM-SS. For example, 2022-07-23 10:09:00. | | Confidence | Confidence | Value domain: H, M, and L:<br>- H: Higher confidence<br>- M: Medium confidence<br>- L: Lower confidence | | Version | Version (FIRMS reference only) | 1.0…"
+    },
+    {
+     "id": "faq.geostationary.what-are-the-attributes-of-the-geostationary-fire-data",
+     "score": 3.7897,
+     "snippet": "…YY-MM-DD followed by HH:MM. For example, the time 12:14 | | Confidence | Confidence | FRP-PIXEL: Value range 0-1. Higher values correspond to higher detection confidences.<br>FDC-HSC: class values range from 10-15 and 30- 35 and are indicat…"
+    },
+    {
+     "id": "faq.geostationary.why-are-the-geostationary-fire-data-filtered-in-firms",
+     "score": 3.4874,
+     "snippet": "…ODIS/Terra 7,2,1 Corrected Reflectance image, overlain with VIIRS active fire detections shown as red pixels. FIRMS example with fire indicated by dots and key on right *Image caption:* This third image in the series of FIRMS screenshots fr…"
+    },
+    {
+     "id": "faq.getting-started.what-are-modis-and-viirs-collections",
+     "score": 3.3416,
+     "snippet": "Reprocessing of the entire MODIS and VIIRS data archive is periodically performed to incorporate better calibration, algorithm refinements, and improved upstream products into all MODIS or VIIRS products. The updated data archive resulting…"
+    },
+    {
+     "id": "supplement.disclaimers.fire-map-disclaimer",
+     "score": 3.2686,
+     "snippet": "…te 1km x 1km pixel for MODIS data and 375m x 375m pixel for VIIRS. Detected activity could be a small, intense fire or a fire burning over a broader area within the pixel. It does not mean the entire square is entirely on fire. What does a…"
+    },
+    {
+     "id": "faq.caveats.are-there-ever-false-fire-detections-or-data-artifacts",
+     "score": 3.0873,
+     "snippet": "…/reflective surfaces (e.g., metallic factory rooftops), the VIIRS and MODIS algorithms use slightly more conservative tests to avoid the effects of Sun glint. ### Super-Heated Smoke Plumes A few VIIRS active fire pixels are occasionally loc…"
+    },
+    {
+     "id": "supplement.api.data-availability",
+     "score": 1.4279,
+     "snippet": "…IS Near Real-Time) - MODIS_SP (MODIS Standard Processing) - VIIRS_NOAA20_NRT (VIIRS NOAA-20 Near Real-Time) - VIIRS_NOAA20_SP (VIIRS NOAA-20 Standard Processing) - VIIRS_NOAA21_NRT (VIIRS NOAA-21 Near Real-Time) - VIIRS_SNPP_NRT (VIIRS Suom…"
+    }
+   ]
+  },
+  {
+   "query": "how fast is the data available",
+   "hits": [
+    {
+     "id": "faq.getting-started.how-often-is-firms-updated",
+     "score": 6.393,
+     "snippet": "FIRMS is updated regularly as new data are ingested. However, it is important to note that the data are derived from instruments onboard polar orbiting satellites (MODIS aboard Terra and Aqua, and VIIRS aboard Suomi NPP and NOAA-20/21), and…"
+    },
+    {
+     "id": "faq.rt-urt.what-are-the-real-time-rt-and-ultra-real-time-urt-data-in-firms",
+     "score": 4.7067,
+     "snippet": "NASA EOSDIS defines real-time (RT) data as data that are available to the end user within one hour of the satellite fly-over (see Data Latency and What time does the satellite pass over my area?). Ultra real-time (URT) data are available mu…"
+    },
+    {
+     "id": "faq.hls.what-is-the-temporal-coverage-latency-and-spatial-resolution-of",
+     "score": 4.4287,
+     "snippet": "- Temporal coverage: Landsat HLS product data in FIRMS extend from April 11, 2013, to the present. Sentinel-2 HLS product data extend from November 28, 2015, to the present. - Temporal resolution: Landsat 8/9 products have a temporal resolu…"
+    },
+    {
+     "id": "faq.landsat.why-does-the-latency-differ-between-the-landsat-active-fire",
+     "score": 4.3754,
+     "snippet": "Landsat active fire detection data are produced in collaboration with the USGS EROS Data Center in Sioux Falls, South Dakota. Daily Landsat 8 and Landsat 9 OLI imagery for the continental United States, southern Canada, and northern Mexico…"
+    },
+    {
+     "id": "faq.rt-urt.are-urt-data-provided-for-all-firms-products",
+     "score": 4.2464,
+     "snippet": "So far, URT active fire detection data are available in FIRMS interactive maps, KMZs, and web services for most of the conterminous U.S. plus S Canada and N Mexico."
+    },
+    {
+     "id": "faq.us-canada.more-about-the-ultra-real-time-urt-and-real-time-rt-data-in",
+     "score": 4.0714,
+     "snippet": "…Real-Time (URT) MODIS and VIIRS active fire detections are available for the US and Canada. These data are compiled from multiple direct readout ground stations in CONUS as part of a partnership with the Space Science and Engineering Cente…"
+    },
+    {
+     "id": "faq.rt-urt.how-are-urt-active-fire-detection-data-integrated-and-used-with",
+     "score": 3.6867,
+     "snippet": "URT active fire detection data provided by select ground stations are integrated into FIRMS fire maps, KMZs and web map services within minutes of satellite observation. NRT active fire detection data replace the URT data in FIRMS mapping a…"
+    },
+    {
+     "id": "faq.rt-urt.are-there-particular-differences-between-urt-data-rt-data-and",
+     "score": 3.4994,
+     "snippet": "…a Real-Time (URT), Real-Time (RT), and Near Real-Time (NRT) data are all relative forms of low-latency data products made available more quickly than standard processing to support environmental monitoring, response to hazard/disaster event…"
+    },
+    {
+     "id": "faq.getting-started.what-are-modis-and-viirs-collections",
+     "score": 3.3692,
+     "snippet": "Reprocessing of the entire MODIS and VIIRS data archive is periodically performed to incorporate better calibration, algorithm refinements, and improved upstream products into all MODIS or VIIRS products. The updated data archive resulting…"
+    },
+    {
+     "id": "supplement.api.area",
+     "score": 3.2985,
+     "snippet": "…]/[SOURCE]/[AREA_COORDINATES]/[DAY_RANGE] - Get most recent data, from TODAY to TODAY - (DAY_RANGE-1) - /api/area/csv/[MAP_KEY]/[SOURCE]/[AREA_COORDINATES]/[DAY_RANGE]/[DATE] - Returns data for [DATE] .. [DATE + DAY_RANGE-1] Attribute table…"
+    }
+   ]
+  },
+  {
+   "query": "MAP_KEY transaction limit",
+   "hits": [
+    {
+     "id": "supplement.api.map-key",
+     "score": 20.9394,
+     "snippet": "# Request FIRMS Map Key Due to heavy server resource demand when generating data, MAP_KEY is needed in order to process your request. MAP_KEY limit is **5000 transactions / 10-minute interval**.\\ Larger transactions may count as multiple re…"
+    },
+    {
+     "id": "supplement.api.data-availability",
+     "score": 11.6881,
+     "snippet": "- /api/data_availability/csv/[MAP_KEY]/[SENSOR] **SENSOR:** - ALL - all available sensors - LANDSAT_NRT (LANDSAT 8/9) - MODIS_NRT (MODIS Near Real-Time) - MODIS_SP (MODIS Standard Processing) - VIIRS_NOAA20_NRT (VIIRS NOAA-20 Near Real-Time…"
+    },
+    {
+     "id": "supplement.api.area",
+     "score": 9.5325,
+     "snippet": "- /api/area/csv/[MAP_KEY]/[SOURCE]/[AREA_COORDINATES]/[DAY_RANGE] - Get most recent data, from TODAY to TODAY - (DAY_RANGE-1) - /api/area/csv/[MAP_KEY]/[SOURCE]/[AREA_COORDINATES]/[DAY_RANGE]/[DATE] - Returns data for [DATE] .. [DATE + DAY_…"
+    },
+    {
+     "id": "faq.geostationary.why-are-the-geostationary-fire-data-filtered-in-firms",
+     "score": 5.8174,
+     "snippet": "…enshot showing active fire in orange on a green background; key on right *Image caption:* This series (1 of 3) of FIRMS screenshots, from August 11, 2022, show fires detected in the Serra da Estrela National Park, Portugal. This first scree…"
+    },
+    {
+     "id": "faq.getting-started.what-time-does-the-satellite-pass-over-my-area",
+     "score": 5.5588,
+     "snippet": "In FIRMS Fire Map and NASA Worldview you can overlay the daily orbit tracks to see satellite overpass times for your area of interest based on the currently selected date. For more precise information regarding anticipated satellite observa…"
+    },
+    {
+     "id": "faq.getting-started.what-are-the-key-differences-between-urt-rt-nrt-and-standard",
+     "score": 3.6994,
+     "snippet": "…pedited manner (as Session-based Production Data Sets). One key difference between the MODIS/Aqua NRT and MODIS/Aqua Standard (science quality) Fire Products is the accuracy of the fire locations (positions or geolocation). Unlike MODIS/Ter…"
+    },
+    {
+     "id": "faq.swaths.how-does-viirs-improve-upon-the-swath-edge-effects-compared-to",
+     "score": 3.6462,
+     "snippet": "The VIIRS instrument features onboard processing that limits the growth of pixels toward the edge of the swath. While MODIS pixels expand significantly at swath edges, VIIRS maintains a much more consistent pixel size across its entire 3,04…"
+    },
+    {
+     "id": "faq.us-canada.what-is-the-minimum-size-of-wildfire-displayed-in-the-usa",
+     "score": 3.6066,
+     "snippet": "…with relatively larger sized incidents. Consequently, FIRMS limits the display of wildfire incident locations in the US and Canada to those greater than or equal to 100 acres (40 hectares) in size."
+    },
+    {
+     "id": "faq.static-thermal-anomalies.how-is-the-static-thermal-anomalies-mask-layer-created",
+     "score": 3.6066,
+     "snippet": "…le industrial/power plant location datasets in an effort to limit the mask to areas not associated with vegetation fires."
+    },
+    {
+     "id": "faq.email-alerts.i-requested-a-map-image-with-my-email-alert-but-i-can-t-see-the",
+     "score": 3.3082,
+     "snippet": "…re; it is likely that you will also not be able to view the map image if the email is in your spam/junk folder. You should add the FIRMS email address and/or email domain to the safe senders list so it will deliver the email to your inbox a…"
+    }
+   ]
+  },
+  {
+   "query": "what does a fire detection mean on the ground",
+   "hits": [
+    {
+     "id": "faq.getting-started.what-does-a-fire-detection-mean-on-the-ground",
+     "score": 11.0277,
+     "snippet": "…hot’ of events as they pass over Earth. Each hotspot/active fire detection represents the center of a pixel flagged as containing one or more fires or other thermal anomalies (such as volcanoes). For MODIS the pixel is approximately 1 km an…"
+    },
+    {
+     "id": "faq.modis.what-does-a-modis-active-fire-detection-mean-on-the-ground",
+     "score": 10.7563,
+     "snippet": "…hot’ of events as they pass over earth. Each hotspot/active fire detection represents the center of a 1 km (approx.) pixel flagged as containing one or more fires or other thermal anomalies (such as volcanoes). The “location” is the center…"
+    },
+    {
+     "id": "supplement.disclaimers.fire-map-disclaimer",
+     "score": 9.0374,
+     "snippet": "…preservation of life or property. Satellite-derived active fire / thermal anomalies have limited accuracy.\\ Please see our Disclaimer Active fire/thermal anomalies may be from fire, hot smoke, agriculture or other sources. Cloud cover may…"
+    },
+    {
+     "id": "faq.fire-map.what-does-today-vs-24-hours-mean",
+     "score": 6.7688,
+     "snippet": "\"Today\" will show active fire detection data from 0000 GMT to present. “24 hours” will display active fire detection data from 0000 GMT yesterday to present. Click on the \"i\" icon in the date tab (top right of the FIRMS Fire Map menu) to se…"
+    },
+    {
+     "id": "faq.landsat.why-are-landsat-fire-data-only-available-for-north-america",
+     "score": 5.6029,
+     "snippet": "The Landsat Fire and Thermal Anomalies (LFTA) product is currently produced through a collaboration by USGS EROS Data Center, NASA, and the USDA Forest Service. Daily Landsat 8 and Landsat 9 OLI observations are processed in real-time by ER…"
+    },
+    {
+     "id": "faq.modis.what-does-scan-and-track-mean",
+     "score": 4.8623,
+     "snippet": "…ibutes (see: What are the attributes / fields of the active fire data?). The scan value represents the spatial-resolution in the East-West direction of the scan and the track value represents the North-South spatial resolution of the scan.…"
+    },
+    {
+     "id": "faq.us-canada.what-is-the-source-for-usa-fire-weather-watches-and-red-flag",
+     "score": 4.6824,
+     "snippet": "The National Weather Service (NWS) is the source for fire weather watches and red flag warnings. A fire weather watch or red flag warning is issued by local/regional NWS forecast offices when the combination of dry fuels and weather conditi…"
+    },
+    {
+     "id": "faq.swaths.does-the-location-of-a-fire-within-the-swath-affect-the",
+     "score": 4.6741,
+     "snippet": "…causes the pixel to stretch and cover a larger area on the ground (often referred to as the \"bow-tie effect\"). While a fire will still be detected at the edge of a swath, the exact location and the minimum detectable fire size may be less…"
+    },
+    {
+     "id": "faq.rt-urt.how-are-urt-active-fire-detection-data-integrated-and-used-with",
+     "score": 4.5323,
+     "snippet": "URT active fire detection data provided by select ground stations are integrated into FIRMS fire maps, KMZs and web map services within minutes of satellite observation. NRT active fire detection data replace the URT data in FIRMS mapping a…"
+    },
+    {
+     "id": "faq.swaths.how-does-viirs-improve-upon-the-swath-edge-effects-compared-to",
+     "score": 4.4794,
+     "snippet": "…t pixel size across its entire 3,040 km field of view. This means VIIRS provides higher spatial resolution and more consistent active fire detection capability, even at the extreme edges of its observational swath."
+    }
+   ]
+  },
+  {
+   "query": "isolated pixels South Atlantic ocean",
+   "hits": [
+    {
+     "id": "faq.viirs.are-those-few-isolated-fire-pixels-in-the-middle-of-the-south",
+     "score": 28.2496,
+     "snippet": "…pically associated with spurious fire detections due to the South Atlantic Magnetic Anomaly. The 375 m active fire algorithm contains a specific filter to flag those occurrences as low confidence detections. However, in some cases (average…"
+    },
+    {
+     "id": "faq.modis.what-does-scan-and-track-mean",
+     "score": 5.4183,
+     "snippet": "…ection of the scan and the track value represents the North-South spatial resolution of the scan. It should be noted that the pixel size is not always 1 km across the scan track. The pixels at the “Eastern” and the “Western” edges of the sc…"
+    },
+    {
+     "id": "faq.caveats.are-there-ever-false-fire-detections-or-data-artifacts",
+     "score": 4.8446,
+     "snippet": "…lint. ### Super-Heated Smoke Plumes A few VIIRS active fire pixels are occasionally located outside the reported perimeter of a large wildfire. The parallax effect causes the tall/superheated plume detection pixel(s) to be displaced lateral…"
+    },
+    {
+     "id": "supplement.data-attributes.modis-viirs-nrt",
+     "score": 4.6805,
+     "snippet": "…| |---|---|---| | Latitude | Latitude | Center of 1 km fire pixel, but not necessarily the actual location of the fire as one or more fires can be detected within the 1 km pixel. | | Longitude | Longitude | Center of 1 km fire pixel, but no…"
+    },
+    {
+     "id": "faq.getting-started.what-time-does-the-satellite-pass-over-my-area",
+     "score": 4.6399,
+     "snippet": "…ing anticipated satellite observations, please use the NASA Ocean Color Overpass Predictor. It provides a report of observations conducted by selected satellite sensors for a user-defined location and period of time, including the anticipat…"
+    },
+    {
+     "id": "faq.landsat.what-are-the-attributes-of-the-landsat-fire-data",
+     "score": 4.417,
+     "snippet": "…t 9 | | Latitude | Latitude (decimal degrees) | Latitude of pixel center | | Longitude | Longitude (decimal degrees) | Longitude of pixel center | | Path | Path | Path number as identified in the World Reference System-2 (WRS-2) | | Row | R…"
+    },
+    {
+     "id": "faq.email-alerts.do-you-provide-mobile-cell-phone-text-messages",
+     "score": 4.3525,
+     "snippet": "…ch a service in collaboration with ESKOM and CSIR Meraka in South Africa for the protection of power lines in remote areas from wildfires by informing operators in the field about fire events in near-real time. For more information see: Dav…"
+    },
+    {
+     "id": "faq.getting-started.what-are-modis-and-viirs-collections",
+     "score": 4.0287,
+     "snippet": "…idence to more accurately identify questionable active fire pixels. Collection 6 reprocessing began in 2015. In terms of fire detections, the key differences between Collection 5 and Collection 6 were that: Collection 6 extends processing t…"
+    },
+    {
+     "id": "supplement.api.kml-fire-footprints",
+     "score": 3.4115,
+     "snippet": "…72h 7days | 24h 48h 72h 7days | 24h 48h 72h 7days | N/A | | South America | 24h 48h 72h 7days | 24h 48h 72h 7days | 24h 48h 72h 7days | 24h 48h 72h 7days | N/A | | Europe | 24h 48h 72h 7days | 24h 48h 72h 7days | 24h 48h 72h 7days | 24h 48h…"
+    },
+    {
+     "id": "faq.swaths.why-do-i-sometimes-see-gaps-between-swaths-near-the-equator",
+     "score": 3.3221,
+     "snippet": "…ropical regions (between approximately 30 degrees North and South). However, these gaps are typically covered on the satellite's next pass or by a different satellite in the FIRMS network."
+    }
+   ]
+  },
+  {
+   "query": "estimate burned area from detections",
+   "hits": [
+    {
+     "id": "faq.caveats.can-i-estimate-burned-area-from-active-fire-data",
+     "score": 13.1523,
+     "snippet": "It is not recommended to use active fire locations to estimate burned area as determining burned area to an acceptable degree of accuracy is not possible due to nontrivial spatial and temporal sampling issues. For some applications, however…"
+    },
+    {
+     "id": "faq.modis.what-size-fires-can-be-detected",
+     "score": 9.7292,
+     "snippet": "…50 m<sup>2</sup> can be detected. It is not recommended to estimate burned area from the active fire data, see: Can I estimate burned area using the active fire data?. Unlike most contextual fire detection algorithms designed for satellite…"
+    },
+    {
+     "id": "faq.modis.where-can-i-get-the-modis-burned-area-product",
+     "score": 8.2548,
+     "snippet": "MODIS Active Fire & Burned Area Products web site and the MODIS Burned Area User Guide (Updated November 2022) and the MODIS Collection 6 and 6.1 Active Fire Product User Guide."
+    },
+    {
+     "id": "faq.hls.how-is-hls-imagery-useful-for-wildland-fire-management",
+     "score": 6.8997,
+     "snippet": "…layer is particularly useful for identifying and monitoring burned areas. It complements the false-color composite MODIS and VIIRS imagery by providing higher fidelity imagery to view active fire fronts, discern fire impacts and damage on t…"
+    },
+    {
+     "id": "faq.modis.where-can-i-get-more-information-on-the-modis-fire-products",
+     "score": 6.6146,
+     "snippet": "…blications by Louis Giglio as well as the MODIS Active Fire Burned Area Products website and the MODIS Burned Area User Guide (Updated November 2022) and the MODIS Collection 6 Active Fire Product User Guide (Updated December 2020)."
+    },
+    {
+     "id": "faq.experimental.how-does-the-viirs-modeled-fire-perimeter-data-product-differ",
+     "score": 5.8282,
+     "snippet": "…on the FEDS algorithm and available 375 m VIIRS active fire detection data from Suomi-NPP and NOAA-20. The modeled perimeter is an estimate of the fire-affected area, active portion of the fire perimeter, and metrics of fire behavior. The V…"
+    },
+    {
+     "id": "faq.caveats.what-is-frp-and-what-factors-should-be-considered-across-sensors",
+     "score": 4.3191,
+     "snippet": "…o the rate of biomass combustion and rate of emissions. FRP estimates are provided for active fire data from MODIS, VIIRS and geostationary sensors used in FIRMS. Sensor spatial resolution, saturation temperature of thermal bands, satellite…"
+    },
+    {
+     "id": "faq.us-canada.what-active-fire-data-and-imagery-are-available-in-firms-us",
+     "score": 3.9478,
+     "snippet": "…</sup> | |---|---|---|---|---| | Polar orbiting Active Fire Detections | MODIS (Terra/Aqua) | SSEC Univ of Wisconsin | 1km | <1-30 mins | | Polar orbiting Active Fire Detections | VIIRS (Suomi NPP/NOAA-20/NOAA-21) | SSEC Univ of Wisconsin |…"
+    },
+    {
+     "id": "faq.experimental.what-is-the-viirs-modeled-fire-perimeter-product",
+     "score": 3.8165,
+     "snippet": "…ithm (Chen et al., 2022) to cluster VIIRS 375 m active fire detection data into individual fire events and track fire spread and behavior every 12 hours (see Figure 1). The FEDS algorithm uses an alpha shape approach to model the fire perim…"
+    },
+    {
+     "id": "faq.getting-started.what-active-fire-data-and-imagery-are-available-in-firms-global",
+     "score": 3.5249,
+     "snippet": "…erage) | |---|---|---|---|---| | Polar orbiting Active Fire Detections | MODIS (Terra/Aqua) | NASA LANCE | 1km | <3 hours (Global) | | Polar orbiting Active Fire Detections | VIIRS (Suomi NPP/NOAA-20/NOAA-21) | NASA LANCE | 375m | <3 hours…"
+    }
+   ]
+  },
+  {
+   "query": "time zone UTC",
+   "hits": [
+    {
+     "id": "faq.getting-started.what-is-utc",
+     "score": 16.5616,
+     "snippet": "UTC is known as \"Universal Coordinated Time”, “Coordinated Universal Time” or “Zulu Time”. It is a worldwide scientific standard of timekeeping. Its reference point is Greenwich, England: when it is midnight there on Earth's prime meridian,…"
+    },
+    {
+     "id": "faq.landsat.what-are-the-attributes-of-the-landsat-fire-data",
+     "score": 4.5901,
+     "snippet": "…em. Generally increases in value from north to south for daytime and nighttime overpasses. | | Scan | Scan | The pixel location in the cross-track dimension of the Landsat path based on the OLI Line-of-Sight (LOS) coordinate system. General…"
+    },
+    {
+     "id": "faq.us-canada.what-is-the-source-for-usa-fire-weather-watches-and-red-flag",
+     "score": 3.8755,
+     "snippet": "…fuels and weather conditions in designated NWS fire weather zones support extreme fire danger. Criteria for fire weather watches and red flag warnings vary by NWS office, but are typically based on the presence of fuel characteristics favor…"
+    },
+    {
+     "id": "faq.viirs.what-is-the-spatial-resolution-of-the-data",
+     "score": 3.7814,
+     "snippet": "…he three distinct regions represent unique data aggregation zones extending from nadir to the edge of swath. The aggregation scheme changes across three distinct image regions. In the first region (nadir to 31.59° scan angle), three native…"
+    },
+    {
+     "id": "supplement.data-attributes.modis-viirs-nrt",
+     "score": 3.4529,
+     "snippet": "Below is a list of fire attribute fields for near real-time (NRT) active fire data from the Moderate Resolution Imaging Spectroradiometer (MODIS) and Visible Infrared Imaging Radiometer Suite (VIIRS). Learn more about MODIS NRT data, VIIRS-…"
+    },
+    {
+     "id": "faq.rt-urt.what-are-the-real-time-rt-and-ultra-real-time-urt-data-in-firms",
+     "score": 1.7446,
+     "snippet": "NASA EOSDIS defines real-time (RT) data as data that are available to the end user within one hour of the satellite fly-over (see Data Latency and What time does the satellite pass over my area?). Ultra real-time (URT) data are available mu…"
+    },
+    {
+     "id": "supplement.api.area",
+     "score": 1.6943,
+     "snippet": "…SOURCE:** - LANDSAT_NRT [US/Canada only] (LANDSAT Near Real-Time, Real-Time and Ultra Real-Time *) - MODIS_NRT (MODIS Near Real-Time, Real-Time and Ultra Real-Time *) - MODIS_SP (MODIS Standard Processing) - VIIRS_NOAA20_NRT (VIIRS NOAA-20…"
+    },
+    {
+     "id": "faq.getting-started.what-time-does-the-satellite-pass-over-my-area",
+     "score": 1.6853,
+     "snippet": "…an overlay the daily orbit tracks to see satellite overpass times for your area of interest based on the currently selected date. For more precise information regarding anticipated satellite observations, please use the NASA Ocean Color Ove…"
+    },
+    {
+     "id": "faq.us-canada.more-about-the-ultra-real-time-urt-and-real-time-rt-data-in",
+     "score": 1.6655,
+     "snippet": "Ultra Real-Time (URT) MODIS and VIIRS active fire detections are available for the US and Canada. These data are compiled from multiple direct readout ground stations in CONUS as part of a partnership with the Space Science and Engineering…"
+    },
+    {
+     "id": "faq.email-alerts.what-are-the-near-real-time-email-alerts",
+     "score": 1.6156,
+     "snippet": "…t satellite observations occur at high latitudes. Near real-time alerts are usually sent within 3 hours of satellite observation for fires detected using MODIS aboard Aqua and Terra, and within 4 hours for fires detected using data from VII…"
+    }
+   ]
+  },
+  {
+   "query": "smoke plume parallax",
+   "hits": [
+    {
+     "id": "faq.caveats.are-there-ever-false-fire-detections-or-data-artifacts",
+     "score": 13.5559,
+     "snippet": "…e tests to avoid the effects of Sun glint. ### Super-Heated Smoke Plumes A few VIIRS active fire pixels are occasionally located outside the reported perimeter of a large wildfire. The parallax effect causes the tall/superheated plume detec…"
+    },
+    {
+     "id": "faq.preamble",
+     "score": 9.7139,
+     "snippet": "…gov (no subject or text is required). Warning: Super-heated smoke plumes can cause artifacts in nighttime detections. See: Super heated smoke plumes cause data artifacts in nighttime detections (July 17, 2020). Please also see \"Are there ev…"
+    },
+    {
+     "id": "faq.fire-map.what-is-the-best-way-to-view-smoke-in-the-fire-map",
+     "score": 5.3539,
+     "snippet": "To view smoke, add one of the corrected reflectance layers from the MODIS or VIIRS from the \"backgrounds\" section of the menu on the right. In addition, you could add the OMPS Aerosol Index (AI) and OMPS Aerosol Index (PyroCumuloNimbus) fro…"
+    },
+    {
+     "id": "faq.fire-map.why-should-i-care-about-using-the-noaa-20-omps-ai-instead-of-or",
+     "score": 4.4994,
+     "snippet": "…PP OMPS AI, allowing for better detection and monitoring of smoke and aerosols."
+    },
+    {
+     "id": "supplement.disclaimers.fire-map-disclaimer",
+     "score": 3.7219,
+     "snippet": "…claimer Active fire/thermal anomalies may be from fire, hot smoke, agriculture or other sources. Cloud cover may obscure active fire detections. What does a fire detection mean on the ground? Frequently Asked Questions #### Additional infor…"
+    },
+    {
+     "id": "faq.modis.what-size-fires-can-be-detected",
+     "score": 3.5766,
+     "snippet": "…position, land surface temperature, cloud cover, amount of smoke and wind direction, etc.), so the precise value will vary slightly with these conditions. MODIS routinely detects both flaming and smoldering fires 1000 m<sup>2</sup> in size…"
+    },
+    {
+     "id": "faq.getting-started.why-was-a-particular-fire-not-detected",
+     "score": 3.1404,
+     "snippet": "…nd ended between satellite observations; cloud cover, heavy smoke, or tree canopy may completely obscure a fire; occasionally the instruments are inoperable and can observe nothing during these times (see data outages and known issues for M…"
+    },
+    {
+     "id": "faq.fire-map.why-is-the-spatial-resolution-of-the-viirs-active-fire-pixels",
+     "score": 2.7617,
+     "snippet": "…s. The OMPS AI layer is useful for identifying and tracking smoke from wildfires or biomass burning events as well as dust from desert dust storms and the long-range transport of volcanic ash from volcanic eruptions. Values of 5.0, or highe…"
+    },
+    {
+     "id": "faq.us-canada.how-do-i-interpret-use-wildfire-perimeter-data-in-the-context",
+     "score": 2.0461,
+     "snippet": "…ditions: Atmospheric conditions, including clouds and heavy smoke, can partially or fully obscure fire activity at the time of a satellite overpass and hinder its detection. This omission of potentially detected fire activity can result in…"
+    }
+   ]
+  },
+  {
+   "query": "detection confidence low nominal high",
+   "hits": [
+    {
+     "id": "faq.getting-started.what-is-the-detection-confidence",
+     "score": 19.3733,
+     "snippet": "The confidence value was added to help users gauge the quality of individual fire pixels included in the Level 2 fire product. The confidence field should be used with caution as it is likely that it will vary in terms of meaning in differe…"
+    },
+    {
+     "id": "supplement.data-attributes.modis-viirs-nrt",
+     "score": 13.1378,
+     "snippet": "Below is a list of fire attribute fields for near real-time (NRT) active fire data from the Moderate Resolution Imaging Spectroradiometer (MODIS) and Visible Infrared Imaging Radiometer Suite (VIIRS). Learn more about MODIS NRT data, VIIRS-…"
+    },
+    {
+     "id": "faq.viirs.are-those-few-isolated-fire-pixels-in-the-middle-of-the-south",
+     "score": 12.1895,
+     "snippet": "…ose occurrences are typically associated with spurious fire detections due to the South Atlantic Magnetic Anomaly. The 375 m active fire algorithm contains a specific filter to flag those occurrences as low confidence detections. However, i…"
+    },
+    {
+     "id": "faq.geostationary.why-are-the-geostationary-fire-data-filtered-in-firms",
+     "score": 8.2064,
+     "snippet": "…data from geostationary satellites can yield spurious fire detections. These can result from sunglint, bright water, bright deserts/soils, coastlines, and navigation inconsistencies resulting in positioning error. The Meteosat SEVIRI and H…"
+    },
+    {
+     "id": "faq.caveats.can-active-fires-be-detected-below-the-forest-canopy",
+     "score": 5.305,
+     "snippet": "…e beneath the tree canopy is unknown, but likely to be very low. Understory fires are typically small, and with the tree canopy obstructing the view of the fire, detection will be very unlikely."
+    },
+    {
+     "id": "faq.caveats.are-there-ever-false-fire-detections-or-data-artifacts",
+     "score": 5.0926,
+     "snippet": "…fire. The parallax effect causes the tall/superheated plume detection pixel(s) to be displaced laterally when projected onto the surface. Displaced pixels will be located on the fire perimeter’s side further away from the image center and c…"
+    },
+    {
+     "id": "faq.geostationary.what-are-the-attributes-of-the-geostationary-fire-data",
+     "score": 4.7158,
+     "snippet": "The attributes are described in the following table: | Attribute | Short Description | Long Description | |---|---|---| | Latitude | Latitude (decimal degrees) | Latitude of pixel center. Note: Pixel size/dimension is affected by satellite…"
+    },
+    {
+     "id": "faq.landsat.what-are-the-attributes-of-the-landsat-fire-data",
+     "score": 4.5145,
+     "snippet": "The attributes are described in the following table: | Attribute | Short Description | Long Description | |---|---|---| | Satellite | Satellite | L8 = Landsat 8; L9 = Landsat 9 | | Latitude | Latitude (decimal degrees) | Latitude of pixel c…"
+    },
+    {
+     "id": "supplement.disclaimers.fire-map-disclaimer",
+     "score": 3.9964,
+     "snippet": "…lture or other sources. Cloud cover may obscure active fire detections. What does a fire detection mean on the ground? Frequently Asked Questions #### Additional information Red squares show satellite derived thermal anomalies which may be…"
+    },
+    {
+     "id": "faq.viirs.what-is-the-temporal-frequency-of-the-viirs-375-m-fire-data",
+     "score": 3.748,
+     "snippet": "…viding full global coverage every 12 hours. Suomi NPP has a nominal (equator-crossing) observation times at 1:30 p.m. and 1:30 a.m., Mean Local Time (MLT); NOAA-21 is flying half an orbit, or 50 minutes, ahead of NOAA-20, with Suomi NPP bet…"
+    }
+   ]
+  },
+  {
+   "query": "preservation of life or property",
+   "hits": [
+    {
+     "id": "supplement.disclaimers.fire-map-disclaimer",
+     "score": 13.4095,
+     "snippet": "Do not use for the preservation of life or property. Satellite-derived active fire / thermal anomalies have limited accuracy.\\ Please see our Disclaimer Active fire/thermal anomalies may be from fire, hot smoke, agriculture or other sources…"
+    }
+   ]
+  },
+  {
+   "query": "standard processing NRT difference",
+   "hits": [
+    {
+     "id": "faq.getting-started.what-are-the-key-differences-between-urt-rt-nrt-and-standard",
+     "score": 14.5009,
+     "snippet": "Standard (science quality) data products are an internally consistent, well-calibrated record of Earth’s geophysical properties to support science. The ultra real-time (URT), real-time (RT), and near real-time (NRT) fire products are genera…"
+    },
+    {
+     "id": "faq.rt-urt.are-there-particular-differences-between-urt-data-rt-data-and",
+     "score": 13.3879,
+     "snippet": "Ultra Real-Time (URT), Real-Time (RT), and Near Real-Time (NRT) data are all relative forms of low-latency data products made available more quickly than standard processing to support environmental monitoring, response to hazard/disaster e…"
+    },
+    {
+     "id": "supplement.api.data-availability",
+     "score": 11.6758,
+     "snippet": "…SENSOR] **SENSOR:** - ALL - all available sensors - LANDSAT_NRT (LANDSAT 8/9) - MODIS_NRT (MODIS Near Real-Time) - MODIS_SP (MODIS Standard Processing) - VIIRS_NOAA20_NRT (VIIRS NOAA-20 Near Real-Time) - VIIRS_NOAA20_SP (VIIRS NOAA-20 Stand…"
+    },
+    {
+     "id": "supplement.data-attributes.modis-viirs-nrt",
+     "score": 9.9396,
+     "snippet": "…elow is a list of fire attribute fields for near real-time (NRT) active fire data from the Moderate Resolution Imaging Spectroradiometer (MODIS) and Visible Infrared Imaging Radiometer Suite (VIIRS). Learn more about MODIS NRT data, VIIRS-A…"
+    },
+    {
+     "id": "supplement.api.area",
+     "score": 9.5987,
+     "snippet": "…20\\ Attribute table for VIIRS NOAA-21 **SOURCE:** - LANDSAT_NRT [US/Canada only] (LANDSAT Near Real-Time, Real-Time and Ultra Real-Time *) - MODIS_NRT (MODIS Near Real-Time, Real-Time and Ultra Real-Time *) - MODIS_SP (MODIS Standard Proces…"
+    },
+    {
+     "id": "faq.getting-started.what-is-utc",
+     "score": 8.7124,
+     "snippet": "…niversal Time” or “Zulu Time”. It is a worldwide scientific standard of timekeeping. Its reference point is Greenwich, England: when it is midnight there on Earth's prime meridian, it is midnight (00:00:00.000000). UTC can be converted to l…"
+    },
+    {
+     "id": "faq.caveats.how-appropriate-are-the-hotspot-fire-locations-for-my-research",
+     "score": 7.9381,
+     "snippet": "…Climate Modeling Grid (CMD) fire product? and \"What is the difference between NRT and Standard quality fire data?\""
+    },
+    {
+     "id": "faq.getting-started.what-are-the-different-sources-of-modis-and-viirs-active-fire",
+     "score": 5.6753,
+     "snippet": "- MODIS NRT C6.1 (MCD14DL) are the NRT MODIS (Terra and Aqua) Collection 6.1 data processed by NASA FIRMS. - MCD14ML provided by FIRMS are a subset of the standard quality data processed by the MODIS Fire Team Science Computing Facility at…"
+    },
+    {
+     "id": "faq.caveats.how-do-i-know-if-a-fire-detection-was-missed-due-to-cloud-or",
+     "score": 4.9498,
+     "snippet": "…strument combination. This information is provided for both standard quality data and near real-time (NRT) data. Note: this will only show the days where there is no data for the satellite/sensor combination."
+    },
+    {
+     "id": "faq.modis.are-there-any-missing-modis-fire-data",
+     "score": 4.9173,
+     "snippet": "…strument combination. This information is provided for both standard quality data and near real-time (NRT) data."
+    }
+   ]
+  },
+  {
+   "query": "missing data gaps",
+   "hits": [
+    {
+     "id": "faq.swaths.why-do-i-sometimes-see-gaps-between-swaths-near-the-equator",
+     "score": 7.2582,
+     "snippet": "…erlap at the equator. This results in small, diamond-shaped gaps in daily coverage in tropical regions (between approximately 30 degrees North and South). However, these gaps are typically covered on the satellite's next pass or by a differ…"
+    },
+    {
+     "id": "faq.caveats.how-do-i-know-if-a-fire-detection-was-missed-due-to-cloud-or",
+     "score": 6.7693,
+     "snippet": "An indication of cloud cover or missing data can be obtained by viewing the co-incident MODIS or VIIRS imagery in FIRMS Fire Map or Worldview. To take cloud and missing data in to account, it may be more appropriate to use one of the 1 km L…"
+    },
+    {
+     "id": "faq.experimental.what-is-the-rationale-for-the-5-day-threshold-on-new-fire-pixels",
+     "score": 6.707,
+     "snippet": "…ect reflects the nature of large fire behavior and periodic gaps in active fire detection data. Large fire events often exhibit episodic growth in response to changes in fire weather, suppression activity, and fuels. Periods with less inten…"
+    },
+    {
+     "id": "faq.modis.are-there-any-missing-modis-fire-data",
+     "score": 6.4592,
+     "snippet": "…Aqua satellite starting July 4, 2002, onwards. In the fire data archive, there are several days where data were not collected and days with lower than usual fire counts due to reasons such as instrument outage. These include, but are not l…"
+    },
+    {
+     "id": "faq.us-canada.how-do-i-interpret-use-wildfire-perimeter-data-in-the-context",
+     "score": 4.8594,
+     "snippet": "…e typically updated once daily using relatively large scale data (airborne infrared flights, airborne or terrestrial GPS, etc.), but may be updated more or less frequently in particular circumstances. MODIS and VIIRS active fire detection d…"
+    },
+    {
+     "id": "faq.caveats.how-appropriate-are-the-hotspot-fire-locations-for-my-research",
+     "score": 4.1972,
+     "snippet": "…e spatial and temporal distribution of fires, and comparing data between years. The active fire pixel locations may not always be the most appropriate source of fire related information, and, the data do not provide any information on cloud…"
+    },
+    {
+     "id": "faq.getting-started.why-was-a-particular-fire-not-detected",
+     "score": 4.1722,
+     "snippet": "…inoperable and can observe nothing during these times (see data outages and known issues for MODIS and VIIRS); the fire may have been too small or too cool to be detected. The VIIRS 375 m active fire product provides a greater response ove…"
+    },
+    {
+     "id": "faq.getting-started.how-are-fires-detected-by-satellite",
+     "score": 3.5546,
+     "snippet": "…imately assigns to each pixel one of the following classes: missing data, cloud, water, non-fire, fire, or unknown. More information can be found in: Giglio, L., Descloitres, J., Justice, C. O., & Kaufman, Y. (2003). An enhanced contextual…"
+    },
+    {
+     "id": "faq.getting-started.what-is-the-detection-confidence",
+     "score": 2.5691,
+     "snippet": "…lower false alarm rate. Conversely, for other applications missing any fire might be especially undesirable, and a user may be willing to tolerate a higher false alarm rate to ensure that fewer true fires are missed. Users requiring fewer…"
+    },
+    {
+     "id": "faq.rt-urt.are-there-particular-differences-between-urt-data-rt-data-and",
+     "score": 0.7424,
+     "snippet": "…a Real-Time (URT), Real-Time (RT), and Near Real-Time (NRT) data are all relative forms of low-latency data products made available more quickly than standard processing to support environmental monitoring, response to hazard/disaster event…"
+    }
+   ]
+  },
+  {
+   "query": "Landsat fire detections US Canada",
+   "hits": [
+    {
+     "id": "faq.landsat.why-does-the-latency-differ-between-the-landsat-active-fire",
+     "score": 6.4556,
+     "snippet": "Landsat active fire detection data are produced in collaboration with the USGS EROS Data Center in Sioux Falls, South Dakota. Daily Landsat 8 and Landsat 9 OLI imagery for the continental United States, southern Canada, and northern Mexico…"
+    },
+    {
+     "id": "faq.landsat.why-are-landsat-fire-data-only-available-for-north-america",
+     "score": 6.4419,
+     "snippet": "The Landsat Fire and Thermal Anomalies (LFTA) product is currently produced through a collaboration by USGS EROS Data Center, NASA, and the USDA Forest Service. Daily Landsat 8 and Landsat 9 OLI observations are processed in real-time by ER…"
+    },
+    {
+     "id": "faq.landsat.what-is-the-temporal-frequency-of-landsat-observations-and",
+     "score": 6.3285,
+     "snippet": "The OLI sensor aboard the Landsat 8 and Landsat 9 satellites each image the entire Earth every 16 days at the mid latitudes. The respective orbits of the two satellites are 8 days out of phase so when considered collectively, the entire pla…"
+    },
+    {
+     "id": "faq.landsat.what-is-the-landsat-fire-and-thermal-anomalies-product",
+     "score": 5.997,
+     "snippet": "The Landsat Fire and Thermal Anomalies (LFTA) product is predicated on previous NASA-sponsored research to develop an active fire detection algorithm for the Advanced Spaceborne Thermal Emission and Reflection Radiometer (ASTER) aboard Terr…"
+    },
+    {
+     "id": "faq.getting-started.what-active-fire-data-and-imagery-are-available-in-firms-global",
+     "score": 5.9132,
+     "snippet": "…l resolution data and imagery are available for the USA and Canada. See the table in the FIRMS US/Canada FAQ section below. | Product | Instrument (Platform) | Source | Spatial Resolution | Latency<sup>4</sup> (Coverage) | |---|---|---|---|…"
+    },
+    {
+     "id": "faq.us-canada.what-active-fire-data-and-imagery-are-available-in-firms-us",
+     "score": 5.6347,
+     "snippet": "…sup>4</sup> | |---|---|---|---|---| | Polar orbiting Active Fire Detections | MODIS (Terra/Aqua) | SSEC Univ of Wisconsin | 1km | <1-30 mins | | Polar orbiting Active Fire Detections | VIIRS (Suomi NPP/NOAA-20/NOAA-21) | SSEC Univ of Wiscon…"
+    },
+    {
+     "id": "faq.getting-started.what-are-the-different-sources-of-modis-and-viirs-active-fire",
+     "score": 5.5868,
+     "snippet": "…subset of the standard quality data processed by the MODIS Fire Team Science Computing Facility at the University of Maryland. These are available with a 2-3 month lag through the Archive Download Tool and can be viewed and queried in Fire…"
+    },
+    {
+     "id": "faq.landsat.what-size-of-fires-can-be-detected-with-landsat",
+     "score": 5.1046,
+     "snippet": "Landsat provides better active fire detection performance compared to coarser spatial resolution sensors, such as MODIS and VIIRS. Flaming fires as small as approximately 4 m<sup>2</sup> have a better than 50% chance of detection during the…"
+    },
+    {
+     "id": "faq.landsat.where-can-i-find-more-information-about-the-landsat-fire-data",
+     "score": 4.8191,
+     "snippet": "The Landsat active fire detection algorithm is based on the legacy algorithm developed for the Advanced Spaceborne Thermal Emission and Reflection Radiometer (ASTER). Development of the Landsat algorithm was conducted under the auspices of…"
+    },
+    {
+     "id": "faq.us-canada.what-is-the-minimum-size-of-wildfire-displayed-in-the-usa",
+     "score": 4.7213,
+     "snippet": "The spatial and temporal resolution of the satellite active fire detection data provided in FIRMS is appropriate for the routine detection and monitoring of fire activity associated with relatively larger sized incidents. Consequently, FIRM…"
+    }
+   ]
+  },
+  {
+   "query": "geostationary GOES Himawari",
+   "hits": [
+    {
+     "id": "faq.geostationary.where-does-the-geostationary-active-fire-data-come-from-and-how",
+     "score": 11.9153,
+     "snippet": "…ences and the information in the table below: | Satellite | GOES-East and West | GOES-East and West | Meteosat Second Generation | Himawari | **Meteosat Third Generation MTG-Imaging (MTG-0)** | |---|---|---|---|---|---| | Instrument/Algorit…"
+    },
+    {
+     "id": "faq.geostationary.what-is-the-spatial-resolution-of-the-geostationary-satellite",
+     "score": 11.3055,
+     "snippet": "…as the “sub-satellite point”) of 1 km for MTG FCI, 2 km for GOES ABI and Himawari AHI, and 3 km for MSG SEVIRI. However, as already noted, the spatial resolution of the pixel (i.e., the pixel size) systematically grows away from the sub-sat…"
+    },
+    {
+     "id": "faq.geostationary.what-size-fires-can-be-detected-with-geostationary-satellite",
+     "score": 10.9801,
+     "snippet": "GOES - The theoretical minimum detectable fire size is approximately 0.004 km<sup>2</sup> (4,000m<sup>2</sup>) at nadir in optimum viewing conditions, burning at 800 K (Schmidt et al., 2013). Meteosat - The theoretical minimum detectable fi…"
+    },
+    {
+     "id": "faq.swaths.do-geostationary-satellites-like-goes-also-image-the-earth-in",
+     "score": 10.6066,
+     "snippet": "No, geostationary satellites operate very differently. Satellites with MODIS and VIIRS instruments are in low-earth orbit (LEO) and fly from pole to pole, sweeping out \"swaths\" as the Earth rotates beneath them. In contrast, geostationary s…"
+    },
+    {
+     "id": "faq.geostationary.what-is-the-temporal-frequency-of-the-geostationary-satellite",
+     "score": 9.5943,
+     "snippet": "- GOES active fire detections occur every 10 minutes and should be available within FIRMS in approximately 20 to 30 minutes. - Meteosat Third Generation (MTG-0) active fire detections occur every 10 minutes and should be available within FI…"
+    },
+    {
+     "id": "faq.geostationary.what-are-the-attributes-of-the-geostationary-fire-data",
+     "score": 8.9347,
+     "snippet": "…xel’s footprint. See: What is the spatial resolution of the geostationary satellite observations? | | Longitude | Longitude (decimal degrees) | Longitude of pixel center. Note: Pixel size/dimension is affected by satellite view geometry and…"
+    },
+    {
+     "id": "faq.geostationary.what-validation-of-geostationary-active-fire-data-has-been",
+     "score": 7.6327,
+     "snippet": "…and Sentinel-2 are both appropriate sensors for validating geostationary active fire products. Given the Landsat and Sentinel-2 overpass times, any validation efforts will be focused on certain times of the day and, therefore, false positi…"
+    },
+    {
+     "id": "faq.geostationary.why-are-the-geostationary-fire-data-filtered-in-firms",
+     "score": 7.5489,
+     "snippet": "While geostationary active fire data provide a much enhanced temporal frequency compared to active fire data from polar-orbiting satellites, data from geostationary satellites can yield spurious fire detections. These can result from sungli…"
+    },
+    {
+     "id": "faq.getting-started.what-active-fire-data-and-imagery-are-available-in-firms-global",
+     "score": 6.6873,
+     "snippet": "…<sup>5</sup> | 30m | 30-60 mins (US-Canada) | | Provisional Geostationary Active Fire Detections | ABI (GOES-16 & 19)<sup>1</sup> | NOAA | 2km sub-satellite<sup>2</sup> | ~20-30 mins (Americas) | | Provisional Geostationary Active Fire Dete…"
+    },
+    {
+     "id": "faq.acronyms.overview",
+     "score": 6.5526,
+     "snippet": "…--|---| | ABI | Advanced Baseline Imager | | AHI | Advanced Himawari Imager | | BT | Brightness Temperature | | CAMS | Copernicus Atmosphere Monitoring Service | | CMG | Climate Modeling Grid | | EROS | Earth Resources Observation and Scien…"
+    }
+   ]
+  },
+  {
+   "query": "fire radiative power FRP",
+   "hits": [
+    {
+     "id": "faq.caveats.what-is-frp-and-what-factors-should-be-considered-across-sensors",
+     "score": 12.031,
+     "snippet": "Fire Radiative Power (FRP) is the rate of radiative energy emission per time unit from all fires within a pixel. FRP has been extensively used as a proxy of fire intensity to characterize fire types and is related to the rate of biomass com…"
+    },
+    {
+     "id": "faq.geostationary.where-does-the-geostationary-active-fire-data-come-from-and-how",
+     "score": 10.9382,
+     "snippet": "…| | Instrument/Algorithm | Advanced Baseline Imager (ABI) / Fire Detection and Characterization (FDC-HSC) | Advanced Baseline Imager (ABI) / Fire Radiative Power (FRP-PIXEL) | Spinning Enhanced Visible and Infra-Red Imager (SEVIRI) / Fire R…"
+    },
+    {
+     "id": "supplement.data-attributes.modis-viirs-nrt",
+     "score": 9.052,
+     "snippet": "Below is a list of fire attribute fields for near real-time (NRT) active fire data from the Moderate Resolution Imaging Spectroradiometer (MODIS) and Visible Infrared Imaging Radiometer Suite (VIIRS). Learn more about MODIS NRT data, VIIRS-…"
+    },
+    {
+     "id": "faq.geostationary.what-are-the-attributes-of-the-geostationary-fire-data",
+     "score": 7.8116,
+     "snippet": "…. For example, the time 12:14 | | Confidence | Confidence | FRP-PIXEL: Value range 0-1. Higher values correspond to higher detection confidences.<br>FDC-HSC: class values range from 10-15 and 30- 35 and are indicative, but not a measure of…"
+    },
+    {
+     "id": "faq.geostationary.can-you-provide-a-brief-description-of-the-two-algorithms-used",
+     "score": 7.5042,
+     "snippet": "### FRP-PIXEL Product The key outputs from the FRP-PIXEL algorithm are active fire pixel detections and fire characteristics including fire radiative power (FRP), FRP uncertainty, active fire temperature, and fire detection confidence level…"
+    },
+    {
+     "id": "faq.geostationary.what-validation-of-geostationary-active-fire-data-has-been",
+     "score": 7.2405,
+     "snippet": "Satellite-derived active fire products are validated with spatially and temporally coincident observations from higher resolution sensors. Landsat and Sentinel-2 are both appropriate sensors for validating geostationary active fire products…"
+    },
+    {
+     "id": "faq.acronyms.overview",
+     "score": 6.9544,
+     "snippet": "…r the Exploitation of Meteorological Satellites | | FIRMS | Fire Information for Resource Management System | | FRP | Fire Radiative Power | | GIBS | Global Imagery Browse Services | | GOES | Geostationary Operational Environmental Satellit…"
+    },
+    {
+     "id": "faq.experimental.what-are-the-attributes-of-the-viirs-modeled-fire-perimeter",
+     "score": 6.0023,
+     "snippet": "…---| | duration | Number of days since first observation of fire. Fires with a single observation have a duration of zero. | Days | | farea | Area within estimated fire perimeter. | Km<sup>2</sup> | | fireid | Fire ID. Unique for each fire.…"
+    },
+    {
+     "id": "faq.experimental.what-is-the-viirs-modeled-fire-perimeter-product",
+     "score": 4.7913,
+     "snippet": "The VIIRS Modeled Fire Perimeter Product uses the Fire Event Database Suite (FEDS) algorithm (Chen et al., 2022) to cluster VIIRS 375 m active fire detection data into individual fire events and track fire spread and behavior every 12 hours…"
+    },
+    {
+     "id": "faq.getting-started.what-are-modis-and-viirs-collections",
+     "score": 4.0814,
+     "snippet": "…arly 2007. Improvements in Collection 5 included adding the Fire Radiative Power value to the fire detections and refining the detection confidence to more accurately identify questionable active fire pixels. Collection 6 reprocessing began…"
+    }
+   ]
+  },
+  {
+   "query": "why is there no data for my area",
+   "hits": [
+    {
+     "id": "faq.modis.what-size-fires-can-be-detected",
+     "score": 5.0446,
+     "snippet": "…very good observing conditions (e.g., near nadir, little or no smoke, relatively homogeneous land surface, etc.) flaming fires one tenth this size can be detected. Under pristine (and extremely rare) observing conditions even smaller flamin…"
+    },
+    {
+     "id": "faq.experimental.what-are-the-attributes-of-the-viirs-modeled-fire-perimeter",
+     "score": 4.9563,
+     "snippet": "…h a single observation have a duration of zero. | Days | | farea | Area within estimated fire perimeter. | Km<sup>2</sup> | | fireid | Fire ID. Unique for each fire. Matches fireid. | Numeric ID | | flinelen | Length of active fire line, ba…"
+    },
+    {
+     "id": "faq.support.how-do-i-stay-informed-about-updates-announcements-data-issues",
+     "score": 4.7721,
+     "snippet": "Subscribe to receive notifications from LANCE and FIRMS about updates, announcements, data issues, and scheduled maintenance. - LANCE-MODIS mailing list (For updates regarding NRT data from MODIS aboard Terra and Aqua and VIIRS/Land aboard…"
+    },
+    {
+     "id": "faq.caveats.how-do-i-know-if-a-fire-detection-was-missed-due-to-cloud-or",
+     "score": 4.1467,
+     "snippet": "An indication of cloud cover or missing data can be obtained by viewing the co-incident MODIS or VIIRS imagery in FIRMS Fire Map or Worldview. To take cloud and missing data in to account, it may be more appropriate to use one of the 1 km L…"
+    },
+    {
+     "id": "faq.swaths.do-geostationary-satellites-like-goes-also-image-the-earth-in",
+     "score": 3.5919,
+     "snippet": "No, geostationary satellites operate very differently. Satellites with MODIS and VIIRS instruments are in low-earth orbit (LEO) and fly from pole to pole, sweeping out \"swaths\" as the Earth rotates beneath them. In contrast, geostationary s…"
+    },
+    {
+     "id": "faq.caveats.are-all-active-fire-hotspots-vegetation-fires",
+     "score": 3.513,
+     "snippet": "No. An active fire represents the center of a pixel flagged as containing 1 or more actively burning hotspots /fires. In most cases hotspots/fires are vegetation fires, but sometimes a hotspot/fire is a volcanic eruption or the flare from a…"
+    },
+    {
+     "id": "faq.static-thermal-anomalies.what-are-the-status-categories-in-the-steel-plants-layer",
+     "score": 3.5094,
+     "snippet": "The status categories in the Steel Plants layer are: - Announced: Projects that have been announced in corporate or governmental planning documents, but have not begun operation. - Construction: Physical plant structure building has begun.…"
+    },
+    {
+     "id": "faq.modis.are-there-any-missing-modis-fire-data",
+     "score": 3.2623,
+     "snippet": "…bservations are available from the Terra satellite starting November 2000 and from the Aqua satellite starting July 4, 2002, onwards. In the fire data archive, there are several days where data were not collected and days with lower than us…"
+    },
+    {
+     "id": "faq.preamble",
+     "score": 3.088,
+     "snippet": "…Management System (FIRMS) provides access to near real-time data related to wildfire activity. Learn more by reading the most frequently asked questions about FIRMS along with answers and links to resources provided by our experts. #### Sha…"
+    },
+    {
+     "id": "faq.experimental.what-is-the-spatial-resolution-of-the-viirs-modeled-fire",
+     "score": 3.0347,
+     "snippet": "Although the vector data in the VIIRS Modeled Fire Perimeter product has no defined spatial resolution, the product is derived from the VIIRS 375 m active fire detections, and therefore reflects the spatial resolution and geolocation accura…"
+    }
+   ]
+  },
+  {
+   "query": "fake fires wrong detections",
+   "hits": [
+    {
+     "id": "faq.caveats.are-there-ever-false-fire-detections-or-data-artifacts",
+     "score": 6.3327,
+     "snippet": "…Sun glint. ### Super-Heated Smoke Plumes A few VIIRS active fire pixels are occasionally located outside the reported perimeter of a large wildfire. The parallax effect causes the tall/superheated plume detection pixel(s) to be displaced la…"
+    },
+    {
+     "id": "faq.preamble",
+     "score": 5.7169,
+     "snippet": "NASA's Fire Information for Resource Management System (FIRMS) provides access to near real-time data related to wildfire activity. Learn more by reading the most frequently asked questions about FIRMS along with answers and links to resour…"
+    },
+    {
+     "id": "faq.geostationary.why-are-the-geostationary-fire-data-filtered-in-firms",
+     "score": 5.1405,
+     "snippet": "While geostationary active fire data provide a much enhanced temporal frequency compared to active fire data from polar-orbiting satellites, data from geostationary satellites can yield spurious fire detections. These can result from sungli…"
+    },
+    {
+     "id": "faq.rt-urt.how-are-urt-active-fire-detection-data-integrated-and-used-with",
+     "score": 4.0953,
+     "snippet": "URT active fire detection data provided by select ground stations are integrated into FIRMS fire maps, KMZs and web map services within minutes of satellite observation. NRT active fire detection data replace the URT data in FIRMS mapping a…"
+    },
+    {
+     "id": "faq.viirs.are-those-few-isolated-fire-pixels-in-the-middle-of-the-south",
+     "score": 4.057,
+     "snippet": "Those occurrences are typically associated with spurious fire detections due to the South Atlantic Magnetic Anomaly. The 375 m active fire algorithm contains a specific filter to flag those occurrences as low confidence detections. However,…"
+    },
+    {
+     "id": "faq.getting-started.why-do-i-sometimes-see-linear-patterns-of-large-numbers-of",
+     "score": 3.4304,
+     "snippet": "…ult in linear patterns of large numbers of anomalous active fire detection data within a MODIS or VIIRS swath as show in the example below. Spurious fire detections NASA FIRMS makes every effort to filter and remove these anomalous detectio…"
+    },
+    {
+     "id": "faq.getting-started.what-is-the-detection-confidence",
+     "score": 3.4275,
+     "snippet": "…lue was added to help users gauge the quality of individual fire pixels included in the Level 2 fire product. The confidence field should be used with caution as it is likely that it will vary in terms of meaning in different parts of the w…"
+    },
+    {
+     "id": "faq.us-canada.what-active-fire-data-and-imagery-are-available-in-firms-us",
+     "score": 3.2999,
+     "snippet": "…sup>4</sup> | |---|---|---|---|---| | Polar orbiting Active Fire Detections | MODIS (Terra/Aqua) | SSEC Univ of Wisconsin | 1km | <1-30 mins | | Polar orbiting Active Fire Detections | VIIRS (Suomi NPP/NOAA-20/NOAA-21) | SSEC Univ of Wiscon…"
+    },
+    {
+     "id": "faq.getting-started.what-active-fire-data-and-imagery-are-available-in-firms-global",
+     "score": 3.0376,
+     "snippet": "…(Coverage) | |---|---|---|---|---| | Polar orbiting Active Fire Detections | MODIS (Terra/Aqua) | NASA LANCE | 1km | <3 hours (Global) | | Polar orbiting Active Fire Detections | VIIRS (Suomi NPP/NOAA-20/NOAA-21) | NASA LANCE | 375m | <3 h…"
+    },
+    {
+     "id": "faq.viirs.will-the-viirs-375-m-fire-detection-algorithm-always-outperform",
+     "score": 2.9565,
+     "snippet": "…her resolution product will achieve a higher probability of fire detection in both day and nighttime scenes. However, areas subject to strong solar reflectance associated with sun glint, such as metallic rooftops or highly reflective desert…"
+    }
+   ]
+  },
+  {
+   "query": "KML footprint download",
+   "hits": [
+    {
+     "id": "supplement.api.kml-fire-footprints",
+     "score": 13.3271,
+     "snippet": "| Fire point and footprint | MODIS 1km | VIIRS 375m / S-NPP | VIIRS 375m / NOAA-20 | VIIRS 375m / NOAA-21 | LANDSAT 30m | |---|---|---|---|---|---| | Canada | 24h 48h 72h 7days | 24h 48h 72h 7days | 24h 48h 72h 7days | 24h 48h 72h 7days | 2…"
+    },
+    {
+     "id": "faq.getting-started.how-often-is-firms-updated",
+     "score": 6.7767,
+     "snippet": "…? FIRMS fire maps are updated every 5 minutes, and the SHP, KML and CSV files (available for the last 24 hours, 48 hours, and 7 days) are updated every 60 minutes. The first place data are posted is on the updated daily fires text files. As…"
+    },
+    {
+     "id": "faq.fire-map.can-i-download-the-fire-data-from-the-firms-fire-map",
+     "score": 5.2378,
+     "snippet": "Active fire data are not currently available for download directly from the FIRMS Fire Maps. However, active fire locations from MODIS and VIIRS (and Landsat for the US and Canada) are available for download for the last 24 hours, last 48 h…"
+    },
+    {
+     "id": "faq.static-thermal-anomalies.can-i-download-this-layer",
+     "score": 5.1156,
+     "snippet": "These data are provided for reference purposes only and should be used with caution. This layer is developed by NASA FIRMS and is not available for distribution."
+    },
+    {
+     "id": "faq.swaths.what-is-a-satellite-swath",
+     "score": 4.8339,
+     "snippet": "…\"see\" as they orbit the planet. You can think of it as the footprint of the sensor's vision. As the satellite moves along its orbital path, the instrument images the strip below the satellite, collecting data that is used to generate image…"
+    },
+    {
+     "id": "faq.email-alerts.i-requested-a-csv-file-with-my-email-alert-but-i-can-t-see-the",
+     "score": 3.5217,
+     "snippet": "…the number of fires in the alert exceeds 90,000, a link to download the CSV file will be provided instead of an attachment. CSV files are stored for 14 days on the FIRMS server."
+    },
+    {
+     "id": "faq.us-canada.are-additional-capabilities-planned-for-firms-us-canada",
+     "score": 3.4939,
+     "snippet": "…re-relevant science data products, and enhancements to data downloads and user-defined fire alerts."
+    },
+    {
+     "id": "faq.rt-urt.what-is-direct-broadcast",
+     "score": 3.4801,
+     "snippet": "…in addition to storing collected observation data for later download at designated intervals, some satellites have the capability to immediately broadcast this raw data to the ground. This is known as direct broadcast. As Earth is observed…"
+    },
+    {
+     "id": "faq.rt-urt.how-do-i-identify-the-nrt-rt-and-urt-data",
+     "score": 3.3754,
+     "snippet": "…value followed by “NRT.” FIRMS KMZs: \"Active fire detection footprint and centroid\" KMZs symbolize active fire detection by time since detection. Time since detection KMZs symbolizes the active fire detections by time since detection. Both…"
+    },
+    {
+     "id": "faq.geostationary.what-are-the-attributes-of-the-geostationary-fire-data",
+     "score": 3.2626,
+     "snippet": "…lite. The reported coordinate is the center of each pixel’s footprint. See: What is the spatial resolution of the geostationary satellite observations? | | Longitude | Longitude (decimal degrees) | Longitude of pixel center. Note: Pixel siz…"
+    }
+   ]
+  },
+  {
+   "query": "satellite overpass time",
+   "hits": [
+    {
+     "id": "faq.getting-started.what-time-does-the-satellite-pass-over-my-area",
+     "score": 6.6074,
+     "snippet": "…ASA Worldview you can overlay the daily orbit tracks to see satellite overpass times for your area of interest based on the currently selected date. For more precise information regarding anticipated satellite observations, please use the N…"
+    },
+    {
+     "id": "faq.rt-urt.what-are-the-real-time-rt-and-ultra-real-time-urt-data-in-firms",
+     "score": 5.6443,
+     "snippet": "NASA EOSDIS defines real-time (RT) data as data that are available to the end user within one hour of the satellite fly-over (see Data Latency and What time does the satellite pass over my area?). Ultra real-time (URT) data are available mu…"
+    },
+    {
+     "id": "faq.us-canada.how-do-i-interpret-use-wildfire-perimeter-data-in-the-context",
+     "score": 5.43,
+     "snippet": "…oing wildfire incidents. These factors include: - Timing of satellite observations: MODIS and VIIRS are onboard polar-orbiting satellite platforms that do not provide persistent observations. They only detect the location and extent of acti…"
+    },
+    {
+     "id": "faq.rt-urt.are-there-particular-differences-between-urt-data-rt-data-and",
+     "score": 5.3703,
+     "snippet": "Ultra Real-Time (URT), Real-Time (RT), and Near Real-Time (NRT) data are all relative forms of low-latency data products made available more quickly than standard processing to support environmental monitoring, response to hazard/disaster e…"
+    },
+    {
+     "id": "faq.us-canada.more-about-the-ultra-real-time-urt-and-real-time-rt-data-in",
+     "score": 4.5797,
+     "snippet": "Ultra Real-Time (URT) MODIS and VIIRS active fire detections are available for the US and Canada. These data are compiled from multiple direct readout ground stations in CONUS as part of a partnership with the Space Science and Engineering…"
+    },
+    {
+     "id": "faq.landsat.what-are-the-attributes-of-the-landsat-fire-data",
+     "score": 4.2802,
+     "snippet": "…te | Short Description | Long Description | |---|---|---| | Satellite | Satellite | L8 = Landsat 8; L9 = Landsat 9 | | Latitude | Latitude (decimal degrees) | Latitude of pixel center | | Longitude | Longitude (decimal degrees) | Longitude…"
+    },
+    {
+     "id": "faq.experimental.what-is-the-viirs-modeled-fire-perimeter-product",
+     "score": 4.2788,
+     "snippet": "…ter, and quantify metrics of fire behavior for each 12-hour time step. The FEDS algorithm currently uses the 375 m active fire detections from the VIIRS sensors onboard the Suomi-NPP and NOAA-20 satellites to model the fire perimeter. Two f…"
+    },
+    {
+     "id": "faq.getting-started.how-often-is-firms-updated",
+     "score": 4.2169,
+     "snippet": "…he data are derived from instruments onboard polar orbiting satellites (MODIS aboard Terra and Aqua, and VIIRS aboard Suomi NPP and NOAA-20/21), and generally these have two overpasses a day (more towards the poles - see How often are the a…"
+    },
+    {
+     "id": "supplement.api.area",
+     "score": 3.9406,
+     "snippet": "…SOURCE:** - LANDSAT_NRT [US/Canada only] (LANDSAT Near Real-Time, Real-Time and Ultra Real-Time *) - MODIS_NRT (MODIS Near Real-Time, Real-Time and Ultra Real-Time *) - MODIS_SP (MODIS Standard Processing) - VIIRS_NOAA20_NRT (VIIRS NOAA-20…"
+    },
+    {
+     "id": "faq.landsat.what-is-the-landsat-fire-and-thermal-anomalies-product",
+     "score": 3.9263,
+     "snippet": "…Land Imager (OLI) sensor aboard the Landsat 8 and Landsat 9 satellites. The 30 m active fire detection data has 1,000 times and 160 times finer spatial resolution than the 1 km MODIS and 375 m VIIRS active fire detections, respectively. How…"
+    }
+   ]
+  },
+  {
+   "query": "cite FIRMS data citation",
+   "hits": [
+    {
+     "id": "faq.getting-started.are-there-any-restrictions-on-using-data-or-imagery-from-firms",
+     "score": 13.1359,
+     "snippet": "NASA promotes full and open sharing of data and and we encourage publication of imagery from FIRMS; when doing so for image captions, please cite it as \"NASA FIRMS\" and also consider including a direct link to the imagery in FIRMS to allow…"
+    },
+    {
+     "id": "faq.static-thermal-anomalies.what-citations-should-i-use-for-the-various-industrial-power",
+     "score": 7.9793,
+     "snippet": "The Power Plants layer suggested citation is: Global Energy Observatory, Google, KTH Royal Institute of Technology in Stockholm, Enipedia, World Resources Institute. 2018. Global Power Plant Database. Published on Resource Watch and Google…"
+    },
+    {
+     "id": "supplement.disclaimers.lance-disclaimer",
+     "score": 7.3768,
+     "snippet": "…e information presented through LANCE, GIBS, Worldview, and FIRMS are provided “as is” and users bear all responsibility and liability for their use of data. Please read the full disclaimer. Read an Earthdata article celebrating LANCE's Top…"
+    },
+    {
+     "id": "supplement.disclaimers.lance-acknowledgments",
+     "score": 6.6917,
+     "snippet": "We acknowledge the use of data and/or imagery from NASA's Land, Atmosphere Near real-time Capability for Earth observations (LANCE) (https://earthdata.nasa.gov/lance), part of NASA's Earth Science Data and Information System (ESDIS)."
+    },
+    {
+     "id": "faq.experimental.what-is-the-temporal-extent-of-viirs-modeled-fire-perimeter",
+     "score": 2.0059,
+     "snippet": "The VIIRS Modeled Fire Perimeter data based on the FEDS algorithm are currently available through FIRMS beginning January 1, 2024. Archive data for prior years is available via OGC API. This example notebook, Get Fire Perimeters from an OGC…"
+    },
+    {
+     "id": "faq.fire-map.can-i-download-the-fire-data-from-the-firms-fire-map",
+     "score": 1.9977,
+     "snippet": "Active fire data are not currently available for download directly from the FIRMS Fire Maps. However, active fire locations from MODIS and VIIRS (and Landsat for the US and Canada) are available for download for the last 24 hours, last 48 h…"
+    },
+    {
+     "id": "faq.rt-urt.are-urt-data-provided-for-all-firms-products",
+     "score": 1.9959,
+     "snippet": "So far, URT active fire detection data are available in FIRMS interactive maps, KMZs, and web services for most of the conterminous U.S. plus S Canada and N Mexico."
+    },
+    {
+     "id": "faq.getting-started.how-often-is-firms-updated",
+     "score": 1.9875,
+     "snippet": "FIRMS is updated regularly as new data are ingested. However, it is important to note that the data are derived from instruments onboard polar orbiting satellites (MODIS aboard Terra and Aqua, and VIIRS aboard Suomi NPP and NOAA-20/21), and…"
+    },
+    {
+     "id": "faq.rt-urt.how-are-urt-active-fire-detection-data-integrated-and-used-with",
+     "score": 1.9833,
+     "snippet": "URT active fire detection data provided by select ground stations are integrated into FIRMS fire maps, KMZs and web map services within minutes of satellite observation. NRT active fire detection data replace the URT data in FIRMS mapping a…"
+    },
+    {
+     "id": "faq.preamble",
+     "score": 1.9772,
+     "snippet": "NASA's Fire Information for Resource Management System (FIRMS) provides access to near real-time data related to wildfire activity. Learn more by reading the most frequently asked questions about FIRMS along with answers and links to resour…"
+    }
+   ]
+  },
+  {
+   "query": "static thermal anomalies gas flares",
+   "hits": [
+    {
+     "id": "faq.static-thermal-anomalies.what-is-a-static-thermal-anomaly-sta",
+     "score": 23.019,
+     "snippet": "…defined as a contiguous - sometimes persistent - cluster of thermal anomalies that are not considered to be vegetation fires. These can include petrochemical and cement production, gas flares and volcanoes."
+    },
+    {
+     "id": "faq.caveats.are-all-active-fire-hotspots-vegetation-fires",
+     "score": 14.4557,
+     "snippet": "…but sometimes a hotspot/fire is a volcanic eruption or the flare from a gas well. Different types of thermal anomalies are not currently attributed in the NRT MODIS or VIIRS data."
+    },
+    {
+     "id": "faq.static-thermal-anomalies.what-is-the-static-thermal-anomalies-detections-layer",
+     "score": 13.2701,
+     "snippet": "…intersect with, or are adjacent, to areas identified in the Static Thermal Anomalies - Mask layer for the date/time range selected by the user. The date/time range of the active fire detections displayed will be coincident with the date/tim…"
+    },
+    {
+     "id": "faq.static-thermal-anomalies.how-is-the-static-thermal-anomalies-mask-layer-created",
+     "score": 12.5153,
+     "snippet": "…ar are extracted to create a mask of frequently observed or static thermal activity. The resulting mask is spatially filtered using multiple industrial/power plant location datasets in an effort to limit the mask to areas not associated wit…"
+    },
+    {
+     "id": "faq.experimental.overview",
+     "score": 10.4819,
+     "snippet": "…rrently these include the VIIRS modeled fire perimeters and static thermal anomalies."
+    },
+    {
+     "id": "faq.static-thermal-anomalies.what-citations-should-i-use-for-the-various-industrial-power",
+     "score": 9.3689,
+     "snippet": "…f Cement Production Assets. Spatial Finance Initiative. The Gas Flares layer suggested citation is: Data compiled by the World Bank for the Global Gas Flaring Tracker Report MARCH 2023: Attribution and data sources: Flare gas volumes - NOAA…"
+    },
+    {
+     "id": "supplement.disclaimers.fire-map-disclaimer",
+     "score": 6.9717,
+     "snippet": "…vation of life or property. Satellite-derived active fire / thermal anomalies have limited accuracy.\\ Please see our Disclaimer Active fire/thermal anomalies may be from fire, hot smoke, agriculture or other sources. Cloud cover may obscure…"
+    },
+    {
+     "id": "faq.landsat.what-is-the-temporal-extent-of-landsat-active-fire-and-thermal",
+     "score": 6.9643,
+     "snippet": "The temporal extent of Landsat active fire data currently reaches back to June 2022. Processing of earlier acquisitions by Landsat 8 and Landsat 9 is possible, but not planned at this time."
+    },
+    {
+     "id": "faq.landsat.what-is-the-landsat-fire-and-thermal-anomalies-product",
+     "score": 6.0055,
+     "snippet": "The Landsat Fire and Thermal Anomalies (LFTA) product is predicated on previous NASA-sponsored research to develop an active fire detection algorithm for the Advanced Spaceborne Thermal Emission and Reflection Radiometer (ASTER) aboard Terr…"
+    },
+    {
+     "id": "faq.swaths.what-is-a-satellite-swath",
+     "score": 5.283,
+     "snippet": "…collecting data that is used to generate imagery and detect thermal anomalies and active fires."
+    }
+   ]
+  },
+  {
+   "query": "email alerts subscription",
+   "hits": [
+    {
+     "id": "faq.email-alerts.how-do-i-subscribe-or-edit-email-alerts",
+     "score": 19.1766,
+     "snippet": "Go to the FIRMS Email Alerts page. 1. Enter the email address where you want to receive the email alerts and click “Proceed”. 2. If you have not yet subscribed you will be asked to enter your Name, Organization, and Country. Click on “Save”…"
+    },
+    {
+     "id": "faq.email-alerts.i-requested-a-map-image-with-my-email-alert-but-i-can-t-see-the",
+     "score": 10.9792,
+     "snippet": "Please check the settings in your email client. Your email client may be blocking images from being displayed in your email as a security measure. You will have to enable the choice to view images in your email. Your email client may also b…"
+    },
+    {
+     "id": "faq.email-alerts.how-do-i-unsubscribe-from-an-email-alert",
+     "score": 10.9768,
+     "snippet": "Go to the FIRMS Email Alerts page. 1. Enter the email address where that you want to unsubscribe from and click “Proceed”. 2. You should see a list of all alerts associated with this email address. 3. Using the \"delete\" option on the right…"
+    },
+    {
+     "id": "faq.email-alerts.i-requested-a-csv-file-with-my-email-alert-but-i-can-t-see-the",
+     "score": 10.939,
+     "snippet": "If the number of fires in the alert exceeds 90,000, a link to download the CSV file will be provided instead of an attachment. CSV files are stored for 14 days on the FIRMS server."
+    },
+    {
+     "id": "faq.email-alerts.can-you-notify-me-when-a-fire-occurs-in-my-area-of-interest",
+     "score": 10.4338,
+     "snippet": "We have developed a global fire email alert system to notify users when a fire occurs in or near a specified area of interest, country, or protected area. You can subscribe to receive near-real time, daily, or weekly email alerts in English…"
+    },
+    {
+     "id": "faq.email-alerts.what-are-the-near-real-time-email-alerts",
+     "score": 10.3026,
+     "snippet": "The fire points are sent out in an email as soon as they are processed by FIRMS. Alerts are sent only if a fire/hotspot was detected. The number of alerts varies according to geographic location: more frequent satellite observations occur a…"
+    },
+    {
+     "id": "faq.email-alerts.i-have-received-a-csv-file-as-part-of-my-email-alert-can-i-add",
+     "score": 9.4692,
+     "snippet": "A CSV (comma separated value) file is a text file in which separate fields are delimited by commas. This type of file can be used to store simple tabular data efficiently, minimizing file size. CSV files are easily opened with DB administra…"
+    },
+    {
+     "id": "faq.email-alerts.do-you-provide-mobile-cell-phone-text-messages",
+     "score": 4.5063,
+     "snippet": "…es, D. K., H. F. Vosloo, et al. (2008). Near real-time fire alert system in South Africa: from desktop to mobile service. Proceedings of the 7th ACM conference on Designing interactive systems Cape Town, South Africa ACM: 315-322. doi:10.11…"
+    },
+    {
+     "id": "faq.us-canada.are-additional-capabilities-planned-for-firms-us-canada",
+     "score": 3.4939,
+     "snippet": "…s, and enhancements to data downloads and user-defined fire alerts."
+    },
+    {
+     "id": "faq.fire-map.how-can-i-share-what-i-see-in-the-fire-map-viewer-with-others",
+     "score": 3.4219,
+     "snippet": "…n create a unique URL for your customized view to share via email or social media by clicking the share icon at the bottom of the Fire Map viewer."
+    }
+   ]
+  },
+  {
+   "query": "pixel size 375 m",
+   "hits": [
+    {
+     "id": "faq.getting-started.what-does-a-fire-detection-mean-on-the-ground",
+     "score": 9.093,
+     "snippet": "…ch hotspot/active fire detection represents the center of a pixel flagged as containing one or more fires or other thermal anomalies (such as volcanoes). For MODIS the pixel is approximately 1 km and for VIIRS the pixel is approximately 375…"
+    },
+    {
+     "id": "supplement.data-attributes.modis-viirs-nrt",
+     "score": 8.7299,
+     "snippet": "Below is a list of fire attribute fields for near real-time (NRT) active fire data from the Moderate Resolution Imaging Spectroradiometer (MODIS) and Visible Infrared Imaging Radiometer Suite (VIIRS). Learn more about MODIS NRT data, VIIRS-…"
+    },
+    {
+     "id": "faq.viirs.what-is-the-main-difference-between-the-viirs-375-m-and-750-m",
+     "score": 8.2248,
+     "snippet": "The two data products use similar methodologies to detect active fire pixels although differences in the spectral characteristics of the VIIRS channels used in each case led to unique algorithms. Because of its improved spatial resolution,…"
+    },
+    {
+     "id": "faq.viirs.will-the-viirs-375-m-fire-detection-algorithm-always-outperform",
+     "score": 7.5322,
+     "snippet": "…higher probability of fire detection in both day and nighttime scenes. However, areas subject to strong solar reflectance associated with sun glint, such as metallic rooftops or highly reflective desert, could see a few 750 m fire pixels wi…"
+    },
+    {
+     "id": "faq.viirs.are-the-viirs-375-m-and-750-m-active-fire-data-science-ready",
+     "score": 6.8693,
+     "snippet": "…ave been extensively tested since routine production of the mission’s data record started January 19, 2012. Numerous bad scan episodes (i.e., pixel clusters containing spurious radiances extending across the swath) were found in the Level 1…"
+    },
+    {
+     "id": "faq.viirs.what-is-the-spatial-resolution-of-the-data",
+     "score": 6.8145,
+     "snippet": "The 375 m data describe the nominal resolution after native data are spatially aggregated (see figure below). SpatialResVIIRSImagerData *Image caption:* Spatial resolution of VIIRS imagery data as a function of scan angle. The three distinc…"
+    },
+    {
+     "id": "faq.getting-started.why-was-a-particular-fire-not-detected",
+     "score": 6.37,
+     "snippet": "There are several reasons why MODIS or VIIRS may not have detected a fire: The fire may have started and ended between satellite observations; cloud cover, heavy smoke, or tree canopy may completely obscure a fire; occasionally the instrume…"
+    },
+    {
+     "id": "faq.us-canada.how-do-i-interpret-use-wildfire-perimeter-data-in-the-context",
+     "score": 6.1685,
+     "snippet": "Wildfire perimeters for individual fires are typically updated once daily using relatively large scale data (airborne infrared flights, airborne or terrestrial GPS, etc.), but may be updated more or less frequently in particular circumstanc…"
+    },
+    {
+     "id": "faq.viirs.what-is-the-viirs-375-m-active-fire-product",
+     "score": 6.1063,
+     "snippet": "The VIIRS 375 m active fire product is the latest product to be added to FIRMS. It provides data from the Visible Infrared Imaging Radiometer Suite (VIIRS) sensor aboard the joint NASA/NOAA Suomi National Polar-orbiting Partnership (Suomi N…"
+    },
+    {
+     "id": "faq.viirs.are-those-few-isolated-fire-pixels-in-the-middle-of-the-south",
+     "score": 6.0552,
+     "snippet": "…ted with spurious fire detections due to the South Atlantic Magnetic Anomaly. The 375 m active fire algorithm contains a specific filter to flag those occurrences as low confidence detections. However, in some cases (average 2-3 pixels ever…"
+    }
+   ]
+  },
+  {
+   "query": "day night detection",
+   "hits": [
+    {
+     "id": "faq.getting-started.what-are-the-key-differences-between-urt-rt-nrt-and-standard",
+     "score": 7.6974,
+     "snippet": "…ined in table 10 of the MODIS Active Fire User Guide) - The day/night column (also described on page 38 of the MODIS Active Fire User Guide) is currently calculated differently. The standard (science quality) processing algorithm uses the s…"
+    },
+    {
+     "id": "faq.modis.what-size-fires-can-be-detected",
+     "score": 7.4062,
+     "snippet": "…ea using the active fire data?. Unlike most contextual fire detection algorithms designed for satellite sensors that were never intended for fire monitoring (e.g., AVHRR, VIIRS, ATSR), there is no upper limit to the largest and/or hottest f…"
+    },
+    {
+     "id": "faq.modis.overview",
+     "score": 6.84,
+     "snippet": "…DIS reflectance imagery that corresponds to the active fire detections, can be viewed in FIRMS Global, FIRMS US/Canada and Worldview,MODIS_Aqua_CorrectedReflectance_TrueColor(hidden),MODIS_Terra_CorrectedReflectance_TrueColor,VIIRS_SNPP_Fir…"
+    },
+    {
+     "id": "faq.geostationary.what-are-the-attributes-of-the-geostationary-fire-data",
+     "score": 5.7156,
+     "snippet": "…-PIXEL: Value range 0-1. Higher values correspond to higher detection confidences.<br>FDC-HSC: class values range from 10-15 and 30- 35 and are indicative, but not a measure of fire confidence level. The former sub-group defines instantaneo…"
+    },
+    {
+     "id": "faq.experimental.what-is-the-rationale-for-the-5-day-threshold-on-new-fire-pixels",
+     "score": 5.4092,
+     "snippet": "…temporal search criteria to cluster VIIRS 375 m active fire detections into existing or new fire objects. The use of the 5-day threshold to associate new fire detections with an existing fire object reflects the nature of large fire behavio…"
+    },
+    {
+     "id": "supplement.data-attributes.modis-viirs-nrt",
+     "score": 4.5853,
+     "snippet": "…collection of intermediate algorithm quantities used in the detection process. It is intended to help users gauge the quality of individual hotspot/fire pixels. Confidence estimates range between 0 and 100% and are assigned one of the three…"
+    },
+    {
+     "id": "faq.landsat.what-are-the-attributes-of-the-landsat-fire-data",
+     "score": 4.5463,
+     "snippet": "…ystem. Generally increases in value from north to south for daytime and nighttime overpasses. | | Scan | Scan | The pixel location in the cross-track dimension of the Landsat path based on the OLI Line-of-Sight (LOS) coordinate system. Gene…"
+    },
+    {
+     "id": "faq.viirs.are-those-few-isolated-fire-pixels-in-the-middle-of-the-south",
+     "score": 4.5437,
+     "snippet": "…ose occurrences are typically associated with spurious fire detections due to the South Atlantic Magnetic Anomaly. The 375 m active fire algorithm contains a specific filter to flag those occurrences as low confidence detections. However, i…"
+    },
+    {
+     "id": "faq.swaths.why-are-swaths-important-for-active-fire-detection",
+     "score": 4.228,
+     "snippet": "…atellites to image almost the entire globe at least twice a day, enabling new, rapidly spreading fires to be detected."
+    },
+    {
+     "id": "faq.getting-started.what-is-the-detection-confidence",
+     "score": 4.1095,
+     "snippet": "…for these applications a user may consider trading a lower detection rate to gain a lower false alarm rate. Conversely, for other applications missing any fire might be especially undesirable, and a user may be willing to tolerate a higher…"
+    }
+   ]
+  },
+  {
+   "query": "archive download older data",
+   "hits": [
+    {
+     "id": "faq.fire-map.can-i-download-the-fire-data-from-the-firms-fire-map",
+     "score": 14.4518,
+     "snippet": "Active fire data are not currently available for download directly from the FIRMS Fire Maps. However, active fire locations from MODIS and VIIRS (and Landsat for the US and Canada) are available for download for the last 24 hours, last 48 h…"
+    },
+    {
+     "id": "faq.getting-started.i-only-see-fire-data-available-for-the-last-7-days-on-your",
+     "score": 13.6119,
+     "snippet": "Data for the last 2 months can be downloaded as text (TXT) files older data can be obtained through the MODIS Fire Archive Download Tool or directly from the MODIS Fire Team Science Computing Facility at the University of Maryland. MODIS da…"
+    },
+    {
+     "id": "faq.getting-started.what-are-the-different-sources-of-modis-and-viirs-active-fire",
+     "score": 5.7672,
+     "snippet": "…(MCD14DL) are the NRT MODIS (Terra and Aqua) Collection 6.1 data processed by NASA FIRMS. - MCD14ML provided by FIRMS are a subset of the standard quality data processed by the MODIS Fire Team Science Computing Facility at the University of…"
+    },
+    {
+     "id": "faq.static-thermal-anomalies.can-i-download-this-layer",
+     "score": 5.6636,
+     "snippet": "These data are provided for reference purposes only and should be used with caution. This layer is developed by NASA FIRMS and is not available for distribution."
+    },
+    {
+     "id": "faq.experimental.what-is-the-temporal-extent-of-viirs-modeled-fire-perimeter",
+     "score": 4.683,
+     "snippet": "The VIIRS Modeled Fire Perimeter data based on the FEDS algorithm are currently available through FIRMS beginning January 1, 2024. Archive data for prior years is available via OGC API. This example notebook, Get Fire Perimeters from an OGC…"
+    },
+    {
+     "id": "supplement.api.kml-fire-footprints",
+     "score": 4.4405,
+     "snippet": "…ar Real-Time, Real-Time and Ultra Real-Time *) * RT and URT data are removed when corresponding NRT detections are processed or RT/URT is older than 6 hours.\\ \\ NASA EOSDIS defines Real-Time as data that is made available within 60 minutes…"
+    },
+    {
+     "id": "faq.rt-urt.what-is-direct-broadcast",
+     "score": 4.1536,
+     "snippet": "…ect broadcast, in addition to storing collected observation data for later download at designated intervals, some satellites have the capability to immediately broadcast this raw data to the ground. This is known as direct broadcast. As Ear…"
+    },
+    {
+     "id": "faq.getting-started.what-are-modis-and-viirs-collections",
+     "score": 4.1479,
+     "snippet": "Reprocessing of the entire MODIS and VIIRS data archive is periodically performed to incorporate better calibration, algorithm refinements, and improved upstream products into all MODIS or VIIRS products. The updated data archive resulting…"
+    },
+    {
+     "id": "faq.modis.are-there-any-missing-modis-fire-data",
+     "score": 4.1344,
+     "snippet": "…Aqua satellite starting July 4, 2002, onwards. In the fire data archive, there are several days where data were not collected and days with lower than usual fire counts due to reasons such as instrument outage. These include, but are not l…"
+    },
+    {
+     "id": "faq.us-canada.are-additional-capabilities-planned-for-firms-us-canada",
+     "score": 4.0829,
+     "snippet": "…near real-time satellite imagery and fire-relevant science data products, and enhancements to data downloads and user-defined fire alerts."
+    }
+   ]
+  },
+  {
+   "query": "pixels",
+   "section": "viirs",
+   "hits": [
+    {
+     "id": "faq.viirs.are-those-few-isolated-fire-pixels-in-the-middle-of-the-south",
+     "score": 2.4704,
+     "snippet": "…confidence detections. However, in some cases (average 2-3 pixels every night) the spurious signal generated in the input Level 1 data is confused for a regular fire pixel and therefore assigned a nominal confidence flag. Note that verifie…"
+    },
+    {
+     "id": "faq.viirs.what-is-the-spatial-resolution-of-the-data",
+     "score": 2.1122,
+     "snippet": "…the first region (nadir to 31.59° scan angle), three native pixels are aggregated in the along scan (cross-track) direction to form one data sample in the Level 1 image. In the second region (31.59° to 44.68° scan angle), two native pixels…"
+    },
+    {
+     "id": "faq.viirs.what-is-the-main-difference-between-the-viirs-375-m-and-750-m",
+     "score": 2.0408,
+     "snippet": "…ta products use similar methodologies to detect active fire pixels although differences in the spectral characteristics of the VIIRS channels used in each case led to unique algorithms. Because of its improved spatial resolution, the 375 m…"
+    },
+    {
+     "id": "faq.viirs.will-the-viirs-375-m-fire-detection-algorithm-always-outperform",
+     "score": 1.3979,
+     "snippet": "…ops or highly reflective desert, could see a few 750 m fire pixels without a corresponding 375 m fire detection. This is attributed to the relatively shorter wavelength of the 375 m mid-infrared channel used in the fire algorithm, which wil…"
+    },
+    {
+     "id": "faq.viirs.are-the-viirs-375-m-and-750-m-active-fire-data-science-ready",
+     "score": 1.2556,
+     "snippet": "…started January 19, 2012. Numerous bad scan episodes (i.e., pixel clusters containing spurious radiances extending across the swath) were found in the Level 1 input data during the initial 18-24 months of the time series (Csiszar, et al., 2…"
+    }
+   ]
+  }
+ ]
+}

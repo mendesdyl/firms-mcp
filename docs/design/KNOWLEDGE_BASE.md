@@ -5,6 +5,20 @@ Requirements: FR-KB-001 … FR-KB-010 in [requirements.yaml](../project/requirem
 
 ## Components
 
+**TypeScript server (iteration 2).** `src/knowledge/` is a direct port of the Python modules
+below, with the same entry schema, content hash, sort order, and search ranking:
+
+| Module | Responsibility |
+|---|---|
+| `src/knowledge/models.ts` | Entry and source schemas (Zod); `contentHash()` (same value as Python's, since hashes are stored in the files) |
+| `src/knowledge/frontmatter.ts` | Read and write Markdown with YAML front matter |
+| `src/knowledge/loader.ts` | Locate directories (`knowledge/` plus `FIRMS_MCP_KNOWLEDGE_DIRS`), load and validate every entry with all problems listed, `KnowledgeBase` queries |
+| `src/knowledge/search.ts` | The same BM25 ranking, synonyms, and snippets; `test/fixtures/search-parity.json` holds iteration 1's results for 26 queries and the tests require identical IDs, scores, and snippets |
+| `src/knowledge/completeness.ts` | Line-by-line verification against the owner-provided FAQ |
+| `scripts/ts/knowledge.ts` | `validate`, `rehash` (the sync arrives in WK-21) |
+
+**Python server (iteration 1, removed at parity).**
+
 | Module | Responsibility |
 |---|---|
 | `firms_mcp/knowledge/models.py` | `KnowledgeEntry`, `KnowledgeSource`; `content_hash()` |

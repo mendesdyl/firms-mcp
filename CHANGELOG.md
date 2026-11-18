@@ -9,6 +9,10 @@ All notable changes to this project are documented here. The format follows
 
 ### Changed (iteration 2)
 
+- Knowledge base ported to TypeScript (`src/knowledge/`): same schemas, hashes, ordering,
+  and search ranking as iteration 1 (verified on 26 queries), the FAQ completeness check,
+  and `npm run knowledge -- validate | rehash`.
+
 - TypeScript server skeleton on the MCP TypeScript SDK v2 (stdio and stateless Streamable
   HTTP, `/health`), the `defineTool` convention with generated `contracts/tools.json`,
   vitest traceability via `[REQ-<ID>]` test names, and a TypeScript CI job on Node 24 and

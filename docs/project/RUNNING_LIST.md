@@ -47,8 +47,8 @@ Legend: 🔎 needs research · 🛠 implementation · 📝 documentation · ❓ 
 | WK-14 | 🛠 Bring WP3–WP5 modules in line with `ruff` 0.17 (4 files to reformat, 9 lint findings) and anchor the `knowledge` lint exclusion, which also hides `src/firms_mcp/knowledge` (integration issue II-08) | WP10 | Done (II-08 resolved) |
 | WK-15 | 🛠 Per-tool step-up must parse the JSON-RPC body for handshake-era requests, which carry no `Mcp-Name` header (integration issue II-06) | WP8 | Done (II-06 resolved) |
 | WK-18 | 📝 Iteration 2 documents: iteration 1 retrospective, ADR-0011, extending to keyed data (option C), ARL guide, ARL reassessment L-8 | Iteration 2 | Done: PR #12, merged 2026-11-18 (`4ba88bc`) |
-| WK-19 | 🛠 TypeScript project setup: Node LTS, MCP TS SDK v2, vitest with `[REQ-…]` traceability, requirements reclassified (`deferred`), CI; ADR on the per-tool manifest layout | Iteration 2 | Done on `feature/ts-setup` ([ADR-0012](../decisions/0012-typescript-project-layout-and-tool-contracts.md)); awaiting review |
-| WK-20 | 🛠 Knowledge loader and search in TypeScript, with the line-by-line FAQ completeness test | Iteration 2 | Open |
+| WK-19 | 🛠 TypeScript project setup: Node LTS, MCP TS SDK v2, vitest with `[REQ-…]` traceability, requirements reclassified (`deferred`), CI; ADR on the per-tool manifest layout | Iteration 2 | Done: PR #22, merged 2026-11-18 (`36da379`) |
+| WK-20 | 🛠 Knowledge loader and search in TypeScript, with the line-by-line FAQ completeness test | Iteration 2 | Done on `feature/ts-knowledge`; awaiting review |
 | WK-21 | 🛠 FAQ sync ported to TypeScript; weekly sync pull request with change report; missing-data snapshot; deploy-time check; documented off switch | Iteration 2 | Open |
 | WK-22 | 🛠 URL builders: Fire Map (SP layers first), FIRMS API (SP-first selection, `[MAP_KEY]` placeholder, limitations), KML | Iteration 2 | Open |
 | WK-23 | 🛠 Seven `firms_` tools, resources, and server instructions (inform-don't-conclude, SP-first, KML gating, key reminder) | Iteration 2 | Open |
