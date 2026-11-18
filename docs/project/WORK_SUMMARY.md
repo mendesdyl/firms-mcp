@@ -286,3 +286,22 @@ and a review cadence. The technical counterpart, the
 
 **ARL milestones supported:** ARL4-M1 complete; phase gate G2 — computed ARL 4 (L-7),
 pending the owner's reviews of ARL3-M3 and ARL4-M2.
+
+### 2026-11-02 — Iteration 2 begins: design review, security updates, documents (`feature/iteration-2-docs`)
+
+**What was done**
+
+- Preserved iteration 1 at branch `archive/iteration-1` and signed tag `v0-iteration-1`
+  (`d41a57d`).
+- Held a design review with the owner that settled iteration 2: a keyless TypeScript
+  server (knowledge, URL building, keyless checks), standard data preferred over NRT, a
+  reviewed weekly FAQ sync, no registry publishing
+  ([ADR-0011](../decisions/0011-keyless-scope-typescript-rewrite-standard-data-first.md)).
+- Fixed 13 published dependency advisories found by `pip-audit` (authlib, certifi,
+  fastmcp, joserfc) and folded in the open Dependabot updates (#9, merged as `c113feb`).
+- Wrote the [iteration 1 retrospective](ITERATION_1_RETROSPECTIVE.md), the design for
+  [extending to keyed data](../design/EXTENDING_TO_KEYED_DATA.md), and the
+  [ARL guide](../arl/ARL_GUIDE.md); recorded LifeCycle entry L-8 (ARL 4 → 3).
+
+**ARL milestones affected:** ARL4-M1 and ARL4-M2 reopened (L-8).
+
