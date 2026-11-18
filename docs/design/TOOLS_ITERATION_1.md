@@ -1,7 +1,7 @@
 # Tool Catalog — Iteration 1 (Python)
 
-> **Iteration 1.** This catalog describes the Python server, which stays on `main` until it
-> is removed (ADR-0012 §6). The TypeScript server's catalog is [TOOLS.md](TOOLS.md).
+> **Iteration 1 (retired).** This catalog describes the Python server, removed from `main` in
+> WK-30 and preserved at tag `v0-iteration-1`. The current catalog is [TOOLS.md](TOOLS.md).
 
 The MCP surface of the FIRMS MCP server: nine tools, three resources, and two prompts.
 Each tool is defined by its directory under `src/firms_mcp/tools/<name>/`

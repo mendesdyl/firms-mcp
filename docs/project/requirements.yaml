@@ -307,7 +307,7 @@ requirements:
     priority: could
     verification: test
     design: ADR-0002
-    status: planned
+    status: deferred
   - id: FR-MCP-006
     title: Both stdio and Streamable HTTP transports are supported
     source: ADR-0003

@@ -9,25 +9,18 @@ documentation, and NASA ARL evidence stay trustworthy.
    or add one.
 2. Branch from `main`: `feature/<name>`, `fix/<name>`, or `docs/<name>`
    ([ADR-0010](docs/decisions/0010-branching-commits-and-versioning.md)).
-3. Make the change with tests. Mark each test with the requirement(s) it verifies:
-   `@pytest.mark.req("FR-001")`.
+3. Make the change with tests. Name the requirement(s) each test verifies in its name:
+   `it("[REQ-FR-URL-001] …")`; `npm run traceability` updates the matrix.
 4. Update documentation in the same branch: the ADR you implement or a new one, consumer
    or developer guides, and the knowledge base if content changed.
-5. Run the checks:
+5. Run every check (lint, types, knowledge validation, tests, contracts, traceability,
+   build, smoke test):
 
    ```bash
-   uv run ruff check .
+   npm run check
    ```
 
-   ```bash
-   uv run ruff format --check .
-   ```
-
-   ```bash
-   uv run pytest
-   ```
-
-6. Merge into `main` with `git merge --no-ff`, then update the
+6. Open a pull request (merged into `main` as a merge commit), and update the
    [work summary](docs/project/WORK_SUMMARY.md), [running list](docs/project/RUNNING_LIST.md),
    [changelog](CHANGELOG.md), and — if a milestone changed — the
    [ARL log](docs/arl/ARL_ASSESSMENT_LOG.md).
@@ -41,7 +34,9 @@ requirement IDs.
 
 ## Versioning
 
-- Server version in `pyproject.toml`; tool versions in each tool's `manifest.json`.
+- Server version in `package.json` and `src/version.ts` (a test keeps them equal); each
+  tool's `version` in its `defineTool`. `npm run contracts` records tool changes in
+  `contracts/tools.json`.
 - Bump rules follow the Earthdata MCP methodology; see
   [ADR-0010](docs/decisions/0010-branching-commits-and-versioning.md).
 
@@ -53,4 +48,5 @@ requirement IDs.
 
 ## Secrets
 
-Never commit a FIRMS MAP_KEY or token-encryption key. Use `.env` (git-ignored).
+Never commit a FIRMS MAP_KEY. The server never needs one; tests and fixtures use the
+placeholder `[MAP_KEY]`.

@@ -31,7 +31,7 @@ a decision or an external answer is still needed — named in the last column).
 | OG-05 | **Terms, disclaimer, and citation.** FIRMS data come with a disclaimer and a requested citation | Users, FIRMS | Maintainer | Every data result carries the Fire Map disclaimer and FIRMS's citation text verbatim from the knowledge base (FR-DATA-006); the instructions put official emergency information first | Managed |
 | OG-06 | **Endorsement and branding.** The service must not appear to be an official NASA product | Owner, NASA | Owner | "Not an official NASA product" in the README, the connect page ("not operated or endorsed by NASA"), the server instructions, the discovery document, and `server.json`; no NASA logos; attribution as FIRMS requests | Managed |
 | OG-07 | **Knowledge-base governance.** FIRMS text must stay verbatim and current; edits by maintainers could drift from the source | Users, owner | Maintainer (owner approves) | Verbatim-only rule (ADR-0005); provenance and content hash per entry; the loader refuses edited content whose hash no longer matches; FAQ refresh procedure with a change report (§4.2); completeness test against the owner's FAQ text | Managed |
-| OG-08 | **Fire Map URL grammar and layers** are not a published API and may change | Users | Maintainer | Catalog snapshot with a drift check (`scripts/check_map_catalog.py`, §4.3); links described in plain language; FIRMS asked to confirm (LU-05, LU-14) | Open (LU-05, LU-14) |
+| OG-08 | **Fire Map URL grammar and layers** are not a published API and may change | Users | Maintainer | Catalog snapshot with a drift check (`npm run map-catalog`, §4.3); links described in plain language; FIRMS asked to confirm (LU-05, LU-14) | Open (LU-05, LU-14) |
 | OG-09 | **FIRMS API changes** (endpoints, limits, columns) | Users | Maintainer | Strict parsing with clear `upstream_format` errors; unknown columns kept; live tests on demand (WP11, OD-05); FIRMS outage page in remediation text | Managed |
 | OG-10 | **Security of user keys and tokens** | Users, operator | Operator (deployment), maintainer (code) | Redaction everywhere (SEC-001); JWE tokens; token-key rotation (§4.4); [SECURITY.md](../../SECURITY.md) reporting route; incident procedure (§4.5) | Managed |
 | OG-11 | **Support.** Users may mistake the server for FIRMS support, or report data problems to the wrong place | Users, FIRMS | Owner | Server questions: the project's issue tracker (once the repository is public, OD-03) or the security contact; questions about FIRMS data: Earthdata Support (earthdata-support@nasa.gov, subject "FIRMS"), as SECURITY.md and the FAQ entries say | Open (OD-03) |
@@ -168,7 +168,7 @@ through the next sync pull request.
 
 ### 4.3 Checking the Fire Map catalog
 
-Run `uv run python scripts/check_map_catalog.py` monthly and after FIRMS map releases.
+Run `npm run map-catalog` monthly and after FIRMS map releases.
 On drift, update the catalog snapshot, re-verify affected links in the real map, and bump
 the `build_fire_map_link` tool version.
 

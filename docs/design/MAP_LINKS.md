@@ -2,7 +2,8 @@
 
 Implements [ADR-0006](../decisions/0006-firms-fire-map-deep-links.md).
 Requirements: FR-MAP-001 … FR-MAP-007. Code: `src/maplinks/` (TypeScript; standard data first
-as described in [URL builders](URL_BUILDERS.md)); iteration 1: `src/firms_mcp/maplinks/`.
+as described in [URL builders](URL_BUILDERS.md)); iteration 1's Python builder is at tag
+`v0-iteration-1`.
 
 ## Grammar (derived from the map's own parser; verified in the browser)
 
@@ -24,7 +25,7 @@ Modes and layer availability come from the catalog snapshot
 refreshed from the map bundle `firms_map.8994472e.js` on 2026-11-18). The refresh found the
 Basic-mode fire layer renamed from `fires_all` to `fire_layers_basic`, and new
 `fires_viirs_noaa21_sp` and `fires_viirs_noaa21_nrt` layers in Advanced mode (II-29, II-30).
-The iteration-1 copy in `src/firms_mcp/maplinks/` is left as it was. A mode's available layers are, for each of its modules, the module's explicit
+The iteration-1 copy was not changed; it was removed with the Python server (WK-30). A mode's available layers are, for each of its modules, the module's explicit
 `layer_refs`, or else every layer with the module's `tag`.
 
 ## Verification performed (2026-10-09/10, cold page loads)
@@ -42,6 +43,6 @@ The iteration-1 copy in `src/firms_mcp/maplinks/` is left as it was. A mode's av
 
 ## Keeping it current
 
-`uv run python scripts/check_map_catalog.py` compares the snapshot with the live map's
+`npm run map-catalog` compares the snapshot with the live map's
 configuration and exits non-zero if a layer the builder depends on has disappeared
 (risk R2; running-list item LU-05 asks FIRMS to confirm the grammar is stable).

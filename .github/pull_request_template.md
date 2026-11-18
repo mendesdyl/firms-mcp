@@ -16,7 +16,6 @@
 - [ ] `npm run check` passes (lint, types, tests, contracts, traceability, build, smoke)
 - [ ] Tests carry `[REQ-<ID>]` in their names for the requirements they verify; `npm run traceability` run after changing requirements or tests
 - [ ] Tool `version` and `package.json` version bumped per ADR-0010 when interfaces or behaviour changed; `npm run contracts` run
-- [ ] While the Python server remains: `uv run pytest` and `uv run ruff check .` pass
 - [ ] Documentation updated: tool catalog, design documents, consumer or developer guides
 - [ ] Knowledge-base content added or refreshed only through the documented procedure (verbatim, with provenance)
 - [ ] Running list, work summary, changelog, and (if a milestone changed) the ARL log updated

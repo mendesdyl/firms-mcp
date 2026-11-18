@@ -1,4 +1,4 @@
-# Development (TypeScript server)
+# Development
 
 How to build, run, and test the iteration-2 server. The design is in
 [ADR-0011](../decisions/0011-keyless-scope-typescript-rewrite-standard-data-first.md) and
@@ -25,6 +25,8 @@ npm ci
 | `npm run contracts` | Regenerate `contracts/tools.json` after changing a tool |
 | `npm run traceability` | Regenerate `docs/project/TRACEABILITY.md` after changing requirements or tests |
 | `npm run dev` | Run from source, restarting on change |
+| `npm run map-catalog` | Compare the Fire Map layer catalog with the live map (contacts FIRMS; run by hand) |
+| `npm run knowledge -- <command>` | Knowledge base: `validate`, `sync`, `check`, `missing-data` ([Adding knowledge](ADDING_KNOWLEDGE.md)) |
 
 ## Running the server
 
@@ -57,6 +59,9 @@ To explore interactively: `npx @modelcontextprotocol/inspector node dist/index.j
 
 ## Adding a tool
 
+See [Adding a tool](ADDING_A_TOOL.md) for the full guide. In short:
+
+
 1. Create `src/tools/<name>/tool.ts` exporting `defineTool({...})` with a `firms_` name, a
    `version`, a description that says when to use it, strict input and output schemas, and
    `READ_ONLY` annotations.
@@ -70,9 +75,3 @@ Versions are pinned exactly. Wait a week after a release before adopting it (Dep
 configured that way); install with `npm install --save-exact --before=<date a week ago>`.
 Run `npm audit --omit=dev` before merging; triage development-only advisories in the
 [integration issues log](../project/INTEGRATION_ISSUES.md).
-
-## While the Python server remains
-
-The iteration-1 Python server stays on `main` until the TypeScript server reaches parity.
-Its own checks still run: `uv run pytest` and `uv run ruff check .` (see
-[Testing](TESTING.md)).

@@ -1,5 +1,10 @@
 # FIRMS API Client — Design
 
+> **Iteration 1 (retired).** This describes the Python server's `src/firms_mcp/firms/`, removed from `main`
+> in WK-30 and preserved at tag `v0-iteration-1`. Iteration 2 is keyless
+> ([ADR-0011](../decisions/0011-keyless-scope-typescript-rewrite-standard-data-first.md)); how
+> keyed data could return is in [Extending to keyed data](EXTENDING_TO_KEYED_DATA.md).
+
 Implements [ADR-0007](../decisions/0007-data-tool-design.md) below the tool layer.
 Requirements: FR-DATA-001 … FR-DATA-004, FR-DATA-007 … FR-DATA-013, SEC-001.
 

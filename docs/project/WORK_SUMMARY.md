@@ -456,3 +456,24 @@ FR-MCP-009, FR-AUTH-002, SEC-002, NFR-002, NFR-003, NFR-004, DOC-002.
 **ARL milestones supported:** ARL4-M1 (in progress: the TypeScript components integrated
 behind the MCP interface).
 
+### 2026-11-18 — WK-30: Python server removed; map catalog check in TypeScript (`feature/remove-python`)
+
+**What was done**
+
+- Removed the iteration-1 Python server from `main` as ADR-0012 §6 planned: `src/firms_mcp/`,
+  `tests/`, `pyproject.toml`, `uv.lock`, `.python-version`, the Python CI jobs, the uv
+  Dependabot entry, and `server.json` (it described an unpublished PyPI package; FR-MCP-005
+  deferred under ADR-0011 §9). Iteration 1 stays at tag `v0-iteration-1`.
+- New Node 26 `Dockerfile` (runs as `node`, binds `0.0.0.0` with
+  `FIRMS_MCP_ALLOWED_HOSTS` defaulting to local names) and a CI job that builds the image and
+  checks `/health` and `tools/list`. Building the image locally exposed II-32 (`yaml` was a
+  development dependency but is needed at run time); fixed, with a test, and the rebuilt
+  image is healthy and lists the seven tools.
+- WK-29: `npm run map-catalog` replaces the Python catalog check and finds the bundle the
+  Python check had stopped finding; run on 2026-11-18 with nothing added or missing.
+- README, CONTRIBUTING, Architecture, Configuration, Testing, Adding a tool, and Versioning
+  and releasing rewritten for the TypeScript server; iteration-1 design documents marked
+  retired.
+
+**ARL milestones supported:** ARL4-M1 (one implementation, integrated and tested).
+

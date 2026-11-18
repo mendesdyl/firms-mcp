@@ -97,6 +97,11 @@ produced a reviewed sync pull request (WK-21). Until then:
   generated from the TypeScript tests;
 - the Python suite still runs and its markers must still name known requirements.
 
+> **Done, 2026-11-18 (WK-30).** After WK-23 (PR #32), the Python package, its tests and CI
+> jobs, `pyproject.toml`, `uv.lock`, and `server.json` were removed in one change, and the map
+> catalog check was ported to TypeScript (WK-29). The iteration-1 code remains at tag
+> `v0-iteration-1`. The Python evaluation harness (WK-11) will bring its own project file.
+
 ## Alternatives considered
 
 | Alternative | Why not |
