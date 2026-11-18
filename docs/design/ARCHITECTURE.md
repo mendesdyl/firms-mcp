@@ -1,153 +1,74 @@
 # Architecture
 
-How the FIRMS MCP server is put together: its components, how a request flows through
-them, where state lives, and where the planned authentication (WP8) and in-client map
-(WP12) attach. Decisions are recorded in the [ADRs](../decisions/README.md); the MCP
-surface is in the [tool catalog](TOOLS.md).
+How the FIRMS MCP server (iteration 2, TypeScript) is put together: its components, how a
+request flows through them, and where state lives. Decisions are in the
+[ADRs](../decisions/README.md), chiefly
+[ADR-0011](../decisions/0011-keyless-scope-typescript-rewrite-standard-data-first.md) (scope)
+and [ADR-0012](../decisions/0012-typescript-project-layout-and-tool-contracts.md) (layout); the
+MCP surface is in the [tool catalog](TOOLS.md). Iteration 1's Python architecture (detection
+fetching, OAuth connect flow) is at tag `v0-iteration-1`.
 
 ## Context
 
 ```mermaid
 flowchart LR
     U[Person] --> H[MCP host<br/>chatbot, IDE, desktop app]
-    H <-->|"MCP: stdio or Streamable HTTP<br/>2026-07-28 or handshake era"| S[firms-mcp]
-    S -->|"area, data_availability,<br/>MAP_KEY status (user's key)"| F[(FIRMS API)]
-    S -->|"map date service (public)"| F
-    S -.->|"links only"| M[FIRMS Fire Map]
-    S -.->|"links only"| K[FIRMS KML footprints]
+    H <-->|"MCP: stdio or Streamable HTTP<br/>2026-07-28 or handshake era"| S[firms-mcp-server]
+    S -->|"map date service<br/>(keyless, one GET per URL-tool call)"| F[(FIRMS)]
+    S -.->|"URLs only"| M[FIRMS Fire Map]
+    S -.->|"URLs with [MAP_KEY]"| A[FIRMS API]
+    S -.->|"URLs only"| K[FIRMS KML footprints]
+    U -.->|"opens URLs, adds own MAP_KEY"| A
     U -.->|"opens links"| M
-    KB[(Knowledge base<br/>verbatim FIRMS docs,<br/>packaged with the server)] --> S
+    KB[(Knowledge base<br/>verbatim FIRMS docs,<br/>shipped with the server)] --> S
+    W[Weekly FAQ sync<br/>owner's Mac → review PR] -.-> KB
 ```
 
-The server calls FIRMS only for detections, data availability, and key status. Map and
-KML links are built locally and opened by the person, not fetched by the server. The
-knowledge base ships inside the package, so knowledge tools work offline.
+The server holds no credentials and keeps no state between requests. Its only outbound
+request is FIRMS's keyless map date service, used to choose standard or near real-time data;
+if it fails, saved dates are used and the result says so. Everything else (knowledge, URL
+building) works offline.
 
 ## Components
 
 | Layer | Module | Responsibility | Design |
 |---|---|---|---|
-| Entry point | `firms_mcp.server` | `create_server`, operational routes, `create_http_app`, CLI (`firms-mcp [stdio\|http]`) | ADR-0002, ADR-0003 |
-| MCP surface | `firms_mcp.tools.loader` | Discover tool directories, validate manifests, register `ManifestTool`s in name order | ADR-0002 |
-| | `firms_mcp.tools.<name>/` | One tool: `manifest.json`, `models.py`, `tool.py` | [Tool catalog](TOOLS.md) |
-| | `firms_mcp.tools.common` | Output base (`status`, errors), knowledge references, verbatim disclaimer and citation, areas, cursors | ADR-0007 |
-| | `firms_mcp.resources`, `firms_mcp.prompts`, `firms_mcp.instructions` | Resources, prompts, server instructions | ADR-0005, ADR-0002 |
-| Runtime | `firms_mcp.services` | One `Services` object per server: settings, knowledge base, FIRMS client, credential resolver, clock | — |
-| | `firms_mcp.credentials` | Which MAP_KEY a request uses (local environment key; remote connected key or, if allowed, the operator key) | ADR-0004 |
-| | `firms_mcp.config` | Settings from the environment and `.env` (secrets as `SecretStr`) | [Configuration](../developers/CONFIGURATION.md) |
-| | `firms_mcp.logging_setup`, `firms_mcp.redaction` | JSON logs on stderr; MAP_KEY redaction everywhere | SEC-001 |
-| Components (ARL2-M1) | `firms_mcp.knowledge` | Verbatim knowledge base: models, loader, search, sync | [Knowledge base](KNOWLEDGE_BASE.md) |
-| | `firms_mcp.firms` | FIRMS client, source catalog, parsing and summaries, cache, budget, KML links | [FIRMS API client](FIRMS_API_CLIENT.md) |
-| | `firms_mcp.maplinks` | Fire Map link builder and catalog snapshot | [Map links](MAP_LINKS.md) |
-| | `firms_mcp.auth` | Authorization server for the MAP_KEY connect flow, token encryption, step-up | [Authentication](AUTHENTICATION.md), ADR-0004 |
+| Entry point | `src/index.ts` | `firms-mcp-server` (stdio) or `firms-mcp-server http` | ADR-0012 |
+| Server | `src/server/create.ts` | New `McpServer` per stdio session or HTTP request; registers tools and resources | ADR-0011 §8 |
+| | `src/server/http.ts` | Express app: stateless Streamable HTTP at `/mcp`, `/health`, Host/Origin checks | ADR-0012 §4 |
+| | `src/server/instructions.ts` | Server instructions (safety, workflow, standard first, MAP_KEY, KML gating) | FR-MCP-009 |
+| | `src/server/resources.ts` | `firms://knowledge/index`, `firms://knowledge/{entry_id}`, `firms://sources` | FR-KB-010 |
+| Tools | `src/tools/<name>/tool.ts` | One `defineTool` per tool; Zod schemas are the contract | ADR-0012 §1 |
+| | `src/tools/common.ts` | Shared schemas; knowledge base and missing-data table (loaded once); coverage per call | |
+| Knowledge | `src/knowledge/` | Load and validate Markdown entries, BM25 search, completeness, missing-data table | [Knowledge base](KNOWLEDGE_BASE.md) |
+| URL building | `src/sources/` | Source catalog (`sources.json`), coverage from the map date service, standard-first selection | [URL builders](URL_BUILDERS.md) |
+| | `src/apiurls/` | Area API, `data_availability`, MAP_KEY status, KML, missing-data notes | [URL builders](URL_BUILDERS.md) |
+| | `src/maplinks/` | Fire Map links and the layer catalog (`catalog.json`) | [Map links](MAP_LINKS.md) |
+| | `src/common/` | Dates, boxes, `[MAP_KEY]` guidance, limitations statement, related links | |
+| Contracts | `contracts/tools.json` | Generated from the Zod schemas; the target for a port to another stack | ADR-0012 §1 |
+| Scripts | `scripts/ts/` | Contracts, traceability, smoke test, knowledge CLI and FAQ sync, map catalog check | |
 
-The components below the MCP surface do not depend on MCP; each was built and tested on
-its own (ARL3-M1). The MCP layer composes them (ARL4-M1).
+## Request flow
 
-## A tool call
-
-```mermaid
-sequenceDiagram
-    participant H as MCP host
-    participant T as ManifestTool
-    participant E as Entry function
-    participant C as Credential resolver
-    participant F as FIRMS client
-    participant FI as FIRMS
-    H->>T: tools/call get_fire_detections {area, day_range, ...}
-    T->>T: validate with the input model<br/>(invalid → status error, invalid_request)
-    T->>E: params, services
-    E->>C: require()
-    C-->>E: MAP_KEY (or AuthRequired → status error, auth_required)
-    par each source
-        E->>F: fetch_detections(key, source, area, days, date)
-        F->>F: cache hit? coalesce? budget check
-        F->>FI: GET /api/area/csv/KEY/SOURCE/AREA/DAYS[/DATE]
-        FI-->>F: CSV
-        F-->>E: typed detections, URL with [MAP_KEY]
-    end
-    E->>E: summaries, filter, sort, page, cursor,<br/>caveats, disclaimer, citation, map link
-    E-->>T: output model
-    T-->>H: structuredContent + JSON text (isError when status is error)
-```
-
-`ManifestTool` (a FastMCP `Tool` subclass) owns argument validation and error handling,
-so every outcome — success, no results, invalid arguments, a FIRMS error, an unexpected
-failure — reaches the model as a structured result with a remediation sentence. The
-Earthdata MCP registers plain functions instead; the difference is recorded in the
-[integration issues log](../project/INTEGRATION_ISSUES.md) (II-03).
+1. The host calls a tool. The SDK validates the arguments against the tool's strict input
+   schema; unknown arguments are rejected.
+2. The tool's `run` builds its result. URL tools first ask the map date service for coverage
+   (10-second timeout, snapshot fallback), then call a pure builder with the request,
+   coverage, and today's UTC date.
+3. `defineTool` validates the result against the output schema and returns it as structured
+   content and as JSON text. A thrown error becomes an `isError` result whose message says
+   what to change.
 
 ## State
 
-| State | Where | Lifetime | Notes |
-|---|---|---|---|
-| Knowledge base | Memory, loaded and validated at startup | Process | Invalid content stops the server |
-| FIRMS responses | `ResponseCache` (TTL + LRU, single-flight) | 5 min NRT, 6 h SP | FIRMS data are public; a cached response can serve any user |
-| Transaction estimates | `TransactionBudget`, per hashed key | Rolling 10 min | Per process; replicas keep separate windows |
-| Pagination | The cursor itself (query + offset + first-page facts) | Client-held | No server-side session state (ADR-0003) |
-| OAuth records | Pluggable key-value store (in memory by default) | Minutes to 90 days | Client registrations, pending authorizations, codes, used refresh tokens, revoked families; access tokens need no lookup |
-
-The MCP request path holds no per-session state, matching the stateless 2026-07-28
-protocol; the same server also serves handshake-era sessions.
-
-## Protocol eras and transports
-
-FastMCP 4.1 negotiates per connection: 2026-07-28 clients use `server/discover` and
-stateless requests; handshake-era clients (2025-11-25, 2025-06-18, …) use `initialize` and
-`Mcp-Session-Id`. Both are tested in memory and over Streamable HTTP; stdio is tested by
-starting the real `python -m firms_mcp` process
-([tests/integration](../../tests/integration)).
-
-| Transport | Command | Credential mode |
+| What | Where | Lifetime |
 |---|---|---|
-| stdio | `firms-mcp` (or `python -m firms_mcp`) | Local: `FIRMS_MAP_KEY` |
-| Streamable HTTP | `firms-mcp http` → `http://127.0.0.1:8000/mcp` | Remote: the key connected through the OAuth flow; the operator key only for anonymous calls and only if `FIRMS_MCP_ALLOW_OPERATOR_KEY=true` |
+| Knowledge base, missing-data table, catalogs | Files shipped with the server; parsed once per process | Read-only |
+| Coverage | Fetched per URL-tool call | One call |
+| Sessions, users, keys | None | — |
 
-HTTP routes: `/mcp` (MCP), `/health` (liveness and counts), `/.well-known/ard.json`
-(agent discovery document, CORS `*`), and with OAuth enabled the authorization-server and
-protected-resource metadata, `/register`, `/authorize`, `/connect`, `/token`, and `/revoke`
-([Authentication](AUTHENTICATION.md)). FastMCP's host and origin protection applies to the
-MCP endpoint.
+## Quality
 
-```mermaid
-flowchart LR
-    R[HTTP request] --> A[AuthenticationMiddleware<br/>bearer token → user, never rejects]
-    A --> X[AuthContextMiddleware]
-    X --> S{StepUpAuth<br/>protected tool?}
-    S -- "no, or token with firms:data" --> M[/mcp: FastMCP Streamable HTTP/]
-    S -- "yes, no valid token" --> C[401 / 403 challenge]
-    A --> O[OAuth routes, /connect, /health, /.well-known/*]
-```
-
-## Errors, logging, and secrets
-
-- FIRMS failures map to stable codes in `firms_mcp.firms.errors`; tools convert them to
-  structured results. Unexpected exceptions are logged with a traceback and returned as
-  `internal_error` without details.
-- Logs are JSON lines on stderr (stdout is the stdio protocol channel), with the
-  redacting filter on every handler; `httpx`/`httpcore` request logging is suppressed
-  because FIRMS URLs contain the key.
-- The MAP_KEY is never a tool parameter (SEC-002), never in results, links, logs, or error
-  messages (SEC-001), and is registered for redaction as soon as it is resolved.
-
-## Extension points
-
-| To add | Do this | Guide |
-|---|---|---|
-| A tool | Create `src/firms_mcp/tools/<name>/` with `manifest.json`, `models.py`, `tool.py`; document it in the tool catalog | [Adding a tool](../developers/ADDING_A_TOOL.md) |
-| Knowledge | Add Markdown entries to a configured knowledge directory | [Adding knowledge](../developers/ADDING_KNOWLEDGE.md) |
-| A FIRMS source | Add it to `firms_mcp.firms.sources` (with map layers and knowledge entries) | [FIRMS API client](FIRMS_API_CLIENT.md) |
-
-## Authentication
-
-`create_http_app(mcp, auth=provider)` composes the remote authentication
-([Authentication](AUTHENTICATION.md)): the FastMCP server itself is built without `auth=`
-so anonymous tools stay reachable (II-09); the provider's token-parsing middleware and the
-`StepUpAuth` middleware sit in front of `/mcp`, and the provider's routes are added to the
-app. Tools obtain the connected key through `Services.credentials`, which reads it from the
-verified access token of the current request.
-
-## Planned attachments
-
-- **In-client map (WP12).** A `show_fire_map` tool declaring a `ui://` resource for MCP
-  Apps hosts ([ADR-0009](../decisions/0009-interactive-map-via-mcp-apps.md)).
+Tests, CI, and the requirement traceability are described in [Testing](../developers/TESTING.md).
+Integration problems and their fixes are in the
+[integration issues log](../project/INTEGRATION_ISSUES.md).

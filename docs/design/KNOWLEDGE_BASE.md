@@ -5,29 +5,20 @@ Requirements: FR-KB-001 … FR-KB-010 in [requirements.yaml](../project/requirem
 
 ## Components
 
-**TypeScript server (iteration 2).** `src/knowledge/` is a direct port of the Python modules
-below, with the same entry schema, content hash, sort order, and search ranking:
+`src/knowledge/` is a port of iteration 1's Python modules (removed in WK-30; they remain at
+tag `v0-iteration-1`), with the same entry schema, content hash, sort order, and search
+ranking:
 
 | Module | Responsibility |
 |---|---|
-| `src/knowledge/models.ts` | Entry and source schemas (Zod); `contentHash()` (same value as Python's, since hashes are stored in the files) |
+| `src/knowledge/models.ts` | Entry and source schemas (Zod); `contentHash()` (same value as iteration 1's Python `content_hash`, since hashes are stored in the files) |
 | `src/knowledge/frontmatter.ts` | Read and write Markdown with YAML front matter |
 | `src/knowledge/loader.ts` | Locate directories (`knowledge/` plus `FIRMS_MCP_KNOWLEDGE_DIRS`), load and validate every entry with all problems listed, `KnowledgeBase` queries |
 | `src/knowledge/search.ts` | The same BM25 ranking, synonyms, and snippets; `test/fixtures/search-parity.json` holds iteration 1's results for 26 queries and the tests require identical IDs, scores, and snippets |
-| `src/knowledge/completeness.ts` | Line-by-line verification against the owner-provided FAQ |
-| `scripts/ts/knowledge.ts` | `validate`, `rehash` (the sync arrives in WK-21) |
-
-**Python server (iteration 1, removed at parity).**
-
-| Module | Responsibility |
-|---|---|
-| `firms_mcp/knowledge/models.py` | `KnowledgeEntry`, `KnowledgeSource`; `content_hash()` |
-| `firms_mcp/knowledge/frontmatter.py` | Read and write Markdown with YAML front matter |
-| `firms_mcp/knowledge/loader.py` | Locate directories, load and validate all entries (fail-fast with every problem listed), `KnowledgeBase` queries: `get`, `search`, `sections`, `ordered`, `suggestions` |
-| `firms_mcp/knowledge/search.py` | Deterministic BM25 ranking with title and tag boosting and a small synonym table |
-| `firms_mcp/knowledge/sync.py` | FAQ page → entries; generic page section → Markdown; writer with change report |
-| `firms_mcp/knowledge/completeness.py` | Line-by-line verification of a reference text against the knowledge base |
-| `firms_mcp/knowledge/__main__.py` | `validate`, `rehash`, `sync`, `import-page` commands |
+| `src/knowledge/completeness.ts` | Line-by-line verification against the synced FAQ page (ADR-0013) |
+| `src/knowledge/missing-data.ts` | FIRMS's missing-data table as saved by the sync (FR-KB-013) |
+| `scripts/ts/knowledge.ts` | `validate`, `rehash`, `sync`, `missing-data`, `check`, `pr-body`, `import-page` |
+| `scripts/ts/faq-sync/` | FAQ page → entries; change report; guard against implausible parses |
 
 ## Content pipeline
 

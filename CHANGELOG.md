@@ -9,6 +9,10 @@ All notable changes to this project are documented here. The format follows
 
 ### Changed (iteration 2)
 
+- Removed the iteration-1 Python server, its tests and CI jobs, and `server.json` (kept at
+  tag `v0-iteration-1`). The container image is now Node 26. `npm run map-catalog` checks the
+  Fire Map layer catalog against the live map.
+
 - Seven keyless `firms_` tools (knowledge search, entries, topics; Fire Map, FIRMS API, and
   KML URL building; source catalog), three resources, and full server instructions. Default
   sensors include Suomi NPP only for dates FIRMS has its data. Server version 0.3.0.

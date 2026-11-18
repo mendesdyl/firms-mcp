@@ -5,8 +5,8 @@ keyless. Each tool is one `defineTool` value in `src/tools/<name>/tool.ts`
 ([ADR-0012](../decisions/0012-typescript-project-layout-and-tool-contracts.md)); its Zod
 schemas are authoritative and are exported to [`contracts/tools.json`](../../contracts/tools.json)
 by `npm run contracts`. This catalog explains them. A test checks that every registered tool,
-its version, and each of its parameters appear here (DOC-002). The iteration-1 Python tools are
-in [TOOLS_ITERATION_1.md](TOOLS_ITERATION_1.md).
+its version, and each of its parameters appear here (DOC-002). The retired iteration-1 Python tools
+are in [TOOLS_ITERATION_1.md](TOOLS_ITERATION_1.md).
 
 Design records: [ADR-0011](../decisions/0011-keyless-scope-typescript-rewrite-standard-data-first.md)
 (scope, standard data first, MAP_KEY placeholder), [URL builders](URL_BUILDERS.md),

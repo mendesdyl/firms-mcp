@@ -1,5 +1,10 @@
 # Authentication
 
+> **Iteration 1 (retired).** This describes the Python server's `src/firms_mcp/auth/`, removed from `main`
+> in WK-30 and preserved at tag `v0-iteration-1`. Iteration 2 is keyless
+> ([ADR-0011](../decisions/0011-keyless-scope-typescript-rewrite-standard-data-first.md)); how
+> keyed data could return is in [Extending to keyed data](EXTENDING_TO_KEYED_DATA.md).
+
 How users connect their FIRMS MAP_KEY, how the server protects it, and how to deploy the
 connect flow. The decision is [ADR-0004](../decisions/0004-authentication-bring-your-own-map-key.md);
 this document describes the implementation (`src/firms_mcp/auth/`, `src/firms_mcp/credentials.py`).

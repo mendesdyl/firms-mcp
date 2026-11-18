@@ -42,7 +42,7 @@ Legend: 🔎 needs research · 🛠 implementation · 📝 documentation · ❓ 
 | WK-08 | 🛠 Auth: env var, OAuth 2.1 MAP_KEY connect flow (CIMD + DCR), encrypted tokens, step-up | WP8 | Done on `feature/oauth-map-key` (snapshot queued for signing; see Done) |
 | WK-09 | 📝 Operations & governance; integration issues log | WP9 | Done (snapshot queued for signing; see Done) |
 | WK-10 | 🛠 Container image, GitHub Actions CI, MCP Registry metadata | WP10 | Done on `feature/packaging-ci` (snapshot queued for signing; see Done) |
-| WK-11 | 🛠 Evaluation harness and live validation | WP11 | Open; continues in iteration 2 against the TypeScript server (`feature/evaluation`, Python) |
+| WK-11 | 🛠 Evaluation harness and live validation | WP11 | Open; continues in iteration 2 against the TypeScript server (`feature/evaluation`, Python). Since WK-30 removed `pyproject.toml`, the harness needs its own project file (for example `evaluation/pyproject.toml`) |
 | WK-12 | 🛠 MCP Apps in-client map with time animation | WP12 | Wish list; depends on option C ([design](../design/EXTENDING_TO_KEYED_DATA.md)) |
 | WK-13 | 📝 Consumer user guide for Claude.ai, ChatGPT, Claude Code, Cursor, VS Code | WP7/WP8 | Open |
 | WK-14 | 🛠 Bring WP3–WP5 modules in line with `ruff` 0.17 (4 files to reformat, 9 lint findings) and anchor the `knowledge` lint exclusion, which also hides `src/firms_mcp/knowledge` (integration issue II-08) | WP10 | Done (II-08 resolved) |
@@ -52,9 +52,9 @@ Legend: 🔎 needs research · 🛠 implementation · 📝 documentation · ❓ 
 | WK-20 | 🛠 Knowledge loader and search in TypeScript, with the line-by-line FAQ completeness test | Iteration 2 | Done: PR #26, merged 2026-11-18 (`12fb50f`) |
 | WK-21 | 🛠 FAQ sync ported to TypeScript; weekly sync pull request with change report; missing-data snapshot; deploy-time check; documented off switch | Iteration 2 | Done: PR #27 (`2fa2a98`) and fix PR #28 (`ea74802`), merged 2026-11-18; first sync pull request #29 |
 | WK-22 | 🛠 URL builders: Fire Map (SP layers first), FIRMS API (SP-first selection, `[MAP_KEY]` placeholder, limitations), KML | Iteration 2 | Done: PR #31, merged 2026-11-18 (`5a30924`) |
-| WK-29 | 🛠 Port the Fire Map catalog check to TypeScript (`scripts/check_map_catalog.py` reads the Python catalog, and the page no longer names the bundle in a quoted attribute) so layer renames such as II-29 are caught | Iteration 2 | Open |
-| WK-23 | 🛠 Seven `firms_` tools, resources, and server instructions (inform-don't-conclude, SP-first, KML gating, key reminder) | Iteration 2 | Built on `feature/tools` (pull request pending owner review): seven tools, three resources, full server instructions, default sensors only where they have data (FR-URL-005); live end-to-end call checked 2026-11-18 |
-| WK-30 | 🛠 Remove the Python server, its tests, and its CI jobs now that the TypeScript server covers the keyless scope (ADR-0012 §6); keep the Python `evaluation/` harness (ADR-0011 §8) | Iteration 2 | Open |
+| WK-29 | 🛠 Port the Fire Map catalog check to TypeScript (`scripts/check_map_catalog.py` reads the Python catalog, and the page no longer names the bundle in a quoted attribute) so layer renames such as II-29 are caught | Iteration 2 | Done on `feature/remove-python` (WK-30): `npm run map-catalog`; run 2026-11-18, nothing added or missing |
+| WK-23 | 🛠 Seven `firms_` tools, resources, and server instructions (inform-don't-conclude, SP-first, KML gating, key reminder) | Iteration 2 | Done: PR #32, merged 2026-11-18 (`8354556`) |
+| WK-30 | 🛠 Remove the Python server, its tests, and its CI jobs now that the TypeScript server covers the keyless scope (ADR-0012 §6); keep the Python `evaluation/` harness (ADR-0011 §8) | Iteration 2 | Built on `feature/remove-python` (pull request pending owner review): Python package, tests, CI jobs, `pyproject.toml`, `uv.lock`, `server.json` removed; Node container; developer docs rewritten |
 | WK-24 | 📝 Self-hosting guide: Claude Desktop and Claude Code in full; Codex, opencode, and other agents in outline; what public use would need | Iteration 2 | Open |
 | WK-25 | 📝 Revise operations and governance for the keyless scope (ARL4-M2) | Iteration 2 | Open |
 
