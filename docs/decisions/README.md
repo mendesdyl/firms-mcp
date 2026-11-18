@@ -19,6 +19,7 @@ and which ARL milestones it supports.
 | [0010](0010-branching-commits-and-versioning.md) | Branching, commits, and versioning | Accepted | 2026-10-09 |
 | [0011](0011-keyless-scope-typescript-rewrite-standard-data-first.md) | Keyless scope, TypeScript rewrite, standard data first | Accepted | 2026-11-02 |
 | [0012](0012-typescript-project-layout-and-tool-contracts.md) | TypeScript project layout and tool contracts | Accepted | 2026-11-18 |
+| [0013](0013-faq-completeness-reference-follows-the-synced-page.md) | FAQ completeness reference follows the synced page | Accepted | 2026-11-18 |
 
 Statuses: *Proposed* (agreed direction, not yet implemented) → *Accepted* → optionally
 *Superseded by ADR-NNNN*. Accepted records are not rewritten; a change of decision is a

@@ -4,49 +4,58 @@ The knowledge base is how the server keeps up with FIRMS as its documentation ch
 Three procedures cover every case. All of them keep content verbatim and record where it
 came from ([ADR-0005](../decisions/0005-knowledge-base-verbatim-and-extensible.md)).
 
-Install the optional sync dependencies once:
-
-```bash
-uv sync --extra dev --extra sync
-```
-
 ## 1. Refresh the FIRMS FAQ
 
-Run on a branch (`docs/knowledge-refresh-YYYY-MM-DD`):
+**Normally this happens on its own.** The *Knowledge sync* workflow
+(`.github/workflows/knowledge-sync.yml`) runs every Monday at 13:00 UTC and can be started
+by hand from the Actions tab. It regenerates `knowledge/faq/`, saves the missing-data table,
+runs `npm run check`, and opens (or updates) one pull request, from the `knowledge-sync`
+branch, with the change report. Review it as described in
+[Operations §4.2](../project/OPERATIONS_AND_GOVERNANCE.md#42-refreshing-the-firms-faq).
+
+To run the same steps yourself on a branch:
 
 ```bash
-uv run python -m firms_mcp.knowledge sync
+npm run knowledge -- sync
 ```
 
-This fetches <https://www.earthdata.nasa.gov/data/tools/firms/faq>, regenerates
-`knowledge/faq/`, and writes `knowledge/reports/faq-sync-<date>.md` listing added, changed,
-unchanged, and retired entries. Then:
-
-1. Read the report and `git diff knowledge/faq`. Changed entries keep their IDs; reworded
-   questions appear as one retired and one added entry.
-2. Run the checks:
-
-   ```bash
-   npm run knowledge -- validate
-   ```
-
-   ```bash
-   npx vitest run test/contract test/unit/knowledge
-   ```
-
-   While the Python server remains, also run `uv run pytest tests/contract tests/unit/knowledge`.
-
-   If FIRMS removed or reworded text, the completeness test against the 2026-10-09
-   owner-provided snapshot will fail. That is expected: add a new snapshot of the current
-   page (owner-provided or saved) under `knowledge/snapshots/`, point the test at it, and
-   keep the old snapshot for history.
-3. Note the refresh in `CHANGELOG.md` and the [running list](../project/RUNNING_LIST.md).
-4. Merge with `--no-ff`.
-
-To work offline from a saved copy of the page:
+```bash
+npm run knowledge -- missing-data
+```
 
 ```bash
-uv run python -m firms_mcp.knowledge sync --html saved-faq.html --date 2026-10-09
+npm run check
+```
+
+`sync` fetches <https://www.earthdata.nasa.gov/data/tools/firms/faq> and, if any entry was
+added, changed, or retired, writes:
+
+- the regenerated `knowledge/faq/**.md` (changed entries keep their IDs; reworded questions
+  appear as one retired and one added entry);
+- `knowledge/reports/faq-sync-<date>.md`, the change report;
+- `knowledge/snapshots/firms-faq-page.html.gz`, the page it parsed. The completeness test
+  reads this page's text straight from the DOM and requires every line in the knowledge base
+  ([ADR-0013](../decisions/0013-faq-completeness-reference-follows-the-synced-page.md)).
+
+`sync` refuses, and writes nothing, if the result looks like a broken parse: no questions
+found, an empty question or answer, or more than 20 % of current entries about to be retired.
+If FIRMS really did reorganize the FAQ, rerun with `--allow-large-change` after checking the
+page.
+
+`missing-data` saves FIRMS's missing-data table to `knowledge/reference/missing-data.json`;
+an unchanged table keeps the earlier copy and its date.
+
+To work from a saved copy instead of the live page:
+
+```bash
+npm run knowledge -- sync --html saved-faq.html --date 2026-11-18
+```
+
+To see whether the committed FAQ matches the live page without writing anything (the deploy
+check; add `--strict` to fail on a difference):
+
+```bash
+npm run knowledge -- check
 ```
 
 ## 2. Add part of another web page
@@ -55,7 +64,7 @@ Use `import-page` for any NASA/FIRMS page — select the content with a CSS sele
 heading text:
 
 ```bash
-uv run python -m firms_mcp.knowledge import-page --url https://www.earthdata.nasa.gov/data/projects/lance --heading "Disclaimer" --id supplement.disclaimers.lance-disclaimer --title "LANCE Disclaimer" --section disclaimers --section-title "Disclaimers and acknowledgments" --source lance --order 1 --tags disclaimer,citation
+npm run knowledge -- import-page --url https://www.earthdata.nasa.gov/data/projects/lance --heading "Disclaimer" --id supplement.disclaimers.lance-disclaimer --title "LANCE Disclaimer" --section disclaimers --section-title "Disclaimers and acknowledgments" --source lance --order 1 --tags disclaimer,citation
 ```
 
 If the page comes from a new origin, first add it to `knowledge/sources.yaml` (ID,

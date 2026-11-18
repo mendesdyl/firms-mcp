@@ -23,7 +23,7 @@ requirements:
 
   # --- Knowledge base (ADR-0005) -------------------------------------------
   - id: FR-KB-001
-    title: Every question and answer of the reference FIRMS FAQ snapshot is present verbatim
+    title: Every line of the FIRMS FAQ is present verbatim, checked against the page as last synced (originally against the owner-provided copy of 2026-10-09)
     source: Owner request ("should not be boiled down")
     rationale: Agents need FIRMS's own wording, including its caveats.
     priority: must
@@ -85,7 +85,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0005
-    status: planned
+    status: implemented
   - id: FR-KB-009
     title: Retired entries are excluded from search by default and flagged when retrieved by ID
     source: ADR-0005
@@ -589,7 +589,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0011
-    status: planned
+    status: implemented
   - id: FR-KB-013
     title: The weekly sync saves FIRMS's missing-data table as a dated reference; answers from it state the date it was saved and give the live page URL
     source: Owner request 2026-11-02
@@ -597,7 +597,7 @@ requirements:
     priority: should
     verification: test
     design: ADR-0011
-    status: planned
+    status: implemented
   - id: FR-MCP-009
     title: Server instructions tell the agent to present data and caveats and leave conclusions to the user, prefer standard data citing the FAQ entry by ID, fill a shared MAP_KEY into URLs with a transcript reminder, never estimate data it has not seen, and offer KML only to users who work with GIS tools
     source: ADR-0011

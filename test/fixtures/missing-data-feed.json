@@ -1,0 +1,5 @@
+{
+ "success": true,
+ "html": "<tr>\n            <td>2026-07-16</td>\n            <td>Suomi NPP (VIIRS)</td>\n            <td>2024-03-06</td>\n            <td>NOAA-21 (VIIRS)</td>\n        </tr>\n<tr>\n            <td>2026-07-15</td>\n            <td>Suomi NPP (VIIRS)</td>\n            <td>2024-03-05</td>\n            <td>NOAA-21 (VIIRS)</td>\n        </tr>\n<tr>\n            <td>2026-07-14</td>\n            <td>Suomi NPP (VIIRS)</td>\n            <td>2024-03-04</td>\n            <td>NOAA-21 (VIIRS)</td>\n        </tr>\n<tr>\n            <td>2001-06-17</td>\n            <td>Terra (MODIS)</td>\n            <td></td>\n            <td></td>\n        </tr>\n<tr>\n            <td>2001-06-16</td>\n            <td>Terra (MODIS)</td>\n            <td></td>\n            <td></td>\n        </tr>",
+ "rowCount": 5
+}

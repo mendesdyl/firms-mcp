@@ -1,5 +1,11 @@
 # Versioning and Releasing
 
+> **Nothing is published in iteration 2** ([ADR-0011 §9](../decisions/0011-keyless-scope-typescript-rewrite-standard-data-first.md)):
+> the PyPI release and MCP Registry workflows were removed on 2026-11-18 (they remain at tag
+> `v0-iteration-1`). Version numbers still follow the rules below; for the TypeScript server
+> the server version is `package.json` `version` and each tool's version is the `version` in
+> its `defineTool(...)`.
+
 Versioning follows the NASA Earthdata MCP's methodology
 ([ADR-0010](../decisions/0010-branching-commits-and-versioning.md)): the server and each
 tool have their own semantic versions.

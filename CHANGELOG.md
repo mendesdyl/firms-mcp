@@ -9,6 +9,13 @@ All notable changes to this project are documented here. The format follows
 
 ### Changed (iteration 2)
 
+- FAQ sync ported to TypeScript (byte-identical output to iteration 1 on the 2026-11-18
+  page), with a guard against implausible parses, a dry-run `check`, the saved page
+  snapshot, and FIRMS's missing-data table. A weekly *Knowledge sync* workflow opens a
+  review pull request with the change report. The completeness check now follows the
+  synced page (ADR-0013). The PyPI and MCP Registry publication workflows were removed
+  (ADR-0011 §9).
+
 - Knowledge base ported to TypeScript (`src/knowledge/`): same schemas, hashes, ordering,
   and search ranking as iteration 1 (verified on 26 queries), the FAQ completeness check,
   and `npm run knowledge -- validate | rehash`.

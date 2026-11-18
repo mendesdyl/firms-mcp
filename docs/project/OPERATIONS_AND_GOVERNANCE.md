@@ -74,13 +74,48 @@ referrals; operators can turn this off.
 
 ### 4.2 Refreshing the FIRMS FAQ
 
-1. Run `uv run python -m firms_mcp.knowledge sync` and read the change report in
-   `knowledge/reports/`.
-2. Review every added, changed, and retired entry against the live page; never edit FIRMS
-   wording by hand.
-3. Run the tests (completeness, validation), note the refresh in the changelog, and commit
-   on a `docs/` or `feature/` branch.
-4. Cadence: monthly, and whenever FIRMS announces changes.
+Since iteration 2 the refresh is automated and reviewed
+([ADR-0011 §6](../decisions/0011-keyless-scope-typescript-rewrite-standard-data-first.md)).
+
+**Every Monday (13:00 UTC)** the *Knowledge sync* workflow regenerates the FAQ entries and
+the missing-data table, runs every check, and, if anything changed, opens or updates a pull
+request from the `knowledge-sync` branch titled *chore(knowledge): FIRMS FAQ sync <date>*.
+Nothing reaches `main` until the owner merges it.
+
+**Reviewing the sync pull request (owner):**
+
+1. Read the change report at the top: added, changed, and retired entries.
+2. Open **Files changed** and read each changed entry in `knowledge/faq/`. The wording must
+   be FIRMS's own, word for word; never edit it by hand. A rewording on the page shows up
+   here as changed text.
+3. Check that CI passed on the branch (the sync run also ran `npm run check` before opening
+   the pull request).
+4. Merge to publish the new text to agents, or close to skip; the next run starts again
+   from `main` and includes everything since.
+
+**If the sync run fails,** GitHub notifies the owner. The usual causes: the page could not
+be fetched (rerun later), or it no longer parses into a plausible FAQ (`sync` refused; the
+last good entries are untouched). Check the page, then fix the converter or rerun by hand
+with `--allow-large-change`. A failure to read the missing-data table is not fatal: the
+previous copy is kept and the pull request says so.
+
+**Turning the automatic sync off:**
+
+- In GitHub: **Actions → Knowledge sync → ⋯ → Disable workflow** (turn it back on the same
+  way). The command-line equivalent is `gh workflow disable knowledge-sync.yml`.
+- To keep the manual *Run workflow* button but stop the weekly runs, delete the `schedule:`
+  block in `.github/workflows/knowledge-sync.yml`.
+- Either way, a refresh can still be run by hand (see
+  [Adding knowledge §1](../developers/ADDING_KNOWLEDGE.md#1-refresh-the-firms-faq)).
+
+**Repository setting required:** **Settings → Actions → General → Workflow permissions →
+"Allow GitHub Actions to create and approve pull requests"** must be on, or the workflow
+pushes the branch and fails with a link to open the pull request by hand (running list
+OD-06).
+
+**At deployment:** run `npm run knowledge -- check`. It compares the committed FAQ with the
+live page without writing anything and warns if they differ; the pending changes arrive
+through the next sync pull request.
 
 ### 4.3 Checking the Fire Map catalog
 

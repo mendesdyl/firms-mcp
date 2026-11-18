@@ -1,0 +1,109 @@
+# Weekly FIRMS FAQ sync (ADR-0011 §6, FR-KB-011). Regenerates the verbatim FAQ entries and the
+# missing-data table, runs every check, and opens (or updates) a pull request with the change
+# report so the owner reviews new FIRMS text before agents see it. Nothing reaches `main`
+# without that review.
+#
+# To stop the automatic syncs: Actions → "Knowledge sync" → ⋯ → Disable workflow, or
+# `gh workflow disable knowledge-sync.yml`; to stop only the schedule, delete the `schedule:`
+# block below. The manual "Run workflow" button keeps working until the workflow is disabled.
+name: Knowledge sync
+
+on:
+  schedule:
+    - cron: "0 13 * * 1" # Mondays 13:00 UTC
+  workflow_dispatch: {}
+
+permissions:
+  contents: write # push the sync branch
+  pull-requests: write # open the review pull request
+  actions: write # start CI on the sync branch (pull requests opened by this token do not)
+
+concurrency:
+  group: knowledge-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    name: Sync the FAQ and missing-data table
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v7
+
+      - name: Set up Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: "26"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      # Fails (and GitHub notifies the owner) if the page no longer parses into a plausible
+      # FAQ; the last good entries are left untouched (FR-KB-012).
+      - name: Sync the FAQ
+        run: npm run knowledge -- sync
+
+      # The table is undocumented and slow; if it cannot be read, the previous copy is kept and
+      # the pull request says so.
+      - name: Save the missing-data table
+        id: missing
+        continue-on-error: true
+        run: npm run knowledge -- missing-data
+
+      - name: Run every check on the result
+        run: npm run check
+
+      - name: Open or update the review pull request
+        env:
+          GH_TOKEN: ${{ github.token }}
+          MISSING_OUTCOME: ${{ steps.missing.outcome }}
+        run: |
+          if [ -z "$(git status --porcelain -- knowledge)" ]; then
+            echo "No changes to the FAQ or the missing-data table."
+            exit 0
+          fi
+          day=$(date -u +%F)
+          # One rolling branch: each run starts from main, so an unmerged sync is replaced by a
+          # newer one that contains all changes since main.
+          branch="knowledge-sync"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$branch"
+          git add knowledge
+          git commit -m "chore(knowledge): FIRMS FAQ sync $day"
+          git push --force origin "$branch"
+
+          {
+            echo "Automated weekly sync of the [FIRMS FAQ](https://www.earthdata.nasa.gov/data/tools/firms/faq) (ADR-0011 §6). **Review the new text before merging**: agents will quote it verbatim."
+            echo
+            report=$(ls knowledge/reports/faq-sync-*.md 2>/dev/null | sort | tail -1)
+            if [ -n "$report" ] && git diff --name-only HEAD~1 -- "$report" | grep -q .; then
+              sed 's/^# /### /' "$report"
+            else
+              echo "The FAQ entries did not change."
+            fi
+            echo
+            echo "### Missing-data table"
+            if [ "$MISSING_OUTCOME" != "success" ]; then
+              echo "Could not be read this week; the previous copy is kept."
+            elif git diff --name-only HEAD~1 | grep -q "knowledge/reference/missing-data.json"; then
+              echo "Changed: \`git diff HEAD~1 -- knowledge/reference/missing-data.json\` shows the days added or removed."
+            else
+              echo "Unchanged."
+            fi
+            echo
+            echo "### How to review"
+            echo "1. Read the changed entries in **Files changed** (\`knowledge/faq/\`). Wording must match the FAQ page exactly."
+            echo "2. All checks (\`npm run check\`) passed in the sync run; CI runs again on this branch."
+            echo "3. Merge to publish the new text, or close to skip this week."
+          } > "$RUNNER_TEMP/body.md"
+
+          if gh pr view "$branch" --json state --jq .state 2>/dev/null | grep -q OPEN; then
+            gh pr edit "$branch" --title "chore(knowledge): FIRMS FAQ sync $day" --body-file "$RUNNER_TEMP/body.md"
+          elif ! gh pr create --base main --head "$branch" \
+              --title "chore(knowledge): FIRMS FAQ sync $day" --body-file "$RUNNER_TEMP/body.md"; then
+            echo "::error::Could not open the pull request. Enable Settings → Actions → General → 'Allow GitHub Actions to create and approve pull requests', or open it by hand: https://github.com/${GITHUB_REPOSITORY}/compare/main...${branch}"
+            exit 1
+          fi
+          gh workflow run ci.yml --ref "$branch"

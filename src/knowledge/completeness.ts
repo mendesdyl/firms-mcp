@@ -19,13 +19,13 @@ const FOLD: Record<string, string> = {
   "’": "'", // right single quotation mark
   "–": "-", // en dash
   "—": "-", // em dash
-  " ": " ", // no-break space
+  "\u00a0": " ", // no-break space
   "…": "...", // horizontal ellipsis
-  "​": "", // zero-width space
-  "‌": "", // zero-width non-joiner
-  "‍": "", // zero-width joiner
-  "⁠": "", // word joiner
-  "﻿": "", // zero-width no-break space
+  "\u200b": "", // zero-width space
+  "\u200c": "", // zero-width non-joiner
+  "\u200d": "", // zero-width joiner
+  "\u2060": "", // word joiner
+  "\ufeff": "", // zero-width no-break space
 };
 const FOLD_PATTERN = new RegExp(`[${Object.keys(FOLD).join("")}]`, "g");
 const IMAGE = /!\[([^\]]*)\]\([^)]*\)/g;
@@ -80,7 +80,8 @@ export function missingLines(reference: string, entries: Iterable<KnowledgeEntry
   for (const raw of reference.split("\n")) {
     const line = raw.trim();
     if (!line || IGNORED_REFERENCE_LINES.has(line)) continue;
-    const folded = fold(line);
+    // List numbers and bullets are markup on one side and may be typed text on the other.
+    const folded = fold(line.replace(/^(?:[-+]|\d+\.)\s+/, ""));
     if (folded && !haystack.includes(folded)) missing.push(folded);
   }
   return missing;

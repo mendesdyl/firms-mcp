@@ -35,7 +35,7 @@ below, with the same entry schema, content hash, sort order, and search ranking:
 flowchart LR
     A[FIRMS FAQ page] -->|sync| B[faq/**.md]
     C[Other NASA pages] -->|import-page| D[supplements/**.md]
-    E[Owner-provided FAQ text] --> F[snapshots/]
+    E[Owner-provided FAQ text, then the synced page] --> F[snapshots/]
     B --> G[Loader + validation]
     D --> G
     H[Extra dirs via FIRMS_MCP_KNOWLEDGE_DIRS] --> G
@@ -90,7 +90,25 @@ together; the server refuses to start with invalid knowledge.
 
 ## Completeness guarantee
 
-`tests/contract/test_faq_completeness.py` reduces both the owner-provided FAQ text and the
-knowledge base to comparable plain text and requires every non-empty line of the reference
-to be present (result on 2026-10-09: 0 missing lines). A negative control removes one
-sentence and checks that the test notices.
+The completeness test reduces a reference text and the knowledge base to comparable plain
+text and requires every non-empty line of the reference to be present. A negative control
+removes one sentence and checks that the test notices.
+
+- **Until the first automated sync**, the reference is the owner-provided FAQ text of
+  2026-10-09 (result: 0 missing lines).
+- **From then on**, NASA's rewording makes that copy obsolete (the 2026-11-18 page no longer
+  contains 17 of its lines), so the reference is the FAQ page the sync last parsed,
+  `snapshots/firms-faq-page.html.gz`. Its text is read straight from the DOM — every
+  paragraph, list item, table cell, heading, caption, and accordion question — without the
+  Markdown converter, so a converter that lost text would be caught
+  ([ADR-0013](../decisions/0013-faq-completeness-reference-follows-the-synced-page.md)).
+- A separate test syncs the saved 2026-11-18 page into a copy of the knowledge base and
+  requires all 1,015 of its lines, so the check is exercised on every run.
+
+## Sync (TypeScript, iteration 2)
+
+`scripts/ts/faq-sync/` is a port of the Python sync. On the 2026-11-18 page it writes files
+byte-identical to the Python sync's (fixture `test/fixtures/faq-sync-parity.json`), and the
+front-matter writer reproduces all existing entry files byte for byte. Additions in
+iteration 2: a guard that refuses an implausible parse (FR-KB-012), a dry-run `check`, the
+saved page snapshot, and the missing-data table (FR-KB-013).
