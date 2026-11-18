@@ -27,12 +27,14 @@ unchanged, and retired entries. Then:
 2. Run the checks:
 
    ```bash
-   uv run python -m firms_mcp.knowledge validate
+   npm run knowledge -- validate
    ```
 
    ```bash
-   uv run pytest tests/contract tests/unit/knowledge
+   npx vitest run test/contract test/unit/knowledge
    ```
+
+   While the Python server remains, also run `uv run pytest tests/contract tests/unit/knowledge`.
 
    If FIRMS removed or reworded text, the completeness test against the 2026-10-09
    owner-provided snapshot will fail. That is expected: add a new snapshot of the current
@@ -71,7 +73,7 @@ which is rendered by JavaScript):
 3. Set the hash:
 
    ```bash
-   uv run python -m firms_mcp.knowledge rehash knowledge/supplements/<section>/<name>.md
+   npm run knowledge -- rehash knowledge/supplements/<section>/<name>.md
    ```
 
 4. Validate and run the tests as above.

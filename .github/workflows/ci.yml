@@ -42,6 +42,9 @@ jobs:
       - name: Type-check
         run: npm run typecheck
 
+      - name: Validate the knowledge base
+        run: npm run knowledge -- validate
+
       - name: Tests
         run: npm test
 

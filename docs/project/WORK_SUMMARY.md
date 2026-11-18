@@ -331,3 +331,24 @@ pending the owner's reviews of ARL3-M3 and ARL4-M2.
 
 **ARL milestones supported:** ARL4-M1 (in progress).
 
+### 2026-11-18 — WK-20: knowledge base in TypeScript (`feature/ts-knowledge`)
+
+**What was done**
+
+- Ported the knowledge base to `src/knowledge/`: entry and source schemas, the content hash
+  (identical to Python's: all 150 stored hashes match), front matter, a strict loader that
+  lists every problem, the table of contents, ID suggestions, BM25 search with the same
+  synonyms and snippets, and the line-by-line completeness check.
+- Search parity: iteration 1's results for 26 queries are kept in
+  `test/fixtures/search-parity.json`; the TypeScript search returns identical IDs, scores,
+  and snippets for all of them.
+- `npm run knowledge -- validate | rehash`, and a CI step that validates the knowledge base.
+- The loader skips a `knowledge/reference/` directory, reserved for the missing-data
+  snapshot (WK-21).
+
+**Requirements implemented (TypeScript):** FR-KB-001 … FR-KB-007, FR-KB-009.
+**Tests:** 57 TypeScript tests; the 252 Python tests still pass.
+
+**ARL milestones supported:** ARL4-M1 (in progress); component evidence for ARL3-M1 under
+the stricter reading in the ARL guide §5.
+
