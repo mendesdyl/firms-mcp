@@ -8,7 +8,7 @@ source: firms-faq
 source_url: https://www.earthdata.nasa.gov/data/tools/firms/faq#heading-accordion-124577-5
 retrieved: '2026-10-09'
 content_sha256: a3603b0ac6d3847c11fb189db00f704a33a03746f10018299c42c602a8cbb603
-order: 90
+order: 91
 tags:
 - fire-map
 - smoke

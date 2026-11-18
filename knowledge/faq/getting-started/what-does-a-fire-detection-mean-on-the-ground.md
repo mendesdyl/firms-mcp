@@ -5,10 +5,10 @@ kind: faq
 section: getting-started
 section_title: Getting Started
 source: firms-faq
-source_url: https://www.earthdata.nasa.gov/data/tools/firms/faq#heading-accordion-124369-4
+source_url: https://www.earthdata.nasa.gov/data/tools/firms/faq#heading-accordion-124369-5
 retrieved: '2026-10-09'
 content_sha256: c7e7ef4408aec0ff14fc24c6e470a6c4fdc687652c94127a40f48fb28b32a2ef
-order: 4
+order: 5
 tags: []
 related:
 - faq.modis.what-does-scan-and-track-mean

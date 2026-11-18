@@ -6,9 +6,9 @@ section: support
 section_title: Support and Mailing Lists
 source: firms-faq
 source_url: https://www.earthdata.nasa.gov/data/tools/firms/faq#heading-accordion-124636-2
-retrieved: '2026-10-09'
-content_sha256: e72f300d482c9202890c5d071e9622b4f90fb9be5aa5353341de87ebea09681c
-order: 22
+retrieved: '2026-11-18'
+content_sha256: 18fda93b1b540ec004b31658b3911d073f1abe6c21dc41ca851f7c1d453f93e5
+order: 23
 tags: []
 related: []
 status: current
@@ -16,7 +16,7 @@ status: current
 
 Subscribe to receive notifications from LANCE and FIRMS about updates, announcements, data issues, and scheduled maintenance.
 
-- LANCE-MODIS mailing list (For updates regarding NRT data from MODIS aboard Terra and Aqua and VIIRS/Land aboard Suomi NPP and NOAA-20; this will keep you up-to-date with data outages that may impact the MODIS and VIIRS active fire products)
+- LANCE-MODIS mailing list (For updates regarding NRT data from MODIS aboard Terra and Aqua and VIIRS/Land aboard NOAA-20 and NOAA-21; this will keep you up-to-date with data outages that may impact the MODIS and VIIRS active fire products)
   - To subscribe: e-mail [lance-modis-join@lists.nasa.gov](mailto:lance-modis-join@lists.nasa.gov) (no subject or text is required)
   - To unsubscribe: e-mail [lance-modis-leave@lists.nasa.gov](mailto:lance-modis-leave@lists.nasa.gov) (no subject or text is required)
 - LANCE FIRMS mailing list (For general updates on the Fire Information for Resource Management System)

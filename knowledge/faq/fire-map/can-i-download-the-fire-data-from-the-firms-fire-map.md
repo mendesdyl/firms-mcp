@@ -8,7 +8,7 @@ source: firms-faq
 source_url: https://www.earthdata.nasa.gov/data/tools/firms/faq#heading-accordion-124577-1
 retrieved: '2026-10-09'
 content_sha256: 465cc00e05fa34ff0e830219d2dc9229c5dbabbae251a962db117acfce4b98e5
-order: 86
+order: 87
 tags:
 - fire-map
 related: []

@@ -8,12 +8,12 @@ source: firms-faq
 source_url: https://www.earthdata.nasa.gov/data/tools/firms/faq#heading-accordion-124479-3
 retrieved: '2026-10-09'
 content_sha256: 9979912dc44c13b15ddbeafbfc0a8c81a40f993cefc54f69365883456c6bd6f4
-order: 45
+order: 46
 tags:
 - modis
 - resolution
 related:
-- faq.getting-started.what-are-the-attributes-fields-of-the-active-fire-data
+- faq.getting-started.why-was-a-particular-fire-not-detected
 status: current
 ---
 

@@ -8,7 +8,7 @@ source: firms-faq
 source_url: https://www.earthdata.nasa.gov/data/tools/firms/faq#heading-accordion-124627-12
 retrieved: '2026-10-09'
 content_sha256: b8088917de12d222f5bbd660ea62bbe244c3f06d558978d4fbf47728e7a5b580
-order: 119
+order: 120
 tags:
 - perimeter
 related: []

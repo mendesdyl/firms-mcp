@@ -8,7 +8,7 @@ source: firms-faq
 source_url: https://www.earthdata.nasa.gov/data/tools/firms/faq#viirs-active
 retrieved: '2026-10-09'
 content_sha256: 8714d7dd3323ae404a27c8a42ba6307a2c16f95857bb19470250fd55713c0901
-order: 33
+order: 34
 tags:
 - viirs
 related: []

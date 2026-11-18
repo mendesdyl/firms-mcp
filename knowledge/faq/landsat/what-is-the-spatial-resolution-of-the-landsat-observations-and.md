@@ -8,7 +8,7 @@ source: firms-faq
 source_url: https://www.earthdata.nasa.gov/data/tools/firms/faq#heading-accordion-124563-3
 retrieved: '2026-10-09'
 content_sha256: 565e26f8105534bc9c1ec71fcc1194d2c4cbc088538e63f745eeca2ab1a3bc57
-order: 71
+order: 72
 tags:
 - landsat
 - resolution

@@ -5,10 +5,10 @@ kind: faq
 section: getting-started
 section_title: Getting Started
 source: firms-faq
-source_url: https://www.earthdata.nasa.gov/data/tools/firms/faq#heading-accordion-124369-10
+source_url: https://www.earthdata.nasa.gov/data/tools/firms/faq#heading-accordion-124369-11
 retrieved: '2026-10-09'
 content_sha256: aafbf45561c74fef24266e5580062cc127f2f5a5e400aaf2d760c769a7ada3d2
-order: 10
+order: 11
 tags: []
 related: []
 status: current
