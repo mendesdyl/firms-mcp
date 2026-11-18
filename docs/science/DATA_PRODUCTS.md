@@ -36,6 +36,7 @@ at location Y"; it reports pixel-center detections with their sensor, footprint
 | `VIIRS_NOAA20_NRT` | VIIRS / NOAA-20 (JPSS-1) | 375 m | Global | — | 2019-12-04 (NRT) | URT+NRT |
 | `VIIRS_NOAA20_SP` | VIIRS / NOAA-20 | 375 m | Global | 2020-01-01 | 2018-04-01 → 2026-06-30 | Standard |
 | `VIIRS_NOAA21_NRT` | VIIRS / NOAA-21 (JPSS-2) | 375 m | Global | 2024-01-17 | 2024-01-17 (NRT) | URT+NRT |
+| `VIIRS_NOAA21_SP` | VIIRS / NOAA-21 | 375 m | Global | — | 2023-03-01 → 2026-07-31 (map date service, 2026-11-18) | Standard (listed on the area-API page by 2026-11-18) |
 | `MODIS_NRT` | MODIS / Terra + Aqua, Collection 6.1 (MCD14DL) | 1 km | Global | — | 2020-11-01 (NRT) | URT+NRT |
 | `MODIS_SP` | MODIS / Terra + Aqua, MCD14ML (University of Maryland) | 1 km | Global | Terra Nov 2000; Aqua Jul 2002 | 2000-11-01 → 2026-07-31 | Standard, 2–3 month lag |
 | `LANDSAT_NRT` | OLI / Landsat 8 + 9 | 30 m | US/Canada ("most of North America (CONUS, southern Canada and northern Mexico)") | June 2022 | 2022-06-20 | NRT |
@@ -43,6 +44,10 @@ at location Y"; it reports pixel-center detections with their sensor, footprint
 Sources: FIRMS area API page; "For what dates are the fire data available?"; "What are the
 different sources of MODIS and VIIRS active fire data in FIRMS?"; "What is the temporal
 extent of Landsat Active Fire and Thermal Anomalies product in FIRMS?"; `/api/map_dates/`.
+On 2026-11-18 the map date service reported standard processing up to 2026-07-31 for all
+three VIIRS satellites and 2026-08-31 for MODIS, and Suomi NPP NRT data ending 2026-11-02
+(FIRMS's FAQ notes that Suomi NPP data production ceased that day). The builders read these
+dates live; `src/sources/sources.json` keeps the 2026-11-18 values as the fallback.
 
 **Recorded discrepancy:** the FAQ gives 1 January 2020 as the start of NOAA-20 VIIRS data,
 while the map date service and the Fire Map layer configuration (`minDate: 2018-04-01`)
