@@ -30,3 +30,7 @@ htmlcov/
 
 # Local runtime data (OAuth key-value store, caches)
 .firms-mcp/
+
+# Node / TypeScript (iteration 2)
+node_modules/
+*.tsbuildinfo

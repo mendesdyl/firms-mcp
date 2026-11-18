@@ -1,5 +1,9 @@
 # Adding a Tool
 
+> **Iteration 1 (Python).** This guide describes the Python server, which stays on `main`
+> until the TypeScript server reaches parity and is then removed (ADR-0012). For the
+> TypeScript server see [Development](DEVELOPMENT.md).
+
 Tools follow the NASA Earthdata MCP layout
 ([ADR-0002](../decisions/0002-follow-nasa-earthdata-mcp-conventions.md)): one directory per
 tool, a versioned manifest, Pydantic models, and an entry function. The loader
@@ -97,7 +101,7 @@ against the input model when the server starts.
 - Add a `### \`my_tool\` (v1.0.0)` section and an overview row to the
   [tool catalog](../design/TOOLS.md); a test checks the name, version, and every parameter.
 - Add the tool to `capabilities` in `src/firms_mcp/discovery/ard.json`; a test checks it.
-- Run `uv run pytest` and `uv run python scripts/gen_traceability.py`.
+- Run `uv run pytest`.
 
 ## Changing a tool
 
