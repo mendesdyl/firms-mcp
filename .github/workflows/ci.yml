@@ -1,7 +1,6 @@
-# Quality gates (ADR-0008, ADR-0012). The TypeScript job is the iteration-2 server: lint,
-# types, tests, tool contracts, the requirements traceability matrix, build, a stdio smoke
-# test, and an audit of the dependencies it ships with. The Python jobs cover the
-# iteration-1 server until it is removed. Nothing here contacts FIRMS.
+# Quality gates (ADR-0008, ADR-0012): lint, types, tests, tool contracts, the requirements
+# traceability matrix, build, a stdio smoke test, an audit of the dependencies the server
+# ships with, and the container image. Nothing here contacts FIRMS.
 name: CI
 
 on:
@@ -63,93 +62,29 @@ jobs:
       - name: Smoke test over stdio
         run: npm run smoke
 
-  test:
-    name: Tests (Python ${{ matrix.python-version }})
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        python-version: ["3.12", "3.13", "3.14"]
-    env:
-      # Every uv command in the job, including `uv run`, uses the matrix interpreter.
-      # Without this, `uv run` falls back to `.python-version` and rebuilds the
-      # environment without the dev extras (integration issue II-17).
-      UV_PYTHON: ${{ matrix.python-version }}
-    steps:
-      - name: Check out
-        uses: actions/checkout@v7
-
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v7
-        with:
-          python-version: ${{ matrix.python-version }}
-
-      - name: Install uv
-        run: pip install "uv==0.13.0"
-
-      - name: Install dependencies
-        run: uv sync --locked --extra dev --extra sync
-
-      - name: Lint
-        run: uv run ruff check .
-
-      - name: Format
-        run: uv run ruff format --check .
-
-      - name: Validate the knowledge base
-        run: uv run python -m firms_mcp.knowledge validate
-
-      - name: Tests
-        run: uv run pytest --cov --cov-report=term
-
-
-  package:
-    name: Package and container
+  container:
+    name: Container image
     runs-on: ubuntu-latest
     steps:
       - name: Check out
         uses: actions/checkout@v7
-
-      - name: Set up Python
-        uses: actions/setup-python@v7
-        with:
-          python-version: "3.13"
-
-      - name: Install uv
-        run: pip install "uv==0.13.0"
-
-      - name: Build the wheel and sdist
-        run: uv build
-
-      - name: The wheel carries the knowledge base, tool manifests, and discovery document
-        run: |
-          python - <<'PY'
-          import glob, zipfile
-          names = zipfile.ZipFile(glob.glob("dist/*.whl")[0]).namelist()
-          assert sum(n.startswith("firms_mcp/_knowledge/faq/") for n in names) >= 142, "FAQ"
-          assert sum(n.endswith("/manifest.json") for n in names) == 9, "tool manifests"
-          assert "firms_mcp/discovery/ard.json" in names, "ard.json"
-          PY
 
       - name: Build the container image
         run: docker build -t firms-mcp:ci .
 
       - name: Start the container and check its endpoints
         run: |
-          docker run -d --name firms-mcp -p 8000:8000 \
-            -e FIRMS_MCP_PUBLIC_URL=http://127.0.0.1:8000 firms-mcp:ci
+          docker run -d --name firms-mcp -p 8000:8000 firms-mcp:ci
           for attempt in $(seq 1 30); do
             curl -fsS http://127.0.0.1:8000/health && break
             sleep 1
           done
-          curl -fsS http://127.0.0.1:8000/.well-known/oauth-protected-resource/mcp
-          curl -fsS http://127.0.0.1:8000/.well-known/ard.json > /dev/null
-          status=$(curl -s -o /dev/null -w '%{http_code}' -X POST http://127.0.0.1:8000/mcp \
+          curl -fsS http://127.0.0.1:8000/health | grep -q '"tools":7'
+          curl -fsS -X POST http://127.0.0.1:8000/mcp \
             -H 'Content-Type: application/json' -H 'Accept: application/json, text/event-stream' \
-            -H 'MCP-Protocol-Version: 2026-07-28' -H 'Mcp-Method: tools/call' \
-            -H 'Mcp-Name: get_fire_detections' \
-            -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"get_fire_detections","arguments":{"area":"world"}}}')
-          test "$status" = "401"
+            -H 'MCP-Protocol-Version: 2026-07-28' -H 'Mcp-Method: tools/list' \
+            -d '{"jsonrpc":"2.0","id":1,"method":"tools/list","params":{"_meta":{"io.modelcontextprotocol/protocolVersion":"2026-07-28","io.modelcontextprotocol/clientCapabilities":{},"io.modelcontextprotocol/clientInfo":{"name":"ci","version":"1"}}}}' \
+            | tee /dev/stderr | grep -q firms_build_api_url
 
       - name: Container logs
         if: always()
