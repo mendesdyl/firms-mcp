@@ -1,16 +1,11 @@
-# Weekly FIRMS FAQ sync (ADR-0011 §6, FR-KB-011). Regenerates the verbatim FAQ entries and the
-# missing-data table, runs every check, and opens (or updates) a pull request with the change
-# report so the owner reviews new FIRMS text before agents see it. Nothing reaches `main`
-# without that review.
-#
-# To stop the automatic syncs: Actions → "Knowledge sync" → ⋯ → Disable workflow, or
-# `gh workflow disable knowledge-sync.yml`; to stop only the schedule, delete the `schedule:`
-# block below. The manual "Run workflow" button keeps working until the workflow is disabled.
+# FIRMS FAQ sync on GitHub's runners (ADR-0011 §6, FR-KB-011), started by hand only. The FAQ
+# page answers GitHub's runners with HTTP 403 (integration issue II-28), so the weekly sync runs
+# from the owner's Mac instead (scripts/mac/knowledge-sync.sh; Operations §4.2). This workflow
+# does the same steps when started from the Actions tab: regenerate the FAQ entries and the
+# missing-data table, run every check, and open or update the review pull request.
 name: Knowledge sync
 
 on:
-  schedule:
-    - cron: "0 13 * * 1" # Mondays 13:00 UTC
   workflow_dispatch: {}
 
 permissions:
@@ -74,30 +69,7 @@ jobs:
           git commit -m "chore(knowledge): FIRMS FAQ sync $day"
           git push --force origin "$branch"
 
-          {
-            echo "Automated weekly sync of the [FIRMS FAQ](https://www.earthdata.nasa.gov/data/tools/firms/faq) (ADR-0011 §6). **Review the new text before merging**: agents will quote it verbatim."
-            echo
-            report=$(ls knowledge/reports/faq-sync-*.md 2>/dev/null | sort | tail -1)
-            if [ -n "$report" ] && git diff --name-only HEAD~1 -- "$report" | grep -q .; then
-              sed 's/^# /### /' "$report"
-            else
-              echo "The FAQ entries did not change."
-            fi
-            echo
-            echo "### Missing-data table"
-            if [ "$MISSING_OUTCOME" != "success" ]; then
-              echo "Could not be read this week; the previous copy is kept."
-            elif git diff --name-only HEAD~1 | grep -q "knowledge/reference/missing-data.json"; then
-              echo "Changed: \`git diff HEAD~1 -- knowledge/reference/missing-data.json\` shows the days added or removed."
-            else
-              echo "Unchanged."
-            fi
-            echo
-            echo "### How to review"
-            echo "1. Read the changed entries in **Files changed** (\`knowledge/faq/\`). Wording must match the FAQ page exactly."
-            echo "2. All checks (\`npm run check\`) passed in the sync run; CI runs again on this branch."
-            echo "3. Merge to publish the new text, or close to skip this week."
-          } > "$RUNNER_TEMP/body.md"
+          npm run --silent knowledge -- pr-body --missing "$MISSING_OUTCOME" --base origin/main > "$RUNNER_TEMP/body.md"
 
           if gh pr view "$branch" --json state --jq .state 2>/dev/null | grep -q OPEN; then
             gh pr edit "$branch" --title "chore(knowledge): FIRMS FAQ sync $day" --body-file "$RUNNER_TEMP/body.md"

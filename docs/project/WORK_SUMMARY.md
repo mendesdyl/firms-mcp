@@ -382,3 +382,22 @@ skipped by design.
 **ARL milestones supported:** ARL4-M1 (in progress); ARL4-M2 (the review duty and its off
 switch are part of the revised operations).
 
+### 2026-11-18 — First FAQ sync and the weekly job on the Mac (`knowledge-sync`, `feature/local-knowledge-sync`)
+
+**What was done**
+
+- First sync run on GitHub: synced correctly but stopped on a test that compared search
+  scores with the October content (II-27; fixed in PR #28 with a frozen corpus).
+- Second and third runs: the FAQ page answered GitHub's runners with HTTP 403 (II-28).
+  Ran the identical sync from the owner's Mac and opened the review pull request #29: 1
+  question added, 8 answers changed (including the URT/RT/NRT vs Standard answer and a
+  notice that Suomi NPP data production ceased on 2026-11-02), the saved page, and the
+  missing-data table.
+- Owner decision: run the weekly sync from the Mac. `scripts/mac/knowledge-sync.sh` does
+  the workflow's steps in its own worktree of `origin/main`, with a signed commit and a
+  macOS notification; `scripts/mac/install-knowledge-sync.sh` schedules it (Mondays 09:00)
+  and removes it. The GitHub workflow became manual only. A `pr-body` command writes the
+  review description, listing the files whose wording changed.
+
+**ARL milestones supported:** ARL4-M2 (the review duty and how to switch it off).
+

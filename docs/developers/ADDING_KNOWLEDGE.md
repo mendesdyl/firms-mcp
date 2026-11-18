@@ -6,11 +6,12 @@ came from ([ADR-0005](../decisions/0005-knowledge-base-verbatim-and-extensible.m
 
 ## 1. Refresh the FIRMS FAQ
 
-**Normally this happens on its own.** The *Knowledge sync* workflow
-(`.github/workflows/knowledge-sync.yml`) runs every Monday at 13:00 UTC and can be started
-by hand from the Actions tab. It regenerates `knowledge/faq/`, saves the missing-data table,
-runs `npm run check`, and opens (or updates) one pull request, from the `knowledge-sync`
-branch, with the change report. Review it as described in
+**Normally this happens on its own.** A weekly job on the owner's Mac
+(`scripts/mac/knowledge-sync.sh`, Mondays 09:00) regenerates `knowledge/faq/`, saves the
+missing-data table, runs `npm run check`, and opens (or updates) one pull request, from the
+`knowledge-sync` branch, with the change report. The *Knowledge sync* workflow does the same
+when started by hand from the Actions tab, although the FAQ page often refuses GitHub's
+runners (II-28). Review it as described in
 [Operations §4.2](../project/OPERATIONS_AND_GOVERNANCE.md#42-refreshing-the-firms-faq).
 
 To run the same steps yourself on a branch:
