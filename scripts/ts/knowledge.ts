@@ -14,10 +14,14 @@
  *   npm run knowledge -- check [--html file] [--strict]
  *       Compare the committed FAQ entries with the live page without writing anything. Prints
  *       what a sync would change; with --strict, exits 1 if anything would.
+ *   npm run knowledge -- pr-body [--missing success|failed] [--base origin/main]
+ *       The review pull request's description for the committed sync: the change report, the
+ *       files whose wording changed, and the missing-data status.
  *   npm run knowledge -- import-page --url U (--select CSS | --heading TEXT) --id ID --title T
  *       --section S --section-title T --source SRC [--order N] [--tags a,b] [--html file]
  *       Add part of another page as a verbatim supplement entry.
  */
+import { execFileSync } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join as joinPath, resolve } from "node:path";
 import { parseArgs } from "node:util";
@@ -40,7 +44,7 @@ import { FAQ_URL, parseFaqHtml } from "./faq-sync/faq.js";
 import { checkParsed } from "./faq-sync/guard.js";
 import { MISSING_DATA_FEED, parseMissingData } from "./faq-sync/missing-data.js";
 import { extractPageMarkdown } from "./faq-sync/page.js";
-import { currentIds, reportMarkdown, writeEntries } from "./faq-sync/write.js";
+import { currentIds, entryPath, reportMarkdown, writeEntries } from "./faq-sync/write.js";
 
 const USER_AGENT = "firms-mcp-knowledge-sync (+https://github.com/mendesdyl/firms-mcp)";
 export const PAGE_SNAPSHOT = joinPath("snapshots", "firms-faq-page.html.gz");
@@ -181,6 +185,74 @@ async function check(args: string[]): Promise<number> {
   return values.strict && (differs || problems.length) ? 1 : 0;
 }
 
+/** Markdown description of the sync committed on this branch, compared with `base`. */
+export function prBody(options: { missing: string; base: string; dir?: string }): string {
+  const dir = options.dir ?? defaultKnowledgeDir();
+  const changedFiles = execFileSync(
+    "git",
+    ["diff", "--name-only", options.base, "HEAD", "--", dir],
+    {
+      encoding: "utf8",
+    },
+  )
+    .split("\n")
+    .filter(Boolean);
+  const reportFile = changedFiles
+    .filter((f) => /reports\/faq-sync-.*\.md$/.test(f))
+    .sort()
+    .at(-1);
+  const lines = [
+    "Weekly sync of the [FIRMS FAQ](https://www.earthdata.nasa.gov/data/tools/firms/faq) (ADR-0011 §6). **Review the new text before merging**: agents will quote it word for word.",
+    "",
+  ];
+  if (reportFile) {
+    const root = execFileSync("git", ["rev-parse", "--show-toplevel"], { encoding: "utf8" }).trim();
+    const report = readFileSync(joinPath(root, reportFile), "utf8");
+    lines.push(report.replace(/^# /m, "### "), "");
+    const ids = [...report.matchAll(/^- `([^`]+)`$/gm)].map((m) => m[1] ?? "");
+    const kb = loadKnowledgeBase([dir]);
+    const textFiles = ids.map((id) => {
+      const entry = kb.get(id);
+      return entry ? relativePath(entryPath(dir, id, entry.section)) : `\`${id}\``;
+    });
+    const faqFiles = changedFiles.filter(
+      (f) => f.includes("/faq/") || f.startsWith("knowledge/faq/"),
+    );
+    lines.push(
+      "### Where to look",
+      `The wording changed in ${textFiles.length} file(s):`,
+      "",
+      ...textFiles.map((f) => `- \`${f}\``),
+      "",
+      `${Math.max(faqFiles.length - textFiles.length, 0)} other FAQ file(s) changed only their \`order\` or anchor numbers (an added or removed question shifts every later entry).`,
+      "",
+    );
+  } else {
+    lines.push("The FAQ entries did not change.", "");
+  }
+  const missingChanged = changedFiles.some((f) => f.endsWith(MISSING_DATA_FILE));
+  lines.push(
+    "### Missing-data table",
+    options.missing !== "success"
+      ? "Could not be read this time; the previous copy is kept."
+      : missingChanged
+        ? "Changed; see `knowledge/reference/missing-data.json` in **Files changed**."
+        : "Unchanged.",
+    "",
+    "### How to review",
+    "1. Read the files listed above in **Files changed**. The wording must match the FAQ page exactly; never edit it by hand.",
+    "2. `npm run check` passed before this pull request was opened, and CI runs again on it.",
+    "3. Merge to publish the new text, or close it to skip; the next sync starts again from `main`.",
+    "",
+  );
+  return lines.join("\n");
+}
+
+function relativePath(path: string): string {
+  const root = execFileSync("git", ["rev-parse", "--show-toplevel"], { encoding: "utf8" }).trim();
+  return path.startsWith(`${root}/`) ? path.slice(root.length + 1) : path;
+}
+
 async function importPage(args: string[]): Promise<number> {
   const { values: v } = parseArgs({
     args,
@@ -277,9 +349,20 @@ async function main([command, ...rest]: string[]): Promise<number> {
       return check(rest);
     case "import-page":
       return importPage(rest);
+    case "pr-body": {
+      const { values } = parseArgs({
+        args: rest,
+        options: {
+          missing: { type: "string", default: "success" },
+          base: { type: "string", default: "origin/main" },
+        },
+      });
+      process.stdout.write(prBody({ missing: values.missing, base: values.base }));
+      return 0;
+    }
   }
   console.error(
-    "usage: knowledge validate | rehash | sync | missing-data | check | import-page (see the file header)",
+    "usage: knowledge validate | rehash | sync | missing-data | check | pr-body | import-page (see the file header)",
   );
   return 2;
 }

@@ -77,41 +77,51 @@ referrals; operators can turn this off.
 Since iteration 2 the refresh is automated and reviewed
 ([ADR-0011 §6](../decisions/0011-keyless-scope-typescript-rewrite-standard-data-first.md)).
 
-**Every Monday (13:00 UTC)** the *Knowledge sync* workflow regenerates the FAQ entries and
-the missing-data table, runs every check, and, if anything changed, opens or updates a pull
-request from the `knowledge-sync` branch titled *chore(knowledge): FIRMS FAQ sync <date>*.
-Nothing reaches `main` until the owner merges it.
+**Every Monday at 09:00 (Mac local time)** a scheduled job on the owner's Mac runs
+`scripts/mac/knowledge-sync.sh`. In its own copy of `origin/main` (the owner's checkout is
+never touched) it regenerates the FAQ entries and the missing-data table, runs
+`npm run check`, and, if anything changed, commits (signed through 1Password, which asks
+for approval), pushes the `knowledge-sync` branch, and opens or updates one pull request
+titled *chore(knowledge): FIRMS FAQ sync <date>*. A macOS notification links to it. Nothing
+reaches `main` until the owner merges it. If the Mac is asleep at 09:00, the job runs when
+it wakes.
+
+The job runs on the Mac rather than on GitHub because the FAQ page answers GitHub's runners
+with HTTP 403 (integration issue II-28; running list LU-18). The *Knowledge sync* workflow
+does the same steps when started by hand from the Actions tab, for weeks when the page
+accepts GitHub's runners.
 
 **Reviewing the sync pull request (owner):**
 
-1. Read the change report at the top: added, changed, and retired entries.
-2. Open **Files changed** and read each changed entry in `knowledge/faq/`. The wording must
-   be FIRMS's own, word for word; never edit it by hand. A rewording on the page shows up
-   here as changed text.
-3. Check that CI passed on the branch (the sync run also ran `npm run check` before opening
-   the pull request).
+1. Read the change report and the **Where to look** list at the top: the files whose
+   wording changed. Other FAQ files in the diff changed only their position number or
+   anchor (an added or removed question shifts every later entry).
+2. Open those files in **Files changed**. The wording must be FIRMS's own, word for word;
+   never edit it by hand.
+3. Check that CI passed (the job also ran `npm run check` before opening the pull request).
 4. Merge to publish the new text to agents, or close to skip; the next run starts again
    from `main` and includes everything since.
 
-**If the sync run fails,** GitHub notifies the owner. The usual causes: the page could not
-be fetched (rerun later), or it no longer parses into a plausible FAQ (`sync` refused; the
-last good entries are untouched). Check the page, then fix the converter or rerun by hand
-with `--allow-large-change`. A failure to read the missing-data table is not fatal: the
+**If a run fails,** a notification says why, and the log is
+`~/Library/Logs/firms-mcp/knowledge-sync.log`. The usual causes: no network or GitHub
+unreachable (run again later); the 1Password approval for the signed commit was not given
+(run again at the Mac); the page no longer parses into a plausible FAQ (`sync` refused and
+changed nothing; check the page, then fix the converter or run by hand with
+`--allow-large-change`). A failure to read the missing-data table is not fatal: the
 previous copy is kept and the pull request says so.
 
-**Turning the automatic sync off:**
+**Running it now:** `launchctl kickstart gui/$(id -u)/io.github.mendesdyl.firms-mcp.knowledge-sync`,
+or `FIRMS_MCP_REPO=$PWD scripts/mac/knowledge-sync.sh` from the checkout.
 
-- In GitHub: **Actions → Knowledge sync → ⋯ → Disable workflow** (turn it back on the same
-  way). The command-line equivalent is `gh workflow disable knowledge-sync.yml`.
-- To keep the manual *Run workflow* button but stop the weekly runs, delete the `schedule:`
-  block in `.github/workflows/knowledge-sync.yml`.
-- Either way, a refresh can still be run by hand (see
+**Installing, or turning the weekly sync off:**
+
+- Install (or reinstall after changing the script): `scripts/mac/install-knowledge-sync.sh`.
+  It copies the runner to `~/Library/Application Support/firms-mcp/` and adds a per-user
+  LaunchAgent (`~/Library/LaunchAgents/io.github.mendesdyl.firms-mcp.knowledge-sync.plist`);
+  no administrator rights.
+- Turn off and remove: `scripts/mac/install-knowledge-sync.sh --uninstall`.
+- A refresh can still be run by hand at any time (see
   [Adding knowledge §1](../developers/ADDING_KNOWLEDGE.md#1-refresh-the-firms-faq)).
-
-**Repository setting required:** **Settings → Actions → General → Workflow permissions →
-"Allow GitHub Actions to create and approve pull requests"** must be on, or the workflow
-pushes the branch and fails with a link to open the pull request by hand (running list
-OD-06).
 
 **At deployment:** run `npm run knowledge -- check`. It compares the committed FAQ with the
 live page without writing anything and warns if they differ; the pending changes arrive

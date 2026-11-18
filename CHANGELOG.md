@@ -9,6 +9,10 @@ All notable changes to this project are documented here. The format follows
 
 ### Changed (iteration 2)
 
+- Weekly FAQ sync runs from the owner's Mac (`scripts/mac/`), because the FAQ page refuses
+  GitHub's runners; the *Knowledge sync* workflow is manual only. Review pull requests list
+  the files whose wording changed.
+
 - FAQ sync ported to TypeScript (byte-identical output to iteration 1 on the 2026-11-18
   page), with a guard against implausible parses, a dry-run `check`, the saved page
   snapshot, and FIRMS's missing-data table. A weekly *Knowledge sync* workflow opens a

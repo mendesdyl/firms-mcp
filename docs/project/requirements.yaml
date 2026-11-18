@@ -575,7 +575,7 @@ requirements:
     design: ADR-0011
     status: planned
   - id: FR-KB-011
-    title: A scheduled workflow (weekly and on demand) runs the FAQ sync and opens a pull request with the regenerated entries and a change report; deploy only checks the files against the live page
+    title: A scheduled job (weekly, and on demand) runs the FAQ sync and opens a pull request with the regenerated entries and a change report; deploy only checks the files against the live page
     source: Owner decision 2026-11-02
     rationale: A person reviews new FIRMS text before agents see it.
     priority: must
