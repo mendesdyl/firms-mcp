@@ -22,6 +22,26 @@ if [ "${1:-}" = "--uninstall" ]; then
   exit 0
 fi
 
+# Prerequisites (Operations §4.2): stop with a clear message rather than install a job that
+# fails every Monday.
+PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
+problems=()
+command -v node >/dev/null || problems+=("Node.js 24 or later is not installed (brew install node).")
+if command -v node >/dev/null && [ "$(node -p 'process.versions.node.split(".")[0]')" -lt 24 ]; then
+  problems+=("Node.js $(node -v) is too old; version 24 or later is needed.")
+fi
+command -v gh >/dev/null || problems+=("The GitHub CLI is not installed (brew install gh).")
+command -v gh >/dev/null && ! gh auth status >/dev/null 2>&1 && problems+=("The GitHub CLI is not signed in (gh auth login).")
+git -C "$REPO" ls-remote --exit-code origin main >/dev/null 2>&1 || problems+=("This checkout cannot reach its GitHub remote (check SSH access to origin).")
+if [ "$(git -C "$REPO" config --get commit.gpgsign || true)" != "true" ]; then
+  problems+=("Commit signing is not on for this checkout; the sync's commits must be signed like every other commit.")
+fi
+if [ ${#problems[@]} -gt 0 ]; then
+  printf 'Not installed:\n'
+  printf '  - %s\n' "${problems[@]}"
+  exit 1
+fi
+
 mkdir -p "$HOME_DIR" "$LOG_DIR" "$(dirname "$PLIST")"
 install -m 0755 "$REPO/scripts/mac/knowledge-sync.sh" "$HOME_DIR/knowledge-sync.sh"
 PATH_FOR_JOB="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"

@@ -113,15 +113,54 @@ previous copy is kept and the pull request says so.
 **Running it now:** `launchctl kickstart gui/$(id -u)/io.github.mendesdyl.firms-mcp.knowledge-sync`,
 or `FIRMS_MCP_REPO=$PWD scripts/mac/knowledge-sync.sh` from the checkout.
 
-**Installing, or turning the weekly sync off:**
+#### Setting up the weekly sync on a Mac
 
-- Install (or reinstall after changing the script): `scripts/mac/install-knowledge-sync.sh`.
-  It copies the runner to `~/Library/Application Support/firms-mcp/` and adds a per-user
-  LaunchAgent (`~/Library/LaunchAgents/io.github.mendesdyl.firms-mcp.knowledge-sync.plist`);
-  no administrator rights.
-- Turn off and remove: `scripts/mac/install-knowledge-sync.sh --uninstall`.
-- A refresh can still be run by hand at any time (see
-  [Adding knowledge §1](../developers/ADDING_KNOWLEDGE.md#1-refresh-the-firms-faq)).
+> **Not installed anywhere yet.** The owner chose to install it on their work Mac, not on
+> the development machine (2026-11-18). Until it is installed, the FAQ is synced only when
+> someone runs it by hand.
+
+Install it on **one** Mac: the one that is on during the working week. Two machines would
+both open the same review pull request.
+
+**Prerequisites on that Mac:**
+
+1. A clone of this repository: `git clone git@github.com:mendesdyl/firms-mcp.git`. Any
+   branch can be checked out; the job always syncs from `origin/main`.
+2. Node.js 24 or later and the GitHub CLI: `brew install node gh`.
+3. The GitHub CLI signed in to an account that can push to the repository:
+   `gh auth login`.
+4. SSH access to GitHub and signed commits, set up as on the development machine (1Password
+   SSH agent and `op-ssh-sign`; `commit.gpgsign = true`). The job's commits are signed, so
+   1Password asks for approval on Monday mornings.
+
+**Install**, from the clone:
+
+```bash
+scripts/mac/install-knowledge-sync.sh
+```
+
+It checks the prerequisites and stops with a list of what is missing. It then copies the
+runner to `~/Library/Application Support/firms-mcp/` and adds a per-user LaunchAgent
+(`~/Library/LaunchAgents/io.github.mendesdyl.firms-mcp.knowledge-sync.plist`); no
+administrator rights are needed.
+
+**Check it works**, once, right after installing:
+
+```bash
+launchctl kickstart gui/$(id -u)/io.github.mendesdyl.firms-mcp.knowledge-sync
+```
+
+Then read `~/Library/Logs/firms-mcp/knowledge-sync.log`. If `main` is up to date with the
+FAQ page, the run ends with "No changes to the FAQ or the missing-data table."
+
+**Turn it off** (or move it to another Mac: turn it off here first, then install there):
+
+```bash
+scripts/mac/install-knowledge-sync.sh --uninstall
+```
+
+A refresh can still be run by hand at any time (see
+[Adding knowledge §1](../developers/ADDING_KNOWLEDGE.md#1-refresh-the-firms-faq)).
 
 **At deployment:** run `npm run knowledge -- check`. It compares the committed FAQ with the
 live page without writing anything and warns if they differ; the pending changes arrive

@@ -14,6 +14,9 @@ the FIRMS Fire Map.
 > below is iteration 1 and stays until the TypeScript server replaces it; iteration 1 is
 > preserved at tag `v0-iteration-1`. Developers: [Development](docs/developers/DEVELOPMENT.md).
 
+> **Owner to-do:** the weekly FIRMS FAQ sync runs from a Mac and is **not installed yet**. See
+> [Setting up the weekly sync on a Mac](docs/project/OPERATIONS_AND_GOVERNANCE.md#setting-up-the-weekly-sync-on-a-mac).
+
 > **Not an official NASA product.** This project uses public NASA FIRMS services and
 > reproduces NASA documentation with attribution. It is not affiliated with or endorsed by
 > NASA. As FIRMS states: *"Do not use for the preservation of life or property.
