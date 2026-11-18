@@ -1,0 +1,214 @@
+{
+  "retrieved": "2026-11-18",
+  "provenance": "FIRMS area-API page (/api/area/), KML fire footprints page (/api/kml_fire_footprints/), Fire Map configuration (bundle firms_map.8994472e.js), and map date service (/api/map_dates/), all retrieved 2026-11-18; instrument facts from docs/science/DATA_PRODUCTS.md (2026-10-09)",
+  "sensors": [
+    {
+      "id": "viirs_noaa20",
+      "label": "VIIRS NOAA-20",
+      "sp_source": "VIIRS_NOAA20_SP",
+      "nrt_source": "VIIRS_NOAA20_NRT",
+      "kml_sensor": "noaa-20-viirs-c2",
+      "default": true
+    },
+    {
+      "id": "viirs_noaa21",
+      "label": "VIIRS NOAA-21",
+      "sp_source": "VIIRS_NOAA21_SP",
+      "nrt_source": "VIIRS_NOAA21_NRT",
+      "kml_sensor": "noaa-21-viirs-c2",
+      "default": true
+    },
+    {
+      "id": "viirs_snpp",
+      "label": "VIIRS Suomi NPP",
+      "sp_source": "VIIRS_SNPP_SP",
+      "nrt_source": "VIIRS_SNPP_NRT",
+      "kml_sensor": "suomi-npp-viirs-c2",
+      "default": true
+    },
+    {
+      "id": "modis",
+      "label": "MODIS (Terra and Aqua)",
+      "sp_source": "MODIS_SP",
+      "nrt_source": "MODIS_NRT",
+      "kml_sensor": "c6.1",
+      "default": true
+    },
+    {
+      "id": "landsat",
+      "label": "Landsat (US/Canada only)",
+      "sp_source": null,
+      "nrt_source": "LANDSAT_NRT",
+      "kml_sensor": "landsat",
+      "default": false
+    }
+  ],
+  "sources": [
+    {
+      "id": "VIIRS_NOAA20_SP",
+      "label": "VIIRS NOAA-20 (SP)",
+      "sensor": "viirs_noaa20",
+      "processing": "SP",
+      "instrument": "VIIRS",
+      "platforms": ["NOAA-20"],
+      "nominal_resolution_m": 375,
+      "coverage": "Global",
+      "map_layers": ["fires_viirs_noaa20_sp"],
+      "map_dates_key": "jpss1_viirs_c2",
+      "knowledge_entries": [
+        "faq.getting-started.what-are-the-key-differences-between-urt-rt-nrt-and-standard",
+        "faq.viirs.what-is-the-viirs-375-m-active-fire-product",
+        "faq.getting-started.what-is-the-detection-confidence"
+      ]
+    },
+    {
+      "id": "VIIRS_NOAA21_SP",
+      "label": "VIIRS NOAA-21 (SP)",
+      "sensor": "viirs_noaa21",
+      "processing": "SP",
+      "instrument": "VIIRS",
+      "platforms": ["NOAA-21"],
+      "nominal_resolution_m": 375,
+      "coverage": "Global",
+      "map_layers": ["fires_viirs_noaa21_sp"],
+      "map_dates_key": "jpss2_viirs_c2",
+      "knowledge_entries": [
+        "faq.getting-started.what-are-the-key-differences-between-urt-rt-nrt-and-standard",
+        "faq.viirs.what-is-the-viirs-375-m-active-fire-product",
+        "faq.getting-started.what-is-the-detection-confidence"
+      ]
+    },
+    {
+      "id": "VIIRS_SNPP_SP",
+      "label": "VIIRS S-NPP (SP)",
+      "sensor": "viirs_snpp",
+      "processing": "SP",
+      "instrument": "VIIRS",
+      "platforms": ["Suomi NPP"],
+      "nominal_resolution_m": 375,
+      "coverage": "Global",
+      "map_layers": ["fires_viirs_snpp_sp"],
+      "map_dates_key": "suomi_viirs_c2_sp",
+      "knowledge_entries": [
+        "faq.getting-started.what-are-the-key-differences-between-urt-rt-nrt-and-standard",
+        "faq.viirs.what-is-the-viirs-375-m-active-fire-product",
+        "faq.getting-started.what-is-the-detection-confidence"
+      ]
+    },
+    {
+      "id": "MODIS_SP",
+      "label": "MODIS (SP)",
+      "sensor": "modis",
+      "processing": "SP",
+      "instrument": "MODIS",
+      "platforms": ["Terra", "Aqua"],
+      "nominal_resolution_m": 1000,
+      "coverage": "Global",
+      "map_layers": ["fires_modis_terra_sp", "fires_modis_aqua_sp"],
+      "map_dates_key": "modis_v6",
+      "knowledge_entries": [
+        "faq.getting-started.what-are-the-key-differences-between-urt-rt-nrt-and-standard",
+        "faq.getting-started.what-are-the-different-sources-of-modis-and-viirs-active-fire",
+        "faq.modis.what-does-a-modis-active-fire-detection-mean-on-the-ground"
+      ]
+    },
+    {
+      "id": "VIIRS_NOAA20_NRT",
+      "label": "VIIRS NOAA-20 (URT+NRT)",
+      "sensor": "viirs_noaa20",
+      "processing": "NRT",
+      "instrument": "VIIRS",
+      "platforms": ["NOAA-20"],
+      "nominal_resolution_m": 375,
+      "coverage": "Global",
+      "map_layers": ["fires_viirs_noaa20"],
+      "map_dates_key": "jpss1_viirs_c2_nrt",
+      "knowledge_entries": [
+        "faq.getting-started.what-are-the-key-differences-between-urt-rt-nrt-and-standard",
+        "faq.viirs.what-is-the-viirs-375-m-active-fire-product",
+        "supplement.data-attributes.modis-viirs-nrt"
+      ]
+    },
+    {
+      "id": "VIIRS_NOAA21_NRT",
+      "label": "VIIRS NOAA-21 (URT+NRT)",
+      "sensor": "viirs_noaa21",
+      "processing": "NRT",
+      "instrument": "VIIRS",
+      "platforms": ["NOAA-21"],
+      "nominal_resolution_m": 375,
+      "coverage": "Global",
+      "map_layers": ["fires_viirs_noaa21"],
+      "map_dates_key": "jpss2_viirs_c2_nrt",
+      "knowledge_entries": [
+        "faq.getting-started.what-are-the-key-differences-between-urt-rt-nrt-and-standard",
+        "faq.viirs.what-is-the-viirs-375-m-active-fire-product",
+        "supplement.data-attributes.modis-viirs-nrt"
+      ]
+    },
+    {
+      "id": "VIIRS_SNPP_NRT",
+      "label": "VIIRS S-NPP (URT+NRT)",
+      "sensor": "viirs_snpp",
+      "processing": "NRT",
+      "instrument": "VIIRS",
+      "platforms": ["Suomi NPP"],
+      "nominal_resolution_m": 375,
+      "coverage": "Global",
+      "map_layers": ["fires_viirs_snpp"],
+      "map_dates_key": "suomi_viirs_c2_nrt",
+      "knowledge_entries": [
+        "faq.getting-started.what-are-the-key-differences-between-urt-rt-nrt-and-standard",
+        "faq.viirs.what-is-the-viirs-375-m-active-fire-product",
+        "supplement.data-attributes.modis-viirs-nrt"
+      ]
+    },
+    {
+      "id": "MODIS_NRT",
+      "label": "MODIS (URT+NRT)",
+      "sensor": "modis",
+      "processing": "NRT",
+      "instrument": "MODIS",
+      "platforms": ["Terra", "Aqua"],
+      "nominal_resolution_m": 1000,
+      "coverage": "Global",
+      "map_layers": ["fires_modis_terra", "fires_modis_aqua"],
+      "map_dates_key": "modis_nrt",
+      "knowledge_entries": [
+        "faq.getting-started.what-are-the-key-differences-between-urt-rt-nrt-and-standard",
+        "faq.modis.what-does-a-modis-active-fire-detection-mean-on-the-ground",
+        "supplement.data-attributes.modis-viirs-nrt"
+      ]
+    },
+    {
+      "id": "LANDSAT_NRT",
+      "label": "LANDSAT (NRT) [US/Canada only]",
+      "sensor": "landsat",
+      "processing": "NRT",
+      "instrument": "OLI",
+      "platforms": ["Landsat 8", "Landsat 9"],
+      "nominal_resolution_m": 30,
+      "coverage": "US/Canada only (most of North America: CONUS, southern Canada, northern Mexico)",
+      "map_layers": ["fires_landsat_landsat"],
+      "map_dates_key": "landsat_nrt",
+      "knowledge_entries": [
+        "faq.landsat.what-is-the-landsat-fire-and-thermal-anomalies-product",
+        "faq.landsat.why-are-landsat-fire-data-only-available-for-north-america"
+      ]
+    }
+  ],
+  "coverage_snapshot": {
+    "retrieved": "2026-11-18",
+    "dates": {
+      "jpss1_viirs_c2": ["2018-04-01", "2026-07-31"],
+      "jpss2_viirs_c2": ["2023-03-01", "2026-07-31"],
+      "suomi_viirs_c2_sp": ["2012-01-20", "2026-07-31"],
+      "modis_v6": ["2000-11-01", "2026-08-31"],
+      "jpss1_viirs_c2_nrt": ["2019-12-04", "2026-11-18"],
+      "jpss2_viirs_c2_nrt": ["2024-01-17", "2026-11-18"],
+      "suomi_viirs_c2_nrt": ["2019-09-01", "2026-11-02"],
+      "modis_nrt": ["2020-11-01", "2026-11-18"],
+      "landsat_nrt": ["2022-06-20", "2026-11-18"]
+    }
+  }
+}

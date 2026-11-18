@@ -119,7 +119,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0011
-    status: planned
+    status: implemented
   - id: FR-DATA-003
     title: Parse FIRMS CSV for each source family into typed records with UTC timestamps, tolerating missing optional columns and keeping unknown ones
     source: ADR-0007
@@ -167,7 +167,7 @@ requirements:
     priority: should
     verification: test
     design: ADR-0011
-    status: planned
+    status: implemented
   - id: FR-DATA-009
     title: Report MAP_KEY status (transactions used and limit)
     source: ADR-0007
@@ -183,7 +183,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0007
-    status: planned
+    status: implemented
   - id: FR-DATA-011
     title: Produce KML footprint links for valid region, period, and sensor combinations
     source: FIRMS API (kml_fire_footprints)
@@ -191,7 +191,7 @@ requirements:
     priority: could
     verification: test
     design: ADR-0007
-    status: planned
+    status: implemented
   - id: FR-DATA-012
     title: Cache identical upstream requests with a TTL by processing tier and coalesce concurrent identical requests
     source: ADR-0007
@@ -225,7 +225,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0006
-    status: planned
+    status: implemented
   - id: FR-MAP-002
     title: Validate layer IDs against the catalog and the mode, and always include a basemap
     source: ADR-0006 (explicit layers replace defaults; per-sensor layers need advanced mode)
@@ -233,7 +233,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0006
-    status: planned
+    status: implemented
   - id: FR-MAP-003
     title: Map API source IDs to Fire Map layer IDs, including the standard-processing layers, so API URLs and map links describe the same data
     source: ADR-0006
@@ -241,7 +241,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0011
-    status: planned
+    status: implemented
   - id: FR-MAP-004
     title: Support the global map (/map/) and the US/Canada map (/usfs/map/)
     source: ADR-0006
@@ -249,7 +249,7 @@ requirements:
     priority: should
     verification: test
     design: ADR-0006
-    status: planned
+    status: implemented
   - id: FR-MAP-005
     title: Referral parameters on links are on by default and configurable
     source: ADR-0006 (mirrors Earthdata MCP)
@@ -257,7 +257,7 @@ requirements:
     priority: could
     verification: test
     design: ADR-0006
-    status: planned
+    status: implemented
   - id: FR-MAP-006
     title: Each link is returned with a plain-language description of what it shows
     source: ADR-0006
@@ -265,7 +265,7 @@ requirements:
     priority: should
     verification: test
     design: ADR-0006
-    status: planned
+    status: implemented
 
   # --- MCP server (ADR-0002, ADR-0003) ---------------------------------------
   - id: FR-MCP-001
@@ -533,7 +533,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0011
-    status: planned
+    status: implemented
   - id: FR-URL-002
     title: URLs that need a key contain the placeholder [MAP_KEY] and say where to get a key and where it goes; no tool accepts a key
     source: ADR-0011
@@ -541,7 +541,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0011
-    status: planned
+    status: implemented
   - id: FR-URL-003
     title: Every URL-building result states what the server cannot do with the URL (fetch, summarize, chart)
     source: Owner request 2026-11-02
@@ -549,7 +549,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0011
-    status: planned
+    status: implemented
   - id: FR-URL-004
     title: The data_availability URL, the missing-data page, the archive download page, and the MAP_KEY sign-up page are offered as links
     source: Owner request 2026-11-02
@@ -557,15 +557,15 @@ requirements:
     priority: should
     verification: test
     design: ADR-0011
-    status: planned
+    status: implemented
   - id: FR-MAP-007
-    title: Fire Map links for past dates covered by standard data use the standard-processing layers; sensors without one (VIIRS NOAA-21) use NRT and the description says so
+    title: Fire Map links for past dates covered by standard data use the standard-processing layers; sensors without one (Landsat; VIIRS NOAA-21 gained a standard product by 2026-11-18) use NRT and the description says so
     source: Owner decision 2026-11-02
     rationale: Standard data first, also on the map.
     priority: must
     verification: test
     design: ADR-0011
-    status: planned
+    status: implemented
   - id: FR-DATA-015
     title: The source catalog lists standard-processing sources first and marks them preferred
     source: Owner decision 2026-11-02
@@ -573,7 +573,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0011
-    status: planned
+    status: implemented
   - id: FR-KB-011
     title: A scheduled job (weekly, and on demand) runs the FAQ sync and opens a pull request with the regenerated entries and a change report; deploy only checks the files against the live page
     source: Owner decision 2026-11-02

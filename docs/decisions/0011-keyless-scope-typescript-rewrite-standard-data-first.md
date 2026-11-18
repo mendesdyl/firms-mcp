@@ -99,6 +99,13 @@ the reason, **without paraphrasing it**.
   dates.
 - **Source catalog**: SP sources first, marked preferred.
 
+> **Amendment, 2026-11-18 (WK-22).** FIRMS now offers a VIIRS NOAA-21 standard product:
+> the area-API page lists `VIIRS_NOAA21_SP`, the map date service lists it from 2023-03-01,
+> and the Fire Map has a `fires_viirs_noaa21_sp` layer. The rule above is unchanged and
+> applies to NOAA-21 like the other VIIRS satellites; Landsat is now the only sensor with
+> no standard product. Where the SP/NRT choice changes inside a requested period, the Fire
+> Map builder returns one link per stretch, as the API builder returns one URL per stretch.
+
 ### 5. Content: verbatim, with pointers
 
 FAQ and documentation text is served verbatim ([ADR-0005](0005-knowledge-base-verbatim-and-extensible.md)

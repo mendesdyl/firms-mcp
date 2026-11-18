@@ -9,6 +9,12 @@ All notable changes to this project are documented here. The format follows
 
 ### Changed (iteration 2)
 
+- URL builders in TypeScript, standard data first: FIRMS area API URLs with a `[MAP_KEY]`
+  placeholder, split into labelled standard and NRT stretches; Fire Map links that use the
+  standard-processing layers for past dates; KML footprint links; coverage from FIRMS's map
+  date service with a saved fallback. Adds the VIIRS NOAA-21 standard product and the
+  renamed Basic-mode map layer `fire_layers_basic`. Not yet exposed as tools (WK-23).
+
 - Weekly FAQ sync runs from the owner's Mac (`scripts/mac/`), because the FAQ page refuses
   GitHub's runners; the *Knowledge sync* workflow is manual only. Review pull requests list
   the files whose wording changed.

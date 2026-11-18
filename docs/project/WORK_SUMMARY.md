@@ -401,3 +401,30 @@ switch are part of the revised operations).
 
 **ARL milestones supported:** ARL4-M2 (the review duty and how to switch it off).
 
+### 2026-11-18 — WK-22: URL builders, standard data first (`feature/url-builders`)
+
+**What was done**
+
+- Source catalog as language-neutral JSON (`src/sources/sources.json`): five sensors, nine
+  API sources with SP first and marked preferred, map layers, map-date keys, KML sensor
+  names, knowledge entries, and the 2026-11-18 coverage snapshot.
+- Coverage from the keyless map date service with a 10-second timeout; any failure falls
+  back to the snapshot and says coverage could not be checked.
+- One selection rule shared by every builder: per sensor and day, SP if it covers the day,
+  else NRT, else a "no data" note. Area API URLs (five-day chunks, `[MAP_KEY]`, labelled SP
+  and NRT stretches, at most 31 days), `data_availability` and MAP_KEY status URLs, related
+  FIRMS pages, KML footprint links, and Fire Map links that split where the SP/NRT choice
+  changes. Every result carries the fixed limitations statement.
+- Live checks on 2026-11-18 found FIRMS had added a VIIRS NOAA-21 standard product (II-30;
+  ADR-0011 §4 amended) and renamed the Basic-mode map layer `fires_all` to
+  `fire_layers_basic` (II-29). The TypeScript map catalog was refreshed from the live map
+  bundle; porting the catalog check is WK-29.
+- [URL builders design](../design/URL_BUILDERS.md); [map links design](../design/MAP_LINKS.md)
+  updated.
+
+**Requirements implemented (TypeScript):** FR-DATA-002, 008, 010, 011, 015; FR-MAP-001 …
+007; FR-URL-001 … 004 (at the builder level; the tools that expose them are WK-23).
+
+**ARL milestones supported:** ARL4-M1 (in progress: components re-verified in TypeScript;
+II-29 and II-30 logged).
+
