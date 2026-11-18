@@ -8,7 +8,7 @@
 | [`science/`](science/) | Scientists, reviewers | [FIRMS data products](science/DATA_PRODUCTS.md), [decision-making characterization](science/DECISION_CONTEXT.md) |
 | [`design/`](design/) | Developers | [Architecture](design/ARCHITECTURE.md), [tool catalog](design/TOOLS.md), [authentication](design/AUTHENTICATION.md), [FIRMS API client](design/FIRMS_API_CLIENT.md), [map links](design/MAP_LINKS.md), [knowledge base](design/KNOWLEDGE_BASE.md), [evaluation](design/EVALUATION.md), [extending to keyed data](design/EXTENDING_TO_KEYED_DATA.md) |
 | [`consumers/`](consumers/) | People connecting a chat client | [User guide](consumers/USER_GUIDE.md) |
-| [`developers/`](developers/) | Contributors | [Adding a tool](developers/ADDING_A_TOOL.md), [adding knowledge](developers/ADDING_KNOWLEDGE.md), [testing](developers/TESTING.md), [versioning and releasing](developers/RELEASING.md), [configuration](developers/CONFIGURATION.md) |
+| [`developers/`](developers/) | Contributors | [Development (TypeScript)](developers/DEVELOPMENT.md), [adding a tool](developers/ADDING_A_TOOL.md), [adding knowledge](developers/ADDING_KNOWLEDGE.md), [testing](developers/TESTING.md), [versioning and releasing](developers/RELEASING.md), [configuration](developers/CONFIGURATION.md) |
 | [`project/`](project/) | Project tracking | [Iteration 1 retrospective](project/ITERATION_1_RETROSPECTIVE.md), [running list](project/RUNNING_LIST.md), [work summary](project/WORK_SUMMARY.md), [requirements](project/requirements.yaml), [traceability](project/TRACEABILITY.md), [integration issues](project/INTEGRATION_ISSUES.md), [operations and governance](project/OPERATIONS_AND_GOVERNANCE.md) |
 | [`research/`](research/) | Everyone | [References and research notes](research/REFERENCES.md) |
 

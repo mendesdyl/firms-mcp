@@ -4,6 +4,19 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+  # Iteration 2 (TypeScript). New versions wait a week before Dependabot proposes them, so a
+  # compromised release has time to be caught upstream (ADR-0012). Security updates are not
+  # delayed.
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    cooldown:
+      default-days: 7
+    groups:
+      mcp-sdk:
+        patterns: ["@modelcontextprotocol/*"]
+  # Iteration 1 (Python), until the Python server is removed.
   - package-ecosystem: "uv"
     directory: "/"
     schedule:

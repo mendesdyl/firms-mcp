@@ -305,3 +305,29 @@ pending the owner's reviews of ARL3-M3 and ARL4-M2.
 
 **ARL milestones affected:** ARL4-M1 and ARL4-M2 reopened (L-8).
 
+### 2026-11-18 — WK-19: TypeScript project setup (`feature/ts-setup`)
+
+**What was done**
+
+- Merged the iteration-2 documents (PR #12).
+- Set up the TypeScript server beside the Python one
+  ([ADR-0012](../decisions/0012-typescript-project-layout-and-tool-contracts.md)): MCP
+  TypeScript SDK 2.4, Zod 4, TypeScript 7 (strict), Biome, vitest, Node 24 and 26. A
+  server factory with instructions, stdio and stateless Streamable HTTP (localhost by
+  default; a public bind requires allowed host names), `/health`, and a `defineTool`
+  convention whose Zod schemas generate `contracts/tools.json`. No tools yet; they arrive
+  in WK-20 … WK-23.
+- Ported requirements traceability to `[REQ-<ID>]` tags in vitest test names; reset
+  requirement statuses to describe the TypeScript server (4 implemented, 47 planned, 21
+  deferred) and added the 11 iteration-2 requirements from ADR-0011.
+- CI: a TypeScript job on Node 24 and 26 (runtime dependency audit, lint, types, tests,
+  contracts, traceability, build, stdio smoke test) beside the Python jobs. Dependabot:
+  npm with a one-week cooldown.
+- Integration issues II-18 … II-21 (one accepted development-only advisory, three
+  resolved).
+
+**Requirements implemented (TypeScript):** NFR-001, FR-MCP-001, FR-MCP-006, FR-MCP-007.
+**Tests:** 16 TypeScript tests; the 252 Python tests still pass.
+
+**ARL milestones supported:** ARL4-M1 (in progress).
+

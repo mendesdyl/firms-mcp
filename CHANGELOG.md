@@ -7,6 +7,14 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+### Changed (iteration 2)
+
+- TypeScript server skeleton on the MCP TypeScript SDK v2 (stdio and stateless Streamable
+  HTTP, `/health`), the `defineTool` convention with generated `contracts/tools.json`,
+  vitest traceability via `[REQ-<ID>]` test names, and a TypeScript CI job on Node 24 and
+  26 (ADR-0012). Requirements reclassified for the keyless scope of ADR-0011. The Python
+  server remains until the TypeScript server reaches parity.
+
 ### Security
 
 - Dependency updates for published advisories found by `pip-audit` on 2026-11-02: authlib

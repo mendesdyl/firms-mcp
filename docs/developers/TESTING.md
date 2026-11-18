@@ -1,5 +1,9 @@
 # Testing
 
+> **Iteration 1 (Python).** This guide describes the Python server, which stays on `main`
+> until the TypeScript server reaches parity and is then removed (ADR-0012). For the
+> TypeScript server see [Development](DEVELOPMENT.md).
+
 How the project is tested, following [ADR-0008](../decisions/0008-testing-and-verification-strategy.md).
 Tests check that the software does what its requirements say; whether it improves the
 answers people get is the separate [evaluation](../design/EVALUATION.md).
@@ -45,9 +49,8 @@ the traceability check, a wheel-contents check, and a container smoke test.
   (FIRMS host `https://firms.test` in `tests/fixtures/services.py`).
 - **Requirements.** Mark each test with the requirements it verifies:
   `@pytest.mark.req("FR-DATA-005")`. A requirement whose status is `implemented` must have
-  at least one test; after adding tests or changing requirements run
-  `uv run python scripts/gen_traceability.py` to regenerate
-  [TRACEABILITY.md](../project/TRACEABILITY.md) (CI checks it is current).
+  at least one test; the traceability matrix is now generated from the TypeScript tests
+  (`npm run traceability`; see [Development](DEVELOPMENT.md)).
 - **Fixed time.** Server tests use a fixed clock (2026-10-10 12:00 UTC) so date windows and
   map links are deterministic.
 - **Secrets.** Tests use the 32-character test keys in `tests/fixtures/firms_csv.py`; never

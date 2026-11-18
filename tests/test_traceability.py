@@ -20,7 +20,7 @@ ID_PATTERN = re.compile(r"^(FR-[A-Z]+|SEC|NFR|DOC|PRJ)(-[0-9]{3}|-[A-Z]+-[0-9]{3
 REQUIRED_FIELDS = {"id", "title", "source", "rationale", "priority", "verification", "status"}
 PRIORITIES = {"must", "should", "could"}
 VERIFICATIONS = {"test", "inspection", "demonstration", "analysis"}
-STATUSES = {"planned", "implemented", "verified"}
+STATUSES = {"planned", "implemented", "verified", "deferred"}
 
 
 def _load() -> list[dict]:

@@ -8,7 +8,7 @@ and which ARL milestones it supports.
 | ADR | Title | Status | Date |
 |---|---|---|---|
 | [0001](0001-record-architecture-decisions.md) | Record architecture decisions | Accepted | 2026-10-09 |
-| [0002](0002-follow-nasa-earthdata-mcp-conventions.md) | Follow NASA Earthdata MCP conventions | Accepted | 2026-10-09 |
+| [0002](0002-follow-nasa-earthdata-mcp-conventions.md) | Follow NASA Earthdata MCP conventions | Superseded in part by ADR-0012 | 2026-10-09 |
 | [0003](0003-target-mcp-2026-07-28-with-backward-compatibility.md) | Target MCP 2026-07-28 with backward compatibility | Accepted | 2026-10-09 |
 | [0004](0004-authentication-bring-your-own-map-key.md) | Authentication: bring your own FIRMS MAP_KEY | Superseded in part by ADR-0011 | 2026-10-09 |
 | [0005](0005-knowledge-base-verbatim-and-extensible.md) | Knowledge base: verbatim, provenance-tracked, extensible | Accepted | 2026-10-09 |
@@ -18,6 +18,7 @@ and which ARL milestones it supports.
 | [0009](0009-interactive-map-via-mcp-apps.md) | Interactive in-client map via MCP Apps | Proposed | 2026-10-09 |
 | [0010](0010-branching-commits-and-versioning.md) | Branching, commits, and versioning | Accepted | 2026-10-09 |
 | [0011](0011-keyless-scope-typescript-rewrite-standard-data-first.md) | Keyless scope, TypeScript rewrite, standard data first | Accepted | 2026-11-02 |
+| [0012](0012-typescript-project-layout-and-tool-contracts.md) | TypeScript project layout and tool contracts | Accepted | 2026-11-18 |
 
 Statuses: *Proposed* (agreed direction, not yet implemented) → *Accepted* → optionally
 *Superseded by ADR-NNNN*. Accepted records are not rewritten; a change of decision is a

@@ -8,10 +8,11 @@ assistants direct, well-documented access to NASA's
 active fire detections, the complete FIRMS FAQ and product documentation, and links into
 the FIRMS Fire Map.
 
-> **Status:** under active development — Phase II (Development, Testing, & Validation) of
-> the [project plan](docs/plan/PROJECT_PLAN.md); computed ARL 4. See the [ARL assessment log](docs/arl/ARL_ASSESSMENT_LOG.md)
-> for the current readiness level and the [running list](docs/project/RUNNING_LIST.md) for
-> what is in progress.
+> **Status:** iteration 2 in progress — a keyless TypeScript rewrite
+> ([ADR-0011](docs/decisions/0011-keyless-scope-typescript-rewrite-standard-data-first.md));
+> computed ARL 3 (see the [ARL guide](docs/arl/ARL_GUIDE.md)). The Python server described
+> below is iteration 1 and stays until the TypeScript server replaces it; iteration 1 is
+> preserved at tag `v0-iteration-1`. Developers: [Development](docs/developers/DEVELOPMENT.md).
 
 > **Not an official NASA product.** This project uses public NASA FIRMS services and
 > reproduces NASA documentation with attribution. It is not affiliated with or endorsed by

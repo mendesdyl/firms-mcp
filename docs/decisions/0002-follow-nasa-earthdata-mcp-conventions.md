@@ -1,6 +1,6 @@
 # ADR-0002: Follow NASA Earthdata MCP conventions
 
-- **Status:** Accepted
+- **Status:** Accepted; superseded in part by [ADR-0012](0012-typescript-project-layout-and-tool-contracts.md) (2026-11-18: the per-tool manifest becomes a TypeScript definition plus the generated `contracts/tools.json`)
 - **Date:** 2026-10-09
 - **ARL linkage:** ARL1-M2 (baseline research includes the Earthdata MCP precedent);
   ARL4-M2 (consistency with NASA practice reduces organizational friction with a future
