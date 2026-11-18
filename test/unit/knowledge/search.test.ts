@@ -1,6 +1,13 @@
 import { readFileSync } from "node:fs";
+import { gunzipSync } from "node:zlib";
 import { describe, expect, it } from "vitest";
-import { makeSnippet, tokenize } from "../../../src/knowledge/index.js";
+import {
+  KnowledgeBase,
+  type KnowledgeEntry,
+  type KnowledgeSource,
+  makeSnippet,
+  tokenize,
+} from "../../../src/knowledge/index.js";
 import { repoKb } from "./fixtures.js";
 
 interface ParityCase {
@@ -12,10 +19,21 @@ const parity = JSON.parse(readFileSync("test/fixtures/search-parity.json", "utf8
   cases: ParityCase[];
 };
 
+// The parity results were recorded on the 2026-10-09 knowledge base. FIRMS's FAQ changes
+// (and every weekly sync changes BM25 statistics), so parity is checked on a frozen copy of
+// that corpus: it tests the ranking code, not the current content.
+const frozen = JSON.parse(
+  gunzipSync(readFileSync("test/fixtures/knowledge-corpus_2026-10-09.json.gz")).toString("utf8"),
+) as { entries: KnowledgeEntry[]; sources: KnowledgeSource[] };
+const parityKb = new KnowledgeBase(
+  new Map(frozen.entries.map((e) => [e.id, e])),
+  new Map(frozen.sources.map((s) => [s.id, s])),
+);
+
 describe("search", () => {
   it("[REQ-FR-KB-005] ranks exactly as iteration 1 did", () => {
     for (const c of parity.cases) {
-      const hits = repoKb.search(c.query, {
+      const hits = parityKb.search(c.query, {
         limit: c.hits.length || 10,
         section: c.section,
       });
