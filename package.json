@@ -29,6 +29,7 @@
     "contracts:check": "tsx scripts/ts/contracts.ts --check",
     "traceability": "tsx scripts/ts/traceability.ts",
     "traceability:check": "tsx scripts/ts/traceability.ts --check",
+    "map-catalog": "tsx scripts/ts/map-catalog.ts",
     "check": "npm run lint && npm run typecheck && npm run knowledge -- validate && npm test && npm run contracts:check && npm run traceability:check && npm run build && npm run smoke",
     "knowledge": "tsx scripts/ts/knowledge.ts"
   },
