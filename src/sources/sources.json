@@ -1,6 +1,6 @@
 {
   "retrieved": "2026-11-18",
-  "provenance": "FIRMS area-API page (/api/area/), KML fire footprints page (/api/kml_fire_footprints/), Fire Map configuration (bundle firms_map.8994472e.js), and map date service (/api/map_dates/), all retrieved 2026-11-18; instrument facts from docs/science/DATA_PRODUCTS.md (2026-10-09)",
+  "provenance": "FIRMS area-API page (/api/area/), KML fire footprints page (/api/kml_fire_footprints/), Fire Map configuration (bundle firms_map.8994472e.js), and map date service (/api/map_dates/), all retrieved 2026-11-18; instrument facts from docs/science/DATA_PRODUCTS.md (2026-10-09); satellite names as FIRMS's missing-data table (/api/missing_data/) writes them",
   "sensors": [
     {
       "id": "viirs_noaa20",
@@ -8,6 +8,9 @@
       "sp_source": "VIIRS_NOAA20_SP",
       "nrt_source": "VIIRS_NOAA20_NRT",
       "kml_sensor": "noaa-20-viirs-c2",
+      "missing_data_names": [
+        "NOAA-20 (VIIRS)"
+      ],
       "default": true
     },
     {
@@ -16,6 +19,9 @@
       "sp_source": "VIIRS_NOAA21_SP",
       "nrt_source": "VIIRS_NOAA21_NRT",
       "kml_sensor": "noaa-21-viirs-c2",
+      "missing_data_names": [
+        "NOAA-21 (VIIRS)"
+      ],
       "default": true
     },
     {
@@ -24,6 +30,9 @@
       "sp_source": "VIIRS_SNPP_SP",
       "nrt_source": "VIIRS_SNPP_NRT",
       "kml_sensor": "suomi-npp-viirs-c2",
+      "missing_data_names": [
+        "Suomi NPP (VIIRS)"
+      ],
       "default": true
     },
     {
@@ -32,6 +41,10 @@
       "sp_source": "MODIS_SP",
       "nrt_source": "MODIS_NRT",
       "kml_sensor": "c6.1",
+      "missing_data_names": [
+        "Terra (MODIS)",
+        "Aqua (MODIS)"
+      ],
       "default": true
     },
     {
@@ -40,6 +53,7 @@
       "sp_source": null,
       "nrt_source": "LANDSAT_NRT",
       "kml_sensor": "landsat",
+      "missing_data_names": [],
       "default": false
     }
   ],
@@ -50,10 +64,14 @@
       "sensor": "viirs_noaa20",
       "processing": "SP",
       "instrument": "VIIRS",
-      "platforms": ["NOAA-20"],
+      "platforms": [
+        "NOAA-20"
+      ],
       "nominal_resolution_m": 375,
       "coverage": "Global",
-      "map_layers": ["fires_viirs_noaa20_sp"],
+      "map_layers": [
+        "fires_viirs_noaa20_sp"
+      ],
       "map_dates_key": "jpss1_viirs_c2",
       "knowledge_entries": [
         "faq.getting-started.what-are-the-key-differences-between-urt-rt-nrt-and-standard",
@@ -67,10 +85,14 @@
       "sensor": "viirs_noaa21",
       "processing": "SP",
       "instrument": "VIIRS",
-      "platforms": ["NOAA-21"],
+      "platforms": [
+        "NOAA-21"
+      ],
       "nominal_resolution_m": 375,
       "coverage": "Global",
-      "map_layers": ["fires_viirs_noaa21_sp"],
+      "map_layers": [
+        "fires_viirs_noaa21_sp"
+      ],
       "map_dates_key": "jpss2_viirs_c2",
       "knowledge_entries": [
         "faq.getting-started.what-are-the-key-differences-between-urt-rt-nrt-and-standard",
@@ -84,10 +106,14 @@
       "sensor": "viirs_snpp",
       "processing": "SP",
       "instrument": "VIIRS",
-      "platforms": ["Suomi NPP"],
+      "platforms": [
+        "Suomi NPP"
+      ],
       "nominal_resolution_m": 375,
       "coverage": "Global",
-      "map_layers": ["fires_viirs_snpp_sp"],
+      "map_layers": [
+        "fires_viirs_snpp_sp"
+      ],
       "map_dates_key": "suomi_viirs_c2_sp",
       "knowledge_entries": [
         "faq.getting-started.what-are-the-key-differences-between-urt-rt-nrt-and-standard",
@@ -101,10 +127,16 @@
       "sensor": "modis",
       "processing": "SP",
       "instrument": "MODIS",
-      "platforms": ["Terra", "Aqua"],
+      "platforms": [
+        "Terra",
+        "Aqua"
+      ],
       "nominal_resolution_m": 1000,
       "coverage": "Global",
-      "map_layers": ["fires_modis_terra_sp", "fires_modis_aqua_sp"],
+      "map_layers": [
+        "fires_modis_terra_sp",
+        "fires_modis_aqua_sp"
+      ],
       "map_dates_key": "modis_v6",
       "knowledge_entries": [
         "faq.getting-started.what-are-the-key-differences-between-urt-rt-nrt-and-standard",
@@ -118,10 +150,14 @@
       "sensor": "viirs_noaa20",
       "processing": "NRT",
       "instrument": "VIIRS",
-      "platforms": ["NOAA-20"],
+      "platforms": [
+        "NOAA-20"
+      ],
       "nominal_resolution_m": 375,
       "coverage": "Global",
-      "map_layers": ["fires_viirs_noaa20"],
+      "map_layers": [
+        "fires_viirs_noaa20"
+      ],
       "map_dates_key": "jpss1_viirs_c2_nrt",
       "knowledge_entries": [
         "faq.getting-started.what-are-the-key-differences-between-urt-rt-nrt-and-standard",
@@ -135,10 +171,14 @@
       "sensor": "viirs_noaa21",
       "processing": "NRT",
       "instrument": "VIIRS",
-      "platforms": ["NOAA-21"],
+      "platforms": [
+        "NOAA-21"
+      ],
       "nominal_resolution_m": 375,
       "coverage": "Global",
-      "map_layers": ["fires_viirs_noaa21"],
+      "map_layers": [
+        "fires_viirs_noaa21"
+      ],
       "map_dates_key": "jpss2_viirs_c2_nrt",
       "knowledge_entries": [
         "faq.getting-started.what-are-the-key-differences-between-urt-rt-nrt-and-standard",
@@ -152,10 +192,14 @@
       "sensor": "viirs_snpp",
       "processing": "NRT",
       "instrument": "VIIRS",
-      "platforms": ["Suomi NPP"],
+      "platforms": [
+        "Suomi NPP"
+      ],
       "nominal_resolution_m": 375,
       "coverage": "Global",
-      "map_layers": ["fires_viirs_snpp"],
+      "map_layers": [
+        "fires_viirs_snpp"
+      ],
       "map_dates_key": "suomi_viirs_c2_nrt",
       "knowledge_entries": [
         "faq.getting-started.what-are-the-key-differences-between-urt-rt-nrt-and-standard",
@@ -169,10 +213,16 @@
       "sensor": "modis",
       "processing": "NRT",
       "instrument": "MODIS",
-      "platforms": ["Terra", "Aqua"],
+      "platforms": [
+        "Terra",
+        "Aqua"
+      ],
       "nominal_resolution_m": 1000,
       "coverage": "Global",
-      "map_layers": ["fires_modis_terra", "fires_modis_aqua"],
+      "map_layers": [
+        "fires_modis_terra",
+        "fires_modis_aqua"
+      ],
       "map_dates_key": "modis_nrt",
       "knowledge_entries": [
         "faq.getting-started.what-are-the-key-differences-between-urt-rt-nrt-and-standard",
@@ -186,10 +236,15 @@
       "sensor": "landsat",
       "processing": "NRT",
       "instrument": "OLI",
-      "platforms": ["Landsat 8", "Landsat 9"],
+      "platforms": [
+        "Landsat 8",
+        "Landsat 9"
+      ],
       "nominal_resolution_m": 30,
       "coverage": "US/Canada only (most of North America: CONUS, southern Canada, northern Mexico)",
-      "map_layers": ["fires_landsat_landsat"],
+      "map_layers": [
+        "fires_landsat_landsat"
+      ],
       "map_dates_key": "landsat_nrt",
       "knowledge_entries": [
         "faq.landsat.what-is-the-landsat-fire-and-thermal-anomalies-product",
@@ -200,15 +255,42 @@
   "coverage_snapshot": {
     "retrieved": "2026-11-18",
     "dates": {
-      "jpss1_viirs_c2": ["2018-04-01", "2026-07-31"],
-      "jpss2_viirs_c2": ["2023-03-01", "2026-07-31"],
-      "suomi_viirs_c2_sp": ["2012-01-20", "2026-07-31"],
-      "modis_v6": ["2000-11-01", "2026-08-31"],
-      "jpss1_viirs_c2_nrt": ["2019-12-04", "2026-11-18"],
-      "jpss2_viirs_c2_nrt": ["2024-01-17", "2026-11-18"],
-      "suomi_viirs_c2_nrt": ["2019-09-01", "2026-11-02"],
-      "modis_nrt": ["2020-11-01", "2026-11-18"],
-      "landsat_nrt": ["2022-06-20", "2026-11-18"]
+      "jpss1_viirs_c2": [
+        "2018-04-01",
+        "2026-07-31"
+      ],
+      "jpss2_viirs_c2": [
+        "2023-03-01",
+        "2026-07-31"
+      ],
+      "suomi_viirs_c2_sp": [
+        "2012-01-20",
+        "2026-07-31"
+      ],
+      "modis_v6": [
+        "2000-11-01",
+        "2026-08-31"
+      ],
+      "jpss1_viirs_c2_nrt": [
+        "2019-12-04",
+        "2026-11-18"
+      ],
+      "jpss2_viirs_c2_nrt": [
+        "2024-01-17",
+        "2026-11-18"
+      ],
+      "suomi_viirs_c2_nrt": [
+        "2019-09-01",
+        "2026-11-02"
+      ],
+      "modis_nrt": [
+        "2020-11-01",
+        "2026-11-18"
+      ],
+      "landsat_nrt": [
+        "2022-06-20",
+        "2026-11-18"
+      ]
     }
   }
 }

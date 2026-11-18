@@ -41,6 +41,8 @@ const SensorSchema = z.strictObject({
   sp_source: SourceId.nullable(),
   nrt_source: SourceId,
   kml_sensor: z.string().min(1),
+  /** How FIRMS's missing-data table names this sensor's satellites. */
+  missing_data_names: z.array(z.string().min(1)),
   default: z.boolean(),
 });
 export type Sensor = z.infer<typeof SensorSchema>;

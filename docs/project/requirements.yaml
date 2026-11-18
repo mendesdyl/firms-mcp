@@ -101,7 +101,7 @@ requirements:
     priority: should
     verification: test
     design: ADR-0005
-    status: planned
+    status: implemented
 
   # --- FIRMS data (ADR-0007) ------------------------------------------------
   - id: FR-DATA-001
@@ -283,7 +283,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0002
-    status: planned
+    status: implemented
   - id: FR-MCP-003
     title: Prompts provide guided workflows for common tasks
     source: ADR-0002
@@ -331,7 +331,7 @@ requirements:
     priority: should
     verification: test
     design: ADR-0003
-    status: planned
+    status: implemented
 
   # --- Authentication (ADR-0004) ---------------------------------------------
   - id: FR-AUTH-001
@@ -349,7 +349,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0011
-    status: planned
+    status: implemented
   - id: FR-AUTH-003
     title: Calling a protected tool without a valid token yields HTTP 401 with WWW-Authenticate (resource_metadata, scope)
     source: MCP authorization spec; ADR-0004
@@ -431,7 +431,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0004
-    status: planned
+    status: implemented
   - id: SEC-003
     title: The connect page is protected against CSRF and redirect-URI manipulation
     source: ADR-0004; OAuth security BCP
@@ -465,7 +465,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0003
-    status: planned
+    status: implemented
   - id: NFR-003
     title: Every tool declares a title and annotations (readOnlyHint, destructiveHint, idempotentHint, openWorldHint)
     source: ADR-0003
@@ -473,7 +473,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0003
-    status: planned
+    status: implemented
   - id: NFR-004
     title: Response sizes are bounded (maximum page size enforced)
     source: ADR-0007
@@ -481,7 +481,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0007
-    status: planned
+    status: implemented
   - id: NFR-005
     title: Supported on the active Node.js LTS lines (24 and 26)
     source: ADR-0002
@@ -507,7 +507,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0008
-    status: planned
+    status: implemented
   - id: DOC-003
     title: The ARL assessment log records a LifeCycle entry at every phase gate with evidence links
     source: NASA ARL metric; owner request
@@ -558,6 +558,14 @@ requirements:
     verification: test
     design: ADR-0011
     status: implemented
+  - id: FR-URL-005
+    title: Default sensors are used only for the dates FIRMS has their data (Suomi NPP after its data stopped on 2026-11-02 is left out, with NOAA-20 and the other defaults covering those dates); a sensor the user names is kept and its missing dates are reported
+    source: Owner decision 2026-11-18
+    rationale: Suomi NPP has standard data up to 2026-07-31 and NRT to 2026-11-02, but none after; default requests should not produce empty files or warnings.
+    priority: must
+    verification: test
+    design: ADR-0011
+    status: implemented
   - id: FR-MAP-007
     title: Fire Map links for past dates covered by standard data use the standard-processing layers; sensors without one (Landsat; VIIRS NOAA-21 gained a standard product by 2026-11-18) use NRT and the description says so
     source: Owner decision 2026-11-02
@@ -605,7 +613,7 @@ requirements:
     priority: must
     verification: test
     design: ADR-0011
-    status: planned
+    status: implemented
   - id: PRJ-002
     title: One feature branch per step, deleted after merge, with a note to the owner of what to review and approve
     source: Owner request 2026-11-02

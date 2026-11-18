@@ -105,6 +105,10 @@ the reason, **without paraphrasing it**.
 > applies to NOAA-21 like the other VIIRS satellites; Landsat is now the only sensor with
 > no standard product. Where the SP/NRT choice changes inside a requested period, the Fire
 > Map builder returns one link per stretch, as the API builder returns one URL per stretch.
+>
+> **Amendment, 2026-11-18 (WK-23).** Suomi NPP data production ceased on 2026-11-02. The
+> owner decided that the default sensors include Suomi NPP only for the dates FIRMS has its
+> data; NOAA-20 and the other defaults cover the rest (OD-07, FR-URL-005).
 
 ### 5. Content: verbatim, with pointers
 

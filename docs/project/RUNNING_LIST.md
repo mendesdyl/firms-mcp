@@ -51,9 +51,10 @@ Legend: 🔎 needs research · 🛠 implementation · 📝 documentation · ❓ 
 | WK-19 | 🛠 TypeScript project setup: Node LTS, MCP TS SDK v2, vitest with `[REQ-…]` traceability, requirements reclassified (`deferred`), CI; ADR on the per-tool manifest layout | Iteration 2 | Done: PR #22, merged 2026-11-18 (`36da379`) |
 | WK-20 | 🛠 Knowledge loader and search in TypeScript, with the line-by-line FAQ completeness test | Iteration 2 | Done: PR #26, merged 2026-11-18 (`12fb50f`) |
 | WK-21 | 🛠 FAQ sync ported to TypeScript; weekly sync pull request with change report; missing-data snapshot; deploy-time check; documented off switch | Iteration 2 | Done: PR #27 (`2fa2a98`) and fix PR #28 (`ea74802`), merged 2026-11-18; first sync pull request #29 |
-| WK-22 | 🛠 URL builders: Fire Map (SP layers first), FIRMS API (SP-first selection, `[MAP_KEY]` placeholder, limitations), KML | Iteration 2 | Built on `feature/url-builders` (pull request pending owner review): builders, source catalog, coverage with fallback, refreshed map catalog ([design](../design/URL_BUILDERS.md)); tools come in WK-23 |
+| WK-22 | 🛠 URL builders: Fire Map (SP layers first), FIRMS API (SP-first selection, `[MAP_KEY]` placeholder, limitations), KML | Iteration 2 | Done: PR #31, merged 2026-11-18 (`5a30924`) |
 | WK-29 | 🛠 Port the Fire Map catalog check to TypeScript (`scripts/check_map_catalog.py` reads the Python catalog, and the page no longer names the bundle in a quoted attribute) so layer renames such as II-29 are caught | Iteration 2 | Open |
-| WK-23 | 🛠 Seven `firms_` tools, resources, and server instructions (inform-don't-conclude, SP-first, KML gating, key reminder) | Iteration 2 | Open |
+| WK-23 | 🛠 Seven `firms_` tools, resources, and server instructions (inform-don't-conclude, SP-first, KML gating, key reminder) | Iteration 2 | Built on `feature/tools` (pull request pending owner review): seven tools, three resources, full server instructions, default sensors only where they have data (FR-URL-005); live end-to-end call checked 2026-11-18 |
+| WK-30 | 🛠 Remove the Python server, its tests, and its CI jobs now that the TypeScript server covers the keyless scope (ADR-0012 §6); keep the Python `evaluation/` harness (ADR-0011 §8) | Iteration 2 | Open |
 | WK-24 | 📝 Self-hosting guide: Claude Desktop and Claude Code in full; Codex, opencode, and other agents in outline; what public use would need | Iteration 2 | Open |
 | WK-25 | 📝 Revise operations and governance for the keyless scope (ARL4-M2) | Iteration 2 | Open |
 
@@ -67,6 +68,7 @@ Legend: 🔎 needs research · 🛠 implementation · 📝 documentation · ❓ 
 | OD-04 | ❓ Allow an operator-wide MAP_KEY for anonymous users on a public deployment | Disabled by default | Open |
 | OD-05 | 🔑 Provide a FIRMS MAP_KEY locally (in `.env`, never in chat) to run live validation | Live tests skip without it | Open |
 | OD-06 | ❓ Allow GitHub Actions to open pull requests (Settings → Actions → General → Workflow permissions → "Allow GitHub Actions to create and approve pull requests") so the weekly knowledge sync can open its review pull request | Off (checked 2026-11-18) | Decided 2026-11-18: the owner turned it on. Since II-28 the weekly sync runs from the owner's Mac; the setting still lets the manual workflow open its pull request |
+| OD-07 | ❓ Default sensors once Suomi NPP data stopped (2026-11-02) | — | Decided 2026-11-18: keep Suomi NPP as a default sensor only for the dates FIRMS has its data; otherwise NOAA-20 (with the other defaults) covers them (FR-URL-005) |
 
 ## Pending signed commits
 

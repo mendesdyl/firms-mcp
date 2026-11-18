@@ -428,3 +428,31 @@ switch are part of the revised operations).
 **ARL milestones supported:** ARL4-M1 (in progress: components re-verified in TypeScript;
 II-29 and II-30 logged).
 
+### 2026-11-18 — WK-23: the seven tools, resources, and server instructions (`feature/tools`)
+
+**What was done**
+
+- Owner decision (OD-07): the default sensors include Suomi NPP only for the dates FIRMS has
+  its data (its data stopped on 2026-11-02); NOAA-20 and the other defaults cover the rest.
+  Both builders apply it (FR-URL-005); ADR-0011 §4 amended.
+- Seven read-only `firms_` tools on the MCP TypeScript SDK: `firms_search_knowledge`,
+  `firms_get_knowledge_entry`, `firms_list_knowledge_topics`, `firms_build_fire_map_url`,
+  `firms_build_api_url` (area CSV, data_availability, MAP_KEY status, missing data),
+  `firms_build_kml_footprint_url`, `firms_list_data_sources`. The three that ask FIRMS's map
+  date service are marked open-world. Area requests note days FIRMS lists as missing.
+- Resources `firms://knowledge/index`, `firms://knowledge/{entry_id}`, `firms://sources`.
+- Full server instructions: safety, workflow, standard data first (FAQ entry cited by ID),
+  `[MAP_KEY]` and the transcript reminder, no estimates of unseen data, KML only for GIS
+  users, missing data, coordinates and UTC.
+- New [tool catalog](../design/TOOLS.md); the iteration-1 catalog moved to
+  `TOOLS_ITERATION_1.md`. Server version 0.3.0. II-31 (generated contract vs Biome).
+- Checked end to end over stdio against the live map date service.
+
+**Requirements implemented (TypeScript):** FR-URL-005, FR-KB-010, FR-MCP-002, FR-MCP-008,
+FR-MCP-009, FR-AUTH-002, SEC-002, NFR-002, NFR-003, NFR-004, DOC-002.
+
+**Next:** WK-30 removes the Python server (ADR-0012 §6).
+
+**ARL milestones supported:** ARL4-M1 (in progress: the TypeScript components integrated
+behind the MCP interface).
+
