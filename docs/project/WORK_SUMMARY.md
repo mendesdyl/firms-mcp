@@ -477,3 +477,25 @@ behind the MCP interface).
 
 **ARL milestones supported:** ARL4-M1 (one implementation, integrated and tested).
 
+### 2026-11-18 — WK-31: Fire Map link feedback (`feature/map-link-feedback`)
+
+**What was done**
+
+- The owner tested the server in a chat client and gave two links as they would have built
+  them in the map. Built links now match both: the Maryland link differs only in the map
+  center (box center −77.2, 38.8 against the owner's −76.8, 38.6), and the Saibai Island link
+  only in the center latitude (−9.4 against −10.0).
+- No more gray box (II-33, FR-MAP-008): areas become a center and zoom fitted to a 1280 x 720
+  map. The map's scale was measured in the browser (plain longitude/latitude, 256-pixel tiles).
+- Smoke (FR-MAP-009): mode `smoke` adds the OMPS Aerosol Index (NOAA-20 from 2025-04-28,
+  Suomi NPP before) for the last day of the period, written `d:<start>..<end>,<end>` so the
+  map shows that day's image, with the map's stretched palette (`=pal-default..squash`, read
+  from the map's own hash writer), at zoom 7.1 or wider. The tool description and server
+  instructions tell agents to choose it when users ask about smoke, haze, or air quality.
+- Map-style links (FR-MAP-010): fire layers sorted as the map writes them, the map's
+  coordinate precision, Dark Gray basemap for fire views, Landsat on the US/Canada map.
+- Referral parameters stay before the `#`: after it the map drops them (LU-14).
+- Both example links were opened in the browser: every layer kept, no box drawn, the smoke
+  view on the requested week with the Aerosol Index on.
+
+**ARL milestones supported:** ARL4-M1 (integrated behaviour checked against the real map).

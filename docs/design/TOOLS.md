@@ -19,7 +19,7 @@ Design records: [ADR-0011](../decisions/0011-keyless-scope-typescript-rewrite-st
 | `firms_search_knowledge` | 1.0.0 | No | Search FIRMS's documentation; entries returned whole and verbatim |
 | `firms_get_knowledge_entry` | 1.0.0 | No | Entries by ID |
 | `firms_list_knowledge_topics` | 1.0.0 | No | Table of contents of the knowledge base |
-| `firms_build_fire_map_url` | 1.0.0 | Map date service | FIRMS Fire Map links, standard layers first |
+| `firms_build_fire_map_url` | 1.0.1 | Map date service | FIRMS Fire Map links, standard layers first |
 | `firms_build_api_url` | 1.0.0 | Map date service | FIRMS API URLs with `[MAP_KEY]`; missing-data answers |
 | `firms_build_kml_footprint_url` | 1.0.0 | No | KML fire footprint download links |
 | `firms_list_data_sources` | 1.0.0 | Map date service | Source catalog, standard processing first, with current dates |
@@ -79,24 +79,26 @@ Returns `sections` (ID, title, count, and entries when asked) and the knowledge 
 
 ## URL building
 
-### `firms_build_fire_map_url` (v1.0.0)
+### `firms_build_fire_map_url` (v1.0.1)
 
 Links into the FIRMS Fire Map ([grammar](MAP_LINKS.md)), each with a plain-language
-`description` (FR-MAP-001 … FR-MAP-007).
+`description` (FR-MAP-001 … FR-MAP-010). Links match the map's own hash: no area-of-interest
+box, fire layers sorted, Dark Gray basemap for fire views. Mode `smoke` adds the OMPS Aerosol
+Index at a regional zoom; agents are told to choose it for smoke, haze, or air-quality questions.
 
 | Parameter | Default | Meaning |
 |---|---|---|
 | `map` | global | `global` or `us-canada` |
-| `area` | — | Box the map fits and draws; or use `center` |
+| `area` | — | Box the map is centered and zoomed on (no box is drawn); or use `center` |
 | `center` | 0, 0 (global) | `{longitude, latitude}` |
-| `zoom` | 3 (8 with `center`) | Global 1-16, US/Canada 4-16 |
+| `zoom` | fitted to `area`; 3 (8 with `center`, 7.1 in smoke mode) | Global 1-16, US/Canada 4-16 |
 | `period` | 24hrs | `today`, `24hrs`, `48hrs`, `72hrs`, `7days` (NRT) |
 | `start_date` | — | First UTC day, for past dates (instead of `period`) |
 | `end_date` | `start_date` | Last UTC day |
 | `sensors` | defaults | Sensors shown one by one (Advanced mode) |
-| `mode` | automatic | `basic`, `advanced`, `burned_area`, `smoke`, `experimental` |
-| `basemap` | earth | Basemap layer ID |
-| `overlays` | country-outline | Overlay layer IDs |
+| `mode` | automatic | `basic`, `advanced`, `burned_area`, `smoke` (fires with the Aerosol Index), `experimental` |
+| `basemap` | dark_gray (earth in basic and smoke) | Basemap layer ID |
+| `overlays` | none on dark_gray, else country-outline | Overlay layer IDs |
 | `extra_layers` | — | More layer IDs; checked against the chosen mode |
 
 Past dates use each sensor's standard-processing layer where SP covers them and its NRT layer

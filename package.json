@@ -1,6 +1,6 @@
 {
   "name": "firms-mcp-server",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "private": true,
   "description": "Keyless MCP server for NASA FIRMS: verbatim FIRMS documentation, Fire Map and FIRMS API URL building, standard data first",
   "license": "Apache-2.0",

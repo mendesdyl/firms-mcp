@@ -12,6 +12,7 @@ const MapSchema = z.object({ path: z.string(), min_zoom: z.number(), max_zoom: z
 const ModeSchema = z.object({
   id: z.string(),
   label: z.string(),
+  description: z.string().default(""),
   modules: z.array(z.string()).default([]),
 });
 const ModuleSchema = z.object({

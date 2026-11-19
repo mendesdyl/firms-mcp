@@ -9,6 +9,12 @@ All notable changes to this project are documented here. The format follows
 
 ### Changed (iteration 2)
 
+- Fire Map links (owner feedback): an area is shown with a fitted center and zoom instead of
+  the map's area-of-interest box, which could not be turned off; questions about smoke get the
+  Smoke / Aerosols view with the OMPS Aerosol Index at a regional zoom; links match the map's
+  own hash (fire layers sorted, the map's precision) and fire views use the Dark Gray basemap.
+  `firms_build_fire_map_url` 1.0.1; server version 0.4.0.
+
 - Removed the iteration-1 Python server, its tests and CI jobs, and `server.json` (kept at
   tag `v0-iteration-1`). The container image is now Node 26. `npm run map-catalog` checks the
   Fire Map layer catalog against the live map.
