@@ -482,11 +482,15 @@ behind the MCP interface).
 **What was done**
 
 - The owner tested the server in a chat client and gave two links as they would have built
-  them in the map. Built links now match both: the Maryland link differs only in the map
-  center (box center −77.2, 38.8 against the owner's −76.8, 38.6), and the Saibai Island link
-  only in the center latitude (−9.4 against −10.0).
-- No more gray box (II-33, FR-MAP-008): areas become a center and zoom fitted to a 1280 x 720
-  map. The map's scale was measured in the browser (plain longitude/latitude, 256-pixel tiles).
+  them in the map. Built links now match both: the Maryland link at the owner's zoom (8.6),
+  with its center computed (−76.5, 38.7 against the owner's −76.8, 38.6), and the Saibai Island
+  link with the owner's layers and zoom, centered so the island is in the middle of the visible
+  map.
+- No more gray box (II-33, FR-MAP-008): an area or point goes in the middle of the part of the
+  map left in view, left of the map's 380-pixel menu (measured in a 1512 x 860 window), zoomed
+  so the place fills it. The map's scale was measured in the browser (plain longitude/latitude,
+  256-pixel tiles). Views of a place show the detailed borders and roads overlay (owner: no
+  point of reference without it).
 - Smoke (FR-MAP-009): mode `smoke` adds the OMPS Aerosol Index (NOAA-20 from 2025-04-28,
   Suomi NPP before) for the last day of the period, written `d:<start>..<end>,<end>` so the
   map shows that day's image, with the map's stretched palette (`=pal-default..squash`, read

@@ -83,13 +83,14 @@ Returns `sections` (ID, title, count, and entries when asked) and the knowledge 
 
 Links into the FIRMS Fire Map ([grammar](MAP_LINKS.md)), each with a plain-language
 `description` (FR-MAP-001 … FR-MAP-010). Links match the map's own hash: no area-of-interest
-box, fire layers sorted, Dark Gray basemap for fire views. Mode `smoke` adds the OMPS Aerosol
+box, the place in the middle of the map's visible area, fire layers sorted, Dark Gray basemap
+for fire views, detailed borders and roads for views of a place. Mode `smoke` adds the OMPS Aerosol
 Index at a regional zoom; agents are told to choose it for smoke, haze, or air-quality questions.
 
 | Parameter | Default | Meaning |
 |---|---|---|
 | `map` | global | `global` or `us-canada` |
-| `area` | — | Box the map is centered and zoomed on (no box is drawn); or use `center` |
+| `area` | — | Box shown in the middle of the map's visible area, zoomed to fill it (no box is drawn); or use `center` |
 | `center` | 0, 0 (global) | `{longitude, latitude}` |
 | `zoom` | fitted to `area`; 3 (8 with `center`, 7.1 in smoke mode) | Global 1-16, US/Canada 4-16 |
 | `period` | 24hrs | `today`, `24hrs`, `48hrs`, `72hrs`, `7days` (NRT) |
@@ -98,7 +99,7 @@ Index at a regional zoom; agents are told to choose it for smoke, haze, or air-q
 | `sensors` | defaults | Sensors shown one by one (Advanced mode) |
 | `mode` | automatic | `basic`, `advanced`, `burned_area`, `smoke` (fires with the Aerosol Index), `experimental` |
 | `basemap` | dark_gray (earth in basic and smoke) | Basemap layer ID |
-| `overlays` | none on dark_gray, else country-outline | Overlay layer IDs |
+| `overlays` | countries (detailed) with an area or center, else country-outline | Overlay layer IDs |
 | `extra_layers` | — | More layer IDs; checked against the chosen mode |
 
 Past dates use each sensor's standard-processing layer where SP covers them and its NRT layer

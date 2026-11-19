@@ -71,13 +71,28 @@ const BASIC_FIRE_LAYER = "fire_layers_basic";
  */
 const DEGREES_PER_PIXEL_AT_ZOOM_0 = 360 / 256;
 /**
- * The map area an area is framed for (CSS pixels): a common laptop browser window. A box framed
- * for it fills most of a larger screen and stays mostly visible on a smaller one.
+ * The window links are framed for (CSS pixels): a 14-inch laptop's browser window. Measured
+ * 2026-11-18 at this size, the map fills the window below a 52-pixel header, and on load the
+ * map covers part of itself: the mode menu down the right (380 pixels wide), the cursor
+ * coordinates along the top (23), and the tool bar and timeline along the bottom (107).
  */
-export const REFERENCE_VIEWPORT = { width: 1280, height: 720 } as const;
+export const REFERENCE_WINDOW = { width: 1512, height: 860 } as const;
+const MAP_HEADER = 52;
+const MAP_COVERED = { top: 23, right: 380, bottom: 107 } as const;
+/** The part of the map left in view, where links put their subject. */
+export const VISIBLE_MAP = {
+  width: REFERENCE_WINDOW.width - MAP_COVERED.right,
+  height: REFERENCE_WINDOW.height - MAP_HEADER - MAP_COVERED.top - MAP_COVERED.bottom,
+} as const;
 /**
- * Smoke travels hundreds of kilometres from its fires, so smoke links show at least about 13°
- * (some 1,400 km) across the reference viewport.
+ * Boxes an agent writes for a place are rough and padded ("a rectangle around Maryland"), so
+ * the view fits 90 % of the box: its outer edges may fall just outside, and the place itself
+ * fills the view (the owner's Maryland link, zoom 8.6).
+ */
+const BOX_FILL = 0.9;
+/**
+ * Smoke travels hundreds of kilometres from its fires, so smoke links show at least about 12°
+ * (some 1,300 km) across the visible map.
  */
 export const SMOKE_MAX_ZOOM = 7.1;
 /** Zoom for a center given without one. */
@@ -148,13 +163,32 @@ interface Resolved {
   basic: boolean;
 }
 
-/** The zoom (to 0.1, rounded down) at which the reference viewport shows the whole box. */
+/** The zoom (to 0.1, rounded down) at which the visible map shows the box (BOX_FILL of it). */
 export function fitZoom(box: BoundingBox): number {
   const pixelsPerDegree = Math.min(
-    REFERENCE_VIEWPORT.width / (box.east - box.west),
-    REFERENCE_VIEWPORT.height / (box.north - box.south),
+    VISIBLE_MAP.width / ((box.east - box.west) * BOX_FILL),
+    VISIBLE_MAP.height / ((box.north - box.south) * BOX_FILL),
   );
   return Math.floor(Math.log2(DEGREES_PER_PIXEL_AT_ZOOM_0 * pixelsPerDegree) * 10) / 10;
+}
+
+/**
+ * The map center that puts `longitude`, `latitude` in the middle of the visible map: east of it
+ * by half the menu's width and south of it by half the difference of the bottom and top bars.
+ */
+export function mapCenter(
+  longitude: number,
+  latitude: number,
+  zoom: number,
+): { longitude: number; latitude: number } {
+  const degreesPerPixel = DEGREES_PER_PIXEL_AT_ZOOM_0 / 2 ** zoom;
+  return {
+    longitude: Math.min(longitude + (MAP_COVERED.right / 2) * degreesPerPixel, 180),
+    latitude: Math.max(
+      latitude - ((MAP_COVERED.bottom - MAP_COVERED.top) / 2) * degreesPerPixel,
+      -90,
+    ),
+  };
 }
 
 /** `@lon,lat,zoomz` with the map's own precision: 1 decimal, 2 from zoom 9, 3 from zoom 11. */
@@ -339,15 +373,17 @@ function checkLayers(layers: string[], mode: string, basemap: string): void {
 }
 
 /**
- * Basemap and overlays when none are given. Fire detections stand out best on Dark Gray, whose
- * borders and roads make an overlay unnecessary; Basic mode has no Dark Gray, and the Aerosol
- * Index reads best over Blue Marble, so those keep the map's own default (Blue Marble with
- * coastlines and borders).
+ * Basemap and overlays when none are given. Fire detections stand out best on Dark Gray; Basic
+ * mode has no Dark Gray, and the Aerosol Index reads best over Blue Marble, so those keep the
+ * map's own Blue Marble. A view of a place gets the detailed borders and roads overlay as points
+ * of reference (owner feedback, 2026-11-18); the map's default world view keeps the basic one.
  */
-function defaultBackground(mode: string): { basemap: string; overlays: string[] } {
-  return allowedLayers(mode).has("dark_gray") && mode !== "smoke"
-    ? { basemap: "dark_gray", overlays: [] }
-    : { basemap: "earth", overlays: ["country-outline"] };
+function defaultBackground(
+  mode: string,
+  regional: boolean,
+): { basemap: string; overlays: string[] } {
+  const basemap = allowedLayers(mode).has("dark_gray") && mode !== "smoke" ? "dark_gray" : "earth";
+  return { basemap, overlays: [regional ? "countries" : "country-outline"] };
 }
 
 function processingText(sources: SourceId[], mode: string): string {
@@ -388,12 +424,14 @@ export function buildFireMapUrls(
   );
   const smoke = mode === "smoke";
 
-  // View: always a center and zoom. An area is framed (never drawn as a box, FR-MAP-008).
+  // View: always a center and zoom. An area is framed (never drawn as a box, FR-MAP-008), and an
+  // area or center is put in the middle of the part of the map left in view.
   const clampZoom = (zoom: number) => Math.min(Math.max(zoom, limits.min_zoom), limits.max_zoom);
   let longitude: number;
   let latitude: number;
   let zoom: number;
   let where: string;
+  const regional = input.area !== undefined || input.center !== undefined;
   if (input.area !== undefined) {
     const box = checkBox(input.area);
     longitude = (box.west + box.east) / 2;
@@ -412,17 +450,20 @@ export function buildFireMapUrls(
         `zoom must be between ${limits.min_zoom} and ${limits.max_zoom} for this map`,
       );
     }
-    where = "";
+    where = input.center
+      ? `longitude ${formatNumber(Math.round(longitude * 1e4) / 1e4)}, latitude ${formatNumber(Math.round(latitude * 1e4) / 1e4)}`
+      : "";
   }
-  const location = formatView(longitude, latitude, zoom);
-  const [lonText, latText, zoomText] = location.slice(1, -1).split(",");
+  const view = regional ? mapCenter(longitude, latitude, zoom) : { longitude, latitude };
+  const location = formatView(view.longitude, view.latitude, zoom);
+  const zoomText = location.slice(1, -1).split(",")[2];
   where = where
-    ? `${where} (centered on longitude ${lonText}, latitude ${latText} at zoom ${zoomText}${smoke ? ", a regional view, because smoke travels far from its fires" : ""})`
-    : `longitude ${lonText}, latitude ${latText} at zoom ${zoomText}`;
+    ? `${where}, in the middle of the map's visible area (left of its menu) at zoom ${zoomText}${smoke ? ", a regional view, because smoke travels far from its fires" : ""}`
+    : `the map's default view at zoom ${zoomText}`;
 
-  const background = defaultBackground(mode);
+  const background = defaultBackground(mode, regional);
   const basemap = input.basemap ?? background.basemap;
-  const overlays = input.overlays ?? (input.basemap ? ["country-outline"] : background.overlays);
+  const overlays = input.overlays ?? background.overlays;
   const query = (input.referral ?? true) ? `?${new URLSearchParams(REFERRAL)}` : "";
   const modeLabel = MAP_CATALOG.modes.get(mode)?.label ?? mode;
   const overlayText = overlays.length ? ` with ${overlays.map(layerTitle).join(", ")}` : "";

@@ -20,15 +20,26 @@ from the map.
 |---|---|
 | `m:` | Omitted for Basic. Set to `advanced` automatically when per-satellite sources are requested or dates are past; `burned_area`, `smoke`, `experimental` allowed explicitly. Agents are told to choose `smoke` themselves for smoke, haze, or air-quality questions |
 | `d:` | One of `today`, `24hrs` (default — the map's own default), `48hrs`, `72hrs`, `7days`; or `YYYY-MM-DD`; or `YYYY-MM-DD..YYYY-MM-DD` (UTC days). Future dates rejected. In Smoke / Aerosols mode a period is written as the same days (`7days` → today−6 … today, the map's own `getNumDays`) and a range ends with `,<last day>`: the map's single day, which picks the daily image (the Aerosol Index) shown; without it the map uses the first day |
-| `l:` | Fire layers sorted by ID (as the map writes them), then extra layers, the Aerosol Index in smoke mode, overlays, and the basemap. Every ID must exist in the catalog **and** be available in the chosen mode. Default background: Dark Gray with no overlay (it has borders and roads) where the mode offers it; Blue Marble with `country-outline` in Basic (no Dark Gray) and Smoke / Aerosols modes |
+| `l:` | Fire layers sorted by ID (as the map writes them), then extra layers, the Aerosol Index in smoke mode, overlays, and the basemap. Every ID must exist in the catalog **and** be available in the chosen mode. Default basemap: Dark Gray where the mode offers it, Blue Marble in Basic (no Dark Gray) and Smoke / Aerosols modes. Default overlay: `countries` (Borders / Roads - DETAILED) for a view of a place, so the user has points of reference; `country-outline` (basic) for the map's default world view |
 | `=<options>` | Layer options. `=pal-<palette>[..squash]` sets an imagery layer's palette; `squash` stretches it to the values on screen. The map writes `noaa20_omps_aerosol=pal-default..squash` for its default, and so do we |
-| `@…z` | Always used. Center (EPSG:4326) and zoom within the map's limits (global 1–16; US/Canada 4–16), with the map's precision: 1 decimal, 2 from zoom 9, 3 from zoom 11. An area is turned into its center and the zoom that fits it into a 1280 x 720 map, rounded down to 0.1; smoke links are capped at zoom 7.1 (about 13° across) because smoke travels far from its fires |
+| `@…z` | Always used. Center (EPSG:4326) and zoom within the map's limits (global 1–16; US/Canada 4–16), with the map's precision: 1 decimal, 2 from zoom 9, 3 from zoom 11. An area or point is put in the middle of the part of the map left in view, and an area is zoomed to fill it (see Framing); smoke links are capped at zoom 7.1 (about 12° across) because smoke travels far from its fires. The map's default world view is not shifted |
 | `i:` | **Never used** (II-33, FR-MAP-008). The map fits the view to `i:<w>,<s>,<e>,<n>` but draws a gray area-of-interest box the user cannot turn off, and fits with a coarse whole-number zoom |
 
 **Scale.** The map is plain longitude/latitude with 256-pixel tiles: one CSS pixel spans
 360/256/2^zoom degrees. Measured 2026-11-18 on the US/Canada map at zoom 8.6 by reading the
 map's cursor coordinates 600 px apart (0.003624° per pixel, the same east-west and
 north-south).
+
+**Framing.** Links are framed for a 1512 x 860 browser window (a 14-inch laptop). Measured
+2026-11-18 at that size: the map fills the window below a 52-pixel header and, on load, covers
+part of itself with the mode menu down the right (380 pixels), the cursor coordinates along the
+top (23), and the tool bar and timeline along the bottom (107). That leaves 1132 x 678 pixels in
+view. The place goes in the middle of that area, so the map center is 190 pixels east and 42
+pixels south of it; an area is zoomed so that 90 % of the box fills it, because boxes an agent
+writes for a place are rough and padded. Checked in the map: for the Maryland box the middle of
+the visible area reads −77.19, 38.85 (box center −77.235, 38.815), and the visible area spans
+longitude −79.22 to −75.14 (Maryland −79.49 to −75.05). On a larger screen the place is still in
+the middle with more around it; on a smaller one its edges may fall outside.
 
 **Aerosol Index layers** (dates from the map's layer configuration, 2026-11-18):
 `noaa20_omps_aerosol` from 2025-04-28 (preferred); `snpp_omps_aerosol` 2012-01-26 to
@@ -62,6 +73,7 @@ The iteration-1 copy was not changed; it was removed with the Python server (WK-
 
 | 2026-11-18: `/usfs/map/?utm_…#m:advanced;d:2026-07-01..2026-07-31;l:fires_landsat_landsat,fires_modis_aqua_sp,fires_modis_terra_sp,fires_viirs_noaa20_sp,fires_viirs_noaa21_sp,fires_viirs_snpp_sp,dark_gray;@-77.2,38.8,8.6z` (Maryland, builder output) | All six layers kept, Dark Gray basemap, 31 days, no box |
 | 2026-11-18: `/map/?utm_…#m:smoke;d:2026-11-12..2026-11-18,2026-11-18;l:fires_landsat_landsat,fires_modis_aqua,fires_modis_terra,fires_viirs_noaa20,fires_viirs_noaa21,noaa20_omps_aerosol=pal-default..squash,country-outline,earth;@142.6,-9.4,7.1z` (Saibai Island, builder output) | Smoke / Aerosols mode, week of 12–18 Nov, NOAA-20 Aerosol Index on, five fire layers on, no box. The map rewrote the single day `2026-11-18` (today) as `24hrs` |
+| 2026-11-18, 1512 x 860 window: `…countries,dark_gray;@-76.5,38.7,8.6z` (Maryland, final builder output) | Layers kept as given; the visible area's middle is −77.19, 38.85. With the browser pane hidden, the vector basemap and overlay tiles did not draw for this link or for the owner's own link, a background-tab artefact; with the pane shown, the owner's link with `countries` drew detailed state and county lines |
 | 2026-11-18: the Maryland link with `?utm_source=…` after the zoom instead of before the `#` | Map loads; the parameters are dropped from the hash and `location.search` is empty |
 
 ## Keeping it current
