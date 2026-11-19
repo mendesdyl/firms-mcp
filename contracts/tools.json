@@ -1,6 +1,6 @@
 {
   "server": "firms-mcp-server",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "tools": [
     {
       "name": "firms_search_knowledge",
@@ -438,9 +438,9 @@
     },
     {
       "name": "firms_build_fire_map_url",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "title": "Build a FIRMS Fire Map link",
-      "description": "Build links that open the FIRMS Fire Map (global, or the US/Canada map) on a place, dates, and fire layers, each with a plain-language `description` of what it will show. No MAP_KEY is needed.\n\nStandard data first: for past dates, each sensor shows its standard-processing (SP) layer where FIRMS's SP data cover the dates and its near real-time (NRT) layer after that; if that choice changes inside the period, you get one link per stretch. Recent periods (`today` … `7days`) use NRT, because SP cannot exist yet. With neither dates nor sensors the link is the map's own default (Basic mode, last 24 hours). Coverage comes from FIRMS's map date service; `coverage.checked: false` means it could not be reached and saved dates were used.\n\nGive either `area` (the map fits and draws the box) or `center` with `zoom`; and either `period` or `start_date`/`end_date` (UTC). Pass the links and their descriptions to the user with `notes`. You have not seen the map: do not describe fires on it.",
+      "description": "Build links that open the FIRMS Fire Map (global, or the US/Canada map) on a place, dates, and layers, each with a plain-language `description` of what it will show. No MAP_KEY is needed. Links look like ones copied from the map itself: the area or point sits in the middle of the part of the map left in view (left of the map's menu), zoomed in to fill it, with no box drawn; fire layers come in the map's own order; fire views use the Dark Gray basemap so detections stand out; and views of a place show the detailed borders and roads overlay for reference.\n\nChoose `mode` from what the user wants to learn, not only from the words they use. If they mention smoke, haze, air quality, or how fires affect the air, use mode 'smoke' without asking: the link adds FIRMS's OMPS Aerosol Index layer for the last day of the period over the fire layers, at a regional zoom, because smoke travels far from its fires. FIRMS describes this mode as providing \"satellite products useful for highlighting the extent and tracking the transport of smoke\". For burned area use 'burned_area'.\n\nStandard data first: for past dates (Advanced mode), each sensor shows its standard-processing (SP) layer where FIRMS's SP data cover the dates and its near real-time (NRT) layer after that; if that choice changes inside the period, you get one link per stretch. Recent periods (`today` … `7days`) use NRT, because SP cannot exist yet. Smoke mode has no SP layers and says so in `notes`. With neither dates nor sensors nor mode the link is the map's own default (Basic mode, last 24 hours). Coverage comes from FIRMS's map date service; `coverage.checked: false` means it could not be reached and saved dates were used.\n\nGive either `area` (the map is centered and zoomed to show it) or `center` with `zoom`; and either `period` or `start_date`/`end_date` (UTC). Present each link as a Markdown link with short text, for example [Open the FIRMS Fire Map](url), rather than the raw URL, followed by its description and `notes`. You have not seen the map: do not describe fires or smoke on it.",
       "annotations": {
         "readOnlyHint": true,
         "destructiveHint": false,
@@ -562,7 +562,7 @@
             "description": "Sensors to use. Omit for the defaults (VIIRS NOAA-20, NOAA-21, Suomi NPP, MODIS; each only for dates FIRMS has its data). landsat covers US/Canada only."
           },
           "mode": {
-            "description": "Map mode; chosen automatically (advanced for sensors or past dates, else basic)",
+            "description": "Map mode. 'smoke' for smoke, haze, or air quality (adds the OMPS Aerosol Index); 'burned_area' for burn scars; otherwise leave it out (advanced for sensors or past dates, else basic)",
             "type": "string",
             "enum": [
               "basic",
@@ -573,12 +573,12 @@
             ]
           },
           "basemap": {
-            "description": "Basemap layer ID; default 'earth' (Blue Marble)",
+            "description": "Basemap layer ID; default 'dark_gray' for fire views, 'earth' (Blue Marble) in basic and smoke modes",
             "type": "string",
             "maxLength": 80
           },
           "overlays": {
-            "description": "Overlay layer IDs; default ['country-outline']",
+            "description": "Overlay layer IDs; default ['countries'] (detailed borders and roads) with an area or center, else ['country-outline']",
             "maxItems": 10,
             "type": "array",
             "items": {

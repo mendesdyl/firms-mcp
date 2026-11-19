@@ -219,7 +219,7 @@ requirements:
 
   # --- FIRMS Fire Map links (ADR-0006) ---------------------------------------
   - id: FR-MAP-001
-    title: Build Fire Map URLs per the map's hash grammar (mode, dates, layers, center/zoom or area of interest)
+    title: Build Fire Map URLs per the map's hash grammar (mode, dates, layers, center and zoom)
     source: Owner request (link to /map with self-building URLs)
     rationale: Lets users see exactly what the agent queried.
     priority: must
@@ -573,6 +573,30 @@ requirements:
     priority: must
     verification: test
     design: ADR-0011
+    status: implemented
+  - id: FR-MAP-008
+    title: Fire Map links put an area or point in the middle of the part of the map left in view (a 1512 x 860 window less the map's menu and bars), zoomed so the area (90 % of an agent's rough box) fills it, in the map's own precision, and never use the map's area-of-interest form (`i:`), which draws a box the user cannot turn off
+    source: Owner feedback 2026-11-18 (gray box on the map; Maryland zoomed in and centered, for every request)
+    rationale: Links should show what the map itself shows, as if the user had copied the map's own URL.
+    priority: must
+    verification: test
+    design: ADR-0006
+    status: implemented
+  - id: FR-MAP-009
+    title: Smoke / Aerosols links show the map's fire layers with the OMPS Aerosol Index (NOAA-20 from 2025-04-28, else Suomi NPP) for the last day of the period, with its stretched palette, at a regional zoom (7.1 or wider for an area); the period is written as explicit days
+    source: Owner feedback 2026-11-18 (Saibai Island smoke example)
+    rationale: Aerosol indices rise during smoke events; the agent should infer the smoke view from the user's question rather than wait for layer names.
+    priority: must
+    verification: test
+    design: ADR-0006
+    status: implemented
+  - id: FR-MAP-010
+    title: Fire Map links write fire layers sorted by ID, as the map writes them, and use the Dark Gray basemap for fire views where the mode offers it (Blue Marble in Basic and Smoke / Aerosols modes); views of a place show the detailed borders and roads overlay (`countries`), the default world view the basic one; the US/Canada map shows Landsat by default where it has data
+    source: Owner feedback 2026-11-18 (Maryland example; detailed borders as points of reference)
+    rationale: Detections stand out on Dark Gray; links match what a power user would copy from the map.
+    priority: should
+    verification: test
+    design: ADR-0006
     status: implemented
   - id: FR-DATA-015
     title: The source catalog lists standard-processing sources first and marks them preferred
